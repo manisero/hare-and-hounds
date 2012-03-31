@@ -32,17 +32,29 @@ public class Server
 			System.exit(1);
 		}
 		
-		BufferedReader in = new BufferedReader(	new InputStreamReader(
-												clientSocket.getInputStream()));
+		PrintWriter out = null;
 		
-		String input;
-		
-		while((input = in.readLine()) != null)
+		try
 		{
-			System.out.println(input);
+			out = new PrintWriter(clientSocket.getOutputStream(), true);
+		}
+		catch(IOException e)
+		{
+			System.out.print("Could not get client's output stream");
+			System.exit(1);
 		}
 		
-		in.close();
+		BufferedReader standardInput = new BufferedReader(new InputStreamReader(System.in));
+		
+		String clientInput;
+		
+		while((clientInput = standardInput.readLine()) != null)
+		{
+			out.println(clientInput);
+		}
+		
+		out.close();
+		standardInput.close();
 		clientSocket.close();
 		serverSocket.close();					
 	}

@@ -11,35 +11,28 @@ public class Client
 		int port = 6666;
 		
 		Socket socket = null;
-		PrintWriter out = null;
 		
 		try
 		{
 			socket = new Socket(hostname, port);
-			out = new PrintWriter(socket.getOutputStream(), true);
 		}
 		catch(UnknownHostException e)
 		{
 			System.err.println("Could not connect to host: " + hostname + " on port: " + port);
 			System.exit(1);
 		}
-		catch(IOException e)
+		
+		BufferedReader in = new BufferedReader(	new InputStreamReader(
+												socket.getInputStream()));
+		
+		String message;
+		
+		while((message = in.readLine()) != null)
 		{
-			System.err.println("Could not get I/O for the connection to: " + hostname);
-			System.exit(1);
+			System.out.println(message);
 		}
 		
-		BufferedReader standardInput = new BufferedReader(new InputStreamReader(System.in));
-		
-		String fromUser;
-		
-		while((fromUser = standardInput.readLine()) != null)
-		{
-			out.println(fromUser);
-		}
-		
-		out.close();
-		standardInput.close();
+		in.close();
 		socket.close();
 	}
 
