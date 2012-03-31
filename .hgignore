@@ -1,0 +1,8 @@
+syntax: regexp
+creativity/Android/Accelerometer/bin/*
+creativity/Android/Compass/bin/*
+creativity/Android/GPS/bin/*
+creativity/Java/Client/bin/*
+development/Server/bin/*
+development/Client/bin/*
+creativity/Android/Binding/bin/*
