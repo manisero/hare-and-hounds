@@ -1,0 +1,3 @@
+1. Third party libraries:
+   Is it possible to keep third party libraries outside of the projects?
+   E.g. the projects could have relative references to "fARmework/third_party" folder.
