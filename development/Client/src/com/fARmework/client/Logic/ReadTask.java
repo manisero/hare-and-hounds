@@ -1,4 +1,6 @@
-package com.fARmework.client;
+package com.fARmework.client.Logic;
+
+import gueei.binding.observables.StringObservable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,19 +8,18 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 import android.os.AsyncTask;
-import android.widget.TextView;
 
 public class ReadTask extends AsyncTask<ReadTask.Parameter, String, Boolean>
 {
 	public class Parameter
 	{
 		private Socket _socket;
-		private TextView _view;
+		private StringObservable _message;
 		
-		public Parameter(Socket socket, TextView view)
+		public Parameter(Socket socket, StringObservable message)
 		{
 			_socket = socket;
-			_view = view;
+			_message = message;
 		}
 		
 		public Socket getSocket()
@@ -26,17 +27,17 @@ public class ReadTask extends AsyncTask<ReadTask.Parameter, String, Boolean>
 			return _socket;
 		}
 		
-		public TextView getView()
+		public StringObservable getMessage()
 		{
-			return _view;
+			return _message;
 		}
 	}
+
+	private StringObservable _message;
 	
-	private TextView _view;
-	
-	public void execute(Socket socket, TextView view)
+	public void execute(Socket socket, StringObservable message)
 	{
-		execute(new Parameter(socket, view));
+		execute(new Parameter(socket, message));
 	}
 	
 	@Override
@@ -44,7 +45,7 @@ public class ReadTask extends AsyncTask<ReadTask.Parameter, String, Boolean>
 	{
 		try
         {
-			_view = params[0].getView();
+			_message = params[0].getMessage();
 			BufferedReader reader = new BufferedReader(new InputStreamReader((params[0].getSocket()).getInputStream()));
             publishProgress("Connected");
 			
@@ -63,6 +64,6 @@ public class ReadTask extends AsyncTask<ReadTask.Parameter, String, Boolean>
 	@Override
 	protected void onProgressUpdate(String... messages)
 	{
-		_view.setText(messages[0]);
+		_message.set(messages[0]);
 	}
 }
