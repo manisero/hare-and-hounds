@@ -2,18 +2,18 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/aopalliance.jar"/>
-	<classpathentry kind="lib" path="lib/guice-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-assistedinject-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-grapher-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-jmx-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-jndi-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-multibindings-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-persist-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-servlet-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-spring-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-struts2-plugin-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/guice-throwingproviders-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/javax.inject.jar"/>
+	<classpathentry kind="lib" path="libs/aopalliance.jar"/>
+	<classpathentry kind="lib" path="libs/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-assistedinject-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-grapher-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-jmx-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-jndi-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-multibindings-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-persist-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-servlet-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-spring-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-struts2-plugin-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/guice-throwingproviders-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/javax.inject.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

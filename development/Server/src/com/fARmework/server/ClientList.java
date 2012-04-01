@@ -1,23 +1,17 @@
 package com.fARmework.server;
 
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.*;
+import java.util.*;
+import com.google.inject.*;
 
+@Singleton
 public class ClientList 
-{
-	private static final ClientList _instance = new ClientList();
-	
+{	
 	private List<Socket> _sockets;
 	
-	private ClientList()
+	public ClientList()
 	{
 		_sockets = new ArrayList<Socket>();
-	}
-	
-	public static ClientList getInstance()
-	{
-		return _instance;
 	}
 	
 	public synchronized void addClient(Socket clientSocket)
