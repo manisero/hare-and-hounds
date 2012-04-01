@@ -1,14 +1,14 @@
 package com.fARmework.client.Activities;
 
-import gueei.binding.app.BindingActivity;
 import android.os.Bundle;
 
 import com.fARmework.client.R;
 import com.fARmework.client.ViewModels.ClientViewModel;
+import com.google.inject.Inject;
 
-public class ClientActivity extends BindingActivity
+public class ClientActivity extends RoboBindingActivity
 {
-	private ClientViewModel _viewModel; 
+	@Inject ClientViewModel viewModel; 
 	
     /** Called when the activity is first created. */
     @Override
@@ -16,14 +16,14 @@ public class ClientActivity extends BindingActivity
     {
         super.onCreate(savedInstanceState);
         
-        _viewModel = new ClientViewModel();
-        setAndBindRootView(R.layout.main, _viewModel);
+        viewModel = new ClientViewModel();
+        setAndBindRootView(R.layout.main, viewModel);
     }
     
     @Override
     public void onBackPressed()
     {
-    	_viewModel.disconnect();
+    	viewModel.disconnect();
     	super.onBackPressed();
     }
 }

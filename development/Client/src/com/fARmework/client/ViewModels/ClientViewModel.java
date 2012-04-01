@@ -21,7 +21,10 @@ public class ClientViewModel
 	    		_socket = new Socket("192.168.0.106", 6666);
 			}
 	    	catch (IOException e)
-			{ }
+			{
+	    		message.set(e.getMessage());
+	    		return;
+			}
 	    	
 	    	new ReadTask().execute(_socket, message);
 		}
