@@ -1,8 +1,8 @@
 package com.fARmework.server;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
+import com.google.inject.*;
 
 public class ServerListener 
 {
@@ -10,12 +10,31 @@ public class ServerListener
 	
 	private ClientList _clientList;
 	
-	public ServerListener()
+	@Inject
+	public ServerListener(ClientList clientList)
 	{
-		_clientList = ClientList.getInstance();
+		_clientList = clientList;
 	}
 	
 	public void acceptConnections()
+	{
+		ServerSocket serverSocket = initializeServerSocket();
+		
+		initializeWriterThread();
+		
+		Socket clientSocket = null;
+		
+		while(true)
+		{
+			clientSocket = acceptClient(serverSocket);
+			
+			_clientList.addClient(clientSocket);
+			
+			(new Thread(new ClientReader(_clientList, clientSocket))).start();
+		}
+	}
+	
+	private ServerSocket initializeServerSocket()
 	{
 		ServerSocket serverSocket = null;
 		
@@ -26,30 +45,35 @@ public class ServerListener
 		catch(IOException e)
 		{
 			System.err.print("Could not allocate port: " + PORT);
+			
 			System.exit(1);
 		}
 		
-		ClientWriter writer = new ClientWriter();
+		return serverSocket;
+	}
+	
+	private void initializeWriterThread()
+	{
+		ClientWriter writer = new ClientWriter(_clientList);
 		
 		(new Thread(writer)).start();
-		
+	}
+	
+	private Socket acceptClient(ServerSocket serverSocket)
+	{
 		Socket clientSocket = null;
 		
-		while(true)
+		try
 		{
-			try
-			{
-				clientSocket = serverSocket.accept(); 
-			}
-			catch(IOException e)
-			{
-				System.err.print("Could not perform accept");
-				System.exit(1);
-			}
-			
-			_clientList.addClient(clientSocket);
-			
-			(new Thread(new ClientReader(clientSocket))).start();
+			clientSocket = serverSocket.accept(); 
 		}
+		catch(IOException e)
+		{
+			System.err.print("Could not perform accept");
+			
+			System.exit(1);
+		}
+		
+		return clientSocket;
 	}
 }

@@ -1,18 +1,18 @@
 package com.fARmework.server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 
 public class ClientReader implements Runnable
 {
-	Socket _clientSocket;
-	ClientList _clientList;
+	private ClientList _clientList;
 	
-	public ClientReader(Socket clientSocket)
+	private Socket _clientSocket;
+	
+	public ClientReader(ClientList clientList, Socket clientSocket)
 	{
-		_clientList = ClientList.getInstance();
+		_clientList = clientList;
+		
 		_clientSocket = clientSocket;
 	}
 	
@@ -43,6 +43,7 @@ public class ClientReader implements Runnable
 		catch(IOException e)
 		{
 			_clientList.removeClient(_clientSocket);
+			
 			return;
 		}
 	}
