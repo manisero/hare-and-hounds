@@ -15,8 +15,6 @@ public class ClientActivity extends RoboBindingActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        
-        viewModel = new ClientViewModel();
         setAndBindRootView(R.layout.main, viewModel);
     }
     

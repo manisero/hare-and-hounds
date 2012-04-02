@@ -9,7 +9,7 @@ import java.net.Socket;
 
 import android.os.AsyncTask;
 
-public class ReadTask extends AsyncTask<ReadTask.Parameter, String, Boolean>
+public class ReadTask extends AsyncTask<ReadTask.Parameter, String, Boolean> implements IReadTask
 {
 	public class Parameter
 	{

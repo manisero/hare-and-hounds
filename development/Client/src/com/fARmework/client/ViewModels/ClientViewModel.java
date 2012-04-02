@@ -3,7 +3,8 @@ package com.fARmework.client.ViewModels;
 import java.io.IOException;
 import java.net.Socket;
 
-import com.fARmework.client.Logic.ReadTask;
+import com.fARmework.client.Logic.IReadTask;
+import com.google.inject.Inject;
 
 import android.view.View;
 import gueei.binding.Command;
@@ -11,6 +12,8 @@ import gueei.binding.observables.StringObservable;
 
 public class ClientViewModel
 {
+	IReadTask _readTask;
+	
 	private class ConnectCommand extends Command
 	{
 		@Override
@@ -26,8 +29,14 @@ public class ClientViewModel
 	    		return;
 			}
 	    	
-	    	new ReadTask().execute(_socket, message);
+	    	_readTask.execute(_socket, message);
 		}
+	}
+	
+	@Inject
+	public ClientViewModel(IReadTask readTask)
+	{
+		_readTask = readTask;
 	}
 	
 	private Socket _socket;
