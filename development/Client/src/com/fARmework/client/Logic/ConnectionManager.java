@@ -12,16 +12,18 @@ public class ConnectionManager implements IConnectionManager
 	// Dependencies:
 	private ISocketCreator _socketCreator;
 	private IBackgroundTaskFactory _backgroundTaskFactory;
+	private IResourcesProvider _resourcesProvider;
 	
 	// Fields:
 	private Socket _socket;
 	
 	// Constructor:
 	@Inject
-	public ConnectionManager(ISocketCreator socketCreator, IBackgroundTaskFactory backgroundTaskFactory)
+	public ConnectionManager(ISocketCreator socketCreator, IBackgroundTaskFactory backgroundTaskFactory, IResourcesProvider resourcesProvider)
 	{
 		_socketCreator = socketCreator;
 		_backgroundTaskFactory = backgroundTaskFactory;
+		_resourcesProvider = resourcesProvider;
 	}
 	
 	// IConnectionManager members:
@@ -30,7 +32,7 @@ public class ConnectionManager implements IConnectionManager
 	{
 		try
 		{
-			_socket = _socketCreator.create("192.168.0.106", 6666);
+			_socket = _socketCreator.create(_resourcesProvider.serverAddress(), _resourcesProvider.port());
 			_backgroundTaskFactory.createReadTask().execute(_socket, output);
 		}
 		catch (IOException e)
@@ -52,5 +54,4 @@ public class ConnectionManager implements IConnectionManager
     	catch (IOException e)
 	    { }
 	}
-
 }
