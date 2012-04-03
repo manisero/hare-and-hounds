@@ -1,59 +1,39 @@
 package com.fARmework.client.ViewModels;
 
-import java.io.IOException;
-import java.net.Socket;
-
-import com.fARmework.client.Logic.IReadTask;
-import com.google.inject.Inject;
-
-import android.view.View;
 import gueei.binding.Command;
 import gueei.binding.observables.StringObservable;
+import android.view.View;
+
+import com.fARmework.client.Logic.IConnectionManager;
+import com.google.inject.Inject;
 
 public class ClientViewModel
 {
-	IReadTask _readTask;
+	// Dependencies:
+	private IConnectionManager _connectionManager;
 	
-	private class ConnectCommand extends Command
+	// Fields:
+	public StringObservable message = new StringObservable();
+	
+	public Command connect = new Command()
 	{
 		@Override
-		public void Invoke(View view, Object... params)
+		public void Invoke(View arg0, Object... arg1)
 		{
-			try
-	    	{
-	    		_socket = new Socket("192.168.0.106", 6666);
-			}
-	    	catch (IOException e)
-			{
-	    		message.set(e.getMessage());
-	    		return;
-			}
-	    	
-	    	_readTask.execute(_socket, message);
+			_connectionManager.connect(message);
 		}
-	}
+	};
 	
+	// Constructor:
 	@Inject
-	public ClientViewModel(IReadTask readTask)
+	public ClientViewModel(IConnectionManager connectionManager)
 	{
-		_readTask = readTask;
+		_connectionManager = connectionManager;
 	}
 	
-	private Socket _socket;
-	
-	public StringObservable message = new StringObservable();
-	public ConnectCommand connect = new ConnectCommand();
-	
+	// Public methods:
 	public void disconnect()
 	{
-		if (_socket == null)
-			return;
-		
-    	try
-    	{
-    		_socket.close();
-    	}
-    	catch (IOException e)
-	    { }
+		_connectionManager.disconnect();
 	}
 }
