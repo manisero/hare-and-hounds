@@ -6,5 +6,5 @@ import java.net.Socket;
 
 public interface IReadTask
 {
-	public void execute(Socket socket, StringObservable message);
+	public void execute(Socket socket, StringObservable output);
 }

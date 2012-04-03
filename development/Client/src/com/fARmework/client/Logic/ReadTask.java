@@ -9,61 +9,69 @@ import java.net.Socket;
 
 import android.os.AsyncTask;
 
-public class ReadTask extends AsyncTask<ReadTask.Parameter, String, Boolean> implements IReadTask
+public class ReadTask extends AsyncTask<ReadTask.Parameter, ReadTask.Progress, Boolean> implements IReadTask
 {
+	// Inner classes
 	public class Parameter
 	{
-		private Socket _socket;
-		private StringObservable _message;
+		public Socket socket;
+		public StringObservable output;
 		
-		public Parameter(Socket socket, StringObservable message)
+		private Parameter(Socket socket, StringObservable output)
 		{
-			_socket = socket;
-			_message = message;
-		}
-		
-		public Socket getSocket()
-		{
-			return _socket;
-		}
-		
-		public StringObservable getMessage()
-		{
-			return _message;
+			this.socket = socket;
+			this.output = output;
 		}
 	}
-
-	private StringObservable _message;
 	
-	public void execute(Socket socket, StringObservable message)
+	public class Progress
 	{
-		execute(new Parameter(socket, message));
+		public StringObservable output;
+		public String value;
+		
+		private Progress(StringObservable target, String value)
+		{
+			this.output = target;
+			this.value = value;
+		}
 	}
 	
+	// IReadTask members:
+	public void execute(Socket socket, StringObservable output)
+	{
+		execute(new Parameter(socket, output));
+	}
+	
+	// AsyncTask members:
 	@Override
 	protected Boolean doInBackground(Parameter... params)
 	{
+		Progress progress = new Progress(params[0].output, "");
+		
 		try
         {
-			_message = params[0].getMessage();
-			BufferedReader reader = new BufferedReader(new InputStreamReader((params[0].getSocket()).getInputStream()));
-            publishProgress("Connected");
+			BufferedReader reader = new BufferedReader(new InputStreamReader((params[0].socket).getInputStream()));
 			
+			progress.value = "Connected";
+            publishProgress(progress);
+            
 			while (true)
 			{
-				publishProgress(reader.readLine());
+				progress.value = reader.readLine();
+				publishProgress(progress);
 			}
         }
 	    catch (IOException e)
 	    {
-	    	publishProgress(e.getMessage());
+	    	progress.value = e.getMessage();
+	    	publishProgress(progress);
 	    	return false;
 	    }
 	}
 	
 	@Override
-	protected void onProgressUpdate(String... messages)
+	protected void onProgressUpdate(Progress... progress)
 	{
-		_message.set(messages[0]);
+		progress[0].output.set(progress[0].value);
 	}
 }
