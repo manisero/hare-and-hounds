@@ -36,6 +36,15 @@ public class ReadTask extends AsyncTask<ReadTask.Parameter, ReadTask.Progress, B
 		}
 	}
 	
+	// Dependencies
+	private IResourcesProvider _resourcesProvider;
+	
+	// Constructor
+	public ReadTask(IResourcesProvider resourcesProvider)
+	{
+		_resourcesProvider = resourcesProvider;
+	}
+	
 	// IReadTask members:
 	public void execute(Socket socket, StringObservable output)
 	{
@@ -52,7 +61,7 @@ public class ReadTask extends AsyncTask<ReadTask.Parameter, ReadTask.Progress, B
         {
 			BufferedReader reader = new BufferedReader(new InputStreamReader((params[0].socket).getInputStream()));
 			
-			progress.value = "Connected";
+			progress.value = _resourcesProvider.connected();
             publishProgress(progress);
             
 			while (true)

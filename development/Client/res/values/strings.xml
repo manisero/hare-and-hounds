@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, ClientActivity!</string>
     <string name="app_name">Client</string>
+    <string name="connected">Connected</string>
 </resources>
