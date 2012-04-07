@@ -4,13 +4,8 @@ import gueei.binding.Binder;
 import roboguice.RoboGuice;
 import android.app.Application;
 
-import com.google.inject.Inject;
-
 public class ClientApplication extends Application
 {
-	@Inject
-	ResourcesProvider resourcesProvider;
-	
 	@Override
     public void onCreate()
 	{
@@ -20,7 +15,6 @@ public class ClientApplication extends Application
 		Binder.init(this);
 		
 		// Initialize ResourcesProvider
-		RoboGuice.injectMembers(this, this);
-		resourcesProvider.setResources(getResources());
+		RoboGuice.getInjector(this).getInstance(ResourcesProvider.class).setResources(getResources());
     }
 }

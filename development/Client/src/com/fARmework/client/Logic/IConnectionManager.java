@@ -1,9 +1,11 @@
 package com.fARmework.client.Logic;
 
-import gueei.binding.observables.StringObservable;
+import java.io.IOException;
+
+import com.fARmework.client.Logic.BackgroundTasks.IProgressListener;
 
 public interface IConnectionManager
 {
-	void connect(StringObservable output);
+	void connect(IProgressListener<String> messageListener) throws IOException;
 	void disconnect();
 }
