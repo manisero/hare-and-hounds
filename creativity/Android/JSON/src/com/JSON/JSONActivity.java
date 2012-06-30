@@ -59,11 +59,8 @@ public class JSONActivity extends Activity
 			
 			Integer statusCode = statusLine.getStatusCode();
 			
+			((TextView)findViewById(R.id.status)).setText("Status code: " + statusCode);
 			Log.i(JSONActivity.class.toString(), "Status code: " + statusCode);
-			
-			TextView textView = (TextView) findViewById(R.id.status);
-			
-			textView.setText("Status code: " + statusCode);
 			
 			if(statusCode == 200)
 			{
