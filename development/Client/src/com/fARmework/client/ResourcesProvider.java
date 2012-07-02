@@ -2,7 +2,7 @@ package com.fARmework.client;
 
 import android.content.res.Resources;
 
-import com.fARmework.client.Logic.IResourcesProvider;
+import com.fARmework.client.Infrastructure.IResourcesProvider;
 import com.google.inject.Singleton;
 
 @Singleton

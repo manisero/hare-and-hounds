@@ -1,4 +1,8 @@
-package com.fARmework.client.Logic.BackgroundTasks;
+package com.fARmework.client.Logic.BackgroundTasks.Impl;
+
+import com.fARmework.client.Logic.BackgroundTasks.IBackgroundTaskFactory;
+import com.fARmework.client.Logic.BackgroundTasks.IProgressListener;
+import com.fARmework.client.Logic.BackgroundTasks.IReadTask;
 
 public class BackgroundTaskFactory implements IBackgroundTaskFactory
 {

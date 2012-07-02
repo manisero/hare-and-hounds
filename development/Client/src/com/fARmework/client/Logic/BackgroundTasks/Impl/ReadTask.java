@@ -1,4 +1,4 @@
-package com.fARmework.client.Logic.BackgroundTasks;
+package com.fARmework.client.Logic.BackgroundTasks.Impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import com.fARmework.client.Logic.BackgroundTasks.IProgressListener;
+import com.fARmework.client.Logic.BackgroundTasks.IReadTask;
 
 import android.os.AsyncTask;
 

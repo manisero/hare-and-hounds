@@ -1,8 +1,12 @@
-package com.fARmework.client.Logic;
+package com.fARmework.client.Logic.Impl;
 
 import java.io.IOException;
 import java.net.Socket;
 
+import com.fARmework.client.Infrastructure.IResourcesProvider;
+import com.fARmework.client.Infrastructure.ISettingsProvider;
+import com.fARmework.client.Logic.IConnectionManager;
+import com.fARmework.client.Logic.ISocketCreator;
 import com.fARmework.client.Logic.BackgroundTasks.IBackgroundTaskFactory;
 import com.fARmework.client.Logic.BackgroundTasks.IProgressListener;
 import com.google.inject.Inject;
