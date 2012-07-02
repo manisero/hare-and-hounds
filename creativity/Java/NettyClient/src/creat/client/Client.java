@@ -1,35 +1,32 @@
-package com.fARmework.server;
+package creat.client;
 
 import com.google.gson.*;
 import java.net.*;
 import java.util.concurrent.*;
 import org.jboss.netty.bootstrap.*;
 import org.jboss.netty.channel.*;
-import org.jboss.netty.channel.group.*;
 import org.jboss.netty.channel.socket.nio.*;
 import org.jboss.netty.handler.codec.serialization.*;
 
-public class Server
-{	
+public class Client
+{
+	private String _hostname;
+	
 	private int _port;
 	
-	private ChannelGroup _channelGroup;
+	private Channel _channel;
 	
-	private IMessageProcessor _messageProcessor;
-	
-	public Server(String port)
+	public Client(String hostname, String port)
 	{
+		_hostname = hostname;
+		
 		_port = Integer.parseInt(port);
-		
-		_messageProcessor = new DummyMessageProcessor();
-		
-		_channelGroup = new DefaultChannelGroup();
 	}
 	
 	public void start()
 	{
-		ServerBootstrap bootstrap = new ServerBootstrap(
-				new NioServerSocketChannelFactory(
+		ClientBootstrap bootstrap = new ClientBootstrap(
+				new NioClientSocketChannelFactory(
 						Executors.newCachedThreadPool(),
 						Executors.newCachedThreadPool()));
 		
@@ -42,20 +39,22 @@ public class Server
 						new ObjectEncoder(),
 						new ObjectDecoder(
 								ClassResolvers.cacheDisabled(getClass().getClassLoader())),
-						new ServerHandler(_messageProcessor, _channelGroup));
+						new ClientHandler());
 			}
 		});
 		
 		bootstrap.setOption("tcpNoDelay", true);
         bootstrap.setOption("keepAlive", true);
 		
-		bootstrap.bind(new InetSocketAddress(_port));
+		ChannelFuture future = bootstrap.connect(new InetSocketAddress(_hostname, _port));
+		
+		_channel = future.awaitUninterruptibly().getChannel();
 	}
 	
 	public void send(Message message)
 	{
 		Gson gson = new Gson();
 		
-		_channelGroup.write(gson.toJson(message));
+		_channel.write(gson.toJson(message));
 	}
 }
