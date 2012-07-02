@@ -14,7 +14,8 @@ public class ClientApplication extends Application
 		// Initialize android-binding
 		Binder.init(this);
 		
-		// Initialize ResourcesProvider
+		// Initialize SettingsProvider and ResourcesProvider
+		RoboGuice.getInjector(this).getInstance(SettingsProvider.class).setResources(getResources());
 		RoboGuice.getInjector(this).getInstance(ResourcesProvider.class).setResources(getResources());
     }
 }
