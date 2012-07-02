@@ -1,6 +1,6 @@
-package com.fARmework.server;
+package creat.client;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import java.net.*;
 import java.util.concurrent.*;
 import org.jboss.netty.bootstrap.*;
@@ -8,7 +8,7 @@ import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.socket.nio.*;
 import org.jboss.netty.handler.codec.serialization.*;
 
-public class Client implements IMessanger
+public class Client
 {
 	private String _hostname;
 	

@@ -1,20 +1,20 @@
-package com.fARmework.server;
+package creat.client;
 
 import java.io.*;
 
 public class UserInput 
 {
-	private Server _server;
+	private Client _client;
 	
 	private MessageFactory _factory;
 	
 	public UserInput()
 	{
-		_server = new Server("6969");
+		_client = new Client("localhost", "6969");
 		
-		_server.start();
+		_client.start();
 		
-		_factory = new MessageFactory();
+		_factory = MessageFactory.getInstance();
 		
 		_factory.register(String.class, "STRING_MESSAGE");
 	}
@@ -30,7 +30,7 @@ public class UserInput
 			{
 				String message = bufferedReader.readLine();
 				
-				_server.send(_factory.getMessage(message));
+				_client.send(_factory.getMessage(message));
 			} 
 			catch (IOException e) 
 			{
