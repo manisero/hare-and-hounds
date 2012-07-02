@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/aopalliance.jar"/>
 	<classpathentry kind="lib" path="libs/guice-3.0.jar"/>
@@ -15,5 +16,11 @@
 	<classpathentry kind="lib" path="libs/guice-struts2-plugin-3.0.jar"/>
 	<classpathentry kind="lib" path="libs/guice-throwingproviders-3.0.jar"/>
 	<classpathentry kind="lib" path="libs/javax.inject.jar"/>
+	<classpathentry kind="lib" path="libs/gmbal-api-only-3.0.0-b023.jar"/>
+	<classpathentry kind="lib" path="libs/grizzly-framework-2.2.10.jar"/>
+	<classpathentry kind="lib" path="libs/gson-2.2.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="libs/gson-2.2.1-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gson-2.2.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
