@@ -8,15 +8,19 @@ import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.socket.nio.*;
 import org.jboss.netty.handler.codec.serialization.*;
 
-public class Server implements IMessanger
+public class Server
 {	
 	private int _port;
 	
 	private Channel _channel;
 	
+	private IMessageProcessor _messageProcessor;
+	
 	public Server(String port)
 	{
 		_port = Integer.parseInt(port);
+		
+		_messageProcessor = new DummyMessageProcessor();
 	}
 	
 	public void start()
@@ -35,7 +39,7 @@ public class Server implements IMessanger
 						new ObjectEncoder(),
 						new ObjectDecoder(
 								ClassResolvers.cacheDisabled(getClass().getClassLoader())),
-						new ServerHandler());
+						new ServerHandler(_messageProcessor));
 			}
 		});
 		
@@ -47,6 +51,7 @@ public class Server implements IMessanger
 	
 	public void send(Message message)
 	{
+		
 		Gson gson = new Gson();
 		
 		_channel.write(gson.toJson(message));

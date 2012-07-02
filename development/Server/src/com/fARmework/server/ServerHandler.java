@@ -5,6 +5,13 @@ import org.jboss.netty.channel.*;
 
 public class ServerHandler extends SimpleChannelUpstreamHandler
 {
+	private IMessageProcessor _messageProcessor;
+	
+	public ServerHandler(IMessageProcessor processor)
+	{
+		_messageProcessor = processor;
+	}
+	
 	@Override
 	public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 	{		
@@ -12,11 +19,7 @@ public class ServerHandler extends SimpleChannelUpstreamHandler
 		
 		Message message = gson.fromJson((String) event.getMessage(), Message.class);
 		
-		System.out.println("Message type: " + message.getType());
-		
-		System.out.println("Message body: " + message.getObject().toString());
-		
-		System.out.println("");
+		_messageProcessor.process(message);
 	}
 	
 	@Override
