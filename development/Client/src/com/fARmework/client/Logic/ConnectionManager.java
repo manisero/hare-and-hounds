@@ -11,22 +11,24 @@ public class ConnectionManager implements IConnectionManager
 {
 	private ISocketCreator _socketCreator;
 	private IBackgroundTaskFactory _backgroundTaskFactory;
+	private ISettingsProvider _settingsProvider;
 	private IResourcesProvider _resourcesProvider;
 	
 	private Socket _socket;
 	
 	@Inject
-	public ConnectionManager(ISocketCreator socketCreator, IBackgroundTaskFactory backgroundTaskFactory, IResourcesProvider resourcesProvider)
+	public ConnectionManager(ISocketCreator socketCreator, IBackgroundTaskFactory backgroundTaskFactory, ISettingsProvider settingsProvider, IResourcesProvider resourcesProvider)
 	{
 		_socketCreator = socketCreator;
 		_backgroundTaskFactory = backgroundTaskFactory;
+		_settingsProvider = settingsProvider;
 		_resourcesProvider = resourcesProvider;
 	}
 	
 	@Override
 	public void connect(IProgressListener<String> messageListener) throws IOException
 	{
-		_socket = _socketCreator.create(_resourcesProvider.serverAddress(), _resourcesProvider.port());
+		_socket = _socketCreator.create(_settingsProvider.serverAddress(), _settingsProvider.port());
 		_backgroundTaskFactory.createReadTask(messageListener).execute(_socket);
 		
 		messageListener.onUpdate(_resourcesProvider.connected());
