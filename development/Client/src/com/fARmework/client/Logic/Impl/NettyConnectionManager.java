@@ -59,7 +59,12 @@ public class NettyConnectionManager implements IConnectionManager
 		
 		_channel = future.awaitUninterruptibly().getChannel();
 		
-		messageListener.onUpdate(_resourcesProvider.connected());
+		if (!future.isSuccess())
+		{
+			future.getCause().printStackTrace();
+			bootstrap.releaseExternalResources();
+			messageListener.onUpdate("Connection failed");
+		}
 	}
 
 	@Override
