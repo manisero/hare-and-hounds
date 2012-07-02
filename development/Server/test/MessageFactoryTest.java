@@ -1,7 +1,4 @@
-import com.fARmework.server.*;
-import com.fARmework.server.impl.Message;
-import com.fARmework.server.impl.MessageFactory;
-import com.fARmework.server.impl.UnregisteredObjectTypeException;
+import com.fARmework.server.impl.*;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
