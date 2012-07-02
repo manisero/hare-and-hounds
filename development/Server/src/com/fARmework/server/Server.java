@@ -5,6 +5,7 @@ import java.net.*;
 import java.util.concurrent.*;
 import org.jboss.netty.bootstrap.*;
 import org.jboss.netty.channel.*;
+import org.jboss.netty.channel.group.*;
 import org.jboss.netty.channel.socket.nio.*;
 import org.jboss.netty.handler.codec.serialization.*;
 
@@ -12,7 +13,7 @@ public class Server
 {	
 	private int _port;
 	
-	private Channel _channel;
+	private ChannelGroup _channelGroup;
 	
 	private IMessageProcessor _messageProcessor;
 	
@@ -21,6 +22,8 @@ public class Server
 		_port = Integer.parseInt(port);
 		
 		_messageProcessor = new DummyMessageProcessor();
+		
+		_channelGroup = new DefaultChannelGroup();
 	}
 	
 	public void start()
@@ -39,21 +42,20 @@ public class Server
 						new ObjectEncoder(),
 						new ObjectDecoder(
 								ClassResolvers.cacheDisabled(getClass().getClassLoader())),
-						new ServerHandler(_messageProcessor));
+						new ServerHandler(_messageProcessor, _channelGroup));
 			}
 		});
 		
 		bootstrap.setOption("tcpNoDelay", true);
         bootstrap.setOption("keepAlive", true);
 		
-		_channel = bootstrap.bind(new InetSocketAddress(_port));
+		bootstrap.bind(new InetSocketAddress(_port));
 	}
 	
 	public void send(Message message)
 	{
-		
 		Gson gson = new Gson();
 		
-		_channel.write(gson.toJson(message));
+		_channelGroup.write(gson.toJson(message));
 	}
 }

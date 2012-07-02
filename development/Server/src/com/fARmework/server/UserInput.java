@@ -12,8 +12,6 @@ public class UserInput
 	{
 		_server = new Server("6969");
 		
-		_server.start();
-		
 		_factory = new MessageFactory();
 		
 		_factory.register(String.class, "STRING_MESSAGE");
@@ -21,6 +19,8 @@ public class UserInput
 	
 	public void readAndSend()
 	{
+		_server.start();
+		
 		BufferedReader bufferedReader = new BufferedReader(
 												new InputStreamReader(
 														System.in));
