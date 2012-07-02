@@ -16,18 +16,6 @@ public class ResourcesProvider implements IResourcesProvider
 	}
 	
 	@Override
-	public String serverAddress()
-	{
-		return _resources.getString(R.string.serverAddress);
-	}
-
-	@Override
-	public int port()
-	{
-		return Integer.valueOf(_resources.getString(R.string.port));
-	}
-	
-	@Override
 	public String connected()
 	{
 		return _resources.getString(R.string.connected);
