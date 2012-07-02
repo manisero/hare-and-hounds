@@ -1,4 +1,4 @@
-package com.fARmework.server;
+package com.fARmework.server.impl;
 
 import com.google.inject.*;
 import java.util.*;

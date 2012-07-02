@@ -1,4 +1,4 @@
-package com.fARmework.server;
+package com.fARmework.server.impl;
 
 public class Message 
 {

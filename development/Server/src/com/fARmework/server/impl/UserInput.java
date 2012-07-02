@@ -1,5 +1,6 @@
-package com.fARmework.server;
+package com.fARmework.server.impl;
 
+import com.google.inject.*;
 import java.io.*;
 
 public class UserInput 
@@ -8,11 +9,12 @@ public class UserInput
 	
 	private MessageFactory _factory;
 	
-	public UserInput()
+	@Inject
+	public UserInput(Server server, MessageFactory factory)
 	{
-		_server = new Server("6969");
+		_server = server;
 		
-		_factory = new MessageFactory();
+		_factory = factory;
 		
 		_factory.register(String.class, "STRING_MESSAGE");
 	}

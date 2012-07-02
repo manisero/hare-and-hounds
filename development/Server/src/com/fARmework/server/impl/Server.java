@@ -1,7 +1,8 @@
-package com.fARmework.server;
+package com.fARmework.server.impl;
 
+import com.fARmework.server.*;
 import com.google.gson.*;
-import java.net.*;
+import com.google.inject.*;
 import java.util.concurrent.*;
 import org.jboss.netty.bootstrap.*;
 import org.jboss.netty.channel.*;
@@ -11,19 +12,20 @@ import org.jboss.netty.handler.codec.serialization.*;
 
 public class Server
 {	
-	private int _port;
+	private ISettingsProvider _settingsProvider;
 	
 	private ChannelGroup _channelGroup;
 	
 	private IMessageProcessor _messageProcessor;
 	
-	public Server(String port)
+	@Inject
+	public Server(ISettingsProvider settingsProvider, ChannelGroup channelGroup, IMessageProcessor messageProcessor)
 	{
-		_port = Integer.parseInt(port);
+		_settingsProvider = settingsProvider;
 		
-		_messageProcessor = new DummyMessageProcessor();
+		_channelGroup = channelGroup;
 		
-		_channelGroup = new DefaultChannelGroup();
+		_messageProcessor = messageProcessor;
 	}
 	
 	public void start()
@@ -49,7 +51,7 @@ public class Server
 		bootstrap.setOption("tcpNoDelay", true);
         bootstrap.setOption("keepAlive", true);
 		
-		bootstrap.bind(new InetSocketAddress(_port));
+		bootstrap.bind(_settingsProvider.getSocketAddress());
 	}
 	
 	public void send(Message message)
