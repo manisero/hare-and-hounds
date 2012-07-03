@@ -1,47 +1,50 @@
 package com.fARmework.client.ViewModels;
 
 import java.io.IOException;
-import java.net.Socket;
 
-import com.fARmework.client.Logic.ReadTask;
-
-import android.view.View;
 import gueei.binding.Command;
 import gueei.binding.observables.StringObservable;
+import android.view.View;
+
+import com.fARmework.client.Logic.IConnectionManager;
+import com.fARmework.client.Logic.BackgroundTasks.IProgressListener;
+import com.google.inject.Inject;
 
 public class ClientViewModel
 {
-	private class ConnectCommand extends Command
-	{
-		@Override
-		public void Invoke(View view, Object... params)
-		{
-			try
-	    	{
-	    		_socket = new Socket("192.168.0.106", 6666);
-			}
-	    	catch (IOException e)
-			{ }
-	    	
-	    	new ReadTask().execute(_socket, message);
-		}
-	}
-	
-	private Socket _socket;
+	private IConnectionManager _connectionManager;
 	
 	public StringObservable message = new StringObservable();
-	public ConnectCommand connect = new ConnectCommand();
+	public Command connect = new Command()
+	{
+		@Override
+		public void Invoke(View arg0, Object... arg1)
+		{
+			try
+			{
+				_connectionManager.connect(new IProgressListener<String>()
+				{
+					public void onUpdate(String value)
+					{
+						message.set(value);
+					}
+				});
+			}
+			catch (IOException e)
+			{
+				message.set(e.getMessage());
+			}
+		}
+	};
+	
+	@Inject
+	public ClientViewModel(IConnectionManager connectionManager)
+	{
+		_connectionManager = connectionManager;
+	}
 	
 	public void disconnect()
 	{
-		if (_socket == null)
-			return;
-		
-    	try
-    	{
-    		_socket.close();
-    	}
-    	catch (IOException e)
-	    { }
+		_connectionManager.disconnect();
 	}
 }

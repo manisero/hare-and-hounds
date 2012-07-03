@@ -7,4 +7,7 @@ development/Server/bin/*
 development/Client/bin/*
 creativity/Android/Binding/bin/*
 creativity/Java/DI/bin/*
+development/client/bin/*
+development/server/bin/*
+creativity/Android/JSON/bin/*
 creativity/Java/NettyClient/bin/*
