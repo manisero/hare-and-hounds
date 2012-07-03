@@ -7,16 +7,10 @@ public class UserInput
 {
 	private Server _server;
 	
-	private MessageFactory _factory;
-	
 	@Inject
-	public UserInput(Server server, MessageFactory factory)
+	public UserInput(Server server)
 	{
 		_server = server;
-		
-		_factory = factory;
-		
-		_factory.register(String.class, "STRING_MESSAGE");
 	}
 	
 	public void readAndSend()
@@ -29,10 +23,8 @@ public class UserInput
 		while(true)
 		{
 			try 
-			{
-				String message = bufferedReader.readLine();
-				
-				_server.send(_factory.getMessage(message));
+			{				
+				_server.send(bufferedReader.readLine());
 			} 
 			catch (IOException e) 
 			{

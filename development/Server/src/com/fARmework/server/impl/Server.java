@@ -1,31 +1,26 @@
 package com.fARmework.server.impl;
 
 import com.fARmework.server.*;
-import com.google.gson.*;
 import com.google.inject.*;
+
+import java.net.InetSocketAddress;
 import java.util.concurrent.*;
 import org.jboss.netty.bootstrap.*;
 import org.jboss.netty.channel.*;
-import org.jboss.netty.channel.group.*;
 import org.jboss.netty.channel.socket.nio.*;
 import org.jboss.netty.handler.codec.serialization.*;
 
-public class Server
+public class Server implements IServer
 {	
 	private ISettingsProvider _settingsProvider;
 	
-	private ChannelGroup _channelGroup;
-	
-	private IMessageProcessor _messageProcessor;
+	private GroupChannelHandler _groupChannelHandler;
 	
 	@Inject
-	public Server(ISettingsProvider settingsProvider, ChannelGroup channelGroup, IMessageProcessor messageProcessor)
+	public Server(ISettingsProvider settingsProvider, GroupChannelHandler groupChannelHandler)
 	{
 		_settingsProvider = settingsProvider;
-		
-		_channelGroup = channelGroup;
-		
-		_messageProcessor = messageProcessor;
+		_groupChannelHandler = groupChannelHandler;
 	}
 	
 	public void start()
@@ -44,20 +39,18 @@ public class Server
 						new ObjectEncoder(),
 						new ObjectDecoder(
 								ClassResolvers.cacheDisabled(getClass().getClassLoader())),
-						new ServerHandler(_messageProcessor, _channelGroup));
+						_groupChannelHandler);
 			}
 		});
 		
 		bootstrap.setOption("tcpNoDelay", true);
         bootstrap.setOption("keepAlive", true);
 		
-		bootstrap.bind(_settingsProvider.getSocketAddress());
+		bootstrap.bind(new InetSocketAddress(_settingsProvider.getPort()));
 	}
 	
-	public void send(Message message)
-	{
-		Gson gson = new Gson();
-		
-		_channelGroup.write(gson.toJson(message));
+	public void send(Object object)
+	{	
+		_groupChannelHandler.send(object);
 	}
 }
