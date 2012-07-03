@@ -1,4 +1,4 @@
-package com.fARmework.server;
+package com.fARmework.server.impl;
 
 public class Message 
 {
@@ -9,7 +9,6 @@ public class Message
 	public Message(String type, Object object)
 	{
 		_type = type;
-		
 		_object = object;
 	}
 	

@@ -1,20 +1,16 @@
-package com.fARmework.server;
+package com.fARmework.server.impl;
 
+import com.google.inject.*;
 import java.io.*;
 
 public class UserInput 
 {
 	private Server _server;
 	
-	private MessageFactory _factory;
-	
-	public UserInput()
+	@Inject
+	public UserInput(Server server)
 	{
-		_server = new Server("6969");
-		
-		_factory = new MessageFactory();
-		
-		_factory.register(String.class, "STRING_MESSAGE");
+		_server = server;
 	}
 	
 	public void readAndSend()
@@ -27,10 +23,8 @@ public class UserInput
 		while(true)
 		{
 			try 
-			{
-				String message = bufferedReader.readLine();
-				
-				_server.send(_factory.getMessage(message));
+			{				
+				_server.send(bufferedReader.readLine());
 			} 
 			catch (IOException e) 
 			{

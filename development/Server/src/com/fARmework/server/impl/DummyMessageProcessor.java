@@ -1,4 +1,6 @@
-package com.fARmework.server;
+package com.fARmework.server.impl;
+
+import com.fARmework.server.*;
 
 public class DummyMessageProcessor implements IMessageProcessor 
 {

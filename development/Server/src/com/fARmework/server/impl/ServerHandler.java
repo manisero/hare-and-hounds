@@ -1,19 +1,28 @@
-package com.fARmework.server;
+package com.fARmework.server.impl;
 
+import com.fARmework.server.*;
 import com.google.gson.*;
+import com.google.inject.*;
 import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.group.*;
 
-public class ServerHandler extends SimpleChannelUpstreamHandler
+public class ServerHandler extends GroupChannelHandler
 {
 	private IMessageProcessor _messageProcessor;
 	
 	private ChannelGroup _channelGroup;
 	
-	public ServerHandler(IMessageProcessor processor, ChannelGroup channelGroup)
+	private MessageFactory _factory;
+	
+	@Inject
+	public ServerHandler(
+			IMessageProcessor processor, 
+			ChannelGroup channelGroup, 
+			MessageFactory factory)
 	{
 		_messageProcessor = processor;
 		_channelGroup = channelGroup;
+		_factory = factory;
 	}
 	
 	@Override
@@ -25,9 +34,7 @@ public class ServerHandler extends SimpleChannelUpstreamHandler
 	@Override
 	public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 	{		
-		Gson gson = new Gson();
-		
-		Message message = gson.fromJson((String) event.getMessage(), Message.class);
+		Message message = (new Gson()).fromJson((String) event.getMessage(), Message.class);
 		
 		_messageProcessor.process(message);
 	}
@@ -36,5 +43,13 @@ public class ServerHandler extends SimpleChannelUpstreamHandler
 	public void exceptionCaught(ChannelHandlerContext context, ExceptionEvent event)
 	{
 		event.getChannel().close();
+	}
+
+	@Override
+	public void send(Object object) 
+	{
+		Message message = _factory.getMessage(object);
+		
+		_channelGroup.write((new Gson()).toJson(message));
 	}
 }

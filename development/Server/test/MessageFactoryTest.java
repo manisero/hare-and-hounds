@@ -1,7 +1,6 @@
-package com.fARmework.server;
+import com.fARmework.server.impl.*;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class MessageFactoryTest 
