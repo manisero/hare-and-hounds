@@ -9,7 +9,6 @@ public class Message
 	public Message(String type, Object object)
 	{
 		_type = type;
-		
 		_object = object;
 	}
 	
