@@ -6,7 +6,7 @@ import com.fARmework.client.Infrastructure.IResourcesProvider;
 import com.fARmework.client.Infrastructure.ISettingsProvider;
 import com.google.inject.AbstractModule;
 
-public class SettingsAndResourcesModule extends AbstractModule
+public class InfrastructureModule extends AbstractModule
 {
 	@Override
 	protected void configure()
