@@ -1,13 +1,11 @@
 package com.fARmework.client.ViewModels;
 
-import java.io.IOException;
-
 import gueei.binding.Command;
 import gueei.binding.observables.StringObservable;
 import android.view.View;
 
 import com.fARmework.client.Logic.IConnectionManager;
-import com.fARmework.client.Logic.BackgroundTasks.IProgressListener;
+import com.fARmework.client.Logic.IMessageHandler;
 import com.google.inject.Inject;
 
 public class ClientViewModel
@@ -20,20 +18,13 @@ public class ClientViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			try
+			_connectionManager.connect(new IMessageHandler<String>()
 			{
-				_connectionManager.connect(new IProgressListener<String>()
+				public void onMessage(String value)
 				{
-					public void onUpdate(String value)
-					{
-						message.set(value);
-					}
-				});
-			}
-			catch (IOException e)
-			{
-				message.set(e.getMessage());
-			}
+					message.set(value);
+				}
+			});
 		}
 	};
 	
