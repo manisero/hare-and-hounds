@@ -2,5 +2,7 @@
 <resources>
     <string name="hello">Hello World, ClientActivity!</string>
     <string name="app_name">Client</string>
-    <string name="connected">Connected</string>
+    <string name="connection_connecting">Connecting...</string>
+    <string name="connection_success">Connected</string>
+    <string name="connection_fault">Connection failed</string>
 </resources>

@@ -16,8 +16,20 @@ public class ResourcesProvider implements IResourcesProvider
 	}
 	
 	@Override
-	public String connected()
+	public String connectionConnecting()
 	{
-		return _resources.getString(R.string.connected);
+		return _resources.getString(R.string.connection_connecting);
+	}
+	
+	@Override
+	public String connectionSuccess()
+	{
+		return _resources.getString(R.string.connection_success);
+	}
+	
+	@Override
+	public String connectionFault()
+	{
+		return _resources.getString(R.string.connection_fault);
 	}
 }
