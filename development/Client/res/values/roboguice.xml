@@ -2,6 +2,6 @@
  <resources> 
 	<string-array name="roboguice_modules">
 	    <item>com.fARmework.client.RoboGuiceModules.InfrastructureModule</item>
-		<item>com.fARmework.client.RoboGuiceModules.LogicModule</item>
+		<item>com.fARmework.client.RoboGuiceModules.ConnectionModule</item>
 	</string-array>
 </resources>

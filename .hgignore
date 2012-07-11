@@ -11,3 +11,5 @@ development/client/bin/*
 development/server/bin/*
 creativity/Android/JSON/bin/*
 creativity/Java/NettyClient/bin/*
+development/Client.Connection/bin/*
+development/Client.Infrastructure/bin/*

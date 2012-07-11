@@ -1,4 +1,4 @@
-package com.fARmework.client.Logic.Messages;
+package com.fARmework.client.Connection.Messages;
 
 public class Message 
 {

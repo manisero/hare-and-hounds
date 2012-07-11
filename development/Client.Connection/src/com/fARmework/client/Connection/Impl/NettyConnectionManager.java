@@ -1,4 +1,4 @@
-package com.fARmework.client.Logic.Impl;
+package com.fARmework.client.Connection.Impl;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
@@ -19,11 +19,11 @@ import org.jboss.netty.handler.codec.serialization.ClassResolvers;
 import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
 import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
 
+import com.fARmework.client.Connection.IConnectionManager;
+import com.fARmework.client.Connection.IMessageHandler;
+import com.fARmework.client.Connection.Messages.Message;
 import com.fARmework.client.Infrastructure.IResourcesProvider;
 import com.fARmework.client.Infrastructure.ISettingsProvider;
-import com.fARmework.client.Logic.IConnectionManager;
-import com.fARmework.client.Logic.IMessageHandler;
-import com.fARmework.client.Logic.Messages.Message;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 

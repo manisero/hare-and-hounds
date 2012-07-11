@@ -1,4 +1,4 @@
-package com.fARmework.client.Logic;
+package com.fARmework.client.Connection;
 
 public interface IConnectionManager
 {

@@ -4,8 +4,8 @@ import gueei.binding.Command;
 import gueei.binding.observables.StringObservable;
 import android.view.View;
 
-import com.fARmework.client.Logic.IConnectionManager;
-import com.fARmework.client.Logic.IMessageHandler;
+import com.fARmework.client.Connection.IConnectionManager;
+import com.fARmework.client.Connection.IMessageHandler;
 import com.google.inject.Inject;
 
 public class ClientViewModel
