@@ -1,12 +1,12 @@
-package com.fARmework.client.Connection.ConnectionEvents;
+package com.fARmework.client.Connection.ConnectionEventHandlers;
 
 import com.fARmework.client.Connection.IConnectionHandler;
 
-public class MessageEvent implements IConnectionEvent
+public class MessageHandler implements IConnectionEventHandler
 {
 	private String _message;
 	
-	public MessageEvent(String message)
+	public MessageHandler(String message)
 	{
 		_message = message;
 	}

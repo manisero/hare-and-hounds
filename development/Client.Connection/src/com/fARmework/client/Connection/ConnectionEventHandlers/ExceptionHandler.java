@@ -1,12 +1,12 @@
-package com.fARmework.client.Connection.ConnectionEvents;
+package com.fARmework.client.Connection.ConnectionEventHandlers;
 
 import com.fARmework.client.Connection.IConnectionHandler;
 
-public class ExceptionEvent implements IConnectionEvent
+public class ExceptionHandler implements IConnectionEventHandler
 {
 	private Throwable _exception;
 
-	public ExceptionEvent(Throwable exception)
+	public ExceptionHandler(Throwable exception)
 	{
 		_exception = exception;
 	}
