@@ -2,33 +2,26 @@ package com.fARmework.client;
 
 import android.content.res.Resources;
 
-import com.fARmework.client.Infrastructure.IResourcesProvider;
-import com.google.inject.Singleton;
-
-@Singleton
-public class ResourcesProvider implements IResourcesProvider
+public class ResourcesProvider
 {
-	public static Resources _resources;
+	private static Resources _resources;
 	
 	public void setResources(Resources resources)
 	{
 		_resources = resources;
 	}
 	
-	@Override
-	public String connectionConnecting()
+	public static String connectionConnecting()
 	{
 		return _resources.getString(R.string.connection_connecting);
 	}
 	
-	@Override
-	public String connectionSuccess()
+	public static String connectionSuccess()
 	{
 		return _resources.getString(R.string.connection_success);
 	}
 	
-	@Override
-	public String connectionFault()
+	public static String connectionFault()
 	{
 		return _resources.getString(R.string.connection_fault);
 	}

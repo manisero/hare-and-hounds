@@ -20,9 +20,11 @@ import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
 import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
 
 import com.fARmework.client.Connection.IConnectionManager;
-import com.fARmework.client.Connection.IMessageHandler;
+import com.fARmework.client.Connection.IConnectionHandler;
+import com.fARmework.client.Connection.ConnectionEvents.ConnectionFaultEvent;
+import com.fARmework.client.Connection.ConnectionEvents.ConnectionSuccessEvent;
+import com.fARmework.client.Connection.ConnectionEvents.IConnectionEvent;
 import com.fARmework.client.Connection.Messages.Message;
-import com.fARmework.client.Infrastructure.IResourcesProvider;
 import com.fARmework.client.Infrastructure.ISettingsProvider;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -30,7 +32,7 @@ import com.google.inject.Inject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class NettyConnectionManager extends AsyncTask<Void, String, Void> implements IConnectionManager
+public class NettyConnectionManager extends AsyncTask<Void, IConnectionEvent, Void> implements IConnectionManager
 {
 	private class ChannelHandler extends SimpleChannelUpstreamHandler
 	{
@@ -39,7 +41,7 @@ public class NettyConnectionManager extends AsyncTask<Void, String, Void> implem
 		{
 			Log.i("Connected", "Connected to server");
 			
-			publishProgress(_resourcesProvider.connectionSuccess());
+			publishProgress(new ConnectionSuccessEvent());
 		}
 		
 		@Override
@@ -48,7 +50,7 @@ public class NettyConnectionManager extends AsyncTask<Void, String, Void> implem
 			Log.i("Message", event.getMessage().toString());
 			
 			Message message = new Gson().fromJson((String)event.getMessage(), Message.class);
-			publishProgress(message.getType() + ": " + message.getObject().toString());
+			publishProgress(new com.fARmework.client.Connection.ConnectionEvents.MessageEvent(message.getType() + ": " + message.getObject().toString()));
 		}
 		
 		@Override
@@ -57,35 +59,31 @@ public class NettyConnectionManager extends AsyncTask<Void, String, Void> implem
 			event.getCause().printStackTrace();
 			
 			event.getChannel().close();
-			publishProgress(_resourcesProvider.connectionFault());
+			publishProgress(new com.fARmework.client.Connection.ConnectionEvents.ExceptionEvent(event.getCause()));
 		}
 	}
 	
 	private ISettingsProvider _settingsProvider;
-	private IResourcesProvider _resourcesProvider;
 	
-	private IMessageHandler<String> _messageHandler;
+	private IConnectionHandler _connectionHandler;
 	private Channel _channel;
 	
 	@Inject
-	public NettyConnectionManager(ISettingsProvider settingsProvider, IResourcesProvider resourcesProvider)
+	public NettyConnectionManager(ISettingsProvider settingsProvider)
 	{
 		_settingsProvider = settingsProvider;
-		_resourcesProvider = resourcesProvider;
 	}
 	
 	@Override
-	public void connect(IMessageHandler<String> messageHandler)
+	public void connect(IConnectionHandler connectionHandler)
 	{
-		_messageHandler = messageHandler;
+		_connectionHandler = connectionHandler;
 		execute();
 	}
 	
 	@Override
 	protected Void doInBackground(Void... params)
 	{
-		publishProgress("Connecting...");
-		
 		ClientBootstrap bootstrap = new ClientBootstrap(new NioClientSocketChannelFactory(Executors.newCachedThreadPool(),
 																						  Executors.newCachedThreadPool()));
 		
@@ -110,17 +108,21 @@ public class NettyConnectionManager extends AsyncTask<Void, String, Void> implem
 		if (!future.isSuccess())
 		{
 			future.getCause().printStackTrace();
+			
 			bootstrap.releaseExternalResources();
-			publishProgress(_resourcesProvider.connectionFault());
+			publishProgress(new ConnectionFaultEvent());
 		}
 		
 		return null;
 	}
 	
 	@Override
-	protected void onProgressUpdate(String... values)
+	protected void onProgressUpdate(IConnectionEvent... events)
 	{
-		_messageHandler.onMessage(values[0]);
+		for (IConnectionEvent event : events)
+		{
+			event.handle(_connectionHandler);
+		}
 	}
 	
 	@Override
