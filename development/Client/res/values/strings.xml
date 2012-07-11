@@ -5,4 +5,5 @@
     <string name="connection_connecting">Connecting...</string>
     <string name="connection_success">Connected</string>
     <string name="connection_fault">Connection failed</string>
+    <string name="connection_error">Connection error</string>
 </resources>

@@ -4,6 +4,7 @@ import gueei.binding.Command;
 import gueei.binding.observables.StringObservable;
 import android.view.View;
 
+import com.fARmework.client.R;
 import com.fARmework.client.ResourcesProvider;
 import com.fARmework.client.Connection.IConnectionManager;
 import com.fARmework.client.Connection.IConnectionHandler;
@@ -20,18 +21,20 @@ public class ClientViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
+			message.set(ResourcesProvider.get(R.string.connection_connecting));
+			
 			_connectionManager.connect(new IConnectionHandler()
 			{
 				@Override
 				public void onConnectionSuccess()
 				{
-					message.set(ResourcesProvider.connectionSuccess());
+					message.set(ResourcesProvider.get(R.string.connection_success));
 				}
 
 				@Override
 				public void onConnectionFault()
 				{
-					message.set(ResourcesProvider.connectionFault());
+					message.set(ResourcesProvider.get(R.string.connection_fault));
 				}
 				
 				@Override
@@ -43,7 +46,7 @@ public class ClientViewModel
 				@Override
 				public void onException(Throwable exception)
 				{
-					message.set(exception.getMessage());
+					message.set(ResourcesProvider.get(R.string.connection_error));
 				}
 			});
 		}
