@@ -11,18 +11,8 @@ public class ResourcesProvider
 		_resources = resources;
 	}
 	
-	public static String connectionConnecting()
+	public static String get(int resourceID)
 	{
-		return _resources.getString(R.string.connection_connecting);
-	}
-	
-	public static String connectionSuccess()
-	{
-		return _resources.getString(R.string.connection_success);
-	}
-	
-	public static String connectionFault()
-	{
-		return _resources.getString(R.string.connection_fault);
+		return _resources.getString(resourceID);
 	}
 }
