@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, ClientActivity!</string>
+    <string name="app_name">Client</string>
+    <string name="connection_connecting">Connecting...</string>
+    <string name="connection_success">Connected</string>
+    <string name="connection_fault">Connection failed</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <resources> 
+	<string-array name="roboguice_modules">
+	    <item>com.fARmework.client.RoboGuiceModules.InfrastructureModule</item>
+		<item>com.fARmework.client.RoboGuiceModules.ConnectionModule</item>
+	</string-array>
+</resources>
