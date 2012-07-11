@@ -21,9 +21,7 @@ import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
 
 import com.fARmework.client.Connection.IConnectionManager;
 import com.fARmework.client.Connection.IConnectionHandler;
-import com.fARmework.client.Connection.ConnectionEvents.ConnectionFaultEvent;
-import com.fARmework.client.Connection.ConnectionEvents.ConnectionSuccessEvent;
-import com.fARmework.client.Connection.ConnectionEvents.IConnectionEvent;
+import com.fARmework.client.Connection.ConnectionEventHandlers.*;
 import com.fARmework.client.Connection.Messages.Message;
 import com.fARmework.client.Infrastructure.ISettingsProvider;
 import com.google.gson.Gson;
@@ -32,7 +30,7 @@ import com.google.inject.Inject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class NettyConnectionManager extends AsyncTask<Void, IConnectionEvent, Void> implements IConnectionManager
+public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHandler, Void> implements IConnectionManager
 {
 	private class ChannelHandler extends SimpleChannelUpstreamHandler
 	{
@@ -41,7 +39,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEvent, Vo
 		{
 			Log.i("Connected", "Connected to server");
 			
-			publishProgress(new ConnectionSuccessEvent());
+			publishProgress(new ConnectionSuccessHandler());
 		}
 		
 		@Override
@@ -50,7 +48,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEvent, Vo
 			Log.i("Message", event.getMessage().toString());
 			
 			Message message = new Gson().fromJson((String)event.getMessage(), Message.class);
-			publishProgress(new com.fARmework.client.Connection.ConnectionEvents.MessageEvent(message.getType() + ": " + message.getObject().toString()));
+			publishProgress(new MessageHandler(message.getType() + ": " + message.getObject().toString()));
 		}
 		
 		@Override
@@ -59,7 +57,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEvent, Vo
 			event.getCause().printStackTrace();
 			
 			event.getChannel().close();
-			publishProgress(new com.fARmework.client.Connection.ConnectionEvents.ExceptionEvent(event.getCause()));
+			publishProgress(new ExceptionHandler(event.getCause()));
 		}
 	}
 	
@@ -110,18 +108,18 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEvent, Vo
 			future.getCause().printStackTrace();
 			
 			bootstrap.releaseExternalResources();
-			publishProgress(new ConnectionFaultEvent());
+			publishProgress(new ConnectionFaultHandler());
 		}
 		
 		return null;
 	}
 	
 	@Override
-	protected void onProgressUpdate(IConnectionEvent... events)
+	protected void onProgressUpdate(IConnectionEventHandler... eventHandlers)
 	{
-		for (IConnectionEvent event : events)
+		for (IConnectionEventHandler eventHandler : eventHandlers)
 		{
-			event.handle(_connectionHandler);
+			eventHandler.handle(_connectionHandler);
 		}
 	}
 	

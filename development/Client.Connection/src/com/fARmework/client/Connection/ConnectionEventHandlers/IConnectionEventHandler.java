@@ -1,8 +1,8 @@
-package com.fARmework.client.Connection.ConnectionEvents;
+package com.fARmework.client.Connection.ConnectionEventHandlers;
 
 import com.fARmework.client.Connection.IConnectionHandler;
 
-public interface IConnectionEvent
+public interface IConnectionEventHandler
 {
 	void handle(IConnectionHandler connectionHandler);
 }

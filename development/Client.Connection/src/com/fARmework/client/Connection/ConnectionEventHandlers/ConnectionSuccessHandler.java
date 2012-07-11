@@ -1,8 +1,8 @@
-package com.fARmework.client.Connection.ConnectionEvents;
+package com.fARmework.client.Connection.ConnectionEventHandlers;
 
 import com.fARmework.client.Connection.IConnectionHandler;
 
-public class ConnectionSuccessEvent implements IConnectionEvent
+public class ConnectionSuccessHandler implements IConnectionEventHandler
 {
 	@Override
 	public void handle(IConnectionHandler connectionHandler)
