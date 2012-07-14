@@ -5,9 +5,8 @@ import com.fARmework.client.Connection.IConnectionHandler;
 public class ConnectionFaultHandler implements IConnectionEventHandler
 {
 	@Override
-	public void handle(IConnectionHandler connectionHandler)
+	public void handleWith(IConnectionHandler connectionHandler)
 	{
 		connectionHandler.onConnectionFault();
 	}
-
 }
