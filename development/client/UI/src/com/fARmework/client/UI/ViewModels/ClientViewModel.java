@@ -19,7 +19,7 @@ public class ClientViewModel
 	public Command connect = new Command()
 	{
 		@Override
-		public void Invoke(View arg0, Object... arg1)
+		public void Invoke(View v, Object... args)
 		{
 			message.set(ResourcesProvider.get(R.string.connection_connecting));
 			
@@ -49,6 +49,15 @@ public class ClientViewModel
 					message.set(ResourcesProvider.get(R.string.connection_error));
 				}
 			});
+		}
+	};
+	
+	public Command sendGesture = new Command()
+	{
+		@Override
+		public void Invoke(View v, Object... args)
+		{
+			message.set(args[0].toString());
 		}
 	};
 	
