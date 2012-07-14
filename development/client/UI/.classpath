@@ -6,5 +6,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Client.Infrastructure"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Client.Connection"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
