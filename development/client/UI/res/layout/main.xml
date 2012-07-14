@@ -20,6 +20,7 @@
     android:id="@+id/gesturePicker"
 	android:layout_width="200dp"
 	android:layout_height="100dp"
-	android:text="@string/gestures_send" />
+	android:text="@string/gestures_send"
+	binding:onGesture="sendGesture" />
     
 </LinearLayout>
