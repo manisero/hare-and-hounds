@@ -4,12 +4,12 @@ creativity/Android/Compass/bin/*
 creativity/Android/GPS/bin/*
 creativity/Java/Client/bin/*
 development/Server/bin/*
-development/Client/bin/*
+development/client/UI/bin/*
+development/client/Connection/bin/*
+development/client/Infrastructure/bin/*
 creativity/Android/Binding/bin/*
 creativity/Java/DI/bin/*
 development/client/bin/*
 development/server/bin/*
 creativity/Android/JSON/bin/*
 creativity/Java/NettyClient/bin/*
-development/Client.Connection/bin/*
-development/Client.Infrastructure/bin/*

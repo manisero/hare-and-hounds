@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="hello">Hello World, ClientActivity!</string>
-    <string name="app_name">Client</string>
-    <string name="connection_connecting">Connecting&#8230;</string> <!-- "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) -->
-    <string name="connection_success">Connected</string>
-    <string name="connection_fault">Connection failed</string>
-    <string name="connection_error">Connection error</string>
-</resources>
