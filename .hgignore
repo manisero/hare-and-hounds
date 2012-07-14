@@ -13,3 +13,4 @@ development/client/bin/*
 development/server/bin/*
 creativity/Android/JSON/bin/*
 creativity/Java/NettyClient/bin/*
+development/modules/ScreenGestures/bin/*
