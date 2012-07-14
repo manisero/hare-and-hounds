@@ -4,27 +4,14 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
 import org.jboss.netty.bootstrap.ClientBootstrap;
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.channel.ChannelPipeline;
-import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.ChannelStateEvent;
-import org.jboss.netty.channel.Channels;
-import org.jboss.netty.channel.ExceptionEvent;
-import org.jboss.netty.channel.MessageEvent;
+import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
-import org.jboss.netty.handler.codec.serialization.ClassResolvers;
-import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
-import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
+import org.jboss.netty.handler.codec.serialization.*;
 
-import com.fARmework.client.Connection.IConnectionManager;
-import com.fARmework.client.Connection.IConnectionHandler;
+import com.fARmework.client.Connection.*;
 import com.fARmework.client.Connection.ConnectionEventHandlers.*;
-import com.fARmework.client.Connection.Messages.Message;
 import com.fARmework.client.Infrastructure.ISettingsProvider;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 
 import android.os.AsyncTask;
@@ -38,7 +25,6 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		public void channelConnected(ChannelHandlerContext context, ChannelStateEvent event)
 		{
 			Log.i("Connected", "Connected to server");
-			
 			publishProgress(new ConnectionSuccessHandler());
 		}
 		
@@ -46,16 +32,13 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 		{
 			Log.i("Message", event.getMessage().toString());
-			
-			Message message = new Gson().fromJson((String)event.getMessage(), Message.class);
-			publishProgress(new MessageHandler(message.getType() + ": " + message.getObject().toString()));
+			publishProgress(new MessageHandler(event.getMessage().toString()));
 		}
 		
 		@Override
 		public void exceptionCaught(ChannelHandlerContext context, ExceptionEvent event)
 		{
 			event.getCause().printStackTrace();
-			
 			event.getChannel().close();
 			publishProgress(new ExceptionHandler(event.getCause()));
 		}
@@ -106,7 +89,6 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		if (!future.isSuccess())
 		{
 			future.getCause().printStackTrace();
-			
 			bootstrap.releaseExternalResources();
 			publishProgress(new ConnectionFaultHandler());
 		}
@@ -119,7 +101,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 	{
 		for (IConnectionEventHandler eventHandler : eventHandlers)
 		{
-			eventHandler.handle(_connectionHandler);
+			eventHandler.handleWith(_connectionHandler);
 		}
 	}
 	

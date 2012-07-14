@@ -4,5 +4,5 @@ import com.fARmework.client.Connection.IConnectionHandler;
 
 public interface IConnectionEventHandler
 {
-	void handle(IConnectionHandler connectionHandler);
+	void handleWith(IConnectionHandler connectionHandler);
 }

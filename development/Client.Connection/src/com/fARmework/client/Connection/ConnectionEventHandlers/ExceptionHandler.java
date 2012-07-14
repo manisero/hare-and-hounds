@@ -12,7 +12,7 @@ public class ExceptionHandler implements IConnectionEventHandler
 	}
 	
 	@Override
-	public void handle(IConnectionHandler connectionHandler)
+	public void handleWith(IConnectionHandler connectionHandler)
 	{
 		connectionHandler.onException(_exception);
 	}
