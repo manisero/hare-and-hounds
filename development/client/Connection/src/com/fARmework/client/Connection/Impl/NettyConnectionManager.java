@@ -105,11 +105,11 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 	}
 	
 	@Override
-	public void send(String message)
+	public void send(Message message)
 	{
 		if (_channel != null)
 		{
-			_channel.write(message);
+			_channel.write(message.toString());
 		}
 	}
 	
