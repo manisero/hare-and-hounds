@@ -58,7 +58,7 @@ public class ClientViewModel
 		@Override
 		public void Invoke(View v, Object... args)
 		{
-			_connectionManager.send(new Message("STRING_MESSAGE", args[0]).toString());
+			_connectionManager.send(new Message("GESTURE_MESSAGE", args[0]).toString());
 		}
 	};
 	
