@@ -9,11 +9,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 
-public class GesturePicker extends Button implements IBindableView<GesturePicker>
+public class GesturePicker extends View implements IBindableView<GesturePicker>
 {
-	private Gesture _gesture;
+	private Gesture _gesture = new Gesture();
 	private OnGestureListener _gestureListener;
 	
 	// onGesture attribute (Android-Binding support)
@@ -59,29 +58,24 @@ public class GesturePicker extends Button implements IBindableView<GesturePicker
 			@Override
 			public boolean onTouch(View v, MotionEvent event)
 			{
-				if (_gesture == null)
+				if (_gestureListener == null)
+				{
+					return false;
+				}
+				
+				_gesture.addPoint(event.getX(), event.getY());
+				
+				if (event.getActionMasked() == MotionEvent.ACTION_UP)
+				{
+					_gestureListener.onGesture(v, _gesture);
+					_gesture = new Gesture();
+				}
+				else if (event.getActionMasked() == MotionEvent.ACTION_CANCEL)
 				{
 					_gesture = new Gesture();
 				}
 				
-				_gesture.addPoint(event.getX(), event.getY());
-				return false;
-			}
-		});
-		
-		setOnLongClickListener(new OnLongClickListener()
-		{
-			
-			@Override
-			public boolean onLongClick(View v)
-			{
-				if (_gestureListener != null)
-				{
-					_gestureListener.onGesture(v, _gesture);
-					_gesture = null;
-				}
-				
-				return false;
+				return true;
 			}
 		});
 	}
