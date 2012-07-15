@@ -3,6 +3,6 @@ package com.fARmework.client.Connection;
 public interface IConnectionManager
 {
 	void connect(IConnectionHandler connectionHandler);
-	void send(String message);
+	void send(Message message);
 	void disconnect();
 }
