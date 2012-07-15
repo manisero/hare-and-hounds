@@ -1,4 +1,6 @@
-package com.fARmework.client.Connection.Messages;
+package com.fARmework.client.Connection;
+
+import com.google.gson.Gson;
 
 public class Message 
 {
@@ -19,5 +21,11 @@ public class Message
 	public Object getObject()
 	{
 		return _object;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return new Gson().toJson(this);
 	}
 }

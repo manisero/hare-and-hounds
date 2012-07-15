@@ -7,6 +7,7 @@ import android.view.View;
 import com.fARmework.client.UI.R;
 import com.fARmework.client.Connection.IConnectionManager;
 import com.fARmework.client.Connection.IConnectionHandler;
+import com.fARmework.client.Connection.Message;
 import com.fARmework.client.UI.ResourcesProvider;
 import com.google.inject.Inject;
 
@@ -57,7 +58,7 @@ public class ClientViewModel
 		@Override
 		public void Invoke(View v, Object... args)
 		{
-			message.set(args[0].toString());
+			_connectionManager.send(new Message("STRING_MESSAGE", args[0]).toString());
 		}
 	};
 	

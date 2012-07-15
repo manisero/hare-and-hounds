@@ -12,7 +12,8 @@ public class GesturePicker extends Button implements IBindableView<GesturePicker
 {
 	private OnGestureListener _gestureListener;
 	
-	private ViewAttribute<GesturePicker, Command> _gestureListenerAttribute =
+	// onGesture attribute (Android-Binding support)
+	private ViewAttribute<GesturePicker, Command> _onGestureAttribute =
 				new ViewAttribute<GesturePicker, Command>(Command.class, GesturePicker.this, "onGesture")
 				{
 				    @Override
@@ -62,20 +63,20 @@ public class GesturePicker extends Button implements IBindableView<GesturePicker
 			}
 		});
 	}
-	
-	public void setOnGestureListener(OnGestureListener listener)
-	{
-		_gestureListener = listener;
-	}
 
 	@Override
 	public ViewAttribute<? extends View, ?> createViewAttribute(String attribute)
 	{
 		if (attribute.equals("onGesture"))
 		{
-			return _gestureListenerAttribute;
+			return _onGestureAttribute;
 		}
 		
 		return null;
+	}
+	
+	public void setOnGestureListener(OnGestureListener listener)
+	{
+		_gestureListener = listener;
 	}
 }

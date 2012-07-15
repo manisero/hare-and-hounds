@@ -1,7 +1,7 @@
 package com.fARmework.client.Connection.ConnectionEventHandlers;
 
 import com.fARmework.client.Connection.IConnectionHandler;
-import com.fARmework.client.Connection.Messages.Message;
+import com.fARmework.client.Connection.Message;
 import com.google.gson.Gson;
 
 public class MessageHandler implements IConnectionEventHandler
