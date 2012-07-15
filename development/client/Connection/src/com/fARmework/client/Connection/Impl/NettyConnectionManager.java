@@ -5,7 +5,6 @@ import java.util.concurrent.Executors;
 
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.channel.*;
-import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.jboss.netty.handler.codec.serialization.*;
 
@@ -102,6 +101,15 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		for (IConnectionEventHandler eventHandler : eventHandlers)
 		{
 			eventHandler.handleWith(_connectionHandler);
+		}
+	}
+	
+	@Override
+	public void send(String message)
+	{
+		if (_channel != null)
+		{
+			_channel.write(message);
 		}
 	}
 	
