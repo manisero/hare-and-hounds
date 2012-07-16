@@ -13,3 +13,4 @@ development/client/Infrastructure/bin/*
 development/server/bin/*
 development/modules/ScreenGestures/bin/*
 development/RockPaperScissors/Client/bin/*
+development/RockPaperScissors/Server/bin/*
