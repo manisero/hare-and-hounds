@@ -5,12 +5,12 @@ import com.google.gson.Gson;
 public class Message 
 {
 	private String _type;
-	private Object _object;
+	private String _data;
 	
-	public Message(String type, Object object)
+	public Message(Object data)
 	{
-		_type = type;
-		_object = object;
+		_type = data.getClass().getCanonicalName();
+		_data = new Gson().toJson(data);
 	}
 	
 	public String getType()
@@ -18,9 +18,14 @@ public class Message
 		return _type;
 	}
 	
-	public Object getObject()
+	public String getData()
 	{
-		return _object;
+		return _data;
+	}
+	
+	public <T> T getData(Class<T> dataType)
+	{
+		return new Gson().fromJson(_data, dataType);
 	}
 	
 	@Override

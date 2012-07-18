@@ -58,7 +58,7 @@ public class MainViewModel
 		@Override
 		public void Invoke(View v, Object... args)
 		{
-			_connectionManager.send(new Message("GESTURE_MESSAGE", args[0]));
+			_connectionManager.send(new Message(args[0]));
 		}
 	};
 	

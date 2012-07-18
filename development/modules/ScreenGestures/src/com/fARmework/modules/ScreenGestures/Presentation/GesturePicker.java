@@ -1,6 +1,6 @@
 package com.fARmework.modules.ScreenGestures.Presentation;
 
-import com.fARmework.modules.ScreenGestures.Data.Gesture;
+import com.fARmework.modules.ScreenGestures.Data.GestureData;
 
 import gueei.binding.Command;
 import gueei.binding.IBindableView;
@@ -12,7 +12,7 @@ import android.view.View;
 
 public class GesturePicker extends View implements IBindableView<GesturePicker>
 {
-	private Gesture _gesture = new Gesture();
+	private GestureData _gesture = new GestureData();
 	private OnGestureListener _gestureListener;
 	
 	// onGesture attribute (Android-Binding support)
@@ -25,7 +25,7 @@ public class GesturePicker extends View implements IBindableView<GesturePicker>
 				    	setOnGestureListener(new OnGestureListener()
 						{
 							@Override
-							public void onGesture(View v, Gesture gesture)
+							public void onGesture(View v, GestureData gesture)
 							{
 								((Command)newValue).Invoke(v, gesture);
 							}
@@ -68,11 +68,11 @@ public class GesturePicker extends View implements IBindableView<GesturePicker>
 				if (event.getActionMasked() == MotionEvent.ACTION_UP)
 				{
 					_gestureListener.onGesture(v, _gesture);
-					_gesture = new Gesture();
+					_gesture = new GestureData();
 				}
 				else if (event.getActionMasked() == MotionEvent.ACTION_CANCEL)
 				{
-					_gesture = new Gesture();
+					_gesture = new GestureData();
 				}
 				
 				return true;

@@ -26,6 +26,6 @@ public class MessageFactoryTest
 		
 		assertEquals("Message type does not match", message.getType(), "STRING_MESSAGE");
 		
-		assertEquals("Message object does not match", message.getObject(), "Test message");
+		assertEquals("Message object does not match", message.getData(), "Test message");
 	}
 }

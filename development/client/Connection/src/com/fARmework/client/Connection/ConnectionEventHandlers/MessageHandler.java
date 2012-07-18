@@ -17,6 +17,6 @@ public class MessageHandler implements IConnectionEventHandler
 	public void handleWith(IConnectionHandler connectionHandler)
 	{
 		Message message = new Gson().fromJson(_message, Message.class);
-		connectionHandler.onMessage(message.getType() + ": " + message.getObject().toString());
+		connectionHandler.onMessage(message.getType() + ": " + message.getData().toString());
 	}
 }

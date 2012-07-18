@@ -9,7 +9,7 @@ public class DummyMessageProcessor implements IMessageProcessor
 	{
 		System.out.println("Message type: " + message.getType());
 		
-		System.out.println("Message body: " + message.getObject().toString());
+		System.out.println("Message body: " + message.getData());
 		
 		System.out.println("");
 	}
