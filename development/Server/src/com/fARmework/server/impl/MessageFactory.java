@@ -27,7 +27,7 @@ public class MessageFactory
 	{
 		if(_typeMap.containsKey(object.getClass()))
 		{
-			return new Message(_typeMap.get(object.getClass()), object);
+			return new Message(object);
 		}
 		
 		else

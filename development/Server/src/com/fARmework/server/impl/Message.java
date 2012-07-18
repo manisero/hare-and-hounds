@@ -1,15 +1,16 @@
 package com.fARmework.server.impl;
 
-public class Message 
+import com.google.gson.Gson;
+
+public class Message
 {
 	private String _type;
+	private String _data;
 	
-	private Object _object;
-	
-	public Message(String type, Object object)
+	public Message(Object data)
 	{
-		_type = type;
-		_object = object;
+		_type = data.getClass().getCanonicalName();
+		_data = new Gson().toJson(data);
 	}
 	
 	public String getType()
@@ -17,8 +18,19 @@ public class Message
 		return _type;
 	}
 	
-	public Object getObject()
+	public String getData()
 	{
-		return _object;
+		return _data;
+	}
+	
+	public <T> T getData(Class<T> dataType)
+	{
+		return new Gson().fromJson(_data, dataType);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return new Gson().toJson(this);
 	}
 }

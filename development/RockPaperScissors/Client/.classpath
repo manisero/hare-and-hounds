@@ -7,5 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Client.Infrastructure"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Client.Connection"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures.Data"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
