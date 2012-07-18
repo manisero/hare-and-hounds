@@ -1,8 +1,8 @@
 package com.fARmework.RockPaperScissors.Server;
 
-import com.fARmework.RockPaperScissors.Server.Logic.ConnectionHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
-import com.fARmework.RockPaperScissors.Server.Logic.MessageProcessor;
+import com.fARmework.RockPaperScissors.Server.Logic.Impl.ConnectionHandler;
+import com.fARmework.RockPaperScissors.Server.Logic.Impl.MessageProcessor;
 import com.fARmework.server.IMessageProcessor;
 import com.fARmework.server.IServer;
 import com.fARmework.server.impl.Server;
