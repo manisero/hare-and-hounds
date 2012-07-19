@@ -1,5 +1,6 @@
 package com.fARmework.core.server.impl;
 
+import com.fARmework.core.data.Message;
 import com.fARmework.core.server.*;
 import com.google.gson.*;
 import com.google.inject.*;

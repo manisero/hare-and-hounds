@@ -11,6 +11,7 @@ import org.jboss.netty.handler.codec.serialization.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Connection.ConnectionEventHandlers.*;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
+import com.fARmework.core.data.Message;
 import com.google.inject.Inject;
 
 import android.os.AsyncTask;

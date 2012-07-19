@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="libs/javax.inject.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Server"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Data"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

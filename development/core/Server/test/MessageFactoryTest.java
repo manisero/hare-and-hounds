@@ -1,3 +1,4 @@
+import com.fARmework.core.data.Message;
 import com.fARmework.core.server.impl.*;
 
 import static org.junit.Assert.*;

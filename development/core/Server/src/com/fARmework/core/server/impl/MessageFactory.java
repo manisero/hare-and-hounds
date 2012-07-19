@@ -1,5 +1,6 @@
 package com.fARmework.core.server.impl;
 
+import com.fARmework.core.data.Message;
 import com.google.inject.*;
 import java.util.*;
 
