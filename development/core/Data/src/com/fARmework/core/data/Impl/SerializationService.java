@@ -7,15 +7,15 @@ import com.google.gson.Gson;
 public class SerializationService implements ISerializationService
 {
 	@Override
+	public Message deserializeMessage(String message)
+	{
+		return new Gson().fromJson(message, Message.class);
+	}
+	
+	@Override
 	public String serialize(Object data)
 	{
 		return new Gson().toJson(data);
-	}
-
-	@Override
-	public Message deserialize(String message)
-	{
-		return new Gson().fromJson(message, Message.class);
 	}
 
 	@Override

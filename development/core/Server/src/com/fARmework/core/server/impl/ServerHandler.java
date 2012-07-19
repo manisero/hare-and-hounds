@@ -38,7 +38,7 @@ public class ServerHandler extends GroupChannelHandler
 	@Override
 	public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 	{
-		Message message = _serializationService.deserialize((String)event.getMessage());
+		Message message = _serializationService.deserializeMessage((String)event.getMessage());
 		
 		_messageProcessor.process(message);
 	}

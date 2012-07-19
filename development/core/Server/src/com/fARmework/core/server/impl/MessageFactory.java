@@ -1,5 +1,6 @@
 package com.fARmework.core.server.impl;
 
+import com.fARmework.core.data.ISerializationService;
 import com.fARmework.core.data.Message;
 import com.google.inject.*;
 import java.util.*;
@@ -7,10 +8,15 @@ import java.util.*;
 @Singleton
 public class MessageFactory 
 {
+	private ISerializationService _serializationService;
+	
 	private Map<Class<?>, String> _typeMap = new LinkedHashMap<Class<?>, String>();
 	
-	public MessageFactory()
+	@Inject
+	public MessageFactory(ISerializationService serializationService)
 	{
+		_serializationService = serializationService;
+		
 		registerTypes();
 	}
 	
@@ -28,7 +34,9 @@ public class MessageFactory
 	{
 		if(_typeMap.containsKey(object.getClass()))
 		{
-			return new Message(object);
+			String dataType = object.getClass().getCanonicalName();
+			String data = _serializationService.serialize(object);
+			return new Message(dataType, data);
 		}
 		
 		else
