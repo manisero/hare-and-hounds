@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Server"/>
 	<classpathentry kind="lib" path="libs/aopalliance.jar"/>
 	<classpathentry kind="lib" path="libs/guice-3.0.jar"/>
 	<classpathentry kind="lib" path="libs/guice-assistedinject-3.0.jar"/>
@@ -17,5 +16,6 @@
 	<classpathentry kind="lib" path="libs/guice-throwingproviders-3.0.jar"/>
 	<classpathentry kind="lib" path="libs/javax.inject.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Server"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

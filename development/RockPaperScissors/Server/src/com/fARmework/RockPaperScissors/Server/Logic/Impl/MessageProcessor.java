@@ -4,8 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
-import com.fARmework.server.IMessageProcessor;
-import com.fARmework.server.impl.Message;
+import com.fARmework.core.server.IMessageProcessor;
+import com.fARmework.core.server.impl.Message;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
