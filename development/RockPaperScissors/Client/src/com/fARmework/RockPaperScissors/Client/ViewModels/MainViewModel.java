@@ -8,7 +8,6 @@ import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IConnectionHandler;
-import com.fARmework.core.data.Message;
 import com.google.inject.Inject;
 
 public class MainViewModel
@@ -58,7 +57,7 @@ public class MainViewModel
 		@Override
 		public void Invoke(View v, Object... args)
 		{
-			_connectionManager.send(new Message(args[0]));
+			_connectionManager.send(args[0]);
 		}
 	};
 	

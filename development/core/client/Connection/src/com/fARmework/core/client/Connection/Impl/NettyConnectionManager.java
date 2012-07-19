@@ -11,6 +11,7 @@ import org.jboss.netty.handler.codec.serialization.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Connection.ConnectionEventHandlers.*;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
+import com.fARmework.core.data.IDataService;
 import com.fARmework.core.data.Message;
 import com.google.inject.Inject;
 
@@ -32,7 +33,8 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 		{
 			Log.i("Message", event.getMessage().toString());
-			publishProgress(new MessageHandler(event.getMessage().toString()));
+			Message message = _dataService.deserializeMessage(event.getMessage().toString());
+			publishProgress(new MessageHandler(message));
 		}
 		
 		@Override
@@ -45,14 +47,16 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 	}
 	
 	private ISettingsProvider _settingsProvider;
+	private IDataService _dataService;
 	
 	private IConnectionHandler _connectionHandler;
 	private Channel _channel;
 	
 	@Inject
-	public NettyConnectionManager(ISettingsProvider settingsProvider)
+	public NettyConnectionManager(ISettingsProvider settingsProvider, IDataService dataService)
 	{
 		_settingsProvider = settingsProvider;
+		_dataService = dataService;
 	}
 	
 	@Override
@@ -106,11 +110,11 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 	}
 	
 	@Override
-	public void send(Message message)
+	public void send(Object data)
 	{
 		if (_channel != null)
 		{
-			_channel.write(message.toString());
+			_channel.write(_dataService.toSerializedMessage(data));
 		}
 	}
 	
