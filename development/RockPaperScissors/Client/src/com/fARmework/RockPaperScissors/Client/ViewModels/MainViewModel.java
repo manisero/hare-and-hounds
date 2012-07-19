@@ -6,9 +6,9 @@ import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
-import com.fARmework.client.Connection.IConnectionManager;
-import com.fARmework.client.Connection.IConnectionHandler;
-import com.fARmework.client.Connection.Message;
+import com.fARmework.core.client.Connection.IConnectionManager;
+import com.fARmework.core.client.Connection.IConnectionHandler;
+import com.fARmework.core.client.Connection.Message;
 import com.google.inject.Inject;
 
 public class MainViewModel

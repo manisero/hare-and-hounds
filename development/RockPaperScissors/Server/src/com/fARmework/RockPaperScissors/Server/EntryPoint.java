@@ -4,7 +4,7 @@ import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.GestureProcessor;
 import com.fARmework.RockPaperScissors.Server.Logic.Impl.MessageProcessor;
 import com.fARmework.modules.ScreenGestures.Data.GestureData;
-import com.fARmework.server.impl.ServerModule;
+import com.fARmework.core.server.impl.ServerModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;

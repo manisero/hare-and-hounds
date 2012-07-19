@@ -1,7 +1,7 @@
 package com.fARmework.RockPaperScissors.Server.Logic.Impl;
 
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
-import com.fARmework.server.IServer;
+import com.fARmework.core.server.IServer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 

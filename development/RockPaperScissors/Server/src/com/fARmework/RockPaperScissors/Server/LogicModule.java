@@ -3,9 +3,9 @@ package com.fARmework.RockPaperScissors.Server;
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.Impl.ConnectionHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.Impl.MessageProcessor;
-import com.fARmework.server.IMessageProcessor;
-import com.fARmework.server.IServer;
-import com.fARmework.server.impl.Server;
+import com.fARmework.core.server.IMessageProcessor;
+import com.fARmework.core.server.IServer;
+import com.fARmework.core.server.impl.Server;
 import com.google.inject.AbstractModule;
 
 public class LogicModule extends AbstractModule

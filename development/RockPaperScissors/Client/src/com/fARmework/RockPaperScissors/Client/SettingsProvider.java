@@ -2,7 +2,7 @@ package com.fARmework.RockPaperScissors.Client;
 
 import android.content.res.Resources;
 
-import com.fARmework.client.Infrastructure.ISettingsProvider;
+import com.fARmework.core.client.Infrastructure.ISettingsProvider;
 import com.google.inject.Singleton;
 
 @Singleton
