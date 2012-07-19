@@ -1,4 +1,5 @@
 import com.fARmework.core.data.Message;
+import com.fARmework.core.data.Impl.DataService;
 import com.fARmework.core.server.impl.*;
 
 import static org.junit.Assert.*;
@@ -9,7 +10,7 @@ public class MessageFactoryTest
 	@Test (expected = UnregisteredObjectTypeException.class)
 	public void testGetUnregisteredMessage() 
 	{
-		MessageFactory messageFactory = new MessageFactory();
+		MessageFactory messageFactory = new MessageFactory(new DataService());
 		
 		messageFactory.getMessage(new Integer(1));
 	}
@@ -17,7 +18,7 @@ public class MessageFactoryTest
 	@Test
 	public void testGetRegisteredMessage()
 	{
-		MessageFactory messageFactory = new MessageFactory();
+		MessageFactory messageFactory = new MessageFactory(new DataService());
 		
 		messageFactory.register(String.class, "STRING_MESSAGE");
 		
