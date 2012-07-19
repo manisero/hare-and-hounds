@@ -11,7 +11,7 @@ import org.jboss.netty.handler.codec.serialization.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Connection.ConnectionEventHandlers.*;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
-import com.fARmework.core.data.ISerializationService;
+import com.fARmework.core.data.IDataService;
 import com.fARmework.core.data.Message;
 import com.google.inject.Inject;
 
@@ -33,7 +33,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 		{
 			Log.i("Message", event.getMessage().toString());
-			Message message = _serializationService.deserializeMessage(event.getMessage().toString());
+			Message message = _dataService.deserializeMessage(event.getMessage().toString());
 			publishProgress(new MessageHandler(message));
 		}
 		
@@ -47,16 +47,16 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 	}
 	
 	private ISettingsProvider _settingsProvider;
-	private ISerializationService _serializationService;
+	private IDataService _dataService;
 	
 	private IConnectionHandler _connectionHandler;
 	private Channel _channel;
 	
 	@Inject
-	public NettyConnectionManager(ISettingsProvider settingsProvider, ISerializationService serializationService)
+	public NettyConnectionManager(ISettingsProvider settingsProvider, IDataService dataService)
 	{
 		_settingsProvider = settingsProvider;
-		_serializationService = serializationService;
+		_dataService = dataService;
 	}
 	
 	@Override
@@ -114,8 +114,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 	{
 		if (_channel != null)
 		{
-			Message message = new Message(data.getClass().getCanonicalName(), _serializationService.serialize(data));
-			_channel.write(_serializationService.serialize(message));
+			_channel.write(_dataService.toSerializedMessage(data));
 		}
 	}
 	
