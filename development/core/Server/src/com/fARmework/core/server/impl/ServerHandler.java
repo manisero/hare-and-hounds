@@ -1,8 +1,8 @@
 package com.fARmework.core.server.impl;
 
+import com.fARmework.core.data.ISerializationService;
 import com.fARmework.core.data.Message;
 import com.fARmework.core.server.*;
-import com.google.gson.*;
 import com.google.inject.*;
 import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.group.*;
@@ -10,6 +10,7 @@ import org.jboss.netty.channel.group.*;
 public class ServerHandler extends GroupChannelHandler
 {
 	private IMessageProcessor _messageProcessor;
+	private ISerializationService _serializationService;
 	
 	private ChannelGroup _channelGroup;
 	
@@ -17,11 +18,13 @@ public class ServerHandler extends GroupChannelHandler
 	
 	@Inject
 	public ServerHandler(
-			IMessageProcessor processor, 
+			IMessageProcessor processor,
+			ISerializationService serializationService,
 			ChannelGroup channelGroup, 
 			MessageFactory factory)
 	{
 		_messageProcessor = processor;
+		_serializationService = serializationService;
 		_channelGroup = channelGroup;
 		_factory = factory;
 	}
@@ -34,8 +37,8 @@ public class ServerHandler extends GroupChannelHandler
 	
 	@Override
 	public void messageReceived(ChannelHandlerContext context, MessageEvent event)
-	{		
-		Message message = (new Gson()).fromJson((String) event.getMessage(), Message.class);
+	{
+		Message message = _serializationService.deserialize((String)event.getMessage());
 		
 		_messageProcessor.process(message);
 	}
@@ -51,6 +54,6 @@ public class ServerHandler extends GroupChannelHandler
 	{
 		Message message = _factory.getMessage(object);
 		
-		_channelGroup.write((new Gson()).toJson(message));
+		_channelGroup.write(_serializationService.serialize(message));
 	}
 }
