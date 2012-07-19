@@ -33,7 +33,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 		{
 			Log.i("Message", event.getMessage().toString());
-			Message message = _serializationService.deserialize(event.getMessage().toString());
+			Message message = _serializationService.deserializeMessage(event.getMessage().toString());
 			publishProgress(new MessageHandler(message));
 		}
 		
@@ -110,11 +110,12 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 	}
 	
 	@Override
-	public void send(Message message)
+	public void send(Object data)
 	{
 		if (_channel != null)
 		{
-			_channel.write(message.toString());
+			Message message = new Message(data.getClass().getCanonicalName(), _serializationService.serialize(data));
+			_channel.write(_serializationService.serialize(message));
 		}
 	}
 	

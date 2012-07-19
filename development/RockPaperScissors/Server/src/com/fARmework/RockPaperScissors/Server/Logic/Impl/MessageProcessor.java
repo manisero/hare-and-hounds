@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
+import com.fARmework.core.data.ISerializationService;
 import com.fARmework.core.data.Message;
 import com.fARmework.core.server.IMessageProcessor;
 import com.google.inject.Inject;
@@ -18,15 +19,17 @@ public class MessageProcessor implements IMessageProcessor
 	}
 	
 	private IConnectionHandler _connectionHandler;
+	private ISerializationService _serializationService;
 	
 	private Map<String, Class<?>> _dataMappings = new LinkedHashMap<String, Class<?>>();
 	@SuppressWarnings("rawtypes")
 	private Map<Class<?>, IDataHandler> _dataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();
 	
 	@Inject
-	public MessageProcessor(IConnectionHandler connectionHandler)
+	public MessageProcessor(IConnectionHandler connectionHandler, ISerializationService serializationService)
 	{
 		_connectionHandler = connectionHandler;
+		_serializationService = serializationService;
 	}
 	
 	public <T> void registerHandler(Class<T> dataType, IDataHandler<T> handler)
@@ -56,7 +59,7 @@ public class MessageProcessor implements IMessageProcessor
 		System.out.println(dataTypeName + ": " + message.getData());
 		System.out.println("");
 		
-		Object data = message.getData(_dataMappings.get(dataType));
+		Object data = _serializationService.deserialize(message.getData(), _dataMappings.get(dataType));
 		 _dataHandlers.get(data.getClass()).handle(data);
 		
 		_connectionHandler.send(dataTypeName + " processed successfully");
