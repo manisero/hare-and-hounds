@@ -2,13 +2,12 @@ package com.fARmework.core.client.Connection.ConnectionEventHandlers;
 
 import com.fARmework.core.client.Connection.IConnectionHandler;
 import com.fARmework.core.data.Message;
-import com.google.gson.Gson;
 
 public class MessageHandler implements IConnectionEventHandler
 {
-	private String _message;
+	private Message _message;
 	
-	public MessageHandler(String message)
+	public MessageHandler(Message message)
 	{
 		_message = message;
 	}
@@ -16,7 +15,6 @@ public class MessageHandler implements IConnectionEventHandler
 	@Override
 	public void handleWith(IConnectionHandler connectionHandler)
 	{
-		Message message = new Gson().fromJson(_message, Message.class);
-		connectionHandler.onMessage(message.getType() + ": " + message.getData().toString());
+		connectionHandler.onMessage(_message.getType() + ": " + _message.getData().toString());
 	}
 }
