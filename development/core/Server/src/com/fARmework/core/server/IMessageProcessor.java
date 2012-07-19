@@ -1,6 +1,6 @@
 package com.fARmework.core.server;
 
-import com.fARmework.core.server.impl.*;
+import com.fARmework.core.data.Message;
 
 public interface IMessageProcessor 
 {

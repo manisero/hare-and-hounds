@@ -7,10 +7,11 @@ creativity/Android/JSON/bin/*
 creativity/Java/Client/bin/*
 creativity/Java/DI/bin/*
 creativity/Java/NettyClient/bin/*
+development/core/Data/bin/*
 development/core/client/UI/bin/*
 development/core/client/Connection/bin/*
 development/core/client/Infrastructure/bin/*
-development/core/server/bin/*
+development/core/Server/bin/*
 development/modules/ScreenGestures/bin/*
 development/RockPaperScissors/Client/bin/*
 development/RockPaperScissors/Server/bin/*

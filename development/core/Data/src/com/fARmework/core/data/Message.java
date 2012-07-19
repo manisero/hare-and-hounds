@@ -1,4 +1,4 @@
-package com.fARmework.core.server.impl;
+package com.fARmework.core.data;
 
 import com.google.gson.Gson;
 
