@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
+import com.fARmework.core.data.IDataFactory;
 import com.fARmework.core.data.IDataService;
 import com.fARmework.core.data.Message;
 import com.fARmework.core.server.IMessageProcessor;
@@ -20,27 +21,22 @@ public class MessageProcessor implements IMessageProcessor
 	
 	private IConnectionHandler _connectionHandler;
 	private IDataService _dataService;
+	private IDataFactory _dataFactory;
 	
-	private Map<String, Class<?>> _dataMappings = new LinkedHashMap<String, Class<?>>();
 	@SuppressWarnings("rawtypes")
 	private Map<Class<?>, IDataHandler> _dataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();
 	
 	@Inject
-	public MessageProcessor(IConnectionHandler connectionHandler, IDataService dataService)
+	public MessageProcessor(IConnectionHandler connectionHandler, IDataService dataService, IDataFactory dataFactory)
 	{
 		_connectionHandler = connectionHandler;
 		_dataService = dataService;
+		_dataFactory = dataFactory;
 	}
 	
 	public <T> void registerHandler(Class<T> dataType, IDataHandler<T> handler)
 	{
-		_dataMappings.put(dataType.getCanonicalName(), dataType);
 		_dataHandlers.put(dataType, handler);
-	}
-	
-	private boolean isRegistered(String dataType)
-	{
-		return _dataMappings.containsKey(dataType) && _dataHandlers.containsKey(_dataMappings.get(dataType));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -50,16 +46,27 @@ public class MessageProcessor implements IMessageProcessor
 		String dataType = message.getType();
 		String dataTypeName = dataType.subSequence(dataType.lastIndexOf('.') + 1, dataType.length()).toString(); 
 		
-		if (false == isRegistered(dataType))
-		{
-			System.out.println("Unknown data received: " + dataTypeName);
-			_connectionHandler.send("Unknown data received: " + dataTypeName);
-		}
-		
 		System.out.println(dataTypeName + ": " + message.getData());
 		System.out.println("");
 		
-		Object data = _dataService.deserialize(message.getData(), _dataMappings.get(dataType));
+		if (!_dataFactory.isRegistered(dataType))
+		{
+			System.out.println("Unknown data received: " + dataTypeName);
+			_connectionHandler.send("Unknown data received: " + dataTypeName);
+			
+			return;
+		}
+		
+		Object data = _dataService.deserialize(message.getData(), _dataFactory.getDataClass(dataType));
+		
+		if (!_dataHandlers.containsKey(data.getClass()))
+		{
+			System.out.println("Could not process data: " + dataTypeName);
+			_connectionHandler.send("Could not process data: " + dataTypeName);
+			
+			return;
+		}
+		
 		 _dataHandlers.get(data.getClass()).handle(data);
 		
 		_connectionHandler.send(dataTypeName + " processed successfully");
