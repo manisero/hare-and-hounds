@@ -15,6 +15,6 @@ public class MessageHandler implements IConnectionEventHandler
 	@Override
 	public void handleWith(IConnectionHandler connectionHandler)
 	{
-		connectionHandler.onMessage(_message.getType() + ": " + _message.getData().toString());
+		connectionHandler.onMessage(_message);
 	}
 }

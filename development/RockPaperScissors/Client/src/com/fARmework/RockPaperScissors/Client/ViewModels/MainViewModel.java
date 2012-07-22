@@ -8,11 +8,14 @@ import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IConnectionHandler;
+import com.fARmework.core.data.IDataService;
+import com.fARmework.core.data.Message;
 import com.google.inject.Inject;
 
 public class MainViewModel
 {
 	private IConnectionManager _connectionManager;
+	private IDataService _dataService;
 	
 	public StringObservable message = new StringObservable();
 	
@@ -38,9 +41,9 @@ public class MainViewModel
 				}
 				
 				@Override
-				public void onMessage(String message)
+				public void onMessage(Message message)
 				{
-					MainViewModel.this.message.set(message);
+					MainViewModel.this.message.set(message.getType() + ": " + _dataService.fromMessage(message).toString());
 				}
 
 				@Override
@@ -62,9 +65,10 @@ public class MainViewModel
 	};
 	
 	@Inject
-	public MainViewModel(IConnectionManager connectionManager)
+	public MainViewModel(IConnectionManager connectionManager, IDataService dataService)
 	{
 		_connectionManager = connectionManager;
+		_dataService = dataService;
 	}
 	
 	public void disconnect()
