@@ -1,4 +1,4 @@
-package com.fARmework.RockPaperScissors.Server;
+package com.fARmework.RockPaperScissors.Server.GuiceModules;
 
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.Impl.ConnectionHandler;
