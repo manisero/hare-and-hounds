@@ -1,6 +1,6 @@
 package com.fARmework.core.data;
 
-public interface IDataFactory
+public interface IDataRegistry
 {
 	void register(Class<?> dataClass);
 	boolean isRegistered(String dataType);

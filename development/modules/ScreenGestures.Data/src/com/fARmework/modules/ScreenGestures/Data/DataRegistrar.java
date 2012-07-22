@@ -1,11 +1,11 @@
 package com.fARmework.modules.ScreenGestures.Data;
 
-import com.fARmework.core.data.IDataFactory;
+import com.fARmework.core.data.IDataRegistry;
 
 public class DataRegistrar
 {
-	public void registerData(IDataFactory dataFactory)
+	public void registerData(IDataRegistry dataRegistry)
 	{
-		dataFactory.register(GestureData.class);
+		dataRegistry.register(GestureData.class);
 	}
 }

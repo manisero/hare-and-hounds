@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
-import com.fARmework.core.data.IDataFactory;
+import com.fARmework.core.data.IDataRegistry;
 import com.fARmework.core.data.IDataService;
 import com.fARmework.core.data.Message;
 import com.fARmework.core.server.IMessageProcessor;
@@ -21,17 +21,17 @@ public class MessageProcessor implements IMessageProcessor
 	
 	private IConnectionHandler _connectionHandler;
 	private IDataService _dataService;
-	private IDataFactory _dataFactory;
+	private IDataRegistry _dataRegistry;
 	
 	@SuppressWarnings("rawtypes")
 	private Map<Class<?>, IDataHandler> _dataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();
 	
 	@Inject
-	public MessageProcessor(IConnectionHandler connectionHandler, IDataService dataService, IDataFactory dataFactory)
+	public MessageProcessor(IConnectionHandler connectionHandler, IDataService dataService, IDataRegistry dataRegistry)
 	{
 		_connectionHandler = connectionHandler;
 		_dataService = dataService;
-		_dataFactory = dataFactory;
+		_dataRegistry = dataRegistry;
 	}
 	
 	public <T> void registerHandler(Class<T> dataType, IDataHandler<T> handler)
@@ -49,7 +49,7 @@ public class MessageProcessor implements IMessageProcessor
 		System.out.println(dataTypeName + ": " + message.getData());
 		System.out.println("");
 		
-		if (!_dataFactory.isRegistered(dataType))
+		if (!_dataRegistry.isRegistered(dataType))
 		{
 			System.out.println("Unknown data received: " + dataTypeName);
 			_connectionHandler.send("Unknown data received: " + dataTypeName);
@@ -57,7 +57,7 @@ public class MessageProcessor implements IMessageProcessor
 			return;
 		}
 		
-		Object data = _dataService.deserialize(message.getData(), _dataFactory.getDataClass(dataType));
+		Object data = _dataService.deserialize(message.getData(), _dataRegistry.getDataClass(dataType));
 		
 		if (!_dataHandlers.containsKey(data.getClass()))
 		{
