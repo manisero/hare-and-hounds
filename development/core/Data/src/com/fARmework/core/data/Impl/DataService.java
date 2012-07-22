@@ -1,11 +1,21 @@
 package com.fARmework.core.data.Impl;
 
+import com.fARmework.core.data.IDataRegistry;
 import com.fARmework.core.data.IDataService;
 import com.fARmework.core.data.Message;
 import com.google.gson.Gson;
+import com.google.inject.Inject;
 
 public class DataService implements IDataService
 {
+	private IDataRegistry _dataRegistry;
+	
+	@Inject
+	public DataService(IDataRegistry dataRegistry)
+	{
+		_dataRegistry = dataRegistry;
+	}
+	
 	@Override
 	public String serialize(Object data)
 	{
@@ -21,7 +31,7 @@ public class DataService implements IDataService
 	@Override
 	public Message toMessage(Object data)
 	{
-		return new Message(data.getClass().getCanonicalName(), serialize(data));
+		return new Message(_dataRegistry.getDataType(data.getClass()), serialize(data));
 	}
 	
 	@Override

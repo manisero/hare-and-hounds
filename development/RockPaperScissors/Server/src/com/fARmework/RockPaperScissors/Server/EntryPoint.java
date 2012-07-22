@@ -1,5 +1,7 @@
 package com.fARmework.RockPaperScissors.Server;
 
+import com.fARmework.RockPaperScissors.Server.GuiceModules.CoreModule;
+import com.fARmework.RockPaperScissors.Server.GuiceModules.LogicModule;
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.GestureProcessor;
 import com.fARmework.RockPaperScissors.Server.Logic.Impl.MessageProcessor;

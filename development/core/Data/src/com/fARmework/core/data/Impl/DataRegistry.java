@@ -9,23 +9,44 @@ import com.google.inject.Singleton;
 @Singleton
 public class DataRegistry implements IDataRegistry
 {
-	private Map<String, Class<?>> _mappings = new LinkedHashMap<String, Class<?>>();
+	private Map<String, Class<?>> _typeToClassMappings = new LinkedHashMap<String, Class<?>>();
+	private Map<Class<?>, String> _classToTypeMappings = new LinkedHashMap<Class<?>, String>();
+	
+	public DataRegistry()
+	{
+		register(String.class);
+	}
 	
 	@Override
 	public void register(Class<?> dataClass)
 	{
-		_mappings.put(dataClass.getCanonicalName(), dataClass);
+		String dataType = dataClass.getCanonicalName();
+		
+		_typeToClassMappings.put(dataType, dataClass);
+		_classToTypeMappings.put(dataClass, dataType);
 	}
 	
 	@Override
 	public boolean isRegistered(String dataType)
 	{
-		return _mappings.containsKey(dataType);
+		return _typeToClassMappings.containsKey(dataType);
+	}
+	
+	@Override
+	public boolean isRegistered(Class<?> dataClass)
+	{
+		return _classToTypeMappings.containsKey(dataClass);
+	}
+	
+	@Override
+	public String getDataType(Class<?> dataClass)
+	{
+		return isRegistered(dataClass) ? _classToTypeMappings.get(dataClass) : null;
 	}
 	
 	@Override
 	public Class<?> getDataClass(String dataType)
 	{
-		return isRegistered(dataType) ? _mappings.get(dataType) : null;
+		return isRegistered(dataType) ? _typeToClassMappings.get(dataType) : null;
 	}
 }
