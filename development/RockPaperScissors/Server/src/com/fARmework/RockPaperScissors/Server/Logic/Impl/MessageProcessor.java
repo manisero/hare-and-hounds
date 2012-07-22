@@ -34,9 +34,9 @@ public class MessageProcessor implements IMessageProcessor
 		_dataRegistry = dataRegistry;
 	}
 	
-	public <T> void registerHandler(Class<T> dataType, IDataHandler<T> handler)
+	public <T> void registerHandler(Class<T> dataClass, IDataHandler<T> handler)
 	{
-		_dataHandlers.put(dataType, handler);
+		_dataHandlers.put(dataClass, handler);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -57,7 +57,7 @@ public class MessageProcessor implements IMessageProcessor
 			return;
 		}
 		
-		Object data = _dataService.deserialize(message.getData(), _dataRegistry.getDataClass(dataType));
+		Object data = _dataService.fromMessage(message);
 		
 		if (!_dataHandlers.containsKey(data.getClass()))
 		{

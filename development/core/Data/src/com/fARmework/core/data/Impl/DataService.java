@@ -23,9 +23,15 @@ public class DataService implements IDataService
 	}
 
 	@Override
-	public <T> T deserialize(String data, Class<T> dataType)
+	public <T> T deserialize(String data, Class<T> dataClass)
 	{
-		return new Gson().fromJson(data, dataType);
+		return new Gson().fromJson(data, dataClass);
+	}
+	
+	@Override
+	public Message deserializeMessage(String message)
+	{
+		return deserialize(message, Message.class);
 	}
 	
 	@Override
@@ -39,10 +45,10 @@ public class DataService implements IDataService
 	{
 		return serialize(toMessage(data));
 	}
-	
+
 	@Override
-	public Message deserializeMessage(String message)
+	public Object fromMessage(Message message)
 	{
-		return deserialize(message, Message.class);
+		return deserialize(message.getData(), _dataRegistry.getDataClass(message.getType()));
 	}
 }

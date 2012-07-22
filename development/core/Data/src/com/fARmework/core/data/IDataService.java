@@ -3,9 +3,12 @@ package com.fARmework.core.data;
 public interface IDataService
 {
 	String serialize(Object data);
-	<T> T deserialize(String data, Class<T> dataType);
+	
+	<T> T deserialize(String data, Class<T> dataClass);
+	Message deserializeMessage(String message);
 	
 	Message toMessage(Object data);
 	String toSerializedMessage(Object data);
-	Message deserializeMessage(String message);
+	
+	Object fromMessage(Message message);
 }
