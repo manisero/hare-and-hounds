@@ -3,11 +3,11 @@ package com.fARmework.core.data.Impl;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.fARmework.core.data.IDataFactory;
+import com.fARmework.core.data.IDataRegistry;
 import com.google.inject.Singleton;
 
 @Singleton
-public class DataFactory implements IDataFactory
+public class DataRegistry implements IDataRegistry
 {
 	private Map<String, Class<?>> _mappings = new LinkedHashMap<String, Class<?>>();
 	
