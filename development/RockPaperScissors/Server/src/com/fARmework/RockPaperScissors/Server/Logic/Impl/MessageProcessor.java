@@ -44,7 +44,7 @@ public class MessageProcessor implements IMessageProcessor
 	public void process(Message message)
 	{
 		String dataType = message.getType();
-		String dataTypeName = dataType.subSequence(dataType.lastIndexOf('.') + 1, dataType.length()).toString(); 
+		String dataTypeName = dataType.subSequence(dataType.lastIndexOf('.') + 1, dataType.length()).toString();
 		
 		System.out.println(dataTypeName + ": " + message.getData());
 		System.out.println("");
