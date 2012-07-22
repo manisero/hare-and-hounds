@@ -6,16 +6,15 @@ import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
+import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler.IMessageListener;
 import com.fARmework.core.client.Connection.IConnectionManager;
-import com.fARmework.core.client.Connection.IConnectionHandler;
-import com.fARmework.core.data.IDataService;
-import com.fARmework.core.data.Message;
 import com.google.inject.Inject;
 
 public class MainViewModel
 {
 	private IConnectionManager _connectionManager;
-	private IDataService _dataService;
+	private IConnectionHandler _connectionHandler;
 	
 	public StringObservable message = new StringObservable();
 	
@@ -25,33 +24,7 @@ public class MainViewModel
 		public void Invoke(View v, Object... args)
 		{
 			message.set(ResourcesProvider.get(R.string.connection_connecting));
-			
-			_connectionManager.connect(new IConnectionHandler()
-			{
-				@Override
-				public void onConnectionSuccess()
-				{
-					message.set(ResourcesProvider.get(R.string.connection_success));
-				}
-
-				@Override
-				public void onConnectionFault()
-				{
-					message.set(ResourcesProvider.get(R.string.connection_fault));
-				}
-				
-				@Override
-				public void onMessage(Message message)
-				{
-					MainViewModel.this.message.set(message.getType() + ": " + _dataService.fromMessage(message).toString());
-				}
-
-				@Override
-				public void onException(Throwable exception)
-				{
-					message.set(ResourcesProvider.get(R.string.connection_error));
-				}
-			});
+			_connectionManager.connect(_connectionHandler);
 		}
 	};
 	
@@ -65,10 +38,19 @@ public class MainViewModel
 	};
 	
 	@Inject
-	public MainViewModel(IConnectionManager connectionManager, IDataService dataService)
+	public MainViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler)
 	{
 		_connectionManager = connectionManager;
-		_dataService = dataService;
+		_connectionHandler = connectionHandler;
+		
+		_connectionHandler.setMessageListener(new IMessageListener()
+		{
+			@Override
+			public void onMessage(String message)
+			{
+				MainViewModel.this.message.set(message);
+			}
+		});
 	}
 	
 	public void disconnect()
