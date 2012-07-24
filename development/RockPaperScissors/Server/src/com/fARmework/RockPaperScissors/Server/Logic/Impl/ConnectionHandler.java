@@ -1,17 +1,17 @@
 package com.fARmework.RockPaperScissors.Server.Logic.Impl;
 
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
-import com.fARmework.core.server.IServer;
+import com.fARmework.core.server.IConnectionManager;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
 public class ConnectionHandler implements IConnectionHandler
 {
-	private IServer _server;
+	private IConnectionManager _server;
 	
 	@Inject
-	public ConnectionHandler(IServer server)
+	public ConnectionHandler(IConnectionManager server)
 	{
 		_server = server;
 	}

@@ -10,9 +10,7 @@ public class ServerModule extends AbstractModule
 {
 	@Override
 	protected void configure() 
-	{
-		bind(GroupChannelHandler.class).to(ServerHandler.class);
-		
+	{	
 		bind(IMessageProcessor.class).to(DummyMessageProcessor.class);
 		
 		bind(ChannelGroup.class).to(DefaultChannelGroup.class);

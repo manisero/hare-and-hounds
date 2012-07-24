@@ -5,10 +5,10 @@ import java.io.*;
 
 public class UserInput 
 {
-	private Server _server;
+	private ConnectionManager _server;
 	
 	@Inject
-	public UserInput(Server server)
+	public UserInput(ConnectionManager server)
 	{
 		_server = server;
 	}
