@@ -9,5 +9,8 @@
     <string name="connection_fault">Connection failed</string>
     <string name="connection_error">Connection error</string>
     
+    <string name="mode_create">Create</string>
+    <string name="mode_join">Join</string>
+    
     <string name="gestures_send">Send gesture</string>
 </resources>
