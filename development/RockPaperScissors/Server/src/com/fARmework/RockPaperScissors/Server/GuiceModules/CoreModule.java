@@ -17,7 +17,7 @@ public class CoreModule extends AbstractModule
 	protected void configure()
 	{
 		// core.Data
-		bind(IDataRegistry.class).to(DataRegistry.class);
+		bind(IDataRegistry.class).to(DataRegistry.class).asEagerSingleton();
 		bind(IDataService.class).to(DataService.class);
 		
 		// core.Server.Infrastructure
