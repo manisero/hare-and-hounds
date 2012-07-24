@@ -14,19 +14,15 @@ public class ServerHandler extends GroupChannelHandler
 	
 	private ChannelGroup _channelGroup;
 	
-	private MessageFactory _factory;
-	
 	@Inject
 	public ServerHandler(
 			IMessageProcessor processor,
 			IDataService dataService,
-			ChannelGroup channelGroup, 
-			MessageFactory factory)
+			ChannelGroup channelGroup)
 	{
 		_messageProcessor = processor;
 		_dataService = dataService;
 		_channelGroup = channelGroup;
-		_factory = factory;
 	}
 	
 	@Override
