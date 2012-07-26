@@ -7,7 +7,7 @@ import com.fARmework.RockPaperScissors.Client.Data.ConnectionExceptionData;
 import com.fARmework.RockPaperScissors.Client.Data.ConnectionFaultData;
 import com.fARmework.RockPaperScissors.Client.Data.ConnectionSuccessData;
 import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
-import com.fARmework.RockPaperScissors.Data.IDataHandler;
+import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
 
 @SuppressWarnings("unchecked")
 public class ConnectionHandler implements IConnectionHandler
