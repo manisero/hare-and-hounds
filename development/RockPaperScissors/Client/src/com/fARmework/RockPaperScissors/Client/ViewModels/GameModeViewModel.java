@@ -5,9 +5,11 @@ import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Data.ConnectionFaultData;
 import com.fARmework.RockPaperScissors.Client.Data.ConnectionSuccessData;
 import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
+import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
 import com.fARmework.RockPaperScissors.Data.CreateGameRequest;
+import com.fARmework.RockPaperScissors.Data.CreateGameResponse;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
-import com.fARmework.RockPaperScissors.Data.IDataHandler;
+import com.fARmework.RockPaperScissors.Data.GameListResponse;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.google.inject.Inject;
 
@@ -74,6 +76,31 @@ public class GameModeViewModel
 			public void handle(ConnectionFaultData data)
 			{
 				status.set(ResourcesProvider.get(R.string.connection_fault));
+			}
+		});
+		
+		connectionHandler.registerHandler(CreateGameResponse.class, new IDataHandler<CreateGameResponse>()
+		{
+			@Override
+			public void handle(CreateGameResponse data)
+			{
+				status.set("game created");
+			}
+		});
+		
+		connectionHandler.registerHandler(GameListResponse.class, new IDataHandler<GameListResponse>()
+		{
+			@Override
+			public void handle(GameListResponse data)
+			{
+				String games = "";
+				
+				for (Integer hostID : data.getHostIDs())
+				{
+					games += hostID.toString() + ", ";
+				}
+				
+				status.set("games: " + games);
 			}
 		});
 	}
