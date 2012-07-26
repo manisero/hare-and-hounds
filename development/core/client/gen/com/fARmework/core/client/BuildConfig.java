@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.fARmework.client.Infrastructure;
+package com.fARmework.core.client;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;
