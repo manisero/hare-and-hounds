@@ -7,7 +7,7 @@ import android.view.View;
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
-import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler.IMessageListener;
+import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.google.inject.Inject;
 
@@ -43,12 +43,12 @@ public class MainViewModel
 		_connectionManager = connectionManager;
 		_connectionHandler = connectionHandler;
 		
-		_connectionHandler.setMessageListener(new IMessageListener()
+		_connectionHandler.registerHandler(String.class, new IDataHandler<String>()
 		{
 			@Override
-			public void onMessage(String message)
+			public void handle(String data)
 			{
-				MainViewModel.this.message.set(message);
+				MainViewModel.this.message.set(data);
 			}
 		});
 	}
