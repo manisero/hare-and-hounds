@@ -1,20 +1,21 @@
 package com.fARmework.core.client.Connection.ConnectionEventHandlers;
 
 import com.fARmework.core.client.Connection.IConnectionHandler;
-import com.fARmework.core.data.Message;
 
 public class MessageHandler implements IConnectionEventHandler
 {
-	private Message _message;
+	private String _dataType;
+	private Object _data;
 	
-	public MessageHandler(Message message)
+	public MessageHandler(String dataType, Object data)
 	{
-		_message = message;
+		_dataType = dataType;
+		_data = data;
 	}
 
 	@Override
 	public void handleWith(IConnectionHandler connectionHandler)
 	{
-		connectionHandler.onMessage(_message);
+		connectionHandler.onDataReceived(_dataType, _data);
 	}
 }
