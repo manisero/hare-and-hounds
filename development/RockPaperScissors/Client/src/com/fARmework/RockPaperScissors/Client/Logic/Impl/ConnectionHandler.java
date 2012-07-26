@@ -1,40 +1,61 @@
 package com.fARmework.RockPaperScissors.Client.Logic.Impl;
 
-import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+import com.fARmework.RockPaperScissors.Client.Data.ConnectionExceptionData;
+import com.fARmework.RockPaperScissors.Client.Data.ConnectionFaultData;
+import com.fARmework.RockPaperScissors.Client.Data.ConnectionSuccessData;
+import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
+import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
+
+@SuppressWarnings("unchecked")
 public class ConnectionHandler implements IConnectionHandler
 {
-	private IMessageListener _messageListener;
+	@SuppressWarnings("rawtypes")
+	private Map<Class<?>, IDataHandler> _dataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();
 	
 	@Override
-	public void setMessageListener(IMessageListener messageListener)
+	public <T> void registerHandler(Class<T> dataClass, IDataHandler<T> handler)
 	{
-		_messageListener = messageListener;
+		_dataHandlers.put(dataClass, handler);
+	}
+	
+	@Override
+	public void unregisterHandlers()
+	{
+		_dataHandlers.clear();
 	}
 	
 	@Override
 	public void onConnectionSuccess()
 	{
-		_messageListener.onMessage(ResourcesProvider.get(R.string.connection_success));
+		handle(new ConnectionSuccessData());
 	}
 
 	@Override
 	public void onConnectionFault()
 	{
-		_messageListener.onMessage(ResourcesProvider.get(R.string.connection_fault));
+		handle(new ConnectionFaultData());
 	}
 
 	@Override
 	public void onDataReceived(String dataType, Object data)
 	{
-		_messageListener.onMessage(dataType + ": " + data.toString());
+		handle(data);
 	}
 
 	@Override
 	public void onException(Throwable exception)
 	{
-		_messageListener.onMessage(ResourcesProvider.get(R.string.connection_error));
+		handle(new ConnectionExceptionData(exception));
+	}
+	
+	private void handle(Object data)
+	{
+		if (_dataHandlers.containsKey(data.getClass()))
+		{
+			_dataHandlers.get(data.getClass()).handle(data);
+		}
 	}
 }
