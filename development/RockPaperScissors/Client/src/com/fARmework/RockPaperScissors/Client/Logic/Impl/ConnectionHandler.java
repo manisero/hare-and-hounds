@@ -3,22 +3,12 @@ package com.fARmework.RockPaperScissors.Client.Logic.Impl;
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
-import com.fARmework.core.data.IDataService;
-import com.fARmework.core.data.Message;
-import com.google.inject.Inject;
 
 public class ConnectionHandler implements IConnectionHandler
 {
-	private IDataService _dataService;
-	
 	private IMessageListener _messageListener;
 	
-	@Inject
-	public ConnectionHandler(IDataService dataService)
-	{
-		_dataService = dataService;
-	}
-	
+	@Override
 	public void setMessageListener(IMessageListener messageListener)
 	{
 		_messageListener = messageListener;
@@ -37,9 +27,9 @@ public class ConnectionHandler implements IConnectionHandler
 	}
 
 	@Override
-	public void onMessage(Message message)
+	public void onDataReceived(String dataType, Object data)
 	{
-		_messageListener.onMessage(message.getType() + ": " + _dataService.fromMessage(message).toString());
+		_messageListener.onMessage(dataType + ": " + data.toString());
 	}
 
 	@Override
