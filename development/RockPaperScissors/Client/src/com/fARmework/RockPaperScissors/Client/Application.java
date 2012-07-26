@@ -1,7 +1,6 @@
 package com.fARmework.RockPaperScissors.Client;
 
 import com.fARmework.core.data.IDataRegistry;
-import com.fARmework.modules.ScreenGestures.Data.DataRegistrar;
 import com.google.inject.Injector;
 
 import gueei.binding.Binder;
@@ -25,6 +24,7 @@ public class Application extends android.app. Application
 		
 		// Register data
 		IDataRegistry dataRegistry = injector.getInstance(IDataRegistry.class);
-		new DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.RockPaperScissors.Data.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.modules.ScreenGestures.Data.DataRegistrar().registerData(dataRegistry);
     }
 }

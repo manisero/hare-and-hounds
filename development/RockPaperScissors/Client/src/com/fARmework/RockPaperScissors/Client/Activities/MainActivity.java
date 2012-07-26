@@ -10,7 +10,6 @@ public class MainActivity extends RoboBindingActivity
 {
 	@Inject MainViewModel viewModel; 
 	
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
