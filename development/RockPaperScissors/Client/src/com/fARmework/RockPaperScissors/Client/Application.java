@@ -19,9 +19,9 @@ public class Application extends android.app. Application
 		
 		Injector injector = RoboGuice.getInjector(this);
 		
-		// Initialize SettingsProvider and ResourcesProvider
+		// Initialize ResourcesProvider and SettingsProvider
+		ResourcesProvider.setResources(getResources());
 		injector.getInstance(SettingsProvider.class).setResources(getResources());
-		injector.getInstance(ResourcesProvider.class).setResources(getResources());
 		
 		// Register data
 		IDataRegistry dataRegistry = injector.getInstance(IDataRegistry.class);

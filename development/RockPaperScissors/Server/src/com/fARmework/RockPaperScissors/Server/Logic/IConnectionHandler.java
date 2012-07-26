@@ -1,7 +1,8 @@
 package com.fARmework.RockPaperScissors.Server.Logic;
 
-public interface IConnectionHandler
+import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.IDataHandler;
+
+public interface IConnectionHandler extends com.fARmework.core.server.Connection.IConnectionHandler
 {
-	void connect();
-	void send(String message);
+	<T> void registerHandler(Class<T> dataClass, IDataHandler<T> handler);
 }

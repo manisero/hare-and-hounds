@@ -4,9 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.fARmework.core.data.IDataRegistry;
-import com.google.inject.Singleton;
 
-@Singleton
 public class DataRegistry implements IDataRegistry
 {
 	private Map<String, Class<?>> _typeToClassMappings = new LinkedHashMap<String, Class<?>>();

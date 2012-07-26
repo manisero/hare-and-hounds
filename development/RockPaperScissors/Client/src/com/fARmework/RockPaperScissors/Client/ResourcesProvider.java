@@ -6,7 +6,7 @@ public class ResourcesProvider
 {
 	private static Resources _resources;
 	
-	public void setResources(Resources resources)
+	public static void setResources(Resources resources)
 	{
 		_resources = resources;
 	}
