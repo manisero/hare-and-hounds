@@ -47,22 +47,22 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 	}
 	
 	private ISettingsProvider _settingsProvider;
-	private IConnectionHandler _connectionHandler;
 	private IDataService _dataService;
 	
+	private IConnectionHandler _connectionHandler;
 	private Channel _channel;
 	
 	@Inject
-	public NettyConnectionManager(ISettingsProvider settingsProvider, IConnectionHandler connectionHandler, IDataService dataService)
+	public NettyConnectionManager(ISettingsProvider settingsProvider, IDataService dataService)
 	{
 		_settingsProvider = settingsProvider;
-		_connectionHandler = connectionHandler;
 		_dataService = dataService;
 	}
 	
 	@Override
-	public void connect()
+	public void connect(IConnectionHandler connectionHandler)
 	{
+		_connectionHandler = connectionHandler;
 		execute();
 	}
 	

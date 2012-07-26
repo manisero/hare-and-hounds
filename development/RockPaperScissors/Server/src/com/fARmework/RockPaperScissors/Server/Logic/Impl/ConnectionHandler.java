@@ -4,22 +4,11 @@ import java.util.*;
 
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.IDataHandler;
-import com.fARmework.core.server.Connection.IConnectionManager;
-
-import com.google.inject.Inject;
 
 public class ConnectionHandler implements IConnectionHandler
 {
-	private IConnectionManager _connectionManager;
-	
 	@SuppressWarnings("rawtypes")
 	private Map<Class<?>, IDataHandler> _dataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();
-	
-	@Inject
-	public ConnectionHandler(IConnectionManager connectionManager)
-	{
-		_connectionManager = connectionManager;
-	}
 	
 	@Override
 	public <T> void registerHandler(Class<T> dataClass, IDataHandler<T> handler)
@@ -32,7 +21,6 @@ public class ConnectionHandler implements IConnectionHandler
 	{
 		System.out.println("Client connected (clientID = " + clientID + ")");
 		System.out.println();
-		_connectionManager.send("Welcome", clientID);
 	}
 
 	@Override
@@ -62,13 +50,10 @@ public class ConnectionHandler implements IConnectionHandler
 		{
 			System.out.println("Could not process " + dataTypeName);
 			System.out.println();
-			_connectionManager.send("Could not process " + dataTypeName);
 			
 			return;
 		}
 		
 		_dataHandlers.get(data.getClass()).handle(clientID, data);
-		
-		_connectionManager.send(dataTypeName + " processed successfully", clientID);
 	}
 }

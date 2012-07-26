@@ -60,7 +60,7 @@ public class GameManager implements IGameManager
 	@Override
 	public void run()
 	{
-		_connectionManager.startConnection();
+		_connectionManager.startConnection(_connectionHandler);
 		
 		_connectionHandler.registerHandler(CreateGameRequest.class, new IDataHandler<CreateGameRequest>()
 		{

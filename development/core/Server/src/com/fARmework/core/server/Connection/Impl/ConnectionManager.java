@@ -48,22 +48,23 @@ public class ConnectionManager implements IConnectionManager
 	}
 	
 	private ISettingsProvider _settingsProvider;
-	private IConnectionHandler _connectionHandler;
 	private IDataService _dataService;
 	
+	private IConnectionHandler _connectionHandler;
 	private Map<Integer, Channel> _channels = new LinkedHashMap<Integer, Channel>();
 	
 	@Inject
-	public ConnectionManager(ISettingsProvider settingsProvider, IConnectionHandler connectionHandler, IDataService dataService)
+	public ConnectionManager(ISettingsProvider settingsProvider, IDataService dataService)
 	{
 		_settingsProvider = settingsProvider;
-		_connectionHandler = connectionHandler;
 		_dataService = dataService;
 	}
 	
 	@Override
-	public void startConnection()
+	public void startConnection(IConnectionHandler connectionHandler)
 	{
+		_connectionHandler = connectionHandler;
+		
 		ServerBootstrap bootstrap = new ServerBootstrap(
 				new NioServerSocketChannelFactory(
 						Executors.newCachedThreadPool(),
