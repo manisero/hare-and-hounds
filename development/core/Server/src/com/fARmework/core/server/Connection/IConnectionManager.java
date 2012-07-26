@@ -4,7 +4,7 @@ import java.util.*;
 
 public interface IConnectionManager 
 {
-	void startConnection();
+	void startConnection(IConnectionHandler connectionHandler);
 	
 	void send(Object data);
 	void send(Object data, int clientID);

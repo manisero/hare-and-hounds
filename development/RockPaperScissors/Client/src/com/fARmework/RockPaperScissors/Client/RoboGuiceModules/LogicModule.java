@@ -9,6 +9,6 @@ public class LogicModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
-		bind(IConnectionHandler.class).to(ConnectionHandler.class).asEagerSingleton();
+		bind(IConnectionHandler.class).to(ConnectionHandler.class);
 	}
 }

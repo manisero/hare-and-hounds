@@ -20,6 +20,7 @@ import gueei.binding.observables.StringObservable;
 public class GameModeViewModel
 {
 	private IConnectionManager _connectionManager;
+	private IConnectionHandler _connectionHandler;
 	
 	public StringObservable status = new StringObservable();
 	
@@ -30,7 +31,7 @@ public class GameModeViewModel
 		{
 			status.set(ResourcesProvider.get(R.string.connection_connecting));
 			_isHost = true;
-			_connectionManager.connect();
+			_connectionManager.connect(_connectionHandler);
 		}
 	};
 	
@@ -41,7 +42,7 @@ public class GameModeViewModel
 		{
 			status.set(ResourcesProvider.get(R.string.connection_connecting));
 			_isHost = false;
-			_connectionManager.connect();
+			_connectionManager.connect(_connectionHandler);
 		}
 	};
 	
@@ -51,6 +52,7 @@ public class GameModeViewModel
 	public GameModeViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler)
 	{
 		_connectionManager = connectionManager;
+		_connectionHandler = connectionHandler;
 		
 		connectionHandler.registerHandler(ConnectionSuccessData.class, new IDataHandler<ConnectionSuccessData>()
 		{
