@@ -9,5 +9,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RockPaperScissors.Data"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

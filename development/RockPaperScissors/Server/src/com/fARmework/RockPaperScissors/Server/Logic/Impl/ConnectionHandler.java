@@ -2,8 +2,8 @@ package com.fARmework.RockPaperScissors.Server.Logic.Impl;
 
 import java.util.*;
 
+import com.fARmework.RockPaperScissors.Data.IDataHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.IConnectionHandler;
-import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.IDataHandler;
 import com.fARmework.core.server.Connection.IConnectionManager;
 
 import com.google.inject.Inject;

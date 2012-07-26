@@ -16,3 +16,4 @@ development/modules/ScreenGestures/bin/*
 development/RockPaperScissors/Client/bin/*
 development/RockPaperScissors/Server/bin/*
 development/modules/ScreenGestures.Data/bin/*
+development/RockPaperScissors/Data/bin/*

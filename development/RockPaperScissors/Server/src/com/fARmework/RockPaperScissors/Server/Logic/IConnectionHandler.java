@@ -1,6 +1,6 @@
 package com.fARmework.RockPaperScissors.Server.Logic;
 
-import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.IDataHandler;
+import com.fARmework.RockPaperScissors.Data.IDataHandler;
 
 public interface IConnectionHandler extends com.fARmework.core.server.Connection.IConnectionHandler
 {

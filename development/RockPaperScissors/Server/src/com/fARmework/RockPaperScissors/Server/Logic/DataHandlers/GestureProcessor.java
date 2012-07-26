@@ -1,5 +1,6 @@
 package com.fARmework.RockPaperScissors.Server.Logic.DataHandlers;
 
+import com.fARmework.RockPaperScissors.Data.IDataHandler;
 import com.fARmework.modules.ScreenGestures.Data.GestureData;
 import com.fARmework.modules.ScreenGestures.Data.GestureData.Point;
 import java.awt.*;
