@@ -5,7 +5,7 @@ import gueei.binding.observables.StringObservable;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
 import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
 import com.fARmework.core.client.Connection.IConnectionManager;

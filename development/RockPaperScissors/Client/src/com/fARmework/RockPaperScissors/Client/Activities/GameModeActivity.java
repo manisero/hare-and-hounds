@@ -1,19 +1,13 @@
 package com.fARmework.RockPaperScissors.Client.Activities;
 
-import android.os.Bundle;
-
-import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel;
-import com.google.inject.Inject;
 
-public class GameModeActivity extends RoboBindingActivity
+public class GameModeActivity extends BoundActivity<GameModeViewModel>
 {
-	@Inject GameModeViewModel viewModel; 
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+	@Override
+    public void onBackPressed()
     {
-        super.onCreate(savedInstanceState);
-        setAndBindRootView(R.layout.game_mode, viewModel);
+    	viewModel.disconnect();
+    	super.onBackPressed();
     }
 }
