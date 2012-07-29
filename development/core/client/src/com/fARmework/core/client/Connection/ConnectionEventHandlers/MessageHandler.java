@@ -4,18 +4,16 @@ import com.fARmework.core.client.Connection.IConnectionHandler;
 
 public class MessageHandler implements IConnectionEventHandler
 {
-	private String _dataType;
 	private Object _data;
 	
-	public MessageHandler(String dataType, Object data)
+	public MessageHandler(Object data)
 	{
-		_dataType = dataType;
 		_data = data;
 	}
 
 	@Override
 	public void handleWith(IConnectionHandler connectionHandler)
 	{
-		connectionHandler.onDataReceived(_dataType, _data);
+		connectionHandler.onDataReceived(_data);
 	}
 }
