@@ -24,7 +24,7 @@ public class MainViewModel
 		public void Invoke(View v, Object... args)
 		{
 			message.set(ResourcesProvider.get(R.string.connection_connecting));
-			_connectionManager.connect(_connectionHandler);
+			_connectionManager.connect();
 		}
 	};
 	

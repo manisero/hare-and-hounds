@@ -26,7 +26,7 @@ public class GameModeViewModel extends ViewModel
 		public void Invoke(View arg0, Object... arg1)
 		{
 			status.set(ResourcesProvider.get(R.string.connection_connecting));
-			ConnectionManager.connect(ConnectionHandler);
+			ConnectionManager.connect();
 		}
 	};
 	
