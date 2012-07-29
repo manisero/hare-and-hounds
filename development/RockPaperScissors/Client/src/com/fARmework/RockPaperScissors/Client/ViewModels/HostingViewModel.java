@@ -7,11 +7,11 @@ import android.view.View;
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
-import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
 import com.fARmework.RockPaperScissors.Data.CreateGameRequest;
 import com.fARmework.RockPaperScissors.Data.CreateGameResponse;
+import com.fARmework.core.client.Connection.IConnectionHandler;
 import com.fARmework.core.client.Connection.IConnectionManager;
+import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
 
 public class HostingViewModel extends ViewModel

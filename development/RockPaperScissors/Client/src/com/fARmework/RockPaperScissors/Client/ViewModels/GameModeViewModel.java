@@ -1,15 +1,15 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Data.ConnectionFaultData;
-import com.fARmework.RockPaperScissors.Client.Data.ConnectionSuccessData;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
-import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListResponse;
+import com.fARmework.core.client.Connection.IConnectionHandler;
 import com.fARmework.core.client.Connection.IConnectionManager;
+import com.fARmework.core.client.Connection.IDataHandler;
+import com.fARmework.core.client.Data.ConnectionFaultData;
+import com.fARmework.core.client.Data.ConnectionSuccessData;
 import com.google.inject.Inject;
 
 import android.view.View;

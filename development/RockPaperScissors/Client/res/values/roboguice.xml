@@ -3,6 +3,5 @@
 	<string-array name="roboguice_modules">
 	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.CoreModule</item>
 	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.InfrastructureModule</item>
-	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.LogicModule</item>
 	</string-array>
 </resources>

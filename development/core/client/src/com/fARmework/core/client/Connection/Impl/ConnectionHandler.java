@@ -1,13 +1,13 @@
-package com.fARmework.RockPaperScissors.Client.Logic.Impl;
+package com.fARmework.core.client.Connection.Impl;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.fARmework.RockPaperScissors.Client.Data.ConnectionExceptionData;
-import com.fARmework.RockPaperScissors.Client.Data.ConnectionFaultData;
-import com.fARmework.RockPaperScissors.Client.Data.ConnectionSuccessData;
-import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
-import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
+import com.fARmework.core.client.Connection.IConnectionHandler;
+import com.fARmework.core.client.Connection.IDataHandler;
+import com.fARmework.core.client.Data.ConnectionExceptionData;
+import com.fARmework.core.client.Data.ConnectionFaultData;
+import com.fARmework.core.client.Data.ConnectionSuccessData;
 
 @SuppressWarnings("unchecked")
 public class ConnectionHandler implements IConnectionHandler

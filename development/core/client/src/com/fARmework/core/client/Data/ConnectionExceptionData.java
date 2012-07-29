@@ -1,4 +1,4 @@
-package com.fARmework.RockPaperScissors.Client.Data;
+package com.fARmework.core.client.Data;
 
 public class ConnectionExceptionData
 {
