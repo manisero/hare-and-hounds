@@ -1,0 +1,18 @@
+syntax: regexp
+creativity/Android/Accelerometer/bin/*
+creativity/Android/Binding/bin/*
+creativity/Android/Compass/bin/*
+creativity/Android/GPS/bin/*
+creativity/Android/JSON/bin/*
+creativity/Java/Client/bin/*
+creativity/Java/DI/bin/*
+creativity/Java/NettyClient/bin/*
+development/core/client/bin/*
+development/core/Client/bin/*
+development/core/Data/bin/*
+development/core/Server/bin/*
+development/modules/ScreenGestures/bin/*
+development/modules/ScreenGestures.Data/bin/*
+development/RockPaperScissors/Client/bin/*
+development/RockPaperScissors/Data/bin/*
+development/RockPaperScissors/Server/bin/*
