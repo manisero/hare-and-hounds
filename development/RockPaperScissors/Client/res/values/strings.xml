@@ -9,6 +9,8 @@
     <string name="connection_fault">Connection failed</string>
     <string name="connection_error">Connection error</string>
     
+    <string name="hosting_waiting">Waiting for guest&#8230;</string> <!-- "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) -->
+    
     <string name="mode_create">Create</string>
     <string name="mode_join">Join</string>
     

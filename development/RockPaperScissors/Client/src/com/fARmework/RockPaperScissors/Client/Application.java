@@ -1,5 +1,7 @@
 package com.fARmework.RockPaperScissors.Client;
 
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.SettingsProvider;
 import com.fARmework.core.data.IDataRegistry;
 import com.google.inject.Injector;
 

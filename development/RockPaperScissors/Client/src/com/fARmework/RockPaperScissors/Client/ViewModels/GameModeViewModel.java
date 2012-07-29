@@ -1,13 +1,11 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Data.ConnectionFaultData;
 import com.fARmework.RockPaperScissors.Client.Data.ConnectionSuccessData;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
 import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
-import com.fARmework.RockPaperScissors.Data.CreateGameRequest;
-import com.fARmework.RockPaperScissors.Data.CreateGameResponse;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListResponse;
 import com.fARmework.core.client.Connection.IConnectionManager;
@@ -17,21 +15,40 @@ import android.view.View;
 import gueei.binding.Command;
 import gueei.binding.observables.StringObservable;
 
-public class GameModeViewModel
+public class GameModeViewModel extends ViewModel
 {
-	private IConnectionManager _connectionManager;
-	private IConnectionHandler _connectionHandler;
+	public interface IGameCreationListener
+	{
+		void onGameCreation();
+	}
+	
+	public interface IGameJoinListener
+	{
+		void onGameJoin();
+	}
+	
+	private IGameCreationListener _gameCreationListener;
+	private IGameJoinListener _gameJoinListener;
 	
 	public StringObservable status = new StringObservable();
+	
+	public Command connect = new Command()
+	{
+		@Override
+		public void Invoke(View arg0, Object... arg1)
+		{
+			status.set(ResourcesProvider.get(R.string.connection_connecting));
+			ConnectionManager.connect(ConnectionHandler);
+		}
+	};
 	
 	public Command create = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			status.set(ResourcesProvider.get(R.string.connection_connecting));
-			_isHost = true;
-			_connectionManager.connect(_connectionHandler);
+			if (_gameCreationListener != null)
+				_gameCreationListener.onGameCreation();
 		}
 	};
 	
@@ -40,39 +57,25 @@ public class GameModeViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			status.set(ResourcesProvider.get(R.string.connection_connecting));
-			_isHost = false;
-			_connectionManager.connect(_connectionHandler);
+			ConnectionManager.send(new GameListRequest());
 		}
 	};
-	
-	private boolean _isHost = false;
 	
 	@Inject
 	public GameModeViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler)
 	{
-		_connectionManager = connectionManager;
-		_connectionHandler = connectionHandler;
+		super(connectionManager, connectionHandler);
 		
-		connectionHandler.registerHandler(ConnectionSuccessData.class, new IDataHandler<ConnectionSuccessData>()
+		ConnectionHandler.registerHandler(ConnectionSuccessData.class, new IDataHandler<ConnectionSuccessData>()
 		{
 			@Override
 			public void handle(ConnectionSuccessData data)
 			{
 				status.set(ResourcesProvider.get(R.string.connection_success));
-				
-				if (_isHost)
-				{
-					_connectionManager.send(new CreateGameRequest());
-				}
-				else
-				{
-					_connectionManager.send(new GameListRequest());
-				}
 			}
 		});
 		
-		connectionHandler.registerHandler(ConnectionFaultData.class, new IDataHandler<ConnectionFaultData>()
+		ConnectionHandler.registerHandler(ConnectionFaultData.class, new IDataHandler<ConnectionFaultData>()
 		{
 			@Override
 			public void handle(ConnectionFaultData data)
@@ -81,16 +84,7 @@ public class GameModeViewModel
 			}
 		});
 		
-		connectionHandler.registerHandler(CreateGameResponse.class, new IDataHandler<CreateGameResponse>()
-		{
-			@Override
-			public void handle(CreateGameResponse data)
-			{
-				status.set("game created");
-			}
-		});
-		
-		connectionHandler.registerHandler(GameListResponse.class, new IDataHandler<GameListResponse>()
+		ConnectionHandler.registerHandler(GameListResponse.class, new IDataHandler<GameListResponse>()
 		{
 			@Override
 			public void handle(GameListResponse data)
@@ -103,7 +97,25 @@ public class GameModeViewModel
 				}
 				
 				status.set("games: " + games);
+				
+				if (_gameJoinListener != null)
+					_gameJoinListener.onGameJoin();
 			}
 		});
+	}
+	
+	public void setGameCreationListener(IGameCreationListener gameCreationListener)
+	{
+		_gameCreationListener = gameCreationListener;
+	}
+	
+	public void setGameJoinListener(IGameJoinListener gameJoinListener)
+	{
+		_gameJoinListener = gameJoinListener;
+	}
+	
+	public void disconnect()
+	{
+		ConnectionManager.disconnect();
 	}
 }

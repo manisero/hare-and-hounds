@@ -1,7 +1,8 @@
-package com.fARmework.RockPaperScissors.Client;
+package com.fARmework.RockPaperScissors.Client.Infrastructure;
 
 import android.content.res.Resources;
 
+import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
 import com.google.inject.Singleton;
 

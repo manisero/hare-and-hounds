@@ -1,6 +1,6 @@
 package com.fARmework.RockPaperScissors.Client.RoboGuiceModules;
 
-import com.fARmework.RockPaperScissors.Client.SettingsProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.SettingsProvider;
 import com.fARmework.core.client.Connection.IConnectionHandler;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.Impl.NettyConnectionManager;
@@ -24,7 +24,7 @@ public class CoreModule extends AbstractModule
 		bind(ISettingsProvider.class).to(SettingsProvider.class);
 		
 		// core.Client.Connection
-		bind(IConnectionManager.class).to(NettyConnectionManager.class);
+		bind(IConnectionManager.class).to(NettyConnectionManager.class).asEagerSingleton();
 		bind(IConnectionHandler.class).to(com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler.class);
 	}
 }
