@@ -5,6 +5,7 @@ import gueei.binding.observables.StringObservable;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
 import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
@@ -28,9 +29,9 @@ public class HostingViewModel extends ViewModel
 	public StringObservable status = new StringObservable();
 	
 	@Inject
-	public HostingViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler)
+	public HostingViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler, IActivitiesManager activitiesManager)
 	{
-		super(connectionManager, connectionHandler);
+		super(connectionManager, connectionHandler, activitiesManager);
 		
 		connectionHandler.registerHandler(CreateGameResponse.class, new IDataHandler<CreateGameResponse>()
 		{
