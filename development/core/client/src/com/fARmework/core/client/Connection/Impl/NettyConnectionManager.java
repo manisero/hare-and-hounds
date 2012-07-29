@@ -9,7 +9,9 @@ import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.jboss.netty.handler.codec.serialization.*;
 
 import com.fARmework.core.client.Connection.*;
-import com.fARmework.core.client.Connection.ConnectionEventHandlers.*;
+import com.fARmework.core.client.Data.ConnectionExceptionData;
+import com.fARmework.core.client.Data.ConnectionFaultData;
+import com.fARmework.core.client.Data.ConnectionSuccessData;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
 import com.fARmework.core.data.IDataService;
 import com.fARmework.core.data.Message;
@@ -18,7 +20,7 @@ import com.google.inject.Inject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHandler, Void> implements IConnectionManager
+public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implements IConnectionManager
 {
 	private class ChannelHandler extends SimpleChannelUpstreamHandler
 	{
@@ -26,7 +28,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		public void channelConnected(ChannelHandlerContext context, ChannelStateEvent event)
 		{
 			Log.i("Connected", "Connected to server");
-			publishProgress(new ConnectionSuccessHandler());
+			publishProgress(new ConnectionSuccessData());
 		}
 		
 		@Override
@@ -34,7 +36,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		{
 			Log.i("Message", event.getMessage().toString());
 			Message message = _dataService.deserializeMessage(event.getMessage().toString());
-			publishProgress(new MessageHandler(_dataService.fromMessage(message)));
+			publishProgress(_dataService.fromMessage(message));
 		}
 		
 		@Override
@@ -42,7 +44,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		{
 			event.getCause().printStackTrace();
 			event.getChannel().close();
-			publishProgress(new ExceptionHandler(event.getCause()));
+			publishProgress(new ConnectionExceptionData(event.getCause()));
 		}
 	}
 	
@@ -93,18 +95,18 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		{
 			future.getCause().printStackTrace();
 			bootstrap.releaseExternalResources();
-			publishProgress(new ConnectionFaultHandler());
+			publishProgress(new ConnectionFaultData());
 		}
 		
 		return null;
 	}
 	
 	@Override
-	protected void onProgressUpdate(IConnectionEventHandler... eventHandlers)
+	protected void onProgressUpdate(Object... data)
 	{
-		for (IConnectionEventHandler eventHandler : eventHandlers)
+		for (Object dataPiece : data)
 		{
-			eventHandler.handleWith(_connectionHandler);
+			_connectionHandler.onDataReceived(dataPiece);
 		}
 	}
 	
