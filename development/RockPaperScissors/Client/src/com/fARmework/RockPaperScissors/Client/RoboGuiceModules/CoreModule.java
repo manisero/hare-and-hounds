@@ -26,6 +26,6 @@ public class CoreModule extends AbstractModule
 		
 		// core.Client.Connection
 		bind(IConnectionManager.class).to(NettyConnectionManager.class).asEagerSingleton();
-		bind(IConnectionHandler.class).to(ConnectionHandler.class);
+		bind(IConnectionHandler.class).to(ConnectionHandler.class).asEagerSingleton();
 	}
 }
