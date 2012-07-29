@@ -1,6 +1,8 @@
 package com.fARmework.core.client.Connection.Impl;
 
 import java.net.InetSocketAddress;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 import org.jboss.netty.bootstrap.ClientBootstrap;
@@ -9,9 +11,7 @@ import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.jboss.netty.handler.codec.serialization.*;
 
 import com.fARmework.core.client.Connection.*;
-import com.fARmework.core.client.Data.ConnectionExceptionData;
-import com.fARmework.core.client.Data.ConnectionFaultData;
-import com.fARmework.core.client.Data.ConnectionSuccessData;
+import com.fARmework.core.client.Data.*;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
 import com.fARmework.core.data.IDataService;
 import com.fARmework.core.data.Message;
@@ -48,15 +48,16 @@ public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implem
 		}
 	}
 	
-	private IConnectionHandler _connectionHandler;
 	private ISettingsProvider _settingsProvider;
 	private IDataService _dataService;
+	
+	@SuppressWarnings("rawtypes")
+	private Map<Class<?>, IDataHandler> _dataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();
 	private Channel _channel;
 	
 	@Inject
-	public NettyConnectionManager(IConnectionHandler connectionHandler, ISettingsProvider settingsProvider, IDataService dataService)
+	public NettyConnectionManager(ISettingsProvider settingsProvider, IDataService dataService)
 	{
-		_connectionHandler = connectionHandler;
 		_settingsProvider = settingsProvider;
 		_dataService = dataService;
 	}
@@ -101,21 +102,16 @@ public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implem
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onProgressUpdate(Object... data)
 	{
 		for (Object dataPiece : data)
 		{
-			_connectionHandler.onDataReceived(dataPiece);
-		}
-	}
-	
-	@Override
-	public void send(Object data)
-	{
-		if (_channel != null)
-		{
-			_channel.write(_dataService.toSerializedMessage(data));
+			if (_dataHandlers.containsKey(dataPiece.getClass()))
+			{
+				_dataHandlers.get(dataPiece.getClass()).handle(dataPiece);
+			}
 		}
 	}
 	
@@ -125,6 +121,27 @@ public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implem
 		if (_channel != null)
 		{
 			_channel.close();
+		}
+	}
+	
+	@Override
+	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler)
+	{
+		_dataHandlers.put(dataClass, handler);
+	}
+	
+	@Override
+	public void clearDataHandlers()
+	{
+		_dataHandlers.clear();
+	}
+	
+	@Override
+	public void send(Object data)
+	{
+		if (_channel != null)
+		{
+			_channel.write(_dataService.toSerializedMessage(data));
 		}
 	}
 }

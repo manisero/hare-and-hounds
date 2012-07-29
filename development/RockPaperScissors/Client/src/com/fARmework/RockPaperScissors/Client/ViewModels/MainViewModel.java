@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.core.client.Connection.IConnectionHandler;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
@@ -14,7 +13,6 @@ import com.google.inject.Inject;
 public class MainViewModel
 {
 	private IConnectionManager _connectionManager;
-	private IConnectionHandler _connectionHandler;
 	
 	public StringObservable message = new StringObservable();
 	
@@ -38,12 +36,11 @@ public class MainViewModel
 	};
 	
 	@Inject
-	public MainViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler)
+	public MainViewModel(IConnectionManager connectionManager)
 	{
 		_connectionManager = connectionManager;
-		_connectionHandler = connectionHandler;
 		
-		_connectionHandler.registerHandler(String.class, new IDataHandler<String>()
+		_connectionManager.registerDataHandler(String.class, new IDataHandler<String>()
 		{
 			@Override
 			public void handle(String data)
