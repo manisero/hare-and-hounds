@@ -5,9 +5,6 @@ import java.util.Map;
 
 import com.fARmework.core.client.Connection.IConnectionHandler;
 import com.fARmework.core.client.Connection.IDataHandler;
-import com.fARmework.core.client.Data.ConnectionExceptionData;
-import com.fARmework.core.client.Data.ConnectionFaultData;
-import com.fARmework.core.client.Data.ConnectionSuccessData;
 
 @SuppressWarnings("unchecked")
 public class ConnectionHandler implements IConnectionHandler
@@ -26,29 +23,11 @@ public class ConnectionHandler implements IConnectionHandler
 	{
 		_dataHandlers.clear();
 	}
-	
-	@Override
-	public void onConnectionSuccess()
-	{
-		handle(new ConnectionSuccessData());
-	}
 
 	@Override
-	public void onConnectionFault()
-	{
-		handle(new ConnectionFaultData());
-	}
-
-	@Override
-	public void onDataReceived(String dataType, Object data)
+	public void onDataReceived(Object data)
 	{
 		handle(data);
-	}
-
-	@Override
-	public void onException(Throwable exception)
-	{
-		handle(new ConnectionExceptionData(exception));
 	}
 	
 	private void handle(Object data)

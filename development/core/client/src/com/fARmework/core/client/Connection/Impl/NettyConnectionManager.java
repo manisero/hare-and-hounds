@@ -34,7 +34,7 @@ public class NettyConnectionManager extends AsyncTask<Void, IConnectionEventHand
 		{
 			Log.i("Message", event.getMessage().toString());
 			Message message = _dataService.deserializeMessage(event.getMessage().toString());
-			publishProgress(new MessageHandler(message.getType(), _dataService.fromMessage(message)));
+			publishProgress(new MessageHandler(_dataService.fromMessage(message)));
 		}
 		
 		@Override

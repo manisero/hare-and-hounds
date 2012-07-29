@@ -1,6 +1,7 @@
 package com.fARmework.core.client.Connection.ConnectionEventHandlers;
 
 import com.fARmework.core.client.Connection.IConnectionHandler;
+import com.fARmework.core.client.Data.ConnectionExceptionData;
 
 public class ExceptionHandler implements IConnectionEventHandler
 {
@@ -14,6 +15,6 @@ public class ExceptionHandler implements IConnectionEventHandler
 	@Override
 	public void handleWith(IConnectionHandler connectionHandler)
 	{
-		connectionHandler.onException(_exception);
+		connectionHandler.onDataReceived(new ConnectionExceptionData(_exception));
 	}
 }
