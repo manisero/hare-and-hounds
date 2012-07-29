@@ -68,7 +68,7 @@ public class GameManager implements IGameManager
 			public void handle(int clientID, CreateGameRequest data)
 			{
 				_games.add(new Game(clientID));
-				_connectionManager.send(new CreateGameResponse());
+				_connectionManager.send(new CreateGameResponse(), clientID);
 			}
 		});
 		
@@ -84,7 +84,7 @@ public class GameManager implements IGameManager
 					hostIDs.add(game.getHostID());
 				}
 				
-				_connectionManager.send(new GameListResponse(hostIDs));
+				_connectionManager.send(new GameListResponse(hostIDs), clientID);
 			}
 		});
 	}
