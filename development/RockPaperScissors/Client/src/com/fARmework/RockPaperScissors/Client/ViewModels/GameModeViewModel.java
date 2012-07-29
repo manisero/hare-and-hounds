@@ -3,6 +3,7 @@ package com.fARmework.RockPaperScissors.Client.ViewModels;
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Data.ConnectionFaultData;
 import com.fARmework.RockPaperScissors.Client.Data.ConnectionSuccessData;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Logic.IConnectionHandler;
 import com.fARmework.RockPaperScissors.Client.Logic.IDataHandler;
@@ -17,19 +18,6 @@ import gueei.binding.observables.StringObservable;
 
 public class GameModeViewModel extends ViewModel
 {
-	public interface IGameCreationListener
-	{
-		void onGameCreation();
-	}
-	
-	public interface IGameJoinListener
-	{
-		void onGameJoin();
-	}
-	
-	private IGameCreationListener _gameCreationListener;
-	private IGameJoinListener _gameJoinListener;
-	
 	public StringObservable status = new StringObservable();
 	
 	public Command connect = new Command()
@@ -47,8 +35,7 @@ public class GameModeViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			if (_gameCreationListener != null)
-				_gameCreationListener.onGameCreation();
+			ActivitiesManager.startActivity(HostingViewModel.class);
 		}
 	};
 	
@@ -62,9 +49,9 @@ public class GameModeViewModel extends ViewModel
 	};
 	
 	@Inject
-	public GameModeViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler)
+	public GameModeViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler, IActivitiesManager activitiesManager)
 	{
-		super(connectionManager, connectionHandler);
+		super(connectionManager, connectionHandler, activitiesManager);
 		
 		ConnectionHandler.registerHandler(ConnectionSuccessData.class, new IDataHandler<ConnectionSuccessData>()
 		{
@@ -97,21 +84,8 @@ public class GameModeViewModel extends ViewModel
 				}
 				
 				status.set("games: " + games);
-				
-				if (_gameJoinListener != null)
-					_gameJoinListener.onGameJoin();
 			}
 		});
-	}
-	
-	public void setGameCreationListener(IGameCreationListener gameCreationListener)
-	{
-		_gameCreationListener = gameCreationListener;
-	}
-	
-	public void setGameJoinListener(IGameJoinListener gameJoinListener)
-	{
-		_gameJoinListener = gameJoinListener;
 	}
 	
 	public void disconnect()
