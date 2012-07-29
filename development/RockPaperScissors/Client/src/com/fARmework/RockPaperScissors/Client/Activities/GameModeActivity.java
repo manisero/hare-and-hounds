@@ -1,34 +1,10 @@
 package com.fARmework.RockPaperScissors.Client.Activities;
 
-import android.content.Intent;
-import android.os.Bundle;
-
-import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel;
-import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel.IGameCreationListener;
-import com.google.inject.Inject;
 
-public class GameModeActivity extends RoboBindingActivity
+public class GameModeActivity extends BoundActivity<GameModeViewModel>
 {
-	@Inject GameModeViewModel viewModel; 
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setAndBindRootView(R.layout.game_mode, viewModel);
-        
-        viewModel.setGameCreationListener(new IGameCreationListener()
-		{
-			@Override
-			public void onGameCreation()
-			{
-				startActivity(new Intent(GameModeActivity.this, HostingActivity.class));
-			}
-		});
-    }
-    
-    @Override
+	@Override
     public void onBackPressed()
     {
     	viewModel.disconnect();
