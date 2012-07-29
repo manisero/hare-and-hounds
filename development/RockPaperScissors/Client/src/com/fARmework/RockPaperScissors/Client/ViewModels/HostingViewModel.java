@@ -9,7 +9,6 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Data.CreateGameRequest;
 import com.fARmework.RockPaperScissors.Data.CreateGameResponse;
-import com.fARmework.core.client.Connection.IConnectionHandler;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
@@ -29,11 +28,11 @@ public class HostingViewModel extends ViewModel
 	public StringObservable status = new StringObservable();
 	
 	@Inject
-	public HostingViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler, IActivitiesManager activitiesManager)
+	public HostingViewModel(IConnectionManager connectionManager, IActivitiesManager activitiesManager)
 	{
-		super(connectionManager, connectionHandler, activitiesManager);
+		super(connectionManager, activitiesManager);
 		
-		connectionHandler.registerHandler(CreateGameResponse.class, new IDataHandler<CreateGameResponse>()
+		ConnectionManager.registerDataHandler(CreateGameResponse.class, new IDataHandler<CreateGameResponse>()
 		{
 			@Override
 			public void handle(CreateGameResponse data)

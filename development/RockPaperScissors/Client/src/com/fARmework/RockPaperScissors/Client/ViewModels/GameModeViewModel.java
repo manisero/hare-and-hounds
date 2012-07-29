@@ -5,7 +5,6 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListResponse;
-import com.fARmework.core.client.Connection.IConnectionHandler;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.fARmework.core.client.Data.ConnectionFaultData;
@@ -49,11 +48,11 @@ public class GameModeViewModel extends ViewModel
 	};
 	
 	@Inject
-	public GameModeViewModel(IConnectionManager connectionManager, IConnectionHandler connectionHandler, IActivitiesManager activitiesManager)
+	public GameModeViewModel(IConnectionManager connectionManager, IActivitiesManager activitiesManager)
 	{
-		super(connectionManager, connectionHandler, activitiesManager);
+		super(connectionManager, activitiesManager);
 		
-		ConnectionHandler.registerHandler(ConnectionSuccessData.class, new IDataHandler<ConnectionSuccessData>()
+		ConnectionManager.registerDataHandler(ConnectionSuccessData.class, new IDataHandler<ConnectionSuccessData>()
 		{
 			@Override
 			public void handle(ConnectionSuccessData data)
@@ -62,7 +61,7 @@ public class GameModeViewModel extends ViewModel
 			}
 		});
 		
-		ConnectionHandler.registerHandler(ConnectionFaultData.class, new IDataHandler<ConnectionFaultData>()
+		ConnectionManager.registerDataHandler(ConnectionFaultData.class, new IDataHandler<ConnectionFaultData>()
 		{
 			@Override
 			public void handle(ConnectionFaultData data)
@@ -71,7 +70,7 @@ public class GameModeViewModel extends ViewModel
 			}
 		});
 		
-		ConnectionHandler.registerHandler(GameListResponse.class, new IDataHandler<GameListResponse>()
+		ConnectionManager.registerDataHandler(GameListResponse.class, new IDataHandler<GameListResponse>()
 		{
 			@Override
 			public void handle(GameListResponse data)
