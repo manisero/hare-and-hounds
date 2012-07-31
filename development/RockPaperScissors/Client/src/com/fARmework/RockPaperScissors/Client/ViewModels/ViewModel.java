@@ -1,16 +1,16 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.core.client.Connection.IConnectionManager;
 
 public abstract class ViewModel
 {
 	protected IConnectionManager ConnectionManager;
-	protected IActivitiesManager ActivitiesManager;
+	protected INavigationManager NavigationManager;
 	
-	protected ViewModel(IConnectionManager connectionManager, IActivitiesManager activitiesManager)
+	protected ViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
 		ConnectionManager = connectionManager;
-		ActivitiesManager = activitiesManager;
+		NavigationManager = navigationManager;
 	}
 }

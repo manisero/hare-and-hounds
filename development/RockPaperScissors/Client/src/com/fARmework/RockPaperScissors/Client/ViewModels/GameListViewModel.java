@@ -8,7 +8,7 @@ import gueei.binding.observables.StringObservable;
 
 import android.view.View;
 
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListResponse;
 import com.fARmework.core.client.Connection.IConnectionManager;
@@ -39,9 +39,9 @@ public class GameListViewModel extends ViewModel
 	};
 	
 	@Inject
-	public GameListViewModel(IConnectionManager connectionManager, IActivitiesManager activitiesManager)
+	public GameListViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
-		super(connectionManager, activitiesManager);
+		super(connectionManager, navigationManager);
 		
 		ConnectionManager.registerDataHandler(GameListResponse.class, new IDataHandler<GameListResponse>()
 		{

@@ -8,7 +8,7 @@ import com.fARmework.RockPaperScissors.Client.Activities.BoundActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameListActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameModeActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.HostingActivity;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameListViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.HostingViewModel;
@@ -17,14 +17,14 @@ import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 import android.content.Intent;
 
 @SuppressWarnings("rawtypes")
-public class ActivitiesManager implements IActivitiesManager
+public class NavigationManager implements INavigationManager
 {
 	private Map<Class<? extends ViewModel>, Integer> _layouts = new LinkedHashMap<Class<? extends ViewModel>, Integer>();
 	private Map<Class<? extends ViewModel>, Class<? extends BoundActivity>> _activities = new LinkedHashMap<Class<? extends ViewModel>, Class<? extends BoundActivity>>();
 	
 	private BoundActivity _currentActivity;
 
-	public ActivitiesManager()
+	public NavigationManager()
 	{
 		// GameMode
 		_layouts.put(GameModeViewModel.class, R.layout.game_mode);
@@ -52,7 +52,7 @@ public class ActivitiesManager implements IActivitiesManager
 	}
 	
 	@Override
-	public <T extends ViewModel> void startActivity(Class<T> viewModelClass)
+	public <T extends ViewModel> void navigateTo(Class<T> viewModelClass)
 	{
 		if (!_activities.containsKey(viewModelClass))
 		{

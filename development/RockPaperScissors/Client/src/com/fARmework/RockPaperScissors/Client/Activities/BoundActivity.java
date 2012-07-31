@@ -2,14 +2,14 @@ package com.fARmework.RockPaperScissors.Client.Activities;
 
 import android.os.Bundle;
 
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 import com.google.inject.Inject;
 
 public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActivity
 {
 	@Inject
-	IActivitiesManager ActivitiesManager;
+	INavigationManager NavigationManager;
 	
 	@Inject
 	T viewModel;
@@ -18,7 +18,7 @@ public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActi
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        ActivitiesManager.setCurrentActivity(this);
-        setAndBindRootView(ActivitiesManager.getLayout(viewModel.getClass()), viewModel);
+        NavigationManager.setCurrentActivity(this);
+        setAndBindRootView(NavigationManager.getLayout(viewModel.getClass()), viewModel);
     }
 }
