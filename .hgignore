@@ -18,5 +18,6 @@ development/RockPaperScissors/Data/bin/*
 development/RockPaperScissors/Server/bin/*
 development/core/client/Connection/bin/*
 creativity/Java/GestureDetector/bin/*
+creativity/Android/GestureWriter/bin/*
 syntax: glob
 development/core/client/Infrastructure/bin/*
