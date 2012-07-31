@@ -9,6 +9,7 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Data.CreateGameRequest;
 import com.fARmework.RockPaperScissors.Data.CreateGameResponse;
+import com.fARmework.RockPaperScissors.Data.GameStartInfo;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
@@ -38,6 +39,15 @@ public class HostingViewModel extends ViewModel
 			public void handle(CreateGameResponse data)
 			{
 				status.set(ResourcesProvider.get(R.string.hosting_waiting));
+			}
+		});
+		
+		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
+		{
+			@Override
+			public void handle(GameStartInfo data)
+			{
+				NavigationManager.navigateTo(GameViewModel.class);
 			}
 		});
 	}
