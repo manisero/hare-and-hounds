@@ -51,6 +51,16 @@ public class GestureFileReader
 		}	
 	}
 	
+	public LinkedList<GestureData> getGestures()
+	{
+		if(_gestures.size() == 0)
+		{
+			readFromFile();
+		}
+		
+		return _gestures;
+	}
+	
 	public void print()
 	{
 		for(GestureData gestureData : _gestures)
