@@ -14,5 +14,11 @@ public class DataRegistrar
 		
 		dataRegistry.register(JoinGameRequest.class);
 		
+		dataRegistry.register(GameStartInfo.class);
+		dataRegistry.register(GestureData.class);
+		
+		dataRegistry.register(VictoryInfo.class);
+		dataRegistry.register(DefeatInfo.class);
+		dataRegistry.register(DrawInfo.class);
 	}
 }

@@ -5,12 +5,14 @@ import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Activities.BoundActivity;
+import com.fARmework.RockPaperScissors.Client.Activities.GameActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameListActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameModeActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.HostingActivity;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameListViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel;
+import com.fARmework.RockPaperScissors.Client.ViewModels.GameViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.HostingViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 
@@ -37,6 +39,10 @@ public class NavigationManager implements INavigationManager
 		// GameList
 		_layouts.put(GameListViewModel.class, R.layout.game_list);
 		_activities.put(GameListViewModel.class, GameListActivity.class);
+		
+		// Game
+		_layouts.put(GameViewModel.class, R.layout.game);
+		_activities.put(GameViewModel.class, GameActivity.class);
 	}
 	
 	@Override

@@ -21,6 +21,6 @@
         android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    binding:itemSource="games"
-	    binding:itemTemplate="@layout/game" />
+	    binding:itemTemplate="@layout/game_row" />
 
 </LinearLayout>
