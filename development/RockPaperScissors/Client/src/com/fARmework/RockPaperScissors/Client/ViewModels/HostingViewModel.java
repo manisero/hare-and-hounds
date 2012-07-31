@@ -15,6 +15,8 @@ import com.google.inject.Inject;
 
 public class HostingViewModel extends ViewModel
 {
+	public StringObservable status = new StringObservable();
+	
 	public Command create = new Command()
 	{
 		@Override
@@ -24,8 +26,6 @@ public class HostingViewModel extends ViewModel
 			ConnectionManager.send(new CreateGameRequest());
 		}
 	};
-	
-	public StringObservable status = new StringObservable();
 	
 	@Inject
 	public HostingViewModel(IConnectionManager connectionManager, IActivitiesManager activitiesManager)

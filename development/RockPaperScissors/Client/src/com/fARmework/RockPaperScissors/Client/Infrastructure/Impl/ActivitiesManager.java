@@ -5,9 +5,11 @@ import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Activities.BoundActivity;
+import com.fARmework.RockPaperScissors.Client.Activities.GameListActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameModeActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.HostingActivity;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
+import com.fARmework.RockPaperScissors.Client.ViewModels.GameListViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.HostingViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
@@ -24,11 +26,17 @@ public class ActivitiesManager implements IActivitiesManager
 
 	public ActivitiesManager()
 	{
+		// GameMode
 		_layouts.put(GameModeViewModel.class, R.layout.game_mode);
 		_activities.put(GameModeViewModel.class, GameModeActivity.class);
 		
+		// Hosting
 		_layouts.put(HostingViewModel.class, R.layout.hosting);
 		_activities.put(HostingViewModel.class, HostingActivity.class);
+		
+		// GameList
+		_layouts.put(GameListViewModel.class, R.layout.game_list);
+		_activities.put(GameListViewModel.class, GameListActivity.class);
 	}
 	
 	@Override

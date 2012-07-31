@@ -3,8 +3,6 @@ package com.fARmework.RockPaperScissors.Client.ViewModels;
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Data.GameListRequest;
-import com.fARmework.RockPaperScissors.Data.GameListResponse;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.fARmework.core.client.Data.ConnectionFaultData;
@@ -43,7 +41,7 @@ public class GameModeViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			ConnectionManager.send(new GameListRequest());
+			ActivitiesManager.startActivity(GameListViewModel.class);
 		}
 	};
 	
@@ -67,22 +65,6 @@ public class GameModeViewModel extends ViewModel
 			public void handle(ConnectionFaultData data)
 			{
 				status.set(ResourcesProvider.get(R.string.connection_fault));
-			}
-		});
-		
-		ConnectionManager.registerDataHandler(GameListResponse.class, new IDataHandler<GameListResponse>()
-		{
-			@Override
-			public void handle(GameListResponse data)
-			{
-				String games = "";
-				
-				for (Integer hostID : data.getHostIDs())
-				{
-					games += hostID.toString() + ", ";
-				}
-				
-				status.set("games: " + games);
 			}
 		});
 	}

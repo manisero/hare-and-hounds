@@ -6,7 +6,7 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 import com.google.inject.Inject;
 
-public class BoundActivity<T extends ViewModel> extends RoboBindingActivity
+public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActivity
 {
 	@Inject
 	IActivitiesManager ActivitiesManager;

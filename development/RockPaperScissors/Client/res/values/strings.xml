@@ -11,6 +11,8 @@
     
     <string name="hosting_waiting">Waiting for guest&#8230;</string> <!-- "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) -->
     
+    <string name="gameList_getGameList">Get games</string>
+    
     <string name="mode_create">Create</string>
     <string name="mode_join">Join</string>
     
