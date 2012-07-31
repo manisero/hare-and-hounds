@@ -16,3 +16,7 @@ development/modules/ScreenGestures.Data/bin/*
 development/RockPaperScissors/Client/bin/*
 development/RockPaperScissors/Data/bin/*
 development/RockPaperScissors/Server/bin/*
+development/core/client/Connection/bin/*
+creativity/Java/GestureDetector/bin/*
+syntax: glob
+development/core/client/Infrastructure/bin/*
