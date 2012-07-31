@@ -1,7 +1,7 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IActivitiesManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
@@ -32,7 +32,7 @@ public class GameModeViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			ActivitiesManager.startActivity(HostingViewModel.class);
+			NavigationManager.navigateTo(HostingViewModel.class);
 		}
 	};
 	
@@ -41,14 +41,14 @@ public class GameModeViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			ActivitiesManager.startActivity(GameListViewModel.class);
+			NavigationManager.navigateTo(GameListViewModel.class);
 		}
 	};
 	
 	@Inject
-	public GameModeViewModel(IConnectionManager connectionManager, IActivitiesManager activitiesManager)
+	public GameModeViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
-		super(connectionManager, activitiesManager);
+		super(connectionManager, navigationManager);
 		
 		ConnectionManager.registerDataHandler(ConnectionSuccessData.class, new IDataHandler<ConnectionSuccessData>()
 		{
