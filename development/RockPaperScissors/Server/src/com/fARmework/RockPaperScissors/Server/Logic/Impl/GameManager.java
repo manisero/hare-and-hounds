@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Data.*;
+import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureData.GestureType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.core.server.Connection.IConnectionManager;
@@ -126,16 +127,16 @@ public class GameManager implements IGameManager
 				switch (currentGame.getGameState())
 				{
 					case Draw:
-						_connectionManager.send(new DrawInfo(), currentGame.HostID);
-						_connectionManager.send(new DrawInfo(), currentGame.GuestID);
+						_connectionManager.send(new GameResultInfo(GameResult.Draw), currentGame.HostID);
+						_connectionManager.send(new GameResultInfo(GameResult.Draw), currentGame.GuestID);
 						break;
 					case HostWon:
-						_connectionManager.send(new VictoryInfo(), currentGame.HostID);
-						_connectionManager.send(new DefeatInfo(), currentGame.GuestID);
+						_connectionManager.send(new GameResultInfo(GameResult.Victory), currentGame.HostID);
+						_connectionManager.send(new GameResultInfo(GameResult.Defeat), currentGame.GuestID);
 						break;
 					case GuestWon:
-						_connectionManager.send(new VictoryInfo(), currentGame.GuestID);
-						_connectionManager.send(new DefeatInfo(), currentGame.HostID);
+						_connectionManager.send(new GameResultInfo(GameResult.Victory), currentGame.GuestID);
+						_connectionManager.send(new GameResultInfo(GameResult.Defeat), currentGame.HostID);
 						break;
 					default:
 						break;
