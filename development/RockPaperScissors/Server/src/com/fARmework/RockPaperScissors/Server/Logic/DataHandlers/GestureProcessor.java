@@ -13,12 +13,12 @@ public class GestureProcessor implements IDataHandler<GestureData>
 	{
 		System.out.println("Processing gesture data...");
 		
-		for (Point point : data.getPoints())
+		for (Point point : data.Points)
 		{
 			System.out.println(point.X + ", " + point.Y);
 		}
 		
-		printInvariants(data.getPoints());
+		printInvariants(data.Points);
 		
 		System.out.println("Finished processing gesture data");
 	}
