@@ -16,30 +16,20 @@ public class GestureData
 		}
 	}
 	
-	private LinkedList<Point> _points;
+	public LinkedList<Point> Points;
 	
 	public GestureData()
 	{
-		_points = new LinkedList<Point>();
+		Points = new LinkedList<Point>();
 	}
 	
 	public GestureData(LinkedList<Point> points)
 	{
-		_points = points;
-	}
-	
-	public LinkedList<Point> getPoints()
-	{
-		return _points;
-	}
-	
-	public void setPoints(LinkedList<Point> points)
-	{
-		_points = points;
+		Points = points;
 	}
 	
 	public void addPoint(float x, float y)
 	{
-		_points.add(new Point(x, y));
+		Points.add(new Point(x, y));
 	}
 }

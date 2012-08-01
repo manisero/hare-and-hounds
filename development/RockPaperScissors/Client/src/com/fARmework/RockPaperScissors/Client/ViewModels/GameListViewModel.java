@@ -61,7 +61,7 @@ public class GameListViewModel extends ViewModel
 			{
 				LinkedList<Game> gameList = new LinkedList<Game>();
 				
-				for (Integer hostID : data.getHostIDs())
+				for (Integer hostID : data.HostIDs)
 				{
 					gameList.add(new Game(hostID));
 				}
