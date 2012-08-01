@@ -95,7 +95,7 @@ public class GameManager implements IGameManager
 			@Override
 			public void handle(int clientID, JoinGameRequest data)
 			{
-				_games.get(data.getHostID()).GuestID = clientID;
+				_games.get(data.HostID).GuestID = clientID;
 				_connectionManager.send(new GameStartInfo());
 			}
 		});
@@ -111,13 +111,13 @@ public class GameManager implements IGameManager
 				{
 					if (clientID == game.HostID)
 					{
-						game.HostGesture = data.getGestureType();
+						game.HostGesture = data.GestureType;
 						currentGame = game;
 						break;
 					}
 					else if (clientID == game.GuestID)
 					{
-						game.GuestGesture = data.getGestureType();
+						game.GuestGesture = data.GestureType;
 						currentGame = game;
 						break;
 					}
