@@ -9,15 +9,10 @@ public class GestureData
 		Scissors
 	}
 	
-	private GestureType _gestureType;
+	public GestureType GestureType;
 	
 	public GestureData(GestureType gestureType)
 	{
-		_gestureType = gestureType;
-	}
-	
-	public GestureType getGestureType()
-	{
-		return _gestureType;
+		GestureType = gestureType;
 	}
 }

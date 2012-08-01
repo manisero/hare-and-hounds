@@ -7,8 +7,8 @@ import android.view.View;
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Data.CreateGameRequest;
-import com.fARmework.RockPaperScissors.Data.CreateGameResponse;
+import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
+import com.fARmework.RockPaperScissors.Data.GameCreationInfo;
 import com.fARmework.RockPaperScissors.Data.GameStartInfo;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
@@ -24,7 +24,7 @@ public class HostingViewModel extends ViewModel
 		public void Invoke(View arg0, Object... arg1)
 		{
 			status.set("Creating game...");
-			ConnectionManager.send(new CreateGameRequest());
+			ConnectionManager.send(new GameCreationRequest());
 		}
 	};
 	
@@ -33,10 +33,10 @@ public class HostingViewModel extends ViewModel
 	{
 		super(connectionManager, navigationManager);
 		
-		ConnectionManager.registerDataHandler(CreateGameResponse.class, new IDataHandler<CreateGameResponse>()
+		ConnectionManager.registerDataHandler(GameCreationInfo.class, new IDataHandler<GameCreationInfo>()
 		{
 			@Override
-			public void handle(CreateGameResponse data)
+			public void handle(GameCreationInfo data)
 			{
 				status.set(ResourcesProvider.get(R.string.hosting_waiting));
 			}

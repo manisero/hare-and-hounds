@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Data.*;
+import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureData.GestureType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.core.server.Connection.IConnectionManager;
@@ -64,13 +65,13 @@ public class GameManager implements IGameManager
 	{
 		_connectionManager.startConnection(_connectionHandler);
 		
-		_connectionHandler.registerHandler(CreateGameRequest.class, new IDataHandler<CreateGameRequest>()
+		_connectionHandler.registerHandler(GameCreationRequest.class, new IDataHandler<GameCreationRequest>()
 		{
 			@Override
-			public void handle(int clientID, CreateGameRequest data)
+			public void handle(int clientID, GameCreationRequest data)
 			{
 				_games.put(clientID, new Game(clientID));
-				_connectionManager.send(new CreateGameResponse(), clientID);
+				_connectionManager.send(new GameCreationInfo(), clientID);
 			}
 		});
 		
@@ -86,16 +87,16 @@ public class GameManager implements IGameManager
 					hostIDs.add(game.HostID);
 				}
 				
-				_connectionManager.send(new GameListResponse(hostIDs), clientID);
+				_connectionManager.send(new GameListData(hostIDs), clientID);
 			}
 		});
 		
-		_connectionHandler.registerHandler(JoinGameRequest.class, new IDataHandler<JoinGameRequest>()
+		_connectionHandler.registerHandler(GameJoinRequest.class, new IDataHandler<GameJoinRequest>()
 		{
 			@Override
-			public void handle(int clientID, JoinGameRequest data)
+			public void handle(int clientID, GameJoinRequest data)
 			{
-				_games.get(data.getHostID()).GuestID = clientID;
+				_games.get(data.HostID).GuestID = clientID;
 				_connectionManager.send(new GameStartInfo());
 			}
 		});
@@ -111,13 +112,13 @@ public class GameManager implements IGameManager
 				{
 					if (clientID == game.HostID)
 					{
-						game.HostGesture = data.getGestureType();
+						game.HostGesture = data.GestureType;
 						currentGame = game;
 						break;
 					}
 					else if (clientID == game.GuestID)
 					{
-						game.GuestGesture = data.getGestureType();
+						game.GuestGesture = data.GestureType;
 						currentGame = game;
 						break;
 					}
@@ -126,16 +127,16 @@ public class GameManager implements IGameManager
 				switch (currentGame.getGameState())
 				{
 					case Draw:
-						_connectionManager.send(new DrawInfo(), currentGame.HostID);
-						_connectionManager.send(new DrawInfo(), currentGame.GuestID);
+						_connectionManager.send(new GameResultInfo(GameResult.Draw), currentGame.HostID);
+						_connectionManager.send(new GameResultInfo(GameResult.Draw), currentGame.GuestID);
 						break;
 					case HostWon:
-						_connectionManager.send(new VictoryInfo(), currentGame.HostID);
-						_connectionManager.send(new DefeatInfo(), currentGame.GuestID);
+						_connectionManager.send(new GameResultInfo(GameResult.Victory), currentGame.HostID);
+						_connectionManager.send(new GameResultInfo(GameResult.Defeat), currentGame.GuestID);
 						break;
 					case GuestWon:
-						_connectionManager.send(new VictoryInfo(), currentGame.GuestID);
-						_connectionManager.send(new DefeatInfo(), currentGame.HostID);
+						_connectionManager.send(new GameResultInfo(GameResult.Victory), currentGame.GuestID);
+						_connectionManager.send(new GameResultInfo(GameResult.Defeat), currentGame.HostID);
 						break;
 					default:
 						break;

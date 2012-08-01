@@ -1,6 +1,6 @@
 package com.fARmework.RockPaperScissors.Data;
 
-public class CreateGameResponse
+public class GameCreationInfo
 {
 
 }
