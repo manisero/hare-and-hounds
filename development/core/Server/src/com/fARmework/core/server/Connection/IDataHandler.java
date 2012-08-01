@@ -1,4 +1,4 @@
-package com.fARmework.RockPaperScissors.Server.Logic;
+package com.fARmework.core.server.Connection;
 
 public interface IDataHandler<T>
 {

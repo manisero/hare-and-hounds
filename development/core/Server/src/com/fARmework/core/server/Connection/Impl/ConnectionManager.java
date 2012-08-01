@@ -2,6 +2,9 @@ package com.fARmework.core.server.Connection.Impl;
 
 import com.fARmework.core.data.*;
 import com.fARmework.core.server.Connection.*;
+import com.fARmework.core.server.Data.ClientConnectedInfo;
+import com.fARmework.core.server.Data.ClientDisconnectedInfo;
+import com.fARmework.core.server.Data.ConnectionExceptionInfo;
 import com.fARmework.core.server.Infrastructure.ISettingsProvider;
 import com.google.inject.*;
 import java.net.*;
@@ -21,7 +24,7 @@ public class ConnectionManager implements IConnectionManager
 		{
 			Channel channel = context.getChannel();
 			_channels.put(channel.getId(), channel);
-			_connectionHandler.onClientConnected(channel.getId());
+			handleData(channel.getId(), new ClientConnectedInfo());
 		}
 		
 		@Override
@@ -29,28 +32,29 @@ public class ConnectionManager implements IConnectionManager
 		{
 			int channelID = context.getChannel().getId();
 			_channels.remove(channelID);
-			_connectionHandler.onClientDisconnected(channelID);
+			handleData(channelID, new ClientDisconnectedInfo());
 		}
 		
 		@Override
 		public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 		{
 			Message message = _dataService.deserializeMessage(event.getMessage().toString());
-			_connectionHandler.onDataReceived(event.getChannel().getId(), message.getType(), _dataService.fromMessage(message));
+			handleData(event.getChannel().getId(), _dataService.fromMessage(message));
 		}
 		
 		@Override
 		public void exceptionCaught(ChannelHandlerContext context, ExceptionEvent event)
 		{
 			event.getChannel().close();
-			_connectionHandler.onClientConnectionException(event.getChannel().getId(), event.getCause());
+			handleData(event.getChannel().getId(), new ConnectionExceptionInfo(event.getCause()));
 		}
 	}
 	
 	private ISettingsProvider _settingsProvider;
 	private IDataService _dataService;
 	
-	private IConnectionHandler _connectionHandler;
+	@SuppressWarnings("rawtypes")
+	private Map<Class<?>, IDataHandler> _dataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();
 	private Map<Integer, Channel> _channels = new LinkedHashMap<Integer, Channel>();
 	
 	@Inject
@@ -61,10 +65,8 @@ public class ConnectionManager implements IConnectionManager
 	}
 	
 	@Override
-	public void startConnection(IConnectionHandler connectionHandler)
+	public void startConnection()
 	{
-		_connectionHandler = connectionHandler;
-		
 		ServerBootstrap bootstrap = new ServerBootstrap(
 				new NioServerSocketChannelFactory(
 						Executors.newCachedThreadPool(),
@@ -87,12 +89,33 @@ public class ConnectionManager implements IConnectionManager
 		bootstrap.bind(new InetSocketAddress(_settingsProvider.getPort()));
 	}
 	
+	@Override
+	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler)
+	{
+		_dataHandlers.put(dataClass, handler);
+	}
+	
+	@Override
+	public void clearDataHandlers()
+	{
+		_dataHandlers.clear();
+	}
+	
 	@Override 
 	public void send(Object data)
 	{
 		for (Map.Entry<Integer, Channel> channel : _channels.entrySet())
 		{
 			channel.getValue().write(_dataService.toSerializedMessage(data));
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void handleData(int clientID, Object data)
+	{
+		if (_dataHandlers.containsKey(data.getClass()))
+		{
+			_dataHandlers.get(data.getClass()).handle(clientID, data);
 		}
 	}
 	

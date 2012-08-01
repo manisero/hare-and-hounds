@@ -8,7 +8,12 @@ import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureData.GestureType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
+import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.DataHandler;
+import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.EmptyDataHandler;
 import com.fARmework.core.server.Connection.IConnectionManager;
+import com.fARmework.core.server.Data.ClientConnectedInfo;
+import com.fARmework.core.server.Data.ClientDisconnectedInfo;
+import com.fARmework.core.server.Data.ConnectionExceptionInfo;
 import com.google.inject.Inject;
 
 public class GameManager implements IGameManager
@@ -49,33 +54,44 @@ public class GameManager implements IGameManager
 	}
 	
 	private IConnectionManager _connectionManager;
-	private IConnectionHandler _connectionHandler;
 	
 	private Map<Integer, Game> _games = new LinkedHashMap<Integer, Game>();
 	
 	@Inject
-	public GameManager(IConnectionManager connectionManager, IConnectionHandler connectionHandler)
+	public GameManager(IConnectionManager connectionManager)
 	{
 		_connectionManager = connectionManager;
-		_connectionHandler = connectionHandler;
 	}
 	
 	@Override
 	public void run()
 	{
-		_connectionManager.startConnection(_connectionHandler);
+		_connectionManager.startConnection();
 		
-		_connectionHandler.registerHandler(GameCreationRequest.class, new IDataHandler<GameCreationRequest>()
+		_connectionManager.registerDataHandler(ClientConnectedInfo.class, new EmptyDataHandler<ClientConnectedInfo>());
+		_connectionManager.registerDataHandler(ClientDisconnectedInfo.class, new EmptyDataHandler<ClientDisconnectedInfo>());
+		_connectionManager.registerDataHandler(ConnectionExceptionInfo.class, new DataHandler<ConnectionExceptionInfo>()
+		{
+			@Override
+			public void handle(int clientID, ConnectionExceptionInfo data)
+			{
+				super.handle(clientID, data);
+				System.out.println("Exception: " + data.Exception.getMessage());
+			}
+		});
+		
+		_connectionManager.registerDataHandler(GameCreationRequest.class, new DataHandler<GameCreationRequest>()
 		{
 			@Override
 			public void handle(int clientID, GameCreationRequest data)
 			{
+				super.handle(clientID, data);
 				_games.put(clientID, new Game(clientID));
 				_connectionManager.send(new GameCreationInfo(), clientID);
 			}
 		});
 		
-		_connectionHandler.registerHandler(GameListRequest.class, new IDataHandler<GameListRequest>()
+		_connectionManager.registerDataHandler(GameListRequest.class, new DataHandler<GameListRequest>()
 		{
 			@Override
 			public void handle(int clientID, GameListRequest data)
@@ -91,7 +107,7 @@ public class GameManager implements IGameManager
 			}
 		});
 		
-		_connectionHandler.registerHandler(GameJoinRequest.class, new IDataHandler<GameJoinRequest>()
+		_connectionManager.registerDataHandler(GameJoinRequest.class, new DataHandler<GameJoinRequest>()
 		{
 			@Override
 			public void handle(int clientID, GameJoinRequest data)
@@ -101,7 +117,7 @@ public class GameManager implements IGameManager
 			}
 		});
 		
-		_connectionHandler.registerHandler(GestureData.class, new IDataHandler<GestureData>()
+		_connectionManager.registerDataHandler(GestureData.class, new DataHandler<GestureData>()
 		{
 			@Override
 			public void handle(int clientID, GestureData data)
