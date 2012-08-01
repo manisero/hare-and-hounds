@@ -5,8 +5,8 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
-import com.fARmework.core.client.Data.ConnectionFaultData;
-import com.fARmework.core.client.Data.ConnectionSuccessData;
+import com.fARmework.core.client.Data.ConnectionFaultInfo;
+import com.fARmework.core.client.Data.ConnectionSuccessInfo;
 import com.google.inject.Inject;
 
 import android.view.View;
@@ -50,19 +50,19 @@ public class GameModeViewModel extends ViewModel
 	{
 		super(connectionManager, navigationManager);
 		
-		ConnectionManager.registerDataHandler(ConnectionSuccessData.class, new IDataHandler<ConnectionSuccessData>()
+		ConnectionManager.registerDataHandler(ConnectionSuccessInfo.class, new IDataHandler<ConnectionSuccessInfo>()
 		{
 			@Override
-			public void handle(ConnectionSuccessData data)
+			public void handle(ConnectionSuccessInfo data)
 			{
 				status.set(ResourcesProvider.get(R.string.connection_success));
 			}
 		});
 		
-		ConnectionManager.registerDataHandler(ConnectionFaultData.class, new IDataHandler<ConnectionFaultData>()
+		ConnectionManager.registerDataHandler(ConnectionFaultInfo.class, new IDataHandler<ConnectionFaultInfo>()
 		{
 			@Override
-			public void handle(ConnectionFaultData data)
+			public void handle(ConnectionFaultInfo data)
 			{
 				status.set(ResourcesProvider.get(R.string.connection_fault));
 			}

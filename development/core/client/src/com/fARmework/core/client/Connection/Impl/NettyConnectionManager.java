@@ -28,7 +28,7 @@ public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implem
 		public void channelConnected(ChannelHandlerContext context, ChannelStateEvent event)
 		{
 			Log.i("Connected", "Connected to server");
-			publishProgress(new ConnectionSuccessData());
+			publishProgress(new ConnectionSuccessInfo());
 		}
 		
 		@Override
@@ -44,7 +44,7 @@ public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implem
 		{
 			event.getCause().printStackTrace();
 			event.getChannel().close();
-			publishProgress(new ConnectionExceptionData(event.getCause()));
+			publishProgress(new ConnectionExceptionInfo(event.getCause()));
 		}
 	}
 	
@@ -96,7 +96,7 @@ public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implem
 		{
 			future.getCause().printStackTrace();
 			bootstrap.releaseExternalResources();
-			publishProgress(new ConnectionFaultData());
+			publishProgress(new ConnectionFaultInfo());
 		}
 		
 		return null;

@@ -1,10 +1,10 @@
 package com.fARmework.core.client.Data;
 
-public class ConnectionExceptionData
+public class ConnectionExceptionInfo
 {
 	public Throwable Exception;
 	
-	public ConnectionExceptionData(Throwable exception)
+	public ConnectionExceptionInfo(Throwable exception)
 	{
 		Exception = exception;
 	}

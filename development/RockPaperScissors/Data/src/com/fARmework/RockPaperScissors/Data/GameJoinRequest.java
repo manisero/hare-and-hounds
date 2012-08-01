@@ -1,10 +1,10 @@
 package com.fARmework.RockPaperScissors.Data;
 
-public class JoinGameRequest
+public class GameJoinRequest
 {
 	public int HostID;
 	
-	public JoinGameRequest(int hostID)
+	public GameJoinRequest(int hostID)
 	{
 		HostID = hostID;
 	}
