@@ -51,30 +51,24 @@ public class GameViewModel extends ViewModel
 	{
 		super(connectionManager, navigationManager);
 		
-		ConnectionManager.registerDataHandler(VictoryInfo.class, new IDataHandler<VictoryInfo>()
+		ConnectionManager.registerDataHandler(GameResultInfo.class, new IDataHandler<GameResultInfo>()
 		{
 			@Override
-			public void handle(VictoryInfo data)
+			public void handle(GameResultInfo data)
 			{
-				status.set("victory");
-			}
-		});
-		
-		ConnectionManager.registerDataHandler(DefeatInfo.class, new IDataHandler<DefeatInfo>()
-		{
-			@Override
-			public void handle(DefeatInfo data)
-			{
-				status.set("defeat");
-			}
-		});
-		
-		ConnectionManager.registerDataHandler(DrawInfo.class, new IDataHandler<DrawInfo>()
-		{
-			@Override
-			public void handle(DrawInfo data)
-			{
-				status.set("draw");
+				switch (data.GameResult)
+				{
+					case Victory:
+						status.set("victory");
+						break;
+					case Defeat:
+						status.set("defeat");
+						break;
+					default:
+						status.set("draw");
+						break;
+				}
+				
 			}
 		});
 	}
