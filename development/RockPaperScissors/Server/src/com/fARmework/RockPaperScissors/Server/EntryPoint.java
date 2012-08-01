@@ -19,8 +19,8 @@ public class EntryPoint
 		
 		// register data
 		IDataRegistry dataRegistry = injector.getInstance(IDataRegistry.class);
-		new com.fARmework.RockPaperScissors.Data.DataRegistrar().registerData(dataRegistry);
-		new com.fARmework.modules.ScreenGestures.Data.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.RockPaperScissors.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.modules.ScreenGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 		
 		// register data handlers
 		IConnectionHandler connectionHandler = injector.getInstance(IConnectionHandler.class);
