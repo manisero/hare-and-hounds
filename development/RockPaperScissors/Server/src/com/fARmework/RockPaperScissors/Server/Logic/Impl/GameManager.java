@@ -64,13 +64,13 @@ public class GameManager implements IGameManager
 	{
 		_connectionManager.startConnection(_connectionHandler);
 		
-		_connectionHandler.registerHandler(CreateGameRequest.class, new IDataHandler<CreateGameRequest>()
+		_connectionHandler.registerHandler(GameCreationRequest.class, new IDataHandler<GameCreationRequest>()
 		{
 			@Override
-			public void handle(int clientID, CreateGameRequest data)
+			public void handle(int clientID, GameCreationRequest data)
 			{
 				_games.put(clientID, new Game(clientID));
-				_connectionManager.send(new CreateGameResponse(), clientID);
+				_connectionManager.send(new GameCreationInfo(), clientID);
 			}
 		});
 		
@@ -86,14 +86,14 @@ public class GameManager implements IGameManager
 					hostIDs.add(game.HostID);
 				}
 				
-				_connectionManager.send(new GameListResponse(hostIDs), clientID);
+				_connectionManager.send(new GameListData(hostIDs), clientID);
 			}
 		});
 		
-		_connectionHandler.registerHandler(JoinGameRequest.class, new IDataHandler<JoinGameRequest>()
+		_connectionHandler.registerHandler(GameJoinRequest.class, new IDataHandler<GameJoinRequest>()
 		{
 			@Override
-			public void handle(int clientID, JoinGameRequest data)
+			public void handle(int clientID, GameJoinRequest data)
 			{
 				_games.get(data.HostID).GuestID = clientID;
 				_connectionManager.send(new GameStartInfo());
