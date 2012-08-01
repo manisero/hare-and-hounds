@@ -125,6 +125,12 @@ public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implem
 	}
 	
 	@Override
+	public boolean isDisposed()
+	{
+		return _channel != null && !_channel.isConnected();
+	}
+	
+	@Override
 	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler)
 	{
 		_dataHandlers.put(dataClass, handler);

@@ -96,6 +96,8 @@ public class GameManager implements IGameManager
 			@Override
 			public void handle(int clientID, GameListRequest data)
 			{
+				super.handle(clientID, data);
+				
 				LinkedList<Integer> hostIDs = new LinkedList<Integer>();
 				
 				for (Game game : _games.values())
@@ -112,6 +114,7 @@ public class GameManager implements IGameManager
 			@Override
 			public void handle(int clientID, GameJoinRequest data)
 			{
+				super.handle(clientID, data);
 				_games.get(data.HostID).GuestID = clientID;
 				_connectionManager.send(new GameStartInfo());
 			}
@@ -122,6 +125,8 @@ public class GameManager implements IGameManager
 			@Override
 			public void handle(int clientID, GestureData data)
 			{
+				super.handle(clientID, data);
+				
 				Game currentGame = null;
 				
 				for (Game game : _games.values())
