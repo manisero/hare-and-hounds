@@ -22,7 +22,6 @@
         <activity android:name=".Activities.HostingActivity" android:label="@string/app_name" />
         <activity android:name=".Activities.GameListActivity" android:label="@string/app_name" />
         <activity android:name=".Activities.GameActivity" android:label="@string/app_name" />
-        <activity android:name=".Activities.MainActivity" android:label="@string/app_name" />
         
     </application>
     

@@ -46,6 +46,15 @@ public class GameViewModel extends ViewModel
 		}
 	};
 	
+	public Command sendGesture = new Command()
+	{
+		@Override
+		public void Invoke(View arg0, Object... arg1)
+		{
+			// TODO: implement
+		}
+	};
+	
 	@Inject
 	protected GameViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
