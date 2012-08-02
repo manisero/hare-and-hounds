@@ -1,7 +1,6 @@
-package com.fARmework.RockPaperScissors.Client.RoboGuiceModules;
+package com.fARmework.core.client.Connection.Impl;
 
 import com.fARmework.core.client.Connection.IConnectionManager;
-import com.fARmework.core.client.Connection.Impl.NettyConnectionManager;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
 import com.fARmework.core.data.IDataService;
 import com.google.inject.Inject;
@@ -9,7 +8,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ConnectionManagerProvider implements Provider<IConnectionManager>
+public class NettyConnectionManagerProvider implements Provider<IConnectionManager>
 {
 	private ISettingsProvider _settingsProvider;
 	private IDataService _dataService;
@@ -17,7 +16,7 @@ public class ConnectionManagerProvider implements Provider<IConnectionManager>
 	private IConnectionManager _connectionManager;
 	
 	@Inject
-	public ConnectionManagerProvider(ISettingsProvider settingsProvider, IDataService dataService)
+	public NettyConnectionManagerProvider(ISettingsProvider settingsProvider, IDataService dataService)
 	{
 		_settingsProvider = settingsProvider;
 		_dataService = dataService;
