@@ -25,6 +25,7 @@ public final class R {
         public static final int games=0x7f070006;
         public static final int gesturePicker=0x7f070004;
         public static final int getGameListButton=0x7f070005;
+        public static final int hosting_progress=0x7f07000b;
         public static final int joinButton=0x7f070009;
         public static final int paperButton=0x7f070002;
         public static final int rockButton=0x7f070001;
@@ -34,8 +35,8 @@ public final class R {
     public static final class layout {
         public static final int game=0x7f030000;
         public static final int game_list=0x7f030001;
-        public static final int game_mode=0x7f030002;
-        public static final int game_row=0x7f030003;
+        public static final int game_list_item=0x7f030002;
+        public static final int game_mode=0x7f030003;
         public static final int hosting=0x7f030004;
     }
     public static final class string {
@@ -49,15 +50,18 @@ public final class R {
         public static final int connection_success=0x7f040006;
         /**  "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) 
          */
-        public static final int gameList_getGameList=0x7f04000a;
-        public static final int gestures_paper=0x7f04000f;
-        public static final int gestures_rock=0x7f04000e;
-        public static final int gestures_scissors=0x7f040010;
-        public static final int gestures_send=0x7f04000d;
+        public static final int gameList_getGameList=0x7f04000b;
+        public static final int gestures_paper=0x7f040010;
+        public static final int gestures_rock=0x7f04000f;
+        public static final int gestures_scissors=0x7f040011;
+        public static final int gestures_send=0x7f04000e;
         public static final int hello=0x7f040003;
-        public static final int hosting_waiting=0x7f040009;
-        public static final int mode_create=0x7f04000b;
-        public static final int mode_join=0x7f04000c;
+        public static final int hosting_creating=0x7f040009;
+        /**  "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) 
+         */
+        public static final int hosting_waiting=0x7f04000a;
+        public static final int mode_create=0x7f04000c;
+        public static final int mode_join=0x7f04000d;
         public static final int port=0x7f040002;
         public static final int serverAddress=0x7f040001;
     }

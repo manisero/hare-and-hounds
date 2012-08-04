@@ -1,6 +1,7 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import gueei.binding.Command;
+import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 import android.view.View;
 
@@ -18,13 +19,16 @@ public class HostingViewModel extends ViewModel
 {
 	public StringObservable status = new StringObservable();
 	
+	public BooleanObservable isWaiting = new BooleanObservable(false);
+	
 	public Command create = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			status.set("Creating game...");
+			status.set(ResourcesProvider.get(R.string.hosting_creating));
 			ConnectionManager.send(new GameCreationRequest());
+			isWaiting.set(true);
 		}
 	};
 	
@@ -47,6 +51,7 @@ public class HostingViewModel extends ViewModel
 			@Override
 			public void handle(GameStartInfo data)
 			{
+				isWaiting.set(false);
 				NavigationManager.navigateTo(GameViewModel.class);
 			}
 		});

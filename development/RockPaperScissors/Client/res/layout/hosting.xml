@@ -17,4 +17,11 @@
 	    android:layout_height="wrap_content"
 	    binding:text="status" />
 
+    <ProgressBar
+        android:id="@+id/hosting_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        binding:visibility="isWaiting" />
+
 </LinearLayout>
