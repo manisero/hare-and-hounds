@@ -2,11 +2,10 @@ package com.fARmework.core.server.Connection.Impl;
 
 import com.fARmework.core.data.*;
 import com.fARmework.core.server.Connection.*;
-import com.fARmework.core.server.Data.ClientConnectedInfo;
-import com.fARmework.core.server.Data.ClientDisconnectedInfo;
-import com.fARmework.core.server.Data.ConnectionExceptionInfo;
+import com.fARmework.core.server.Data.*;
 import com.fARmework.core.server.Infrastructure.ISettingsProvider;
 import com.google.inject.*;
+
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.*;
@@ -53,8 +52,7 @@ public class ConnectionManager implements IConnectionManager
 	private ISettingsProvider _settingsProvider;
 	private IDataService _dataService;
 	
-	@SuppressWarnings("rawtypes")
-	private Map<Class<?>, IDataHandler> _dataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();
+	private DataHandlersCollection _dataHandlers = new DataHandlersCollection();
 	private Map<Integer, Channel> _channels = new LinkedHashMap<Integer, Channel>();
 	
 	@Inject
@@ -92,19 +90,19 @@ public class ConnectionManager implements IConnectionManager
 	@Override
 	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler)
 	{
-		_dataHandlers.put(dataClass, handler);
+		_dataHandlers.register(dataClass, handler);
 	}
 	
 	@Override
 	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler, int clientID)
 	{
-		// TODO Auto-generated method stub
+		_dataHandlers.register(dataClass, handler, clientID);
 	}
 
 	@Override
 	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler, List<Integer> clientIDs)
 	{
-		// TODO Auto-generated method stub
+		_dataHandlers.register(dataClass, handler, clientIDs);
 	}
 	
 	@Override
@@ -116,48 +114,50 @@ public class ConnectionManager implements IConnectionManager
 	@Override
 	public void clearDataHandlers(int clientID)
 	{
-		// TODO Auto-generated method stub
+		_dataHandlers.clear(clientID);
 	}
 
 	@Override
 	public void clearDataHandlers(List<Integer> clientIDs)
 	{
-		// TODO Auto-generated method stub
+		_dataHandlers.clear(clientIDs);
 	}
 
 	@Override
 	public <T> void clearDataHandlers(Class<T> dataClass)
 	{
-		// TODO Auto-generated method stub
+		_dataHandlers.clear(dataClass);
 	}
 	
 	@Override
 	public <T> void clearDataHandlers(Class<T> dataClass, int clientID)
 	{
-		// TODO Auto-generated method stub
+		_dataHandlers.clear(dataClass, clientID);
 	}
 
 	@Override
 	public <T> void clearDataHandlers(Class<T> dataClass, List<Integer> clientIDs)
 	{
-		// TODO Auto-generated method stub
+		_dataHandlers.clear(dataClass, clientIDs);
 	}
 	
-	@Override 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void handleData(int clientID, Object data)
+	{
+		IDataHandler handler = _dataHandlers.get(data.getClass(), clientID);
+		
+		if (handler != null)
+		{
+			handler.handle(clientID, data);
+		}
+	}
+	
+	@Override
 	public void send(Object data)
 	{
 		for (Map.Entry<Integer, Channel> channel : _channels.entrySet())
 		{
 			channel.getValue().write(_dataService.toSerializedMessage(data));
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	private void handleData(int clientID, Object data)
-	{
-		if (_dataHandlers.containsKey(data.getClass()))
-		{
-			_dataHandlers.get(data.getClass()).handle(clientID, data);
 		}
 	}
 	
