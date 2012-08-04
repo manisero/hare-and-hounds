@@ -19,7 +19,7 @@
     <string name="hosting_waiting">Waiting for guest&#8230;</string>
     <string name="hosting_guestConnected">GuestConnected</string>
     
-    <string name="gameList_getGameList">Get games</string>
+    <string name="gameList_refresh">Refresh</string>
     
     <string name="mode_create">Create</string>
     <string name="mode_join">Join</string>
