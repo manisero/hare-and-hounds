@@ -126,6 +126,12 @@ public class ConnectionManager implements IConnectionManager
 	}
 
 	@Override
+	public <T> void clearDataHandlers(Class<T> dataClass)
+	{
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
 	public <T> void clearDataHandlers(Class<T> dataClass, int clientID)
 	{
 		// TODO Auto-generated method stub

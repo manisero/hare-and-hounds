@@ -13,6 +13,7 @@ public interface IConnectionManager
 	void clearDataHandlers();
 	void clearDataHandlers(int clientID);
 	void clearDataHandlers(List<Integer> clientIDs);
+	<T> void clearDataHandlers(Class<T> dataClass);
 	<T> void clearDataHandlers(Class<T> dataClass, int clientID);
 	<T> void clearDataHandlers(Class<T> dataClass, List<Integer> clientIDs);
 	
