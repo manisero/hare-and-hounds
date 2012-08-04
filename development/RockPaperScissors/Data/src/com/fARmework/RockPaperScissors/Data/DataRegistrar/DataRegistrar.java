@@ -6,7 +6,7 @@ import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListData;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo;
 import com.fARmework.RockPaperScissors.Data.GameStartInfo;
-import com.fARmework.RockPaperScissors.Data.GestureData;
+import com.fARmework.RockPaperScissors.Data.GestureInfo;
 import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
 import com.fARmework.core.data.IDataRegistry;
 
@@ -24,7 +24,7 @@ public class DataRegistrar
 		
 		dataRegistry.register(GameStartInfo.class);
 		
-		dataRegistry.register(GestureData.class);
+		dataRegistry.register(GestureInfo.class);
 		dataRegistry.register(GameResultInfo.class);
 	}
 }

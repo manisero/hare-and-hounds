@@ -1,6 +1,6 @@
 package com.fARmework.RockPaperScissors.Data;
 
-public class GestureData
+public class GestureInfo
 {
 	public enum GestureType
 	{
@@ -11,7 +11,7 @@ public class GestureData
 	
 	public GestureType GestureType;
 	
-	public GestureData(GestureType gestureType)
+	public GestureInfo(GestureType gestureType)
 	{
 		GestureType = gestureType;
 	}

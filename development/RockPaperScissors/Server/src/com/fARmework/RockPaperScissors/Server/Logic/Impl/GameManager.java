@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
-import com.fARmework.RockPaperScissors.Data.GestureData.GestureType;
+import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.DataHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.EmptyDataHandler;
@@ -14,6 +14,7 @@ import com.fARmework.core.server.Connection.IConnectionManager;
 import com.fARmework.core.server.Data.ClientConnectedInfo;
 import com.fARmework.core.server.Data.ClientDisconnectedInfo;
 import com.fARmework.core.server.Data.ConnectionExceptionInfo;
+import com.fARmework.modules.ScreenGestures.Data.GestureData;
 import com.google.inject.Inject;
 
 public class GameManager implements IGameManager
@@ -54,13 +55,15 @@ public class GameManager implements IGameManager
 	}
 	
 	private IConnectionManager _connectionManager;
+	private IGestureProcessor _gestureProcessor;
 	
 	private Map<Integer, Game> _games = new LinkedHashMap<Integer, Game>();
 	
 	@Inject
-	public GameManager(IConnectionManager connectionManager)
+	public GameManager(IConnectionManager connectionManager, IGestureProcessor gestureProcessor)
 	{
 		_connectionManager = connectionManager;
+		_gestureProcessor = gestureProcessor;
 	}
 	
 	@Override
@@ -73,9 +76,8 @@ public class GameManager implements IGameManager
 		_connectionManager.registerDataHandler(ConnectionExceptionInfo.class, new DataHandler<ConnectionExceptionInfo>()
 		{
 			@Override
-			public void handle(int clientID, ConnectionExceptionInfo data)
+			public void handleData(int clientID, ConnectionExceptionInfo data)
 			{
-				super.handle(clientID, data);
 				System.out.println("Exception: " + data.Exception.getMessage());
 			}
 		});
@@ -83,9 +85,8 @@ public class GameManager implements IGameManager
 		_connectionManager.registerDataHandler(GameCreationRequest.class, new DataHandler<GameCreationRequest>()
 		{
 			@Override
-			public void handle(int clientID, GameCreationRequest data)
+			public void handleData(int clientID, GameCreationRequest data)
 			{
-				super.handle(clientID, data);
 				_games.put(clientID, new Game(clientID));
 				_connectionManager.send(new GameCreationInfo(), clientID);
 			}
@@ -94,10 +95,8 @@ public class GameManager implements IGameManager
 		_connectionManager.registerDataHandler(GameListRequest.class, new DataHandler<GameListRequest>()
 		{
 			@Override
-			public void handle(int clientID, GameListRequest data)
+			public void handleData(int clientID, GameListRequest data)
 			{
-				super.handle(clientID, data);
-				
 				LinkedList<Integer> hostIDs = new LinkedList<Integer>();
 				
 				for (Game game : _games.values())
@@ -112,21 +111,18 @@ public class GameManager implements IGameManager
 		_connectionManager.registerDataHandler(GameJoinRequest.class, new DataHandler<GameJoinRequest>()
 		{
 			@Override
-			public void handle(int clientID, GameJoinRequest data)
+			public void handleData(int clientID, GameJoinRequest data)
 			{
-				super.handle(clientID, data);
 				_games.get(data.HostID).GuestID = clientID;
 				_connectionManager.send(new GameStartInfo());
 			}
 		});
 		
-		_connectionManager.registerDataHandler(GestureData.class, new DataHandler<GestureData>()
+		_connectionManager.registerDataHandler(GestureInfo.class, new DataHandler<GestureInfo>()
 		{
 			@Override
-			public void handle(int clientID, GestureData data)
+			public void handleData(int clientID, GestureInfo data)
 			{
-				super.handle(clientID, data);
-				
 				Game currentGame = null;
 				
 				for (Game game : _games.values())
@@ -162,6 +158,15 @@ public class GameManager implements IGameManager
 					default:
 						break;
 				}
+			}
+		});
+		
+		_connectionManager.registerDataHandler(GestureData.class, new DataHandler<GestureData>()
+		{
+			@Override
+			public void handleData(int clientID, GestureData data)
+			{
+				_gestureProcessor.processGesture(data);
 			}
 		});
 	}
