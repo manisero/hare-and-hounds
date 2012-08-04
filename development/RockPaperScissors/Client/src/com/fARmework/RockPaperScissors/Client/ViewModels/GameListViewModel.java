@@ -78,5 +78,7 @@ public class GameListViewModel extends ViewModel
 				NavigationManager.navigateTo(GameViewModel.class);
 			}
 		});
+		
+		ConnectionManager.send(new GameListRequest());
 	}
 }

@@ -9,13 +9,8 @@
     <Button android:id="@+id/getGameListButton"
 		android:layout_width="200dp"
 		android:layout_height="100dp"
-		android:text="@string/gameList_getGameList"
+		android:text="@string/gameList_refresh"
 		binding:onClick="getGames" />
-    
-    <TextView android:id="@+id/status"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    binding:text="status" />
     
     <ListView android:id="@+id/games"
         android:layout_width="fill_parent"
