@@ -36,7 +36,7 @@ public class Game
 	{
 		_guestID = guestID;
 		
-		_connectionManager.registerDataHandler(GestureInfo.class, new DataHandler<GestureInfo>()
+		_connectionManager.registerDataHandler(GestureInfo.class, _hostID, new DataHandler<GestureInfo>()
 		{
 			@Override
 			public void handleData(int clientID, GestureInfo data)
@@ -44,9 +44,9 @@ public class Game
 				_hostGesture = data.GestureType;
 				handleGameState();
 			}
-		}, _hostID);
+		});
 		
-		_connectionManager.registerDataHandler(GestureInfo.class, new DataHandler<GestureInfo>()
+		_connectionManager.registerDataHandler(GestureInfo.class, _guestID, new DataHandler<GestureInfo>()
 		{
 			@Override
 			public void handleData(int clientID, GestureInfo data)
@@ -54,7 +54,7 @@ public class Game
 				_guestGesture = data.GestureType;
 				handleGameState();
 			}
-		}, _guestID);
+		});
 		
 		_connectionManager.registerDataHandler(GestureData.class, new DataHandler<GestureData>()
 		{

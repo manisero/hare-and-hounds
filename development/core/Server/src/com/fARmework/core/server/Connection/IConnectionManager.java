@@ -7,8 +7,8 @@ public interface IConnectionManager
 	void startConnection();
 	
 	<T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler);
-	<T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler, int clientID);
-	<T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler, List<Integer> clientIDs);
+	<T> void registerDataHandler(Class<T> dataClass, int clientID, IDataHandler<T> handler);
+	<T> void registerDataHandler(Class<T> dataClass, List<Integer> clientIDs, IDataHandler<T> handler);
 	
 	void clearDataHandlers();
 	void clearDataHandlers(int clientID);
