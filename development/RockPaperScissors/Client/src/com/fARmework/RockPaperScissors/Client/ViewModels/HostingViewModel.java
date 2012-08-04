@@ -18,7 +18,6 @@ import com.google.inject.Inject;
 public class HostingViewModel extends ViewModel
 {
 	public StringObservable status = new StringObservable();
-	
 	public BooleanObservable isWaiting = new BooleanObservable(false);
 	
 	public Command create = new Command()
