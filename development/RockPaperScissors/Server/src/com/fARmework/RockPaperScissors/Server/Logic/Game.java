@@ -1,6 +1,7 @@
 package com.fARmework.RockPaperScissors.Server.Logic;
 
 import com.fARmework.RockPaperScissors.Data.GameResultInfo;
+import com.fARmework.RockPaperScissors.Data.GameStartInfo;
 import com.fARmework.RockPaperScissors.Data.GestureInfo;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
@@ -10,14 +11,6 @@ import com.fARmework.modules.ScreenGestures.Data.GestureData;
 
 public class Game
 {
-	public enum GameState
-	{
-		InProgress,
-		Draw,
-		HostWon,
-		GuestWon
-	}
-	
 	public IConnectionManager _connectionManager;
 	public IGestureProcessor _gestureProcessor;
 	
@@ -30,45 +23,38 @@ public class Game
 	{
 		_connectionManager = connectionManager;
 		_gestureProcessor = gestureProcessor;
+		
 		_hostID = hostID;
+	}
+	
+	public int getHostID()
+	{
+		return _hostID;
+	}
+	
+	public void start(int guestID)
+	{
+		_guestID = guestID;
 		
 		_connectionManager.registerDataHandler(GestureInfo.class, new DataHandler<GestureInfo>()
 		{
 			@Override
 			public void handleData(int clientID, GestureInfo data)
 			{
-				if (clientID == _hostID)
-				{
-					_hostGesture = data.GestureType;
-				}
-				else if (clientID == _guestID)
-				{
-					_guestGesture = data.GestureType;
-				}
-				else
-				{
-					return;
-				}
-				
-				switch (getGameState())
-				{
-					case Draw:
-						_connectionManager.send(new GameResultInfo(GameResult.Draw), _hostID);
-						_connectionManager.send(new GameResultInfo(GameResult.Draw), _guestID);
-						break;
-					case HostWon:
-						_connectionManager.send(new GameResultInfo(GameResult.Victory), _hostID);
-						_connectionManager.send(new GameResultInfo(GameResult.Defeat), _guestID);
-						break;
-					case GuestWon:
-						_connectionManager.send(new GameResultInfo(GameResult.Victory), _guestID);
-						_connectionManager.send(new GameResultInfo(GameResult.Defeat), _hostID);
-						break;
-					default:
-						break;
-				}
+				_hostGesture = data.GestureType;
+				handleGameState();
 			}
-		});
+		}, _hostID);
+		
+		_connectionManager.registerDataHandler(GestureInfo.class, new DataHandler<GestureInfo>()
+		{
+			@Override
+			public void handleData(int clientID, GestureInfo data)
+			{
+				_guestGesture = data.GestureType;
+				handleGameState();
+			}
+		}, _guestID);
 		
 		_connectionManager.registerDataHandler(GestureData.class, new DataHandler<GestureData>()
 		{
@@ -78,29 +64,33 @@ public class Game
 				_gestureProcessor.processGesture(data);
 			}
 		});
+		
+		_connectionManager.send(new GameStartInfo(), _hostID);
+		_connectionManager.send(new GameStartInfo(), _guestID);
 	}
 	
-	public int getHostID()
+	private void handleGameState()
 	{
-		return _hostID;
-	}
-	
-	public void setGuestID(int guestID)
-	{
-		_guestID = guestID;
-	}
-	
-	private GameState getGameState()
-	{
-		if (_hostGesture == null || _guestGesture == null)
-			return GameState.InProgress;
-		else if (_hostGesture == _guestGesture)
-			return GameState.Draw;
+		if (_hostGesture == null || _guestGesture == null) // game still in progress
+		{
+			return;
+		}
+		else if (_hostGesture == _guestGesture) // draw
+		{
+			_connectionManager.send(new GameResultInfo(GameResult.Draw), _hostID);
+			_connectionManager.send(new GameResultInfo(GameResult.Draw), _guestID);
+		}
 		else if (_hostGesture == GestureType.Rock && _guestGesture == GestureType.Scissors ||
 				 _hostGesture == GestureType.Paper && _guestGesture == GestureType.Rock ||
-				 _hostGesture == GestureType.Scissors && _guestGesture == GestureType.Paper)
-			return GameState.HostWon;
-		else
-			return GameState.GuestWon;
+				 _hostGesture == GestureType.Scissors && _guestGesture == GestureType.Paper) // host won
+		{
+			_connectionManager.send(new GameResultInfo(GameResult.Victory), _hostID);
+			_connectionManager.send(new GameResultInfo(GameResult.Defeat), _guestID);
+		}
+		else // guest won
+		{
+			_connectionManager.send(new GameResultInfo(GameResult.Victory), _guestID);
+			_connectionManager.send(new GameResultInfo(GameResult.Defeat), _hostID);
+		}
 	}
 }

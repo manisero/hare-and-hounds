@@ -60,8 +60,7 @@ public class GameManager implements IGameManager
 			@Override
 			public void handleData(int clientID, GameJoinRequest data)
 			{
-				_games.get(data.HostID).setGuestID(clientID);
-				_connectionManager.send(new GameStartInfo());
+				_games.get(data.HostID).start(clientID);
 			}
 		});
 	}
