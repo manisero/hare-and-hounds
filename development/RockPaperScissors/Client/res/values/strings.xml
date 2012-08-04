@@ -15,7 +15,9 @@
     <string name="connection_error">Connection error</string>
     
     <string name="hosting_creating">Creating game&#8230;</string>
+    <string name="hosting_created">Game created</string>
     <string name="hosting_waiting">Waiting for guest&#8230;</string>
+    <string name="hosting_guestConnected">GuestConnected</string>
     
     <string name="gameList_getGameList">Get games</string>
     

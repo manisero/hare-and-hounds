@@ -3,6 +3,8 @@ package com.fARmework.RockPaperScissors.Client.ViewModels;
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Data.GameCreationInfo;
+import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.fARmework.core.client.Data.ConnectionFaultInfo;
@@ -19,23 +21,13 @@ public class GameModeViewModel extends ViewModel
 	public StringObservable status = new StringObservable();
 	public BooleanObservable isWaiting = new BooleanObservable(false);
 	
-	public Command connect = new Command()
-	{
-		@Override
-		public void Invoke(View arg0, Object... arg1)
-		{
-			status.set(ResourcesProvider.get(R.string.connection_connecting));
-			isWaiting.set(true);
-			ConnectionManager.connect();
-		}
-	};
-	
 	public Command create = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			NavigationManager.navigateTo(HostingViewModel.class);
+			_isHost = true;
+			connect();
 		}
 	};
 	
@@ -44,9 +36,12 @@ public class GameModeViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			NavigationManager.navigateTo(GameListViewModel.class);
+			_isHost = false;
+			connect();
 		}
 	};
+	
+	private boolean _isHost;
 	
 	@Inject
 	public GameModeViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
@@ -60,6 +55,17 @@ public class GameModeViewModel extends ViewModel
 			{
 				isWaiting.set(false);
 				status.set(ResourcesProvider.get(R.string.connection_success));
+				
+				if (_isHost)
+				{
+					status.set(ResourcesProvider.get(R.string.hosting_creating));
+					isWaiting.set(true);
+					ConnectionManager.send(new GameCreationRequest());
+				}
+				else
+				{
+					NavigationManager.navigateTo(GameListViewModel.class);
+				}
 			}
 		});
 		
@@ -72,6 +78,24 @@ public class GameModeViewModel extends ViewModel
 				status.set(ResourcesProvider.get(R.string.connection_fault));
 			}
 		});
+		
+		ConnectionManager.registerDataHandler(GameCreationInfo.class, new IDataHandler<GameCreationInfo>()
+		{
+			@Override
+			public void handle(GameCreationInfo data)
+			{
+				isWaiting.set(false);
+				status.set(ResourcesProvider.get(R.string.hosting_created));
+				NavigationManager.navigateTo(HostingViewModel.class);
+			}
+		});
+	}
+	
+	private void connect()
+	{
+		status.set(ResourcesProvider.get(R.string.connection_connecting));
+		isWaiting.set(true);
+		ConnectionManager.connect();
 	}
 	
 	public void disconnect()
