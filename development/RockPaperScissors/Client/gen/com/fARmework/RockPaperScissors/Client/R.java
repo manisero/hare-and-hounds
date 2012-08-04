@@ -19,16 +19,14 @@ public final class R {
         public static final int icon=0x7f020002;
     }
     public static final class id {
-        public static final int connectButton=0x7f070008;
-        public static final int connectionProgress=0x7f07000b;
-        public static final int createButton=0x7f070009;
-        public static final int createGameButton=0x7f07000d;
+        public static final int connectionProgress=0x7f07000a;
+        public static final int createButton=0x7f070008;
         public static final int games=0x7f070006;
         public static final int gesturePicker=0x7f070004;
         public static final int getGameListButton=0x7f070005;
-        public static final int hostingProgress=0x7f07000e;
-        public static final int joinButton=0x7f07000a;
-        public static final int optionsButton=0x7f07000c;
+        public static final int hostingProgress=0x7f07000c;
+        public static final int joinButton=0x7f070009;
+        public static final int optionsButton=0x7f07000b;
         public static final int paperButton=0x7f070002;
         public static final int rockButton=0x7f070001;
         public static final int scissorsButton=0x7f070003;
@@ -49,18 +47,20 @@ public final class R {
         public static final int connection_error=0x7f04000a;
         public static final int connection_fault=0x7f040009;
         public static final int connection_success=0x7f040008;
-        public static final int gameList_getGameList=0x7f04000d;
-        public static final int gestures_paper=0x7f040012;
-        public static final int gestures_rock=0x7f040011;
-        public static final int gestures_scissors=0x7f040013;
-        public static final int gestures_send=0x7f040010;
+        public static final int gameList_getGameList=0x7f04000f;
+        public static final int gestures_paper=0x7f040014;
+        public static final int gestures_rock=0x7f040013;
+        public static final int gestures_scissors=0x7f040015;
+        public static final int gestures_send=0x7f040012;
         /**  "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) 
          */
         public static final int hello=0x7f040003;
+        public static final int hosting_created=0x7f04000c;
         public static final int hosting_creating=0x7f04000b;
-        public static final int hosting_waiting=0x7f04000c;
-        public static final int mode_create=0x7f04000e;
-        public static final int mode_join=0x7f04000f;
+        public static final int hosting_guestConnected=0x7f04000e;
+        public static final int hosting_waiting=0x7f04000d;
+        public static final int mode_create=0x7f040010;
+        public static final int mode_join=0x7f040011;
         public static final int options=0x7f040005;
         public static final int port=0x7f040002;
         public static final int serverAddress=0x7f040001;
