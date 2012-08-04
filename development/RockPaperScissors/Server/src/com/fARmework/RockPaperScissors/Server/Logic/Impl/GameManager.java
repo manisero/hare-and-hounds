@@ -13,15 +13,15 @@ import com.google.inject.Inject;
 public class GameManager implements IGameManager
 {
 	private IConnectionManager _connectionManager;
-	private IGestureProcessor _gestureProcessor;
+	private IGameFactory _gameFactory;
 	
 	private Map<Integer, Game> _games = new LinkedHashMap<Integer, Game>();
 	
 	@Inject
-	public GameManager(IConnectionManager connectionManager, IGestureProcessor gestureProcessor)
+	public GameManager(IConnectionManager connectionManager, IGameFactory gameFactory)
 	{
 		_connectionManager = connectionManager;
-		_gestureProcessor = gestureProcessor;
+		_gameFactory = gameFactory;
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public class GameManager implements IGameManager
 			@Override
 			public void handleData(int clientID, GameCreationRequest data)
 			{
-				_games.put(clientID, new Game(_connectionManager, _gestureProcessor, clientID));
+				_games.put(clientID, _gameFactory.createGame(clientID));
 				_connectionManager.send(new GameCreationInfo(), clientID);
 			}
 		});
