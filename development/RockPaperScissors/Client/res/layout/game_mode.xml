@@ -4,18 +4,22 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+    <EditText android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/user_name" >
+        <requestFocus />
+    </EditText>
     
     <Button android:id="@+id/connectButton"
 		android:layout_width="200dp"
 		android:layout_height="100dp"
 		android:text="@string/connection_connect"
 		binding:onClick="connect" />
-    
-    <TextView android:id="@+id/status"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    binding:text="status" />
     
 	<Button android:id="@+id/createButton"
 		android:layout_width="200dp"
@@ -28,5 +32,28 @@
 		android:layout_height="100dp"
 		android:text="@string/mode_join"
 		binding:onClick="join" />
+
+	<LinearLayout android:orientation="horizontal"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal">
+        
+	    <TextView android:id="@+id/status"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    binding:text="status" />
+	    
+	    <ProgressBar android:id="@+id/connectionProgress"
+		    style="?android:attr/progressBarStyleSmall"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    binding:visibility="isWaiting" />
+	    
+	</LinearLayout>
+	
+	<Button android:id="@+id/optionsButton"
+		android:layout_width="200dp"
+		android:layout_height="100dp"
+		android:text="@string/options" />
 	
 </LinearLayout>

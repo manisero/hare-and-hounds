@@ -11,11 +11,13 @@ import com.google.inject.Inject;
 
 import android.view.View;
 import gueei.binding.Command;
+import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
 public class GameModeViewModel extends ViewModel
 {
 	public StringObservable status = new StringObservable();
+	public BooleanObservable isWaiting = new BooleanObservable(false);
 	
 	public Command connect = new Command()
 	{
@@ -23,6 +25,7 @@ public class GameModeViewModel extends ViewModel
 		public void Invoke(View arg0, Object... arg1)
 		{
 			status.set(ResourcesProvider.get(R.string.connection_connecting));
+			isWaiting.set(true);
 			ConnectionManager.connect();
 		}
 	};
@@ -55,6 +58,7 @@ public class GameModeViewModel extends ViewModel
 			@Override
 			public void handle(ConnectionSuccessInfo data)
 			{
+				isWaiting.set(false);
 				status.set(ResourcesProvider.get(R.string.connection_success));
 			}
 		});
@@ -64,6 +68,7 @@ public class GameModeViewModel extends ViewModel
 			@Override
 			public void handle(ConnectionFaultInfo data)
 			{
+				isWaiting.set(false);
 				status.set(ResourcesProvider.get(R.string.connection_fault));
 			}
 		});
