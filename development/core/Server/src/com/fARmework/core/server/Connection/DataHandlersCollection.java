@@ -1,16 +1,17 @@
-package com.fARmework.core.server.Connection.Impl;
+package com.fARmework.core.server.Connection;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fARmework.core.server.Connection.IDataHandler;
 
 @SuppressWarnings("rawtypes")
 public class DataHandlersCollection
 {
 	private Map<Class<?>, IDataHandler> _commonDataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();
 	private Map<Integer, Map<Class<?>, IDataHandler>> _individualDataHandlers = new LinkedHashMap<Integer, Map<Class<?>, IDataHandler>>();
+	
+	// register methods
 	
 	public <T> void register(Class<T> dataClass, IDataHandler<T> handler)
 	{
@@ -34,6 +35,34 @@ public class DataHandlersCollection
 			register(dataClass, handler, clientID);
 		}
 	}
+	
+	// isRegistered methods
+	
+	public <T> boolean isRegistered(Class<T> dataClass)
+	{
+		return _commonDataHandlers.containsKey(dataClass);
+	}
+	
+	public <T> boolean isRegistered(Class<T> dataClass, int clientID)
+	{
+		return _individualDataHandlers.containsKey(clientID) && _individualDataHandlers.get(clientID).containsKey(dataClass);
+	}
+	
+	// get methods
+	
+	@SuppressWarnings("unchecked")
+	public <T> IDataHandler<T> get(Class<T> dataClass)
+	{
+		return isRegistered(dataClass) ? _commonDataHandlers.get(dataClass) : null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> IDataHandler<T> get(Class<T> dataClass, int clientID)
+	{
+		return isRegistered(dataClass, clientID) ? _individualDataHandlers.get(clientID).get(dataClass) : get(dataClass);
+	}
+	
+	// clear methods
 	
 	public void clear()
 	{
