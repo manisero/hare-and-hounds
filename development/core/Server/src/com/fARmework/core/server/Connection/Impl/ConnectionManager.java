@@ -96,9 +96,45 @@ public class ConnectionManager implements IConnectionManager
 	}
 	
 	@Override
+	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler, int clientID)
+	{
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler, List<Integer> clientIDs)
+	{
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
 	public void clearDataHandlers()
 	{
 		_dataHandlers.clear();
+	}
+	
+	@Override
+	public void clearDataHandlers(int clientID)
+	{
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void clearDataHandlers(List<Integer> clientIDs)
+	{
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public <T> void clearDataHandlers(Class<T> dataClass, int clientID)
+	{
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public <T> void clearDataHandlers(Class<T> dataClass, List<Integer> clientIDs)
+	{
+		// TODO Auto-generated method stub
 	}
 	
 	@Override 
