@@ -94,15 +94,15 @@ public class ConnectionManager implements IConnectionManager
 	}
 	
 	@Override
-	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler, int clientID)
+	public <T> void registerDataHandler(Class<T> dataClass, int clientID, IDataHandler<T> handler)
 	{
-		_dataHandlers.register(dataClass, handler, clientID);
+		_dataHandlers.register(dataClass, clientID, handler);
 	}
 
 	@Override
-	public <T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler, List<Integer> clientIDs)
+	public <T> void registerDataHandler(Class<T> dataClass, List<Integer> clientIDs, IDataHandler<T> handler)
 	{
-		_dataHandlers.register(dataClass, handler, clientIDs);
+		_dataHandlers.register(dataClass, clientIDs, handler);
 	}
 	
 	@Override

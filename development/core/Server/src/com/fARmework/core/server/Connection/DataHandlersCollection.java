@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @SuppressWarnings("rawtypes")
 public class DataHandlersCollection
 {
@@ -18,7 +17,7 @@ public class DataHandlersCollection
 		_commonDataHandlers.put(dataClass, handler);
 	}
 	
-	public <T> void register(Class<T> dataClass, IDataHandler<T> handler, int clientID)
+	public <T> void register(Class<T> dataClass, int clientID, IDataHandler<T> handler)
 	{
 		if (!_individualDataHandlers.containsKey(clientID))
 		{
@@ -28,11 +27,11 @@ public class DataHandlersCollection
 		_individualDataHandlers.get(clientID).put(dataClass, handler);
 	}
 	
-	public <T> void register(Class<T> dataClass, IDataHandler<T> handler, List<Integer> clientIDs)
+	public <T> void register(Class<T> dataClass, List<Integer> clientIDs, IDataHandler<T> handler)
 	{
 		for (Integer clientID : clientIDs)
 		{
-			register(dataClass, handler, clientID);
+			register(dataClass, clientID, handler);
 		}
 	}
 	
