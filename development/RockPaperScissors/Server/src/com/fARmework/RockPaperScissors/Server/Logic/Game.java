@@ -1,15 +1,14 @@
-package com.fARmework.RockPaperScissors.Server.Logic.Impl;
+package com.fARmework.RockPaperScissors.Server.Logic;
 
 import com.fARmework.RockPaperScissors.Data.GameResultInfo;
 import com.fARmework.RockPaperScissors.Data.GestureInfo;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
-import com.fARmework.RockPaperScissors.Server.Logic.IGestureProcessor;
 import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.DataHandler;
 import com.fARmework.core.server.Connection.IConnectionManager;
 import com.fARmework.modules.ScreenGestures.Data.GestureData;
 
-class Game
+public class Game
 {
 	public enum GameState
 	{
