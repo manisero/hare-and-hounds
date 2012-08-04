@@ -5,55 +5,13 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Data.*;
-import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
-import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.DataHandler;
-import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.EmptyDataHandler;
 import com.fARmework.core.server.Connection.IConnectionManager;
-import com.fARmework.core.server.Data.ClientConnectedInfo;
-import com.fARmework.core.server.Data.ClientDisconnectedInfo;
-import com.fARmework.core.server.Data.ConnectionExceptionInfo;
-import com.fARmework.modules.ScreenGestures.Data.GestureData;
 import com.google.inject.Inject;
 
 public class GameManager implements IGameManager
 {
-	public enum GameState
-	{
-		InProgress,
-		Draw,
-		HostWon,
-		GuestWon
-	}
-	
-	private class Game
-	{
-		public int HostID;
-		public int GuestID;
-		public GestureType HostGesture;
-		public GestureType GuestGesture;
-		
-		public Game(int hostID)
-		{
-			this.HostID = hostID;
-		}
-		
-		public GameState getGameState()
-		{
-			if (HostGesture == null || GuestGesture == null)
-				return GameState.InProgress;
-			else if (HostGesture == GuestGesture)
-				return GameState.Draw;
-			else if (HostGesture == GestureType.Rock && GuestGesture == GestureType.Scissors ||
-					 HostGesture == GestureType.Paper && GuestGesture == GestureType.Rock ||
-					 HostGesture == GestureType.Scissors && GuestGesture == GestureType.Paper)
-				return GameState.HostWon;
-			else
-				return GameState.GuestWon;
-		}
-	}
-	
 	private IConnectionManager _connectionManager;
 	private IGestureProcessor _gestureProcessor;
 	
@@ -71,23 +29,12 @@ public class GameManager implements IGameManager
 	{
 		_connectionManager.startConnection();
 		
-		_connectionManager.registerDataHandler(ClientConnectedInfo.class, new EmptyDataHandler<ClientConnectedInfo>());
-		_connectionManager.registerDataHandler(ClientDisconnectedInfo.class, new EmptyDataHandler<ClientDisconnectedInfo>());
-		_connectionManager.registerDataHandler(ConnectionExceptionInfo.class, new DataHandler<ConnectionExceptionInfo>()
-		{
-			@Override
-			public void handleData(int clientID, ConnectionExceptionInfo data)
-			{
-				System.out.println("Exception: " + data.Exception.getMessage());
-			}
-		});
-		
 		_connectionManager.registerDataHandler(GameCreationRequest.class, new DataHandler<GameCreationRequest>()
 		{
 			@Override
 			public void handleData(int clientID, GameCreationRequest data)
 			{
-				_games.put(clientID, new Game(clientID));
+				_games.put(clientID, new Game(_connectionManager, _gestureProcessor, clientID));
 				_connectionManager.send(new GameCreationInfo(), clientID);
 			}
 		});
@@ -101,7 +48,7 @@ public class GameManager implements IGameManager
 				
 				for (Game game : _games.values())
 				{
-					hostIDs.add(game.HostID);
+					hostIDs.add(game.getHostID());
 				}
 				
 				_connectionManager.send(new GameListData(hostIDs), clientID);
@@ -113,62 +60,9 @@ public class GameManager implements IGameManager
 			@Override
 			public void handleData(int clientID, GameJoinRequest data)
 			{
-				_games.get(data.HostID).GuestID = clientID;
+				_games.get(data.HostID).setGuestID(clientID);
 				_connectionManager.send(new GameStartInfo());
 			}
 		});
-		
-		_connectionManager.registerDataHandler(GestureInfo.class, new DataHandler<GestureInfo>()
-		{
-			@Override
-			public void handleData(int clientID, GestureInfo data)
-			{
-				Game currentGame = null;
-				
-				for (Game game : _games.values())
-				{
-					if (clientID == game.HostID)
-					{
-						game.HostGesture = data.GestureType;
-						currentGame = game;
-						break;
-					}
-					else if (clientID == game.GuestID)
-					{
-						game.GuestGesture = data.GestureType;
-						currentGame = game;
-						break;
-					}
-				}
-				
-				switch (currentGame.getGameState())
-				{
-					case Draw:
-						_connectionManager.send(new GameResultInfo(GameResult.Draw), currentGame.HostID);
-						_connectionManager.send(new GameResultInfo(GameResult.Draw), currentGame.GuestID);
-						break;
-					case HostWon:
-						_connectionManager.send(new GameResultInfo(GameResult.Victory), currentGame.HostID);
-						_connectionManager.send(new GameResultInfo(GameResult.Defeat), currentGame.GuestID);
-						break;
-					case GuestWon:
-						_connectionManager.send(new GameResultInfo(GameResult.Victory), currentGame.GuestID);
-						_connectionManager.send(new GameResultInfo(GameResult.Defeat), currentGame.HostID);
-						break;
-					default:
-						break;
-				}
-			}
-		});
-		
-		_connectionManager.registerDataHandler(GestureData.class, new DataHandler<GestureData>()
-		{
-			@Override
-			public void handleData(int clientID, GestureData data)
-			{
-				_gestureProcessor.processGesture(data);
-			}
-		});
 	}
-
 }
