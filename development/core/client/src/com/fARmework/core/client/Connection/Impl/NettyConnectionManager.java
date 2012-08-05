@@ -8,12 +8,11 @@ import org.jboss.netty.channel.Channel;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.fARmework.core.client.Connection.Impl.NettyConnectionTask.IConnectionListener;
-import com.fARmework.core.client.Connection.Impl.NettyConnectionTask.IDataListener;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
 import com.fARmework.core.data.IDataService;
 import com.google.inject.Inject;
 
-public class NettyConnectionManager implements IConnectionManager, IConnectionListener, IDataListener
+public class NettyConnectionManager implements IConnectionManager, IConnectionListener
 {
 	private ISettingsProvider _settingsProvider;
 	private IDataService _dataService;
@@ -39,7 +38,7 @@ public class NettyConnectionManager implements IConnectionManager, IConnectionLi
 	public void connect(String serverAddress)
 	{
 		disconnect();
-		new NettyConnectionTask(this, this, _dataService).connect(serverAddress, _settingsProvider.port());
+		new NettyConnectionTask(this, _dataService).connect(serverAddress, _settingsProvider.port());
 	}
 	
 	@Override

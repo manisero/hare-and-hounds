@@ -34,10 +34,6 @@ public class NettyConnectionTask extends AsyncTask<SocketAddress, Object, Channe
 	public interface IConnectionListener
 	{
 		void onConnected(Channel channel);
-	}
-	
-	public interface IDataListener
-	{
 		void onDataReceived(Object data);
 	}
 	
@@ -68,13 +64,11 @@ public class NettyConnectionTask extends AsyncTask<SocketAddress, Object, Channe
 	}
 
 	private IConnectionListener _connectionListener;
-	private IDataListener _dataListener;
 	private IDataService _dataService;
 	
-	public NettyConnectionTask(IConnectionListener connectionListener, IDataListener dataListener, IDataService dataService)
+	public NettyConnectionTask(IConnectionListener connectionListener, IDataService dataService)
 	{
 		_connectionListener = connectionListener;
-		_dataListener = dataListener;
 		_dataService = dataService;
 	}
 	
@@ -128,7 +122,7 @@ public class NettyConnectionTask extends AsyncTask<SocketAddress, Object, Channe
 	{
 		for (Object dataPiece : data)
 		{
-			_dataListener.onDataReceived(dataPiece);
+			_connectionListener.onDataReceived(dataPiece);
 		}
 	}
 }
