@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) -->
+    
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">RockPaperScissors</string>
+    
+    <string name="serverAddress">Server address</string>
+    <string name="userName">User name</string>
+    
+    <string name="connection_connect">Connect</string>
+    <string name="connection_connecting">Connecting&#8230;</string> 
+    <string name="connection_success">Connected</string>
+    <string name="connection_fault">Connection failed</string>
+    <string name="connection_error">Connection error</string>
+    <string name="connection_disconnected">Disconnected</string>
+    
+    <string name="hosting_creating">Creating game&#8230;</string>
+    <string name="hosting_created">Game created</string>
+    <string name="hosting_waiting">Waiting for guest&#8230;</string>
+    <string name="hosting_guestConnected">GuestConnected</string>
+    
+    <string name="gameList_refresh">Refresh</string>
+    
+    <string name="mode_create">Create</string>
+    <string name="mode_join">Join</string>
+    
+    <string name="gestures_send">Send gesture</string>
+    <string name="gestures_rock">Rock</string>
+    <string name="gestures_paper">Paper</string>
+    <string name="gestures_scissors">Scissors</string>
+</resources>
