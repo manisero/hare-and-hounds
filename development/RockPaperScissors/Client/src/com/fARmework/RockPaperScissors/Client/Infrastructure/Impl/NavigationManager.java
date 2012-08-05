@@ -17,6 +17,7 @@ import com.fARmework.RockPaperScissors.Client.ViewModels.HostingViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 @SuppressWarnings("rawtypes")
 public class NavigationManager implements INavigationManager
@@ -66,5 +67,17 @@ public class NavigationManager implements INavigationManager
 		}
 		
 		_currentActivity.startActivity(new Intent(_currentActivity, _activities.get(viewModelClass)));
+	}
+	
+	public void showNotification(String notification, boolean longDisplay)
+	{
+		if (longDisplay)
+		{
+			Toast.makeText(_currentActivity, notification, Toast.LENGTH_LONG).show();
+		}
+		else
+		{
+			Toast.makeText(_currentActivity, notification, Toast.LENGTH_SHORT).show();
+		}
 	}
 }

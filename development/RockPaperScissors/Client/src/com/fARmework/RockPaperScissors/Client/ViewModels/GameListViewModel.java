@@ -8,8 +8,10 @@ import gueei.binding.observables.StringObservable;
 
 import android.view.View;
 
+import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
@@ -90,7 +92,7 @@ public class GameListViewModel extends ViewModel
 				}
 				else
 				{
-					// TODO: handle Deny
+					NavigationManager.showNotification(ResourcesProvider.get(R.string.gameList_joinRefused), false);
 				}
 			}
 		});
