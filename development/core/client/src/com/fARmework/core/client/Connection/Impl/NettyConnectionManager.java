@@ -1,103 +1,20 @@
 package com.fARmework.core.client.Connection.Impl;
 
-import java.net.InetSocketAddress;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
 
-import org.jboss.netty.bootstrap.ClientBootstrap;
-import org.jboss.netty.channel.*;
-import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
-import org.jboss.netty.handler.codec.serialization.*;
+import org.jboss.netty.channel.Channel;
 
-import com.fARmework.core.client.Connection.*;
-import com.fARmework.core.client.Data.*;
+import com.fARmework.core.client.Connection.IConnectionManager;
+import com.fARmework.core.client.Connection.IDataHandler;
+import com.fARmework.core.client.Connection.Impl.NettyConnectionTask.IConnectionListener;
+import com.fARmework.core.client.Connection.Impl.NettyConnectionTask.IDataListener;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
 import com.fARmework.core.data.IDataService;
-import com.fARmework.core.data.Message;
 import com.google.inject.Inject;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
-public class NettyConnectionManager implements IConnectionManager
+public class NettyConnectionManager implements IConnectionManager, IConnectionListener, IDataListener
 {
-	private class ConnectionTask extends AsyncTask<String, Object, Void>
-	{
-		private class ChannelHandler extends SimpleChannelUpstreamHandler
-		{
-			@Override
-			public void channelConnected(ChannelHandlerContext context, ChannelStateEvent event)
-			{
-				Log.i("Connected", "Connected to server");
-				publishProgress(new ConnectionSuccessInfo());
-			}
-			
-			@Override
-			public void messageReceived(ChannelHandlerContext context, MessageEvent event)
-			{
-				Log.i("Message", event.getMessage().toString());
-				Message message = _dataService.deserializeMessage(event.getMessage().toString());
-				publishProgress(_dataService.fromMessage(message));
-			}
-			
-			@Override
-			public void exceptionCaught(ChannelHandlerContext context, ExceptionEvent event)
-			{
-				event.getCause().printStackTrace();
-				event.getChannel().close();
-				publishProgress(new ConnectionExceptionInfo(event.getCause()));
-			}
-		}
-		
-		@Override
-		protected Void doInBackground(String... params)
-		{
-			ClientBootstrap bootstrap = new ClientBootstrap(new NioClientSocketChannelFactory(Executors.newCachedThreadPool(),
-																							  Executors.newCachedThreadPool()));
-			
-			bootstrap.setPipelineFactory(new ChannelPipelineFactory()
-			{	
-				@Override
-				public ChannelPipeline getPipeline() throws Exception
-				{
-					return Channels.pipeline(new ObjectEncoder(),
-											 new ObjectDecoder(ClassResolvers.cacheDisabled(getClass().getClassLoader())),
-											 new ChannelHandler());
-				}
-			});
-			
-			bootstrap.setOption("tcpNoDelay", true);
-	        bootstrap.setOption("keepAlive", true);
-	        
-			ChannelFuture future = bootstrap.connect(new InetSocketAddress(params[0], _settingsProvider.port()));
-			
-			_channel = future.awaitUninterruptibly().getChannel();
-			
-			if (!future.isSuccess())
-			{
-				future.getCause().printStackTrace();
-				bootstrap.releaseExternalResources();
-				publishProgress(new ConnectionFaultInfo());
-			}
-			
-			return null;
-		}
-		
-		@SuppressWarnings("unchecked")
-		@Override
-		protected void onProgressUpdate(Object... data)
-		{
-			for (Object dataPiece : data)
-			{
-				if (_dataHandlers.containsKey(dataPiece.getClass()))
-				{
-					_dataHandlers.get(dataPiece.getClass()).handle(dataPiece);
-				}
-			}
-		}
-	}
-	
 	private ISettingsProvider _settingsProvider;
 	private IDataService _dataService;
 	
@@ -115,28 +32,30 @@ public class NettyConnectionManager implements IConnectionManager
 	@Override
 	public void connect()
 	{
-		new ConnectionTask().execute(_settingsProvider.serverAddress());
+		connect(_settingsProvider.serverAddress());
 	}
 	
 	@Override
 	public void connect(String serverAddress)
 	{
-		new ConnectionTask().execute(serverAddress);
+		disconnect();
+		new NettyConnectionTask(this, this, _dataService).connect(serverAddress, _settingsProvider.port());
+	}
+	
+	@Override
+	public void onConnected(Channel channel)
+	{
+		_channel = channel;
 	}
 	
 	@Override
 	public void disconnect()
 	{
-		if (_channel != null)
+		if (_channel != null && _channel.isOpen())
 		{
 			_channel.close();
+			_channel = null;
 		}
-	}
-	
-	@Override
-	public boolean isDisposed()
-	{
-		return _channel != null && !_channel.isConnected();
 	}
 	
 	@Override
@@ -149,6 +68,16 @@ public class NettyConnectionManager implements IConnectionManager
 	public void clearDataHandlers()
 	{
 		_dataHandlers.clear();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void onDataReceived(Object data)
+	{
+		if (_dataHandlers.containsKey(data.getClass()))
+		{
+			_dataHandlers.get(data.getClass()).handle(data);
+		}
 	}
 	
 	@Override
