@@ -78,16 +78,15 @@ public class NavigationManager implements INavigationManager
 	}
 	
 	@Override
-	public void showNotification(String notification, boolean longDisplay)
+	public void showShortNotification(String notification)
 	{
-		if (longDisplay)
-		{
-			Toast.makeText(_currentActivity, notification, Toast.LENGTH_LONG).show();
-		}
-		else
-		{
-			Toast.makeText(_currentActivity, notification, Toast.LENGTH_SHORT).show();
-		}
+		Toast.makeText(_currentActivity, notification, Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	public void showLongNotification(String notification)
+	{
+		Toast.makeText(_currentActivity, notification, Toast.LENGTH_LONG).show();
 	}
 	
 	@Override

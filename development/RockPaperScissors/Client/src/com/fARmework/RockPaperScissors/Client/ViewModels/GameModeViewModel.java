@@ -1,5 +1,7 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
+import java.util.Collection;
+
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
@@ -14,6 +16,8 @@ import com.google.inject.Inject;
 
 import android.view.View;
 import gueei.binding.Command;
+import gueei.binding.IObservable;
+import gueei.binding.Observer;
 import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
@@ -88,13 +92,36 @@ public class GameModeViewModel extends ViewModel
 		}
 	};
 	
+	private ISettingsProvider _settingsProvider;
+	
 	@Inject
 	public GameModeViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
 		super(connectionManager, navigationManager);
 		
-		serverAddress.set(settingsProvider.getServerAddress());
-		userName.set(settingsProvider.getUserName());
+		_settingsProvider = settingsProvider;
+		
+		serverAddress.set(_settingsProvider.getServerAddress());
+		
+		serverAddress.subscribe(new Observer()
+		{
+			@Override
+			public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
+			{
+				_settingsProvider.setServerAddress((String)arg0.get());
+			}
+		});
+		
+		userName.set(_settingsProvider.getUserName());
+		
+		userName.subscribe(new Observer()
+		{
+			@Override
+			public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
+			{
+				_settingsProvider.setUserName((String)arg0.get());
+			}
+		});
 		
 		ConnectionManager.registerDataHandler(ConnectionFaultInfo.class, new IDataHandler<ConnectionFaultInfo>()
 		{

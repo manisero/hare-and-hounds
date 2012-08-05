@@ -48,8 +48,7 @@ public class GameListViewModel extends ViewModel
 						}
 						else
 						{
-							NavigationManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()),
-															   false);
+							NavigationManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()));
 						}
 					}
 				});
