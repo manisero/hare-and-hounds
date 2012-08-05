@@ -2,6 +2,7 @@ package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Data.GameCreationInfo;
 import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
@@ -18,6 +19,8 @@ import gueei.binding.observables.StringObservable;
 
 public class GameModeViewModel extends ViewModel
 {
+	public StringObservable serverAddress = new StringObservable();
+	public StringObservable userName = new StringObservable();
 	public StringObservable status = new StringObservable();
 	public BooleanObservable isWaiting = new BooleanObservable(false);
 	
@@ -44,9 +47,12 @@ public class GameModeViewModel extends ViewModel
 	private boolean _isHost;
 	
 	@Inject
-	public GameModeViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
+	public GameModeViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
 		super(connectionManager, navigationManager);
+		
+		serverAddress.set(settingsProvider.serverAddress());
+		userName.set(settingsProvider.userName());
 		
 		ConnectionManager.registerDataHandler(ConnectionSuccessInfo.class, new IDataHandler<ConnectionSuccessInfo>()
 		{

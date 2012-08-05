@@ -5,8 +5,8 @@
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">RockPaperScissors</string>
     
-    <string name="user_name">User name</string>
-    <string name="options">Options</string>
+    <string name="serverAddress">Server address</string>
+    <string name="userName">User name</string>
     
     <string name="connection_connect">Connect</string>
     <string name="connection_connecting">Connecting&#8230;</string> 
