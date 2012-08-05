@@ -2,6 +2,7 @@ package com.fARmework.creat.GestureDetector;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 
+import java.awt.Rectangle;
 import java.awt.image.*;
 import java.io.*;
 import java.util.*;
@@ -17,7 +18,7 @@ public class MainWindow extends JFrame
 	
 	public MainWindow()
 	{
-		_fileReader = new GestureFileReader(new File("testFile.txt"));
+		_fileReader = new GestureFileReader(new File("samples/square_clockwise.dat"));
 		_gestureDrawer = new GestureDrawer();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,7 +30,7 @@ public class MainWindow extends JFrame
 		LinkedList<GestureData> gestures = _fileReader.getGestures();
 		
 		for(GestureData data : gestures)
-		{
+		{			
 			BufferedImage image = _gestureDrawer.drawGesture(data);
 			
 			JFrame frame = new JFrame();
