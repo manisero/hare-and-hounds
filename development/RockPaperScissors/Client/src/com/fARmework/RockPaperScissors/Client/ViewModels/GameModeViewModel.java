@@ -23,14 +23,31 @@ public class GameModeViewModel extends ViewModel
 	public StringObservable userName = new StringObservable();
 	public StringObservable status = new StringObservable();
 	public BooleanObservable isWaiting = new BooleanObservable(false);
+	public BooleanObservable isConnected = new BooleanObservable(false);
 	
 	public Command create = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			_isHost = true;
-			connect();
+			if (!isConnected.get())
+			{
+				ConnectionManager.registerDataHandler(ConnectionSuccessInfo.class, new IDataHandler<ConnectionSuccessInfo>()
+				{
+					@Override
+					public void handle(ConnectionSuccessInfo data)
+					{
+						isConnected.set(true);
+						createGame();
+					}
+				});
+				
+				connect();
+			}
+			else
+			{
+				createGame();
+			}
 		}
 	};
 	
@@ -39,12 +56,28 @@ public class GameModeViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			_isHost = false;
-			connect();
+			if (!isConnected.get())
+			{
+				ConnectionManager.registerDataHandler(ConnectionSuccessInfo.class, new IDataHandler<ConnectionSuccessInfo>()
+				{
+					@Override
+					public void handle(ConnectionSuccessInfo data)
+					{
+						isConnected.set(true);
+						status.set(ResourcesProvider.get(R.string.connection_success));
+						isWaiting.set(false);
+						NavigationManager.navigateTo(GameListViewModel.class);
+					}
+				});
+				
+				connect();
+			}
+			else
+			{
+				NavigationManager.navigateTo(GameListViewModel.class);
+			}
 		}
 	};
-	
-	private boolean _isHost;
 	
 	@Inject
 	public GameModeViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
@@ -54,34 +87,13 @@ public class GameModeViewModel extends ViewModel
 		serverAddress.set(settingsProvider.serverAddress());
 		userName.set(settingsProvider.userName());
 		
-		ConnectionManager.registerDataHandler(ConnectionSuccessInfo.class, new IDataHandler<ConnectionSuccessInfo>()
-		{
-			@Override
-			public void handle(ConnectionSuccessInfo data)
-			{
-				isWaiting.set(false);
-				status.set(ResourcesProvider.get(R.string.connection_success));
-				
-				if (_isHost)
-				{
-					status.set(ResourcesProvider.get(R.string.hosting_creating));
-					isWaiting.set(true);
-					ConnectionManager.send(new GameCreationRequest());
-				}
-				else
-				{
-					NavigationManager.navigateTo(GameListViewModel.class);
-				}
-			}
-		});
-		
 		ConnectionManager.registerDataHandler(ConnectionFaultInfo.class, new IDataHandler<ConnectionFaultInfo>()
 		{
 			@Override
 			public void handle(ConnectionFaultInfo data)
 			{
-				isWaiting.set(false);
 				status.set(ResourcesProvider.get(R.string.connection_fault));
+				isWaiting.set(false);
 			}
 		});
 		
@@ -90,8 +102,8 @@ public class GameModeViewModel extends ViewModel
 			@Override
 			public void handle(GameCreationInfo data)
 			{
-				isWaiting.set(false);
 				status.set(ResourcesProvider.get(R.string.hosting_created));
+				isWaiting.set(false);
 				NavigationManager.navigateTo(HostingViewModel.class);
 			}
 		});
@@ -104,8 +116,16 @@ public class GameModeViewModel extends ViewModel
 		ConnectionManager.connect();
 	}
 	
+	private void createGame()
+	{
+		status.set(ResourcesProvider.get(R.string.hosting_creating));
+		ConnectionManager.send(new GameCreationRequest());
+	}
+	
 	public void disconnect()
 	{
 		ConnectionManager.disconnect();
+		isConnected.set(false);
+		status.set(ResourcesProvider.get(R.string.connection_disconnected));
 	}
 }
