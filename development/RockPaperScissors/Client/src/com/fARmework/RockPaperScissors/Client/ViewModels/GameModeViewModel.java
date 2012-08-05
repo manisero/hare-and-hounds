@@ -79,6 +79,15 @@ public class GameModeViewModel extends ViewModel
 		}
 	};
 	
+	public Command disconnect = new Command()
+	{
+		@Override
+		public void Invoke(View arg0, Object... arg1)
+		{
+			disconnect();
+		}
+	};
+	
 	@Inject
 	public GameModeViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
 	{

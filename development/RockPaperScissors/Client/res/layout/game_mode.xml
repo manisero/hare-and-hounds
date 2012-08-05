@@ -59,4 +59,11 @@
 	    
 	</LinearLayout>
 	
+	<Button android:id="@+id/disconnectButton"
+		android:layout_width="200dp"
+		android:layout_height="100dp"
+		android:text="@string/connection_disconnect"
+		binding:onClick="disconnect"
+		binding:visibility="isConnected" />
+	
 </LinearLayout>
