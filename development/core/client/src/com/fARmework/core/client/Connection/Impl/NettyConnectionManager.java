@@ -31,14 +31,14 @@ public class NettyConnectionManager implements IConnectionManager, IConnectionLi
 	@Override
 	public void connect()
 	{
-		connect(_settingsProvider.serverAddress());
+		connect(_settingsProvider.getServerAddress());
 	}
 	
 	@Override
 	public void connect(String serverAddress)
 	{
 		disconnect();
-		new NettyConnectionTask(this, _dataService).connect(serverAddress, _settingsProvider.port());
+		new NettyConnectionTask(this, _dataService).connect(serverAddress, _settingsProvider.getPort());
 	}
 	
 	@Override
