@@ -1,6 +1,7 @@
 package com.fARmework.RockPaperScissors.Client.Infrastructure;
 
 import com.fARmework.RockPaperScissors.Client.Activities.BoundActivity;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.NavigationManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 
 public interface INavigationManager
@@ -13,4 +14,5 @@ public interface INavigationManager
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass);
 	
 	void showNotification(String notification, boolean longDisplay);
+	void showYesNoDialog(String message, String yesLabel, String noLabel, IDialogListener yesListener, IDialogListener noListener);
 }
