@@ -7,7 +7,7 @@ import com.fARmework.RockPaperScissors.Data.GameListData;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo;
 import com.fARmework.RockPaperScissors.Data.GameStartInfo;
 import com.fARmework.RockPaperScissors.Data.GestureInfo;
-import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
+import com.fARmework.RockPaperScissors.Data.GameJoinData;
 import com.fARmework.core.data.IDataRegistry;
 
 public class DataRegistrar
@@ -20,7 +20,7 @@ public class DataRegistrar
 		dataRegistry.register(GameListRequest.class);
 		dataRegistry.register(GameListData.class);
 		
-		dataRegistry.register(GameJoinRequest.class);
+		dataRegistry.register(GameJoinData.class);
 		
 		dataRegistry.register(GameStartInfo.class);
 		
