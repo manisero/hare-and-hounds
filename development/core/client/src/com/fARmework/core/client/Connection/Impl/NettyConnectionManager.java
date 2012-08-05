@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implements IConnectionManager
+public class NettyConnectionManager extends AsyncTask<String, Object, Void> implements IConnectionManager
 {
 	private class ChannelHandler extends SimpleChannelUpstreamHandler
 	{
@@ -65,11 +65,17 @@ public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implem
 	@Override
 	public void connect()
 	{
-		execute();
+		execute(_settingsProvider.serverAddress());
 	}
 	
 	@Override
-	protected Void doInBackground(Void... params)
+	public void connect(String serverAddress)
+	{
+		execute(serverAddress);
+	}
+	
+	@Override
+	protected Void doInBackground(String... params)
 	{
 		ClientBootstrap bootstrap = new ClientBootstrap(new NioClientSocketChannelFactory(Executors.newCachedThreadPool(),
 																						  Executors.newCachedThreadPool()));
@@ -88,7 +94,7 @@ public class NettyConnectionManager extends AsyncTask<Void, Object, Void> implem
 		bootstrap.setOption("tcpNoDelay", true);
         bootstrap.setOption("keepAlive", true);
         
-		ChannelFuture future = bootstrap.connect(new InetSocketAddress(_settingsProvider.serverAddress(), _settingsProvider.port()));
+		ChannelFuture future = bootstrap.connect(new InetSocketAddress(params[0], _settingsProvider.port()));
 		
 		_channel = future.awaitUninterruptibly().getChannel();
 		

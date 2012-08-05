@@ -113,7 +113,7 @@ public class GameModeViewModel extends ViewModel
 	{
 		status.set(ResourcesProvider.get(R.string.connection_connecting));
 		isWaiting.set(true);
-		ConnectionManager.connect();
+		ConnectionManager.connect(serverAddress.get());
 	}
 	
 	private void createGame()
