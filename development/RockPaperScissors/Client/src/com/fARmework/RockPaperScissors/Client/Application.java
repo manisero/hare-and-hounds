@@ -1,7 +1,6 @@
 package com.fARmework.RockPaperScissors.Client;
 
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.SettingsProvider;
 import com.fARmework.core.data.IDataRegistry;
 import com.google.inject.Injector;
 
@@ -20,9 +19,8 @@ public class Application extends android.app. Application
 		
 		Injector injector = RoboGuice.getInjector(this);
 		
-		// Initialize ResourcesProvider and SettingsProvider
+		// Initialize ResourcesProvider
 		ResourcesProvider.setResources(getResources());
-		injector.getInstance(SettingsProvider.class).setResources(getResources());
 		
 		// Register data
 		IDataRegistry dataRegistry = injector.getInstance(IDataRegistry.class);

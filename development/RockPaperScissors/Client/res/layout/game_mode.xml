@@ -6,12 +6,23 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <EditText android:id="@+id/serverAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/serverAddress"
+        binding:text="serverAddress"
+        android:enabled="false" >
+    </EditText>
+    
     <EditText android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="@string/user_name" >
+        android:hint="@string/userName"
+        binding:text="userName" >
         <requestFocus />
     </EditText>
     
@@ -44,10 +55,5 @@
 		    binding:visibility="isWaiting" />
 	    
 	</LinearLayout>
-	
-	<Button android:id="@+id/optionsButton"
-		android:layout_width="200dp"
-		android:layout_height="100dp"
-		android:text="@string/options" />
 	
 </LinearLayout>
