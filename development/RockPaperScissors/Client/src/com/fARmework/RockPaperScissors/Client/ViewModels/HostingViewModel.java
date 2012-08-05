@@ -6,6 +6,7 @@ import gueei.binding.observables.StringObservable;
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.NavigationManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
@@ -26,13 +27,30 @@ public class HostingViewModel extends ViewModel
 		ConnectionManager.registerDataHandler(GameJoinRequest.class, new IDataHandler<GameJoinRequest>()
 		{
 			@Override
-			public void handle(GameJoinRequest data)
+			public void handle(final GameJoinRequest data)
 			{
-				isWaiting.set(false);
-				// TODO: allow denying guest
-				status.set(ResourcesProvider.get(R.string.hosting_guestConnected));
-				ConnectionManager.send(new GameJoinResponse(data.HostID, data.GuestID, GameJoinResponseType.Accept));
-				NavigationManager.navigateTo(GameViewModel.class);
+				NavigationManager.showYesNoDialog(String.format(ResourcesProvider.get(R.string.hosting_guestConnected), data.GuestUserName),
+												  ResourcesProvider.get(R.string.hosting_allowJoin),
+												  ResourcesProvider.get(R.string.hosting_denyJoin),
+												  new IDialogListener()
+													{
+														@Override
+														public void onDialogResult()
+														{
+															isWaiting.set(false);
+															status.set(String.format(ResourcesProvider.get(R.string.hosting_guestJoined), data.GuestUserName));
+															ConnectionManager.send(new GameJoinResponse(data.HostID, data.GuestID, GameJoinResponseType.Accept));
+															NavigationManager.navigateTo(GameViewModel.class);
+														}
+													},
+												  new IDialogListener()
+													{
+														@Override
+														public void onDialogResult()
+														{
+															ConnectionManager.send(new GameJoinResponse(data.HostID, data.GuestID, GameJoinResponseType.Deny));
+														}
+													});
 			}
 		});
 	}

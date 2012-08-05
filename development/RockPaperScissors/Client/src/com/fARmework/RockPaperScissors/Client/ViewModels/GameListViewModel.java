@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import gueei.binding.Command;
 import gueei.binding.collections.ArrayListObservable;
+import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
 import android.view.View;
@@ -34,6 +35,27 @@ public class GameListViewModel extends ViewModel
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
+				ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
+				{
+					@Override
+					public void handle(GameJoinResponse data)
+					{
+						isWaiting.set(false);
+						
+						if (data.Response == GameJoinResponseType.Accept)
+						{
+							NavigationManager.navigateTo(GameViewModel.class);
+						}
+						else
+						{
+							NavigationManager.showNotification(String.format(ResourcesProvider.get(R.string.gameList_joinRefused), hostUserName.get()),
+															   false);
+						}
+					}
+				});
+				
+				status.set(String.format(ResourcesProvider.get(R.string.gameList_joining), hostUserName.get()));
+				isWaiting.set(true);
 				ConnectionManager.send(new GameJoinData(_hostID, _settingsProvider.userName()));
 			}
 		};
@@ -46,6 +68,8 @@ public class GameListViewModel extends ViewModel
 	}
 	
 	public ArrayListObservable<Game> games = new ArrayListObservable<Game>(Game.class);
+	public StringObservable status = new StringObservable();
+	public BooleanObservable isWaiting = new BooleanObservable(false);
 	
 	public Command getGames = new Command()
 	{
@@ -78,22 +102,6 @@ public class GameListViewModel extends ViewModel
 				}
 				
 				games.setArray(gameList.toArray(new Game[0]));
-			}
-		});
-		
-		ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
-		{
-			@Override
-			public void handle(GameJoinResponse data)
-			{
-				if (data.Response == GameJoinResponseType.Accept)
-				{
-					NavigationManager.navigateTo(GameViewModel.class);
-				}
-				else
-				{
-					NavigationManager.showNotification(ResourcesProvider.get(R.string.gameList_joinRefused), false);
-				}
 			}
 		});
 		
