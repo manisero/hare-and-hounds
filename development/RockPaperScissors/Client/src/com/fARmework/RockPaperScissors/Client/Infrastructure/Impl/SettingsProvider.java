@@ -15,6 +15,7 @@ public class SettingsProvider implements ISettingsProvider
 	private Context _context;
 	
 	// SharedPreferences access methods
+	// NOTE: SharedPreferences access methods are highly inefficient. Probably some caching should be introduced.
 	
 	@Override
 	public void setContext(Context context)

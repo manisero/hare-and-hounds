@@ -92,6 +92,25 @@ public class GameModeViewModel extends ViewModel
 		}
 	};
 	
+	// NOTE: Is is recommended that Observers are declared as fields so that reference to them is kept
+	private Observer _serverAddressObserver = new Observer()
+	{
+		@Override
+		public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
+		{
+			_settingsProvider.setServerAddress((String)arg0.get());
+		}
+	};
+	
+	private Observer _userNameObserver = new Observer()
+	{
+		@Override
+		public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
+		{
+			_settingsProvider.setUserName((String)arg0.get());
+		}
+	};
+	
 	private ISettingsProvider _settingsProvider;
 	
 	@Inject
@@ -102,26 +121,10 @@ public class GameModeViewModel extends ViewModel
 		_settingsProvider = settingsProvider;
 		
 		serverAddress.set(_settingsProvider.getServerAddress());
-		
-		serverAddress.subscribe(new Observer()
-		{
-			@Override
-			public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
-			{
-				_settingsProvider.setServerAddress((String)arg0.get());
-			}
-		});
+		serverAddress.subscribe(_serverAddressObserver);
 		
 		userName.set(_settingsProvider.getUserName());
-		
-		userName.subscribe(new Observer()
-		{
-			@Override
-			public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
-			{
-				_settingsProvider.setUserName((String)arg0.get());
-			}
-		});
+		userName.subscribe(_userNameObserver);
 		
 		ConnectionManager.registerDataHandler(ConnectionFaultInfo.class, new IDataHandler<ConnectionFaultInfo>()
 		{
