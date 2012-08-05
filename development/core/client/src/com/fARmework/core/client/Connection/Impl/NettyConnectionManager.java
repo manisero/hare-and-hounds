@@ -20,31 +20,81 @@ import com.google.inject.Inject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class NettyConnectionManager extends AsyncTask<String, Object, Void> implements IConnectionManager
+public class NettyConnectionManager implements IConnectionManager
 {
-	private class ChannelHandler extends SimpleChannelUpstreamHandler
+	private class ConnectionTask extends AsyncTask<String, Object, Void>
 	{
-		@Override
-		public void channelConnected(ChannelHandlerContext context, ChannelStateEvent event)
+		private class ChannelHandler extends SimpleChannelUpstreamHandler
 		{
-			Log.i("Connected", "Connected to server");
-			publishProgress(new ConnectionSuccessInfo());
+			@Override
+			public void channelConnected(ChannelHandlerContext context, ChannelStateEvent event)
+			{
+				Log.i("Connected", "Connected to server");
+				publishProgress(new ConnectionSuccessInfo());
+			}
+			
+			@Override
+			public void messageReceived(ChannelHandlerContext context, MessageEvent event)
+			{
+				Log.i("Message", event.getMessage().toString());
+				Message message = _dataService.deserializeMessage(event.getMessage().toString());
+				publishProgress(_dataService.fromMessage(message));
+			}
+			
+			@Override
+			public void exceptionCaught(ChannelHandlerContext context, ExceptionEvent event)
+			{
+				event.getCause().printStackTrace();
+				event.getChannel().close();
+				publishProgress(new ConnectionExceptionInfo(event.getCause()));
+			}
 		}
 		
 		@Override
-		public void messageReceived(ChannelHandlerContext context, MessageEvent event)
+		protected Void doInBackground(String... params)
 		{
-			Log.i("Message", event.getMessage().toString());
-			Message message = _dataService.deserializeMessage(event.getMessage().toString());
-			publishProgress(_dataService.fromMessage(message));
+			ClientBootstrap bootstrap = new ClientBootstrap(new NioClientSocketChannelFactory(Executors.newCachedThreadPool(),
+																							  Executors.newCachedThreadPool()));
+			
+			bootstrap.setPipelineFactory(new ChannelPipelineFactory()
+			{	
+				@Override
+				public ChannelPipeline getPipeline() throws Exception
+				{
+					return Channels.pipeline(new ObjectEncoder(),
+											 new ObjectDecoder(ClassResolvers.cacheDisabled(getClass().getClassLoader())),
+											 new ChannelHandler());
+				}
+			});
+			
+			bootstrap.setOption("tcpNoDelay", true);
+	        bootstrap.setOption("keepAlive", true);
+	        
+			ChannelFuture future = bootstrap.connect(new InetSocketAddress(params[0], _settingsProvider.port()));
+			
+			_channel = future.awaitUninterruptibly().getChannel();
+			
+			if (!future.isSuccess())
+			{
+				future.getCause().printStackTrace();
+				bootstrap.releaseExternalResources();
+				publishProgress(new ConnectionFaultInfo());
+			}
+			
+			return null;
 		}
 		
+		@SuppressWarnings("unchecked")
 		@Override
-		public void exceptionCaught(ChannelHandlerContext context, ExceptionEvent event)
+		protected void onProgressUpdate(Object... data)
 		{
-			event.getCause().printStackTrace();
-			event.getChannel().close();
-			publishProgress(new ConnectionExceptionInfo(event.getCause()));
+			for (Object dataPiece : data)
+			{
+				if (_dataHandlers.containsKey(dataPiece.getClass()))
+				{
+					_dataHandlers.get(dataPiece.getClass()).handle(dataPiece);
+				}
+			}
 		}
 	}
 	
@@ -65,60 +115,13 @@ public class NettyConnectionManager extends AsyncTask<String, Object, Void> impl
 	@Override
 	public void connect()
 	{
-		execute(_settingsProvider.serverAddress());
+		new ConnectionTask().execute(_settingsProvider.serverAddress());
 	}
 	
 	@Override
 	public void connect(String serverAddress)
 	{
-		execute(serverAddress);
-	}
-	
-	@Override
-	protected Void doInBackground(String... params)
-	{
-		ClientBootstrap bootstrap = new ClientBootstrap(new NioClientSocketChannelFactory(Executors.newCachedThreadPool(),
-																						  Executors.newCachedThreadPool()));
-		
-		bootstrap.setPipelineFactory(new ChannelPipelineFactory()
-		{	
-			@Override
-			public ChannelPipeline getPipeline() throws Exception
-			{
-				return Channels.pipeline(new ObjectEncoder(),
-										 new ObjectDecoder(ClassResolvers.cacheDisabled(getClass().getClassLoader())),
-										 new ChannelHandler());
-			}
-		});
-		
-		bootstrap.setOption("tcpNoDelay", true);
-        bootstrap.setOption("keepAlive", true);
-        
-		ChannelFuture future = bootstrap.connect(new InetSocketAddress(params[0], _settingsProvider.port()));
-		
-		_channel = future.awaitUninterruptibly().getChannel();
-		
-		if (!future.isSuccess())
-		{
-			future.getCause().printStackTrace();
-			bootstrap.releaseExternalResources();
-			publishProgress(new ConnectionFaultInfo());
-		}
-		
-		return null;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void onProgressUpdate(Object... data)
-	{
-		for (Object dataPiece : data)
-		{
-			if (_dataHandlers.containsKey(dataPiece.getClass()))
-			{
-				_dataHandlers.get(dataPiece.getClass()).handle(dataPiece);
-			}
-		}
+		new ConnectionTask().execute(serverAddress);
 	}
 	
 	@Override
