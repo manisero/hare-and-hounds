@@ -1,7 +1,6 @@
 package com.fARmework.RockPaperScissors.Server.Logic.Impl;
 
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Data.*;
@@ -45,14 +44,14 @@ public class GameManager implements IGameManager
 			@Override
 			public void handleData(int clientID, GameListRequest data)
 			{
-				LinkedList<Integer> hostIDs = new LinkedList<Integer>();
+				GameListData gameList = new GameListData();
 				
 				for (Game game : _games.values())
 				{
-					hostIDs.add(game.getHostID());
+					gameList.addGame(game.getHostID(), game.getHostUserName());
 				}
 				
-				_connectionManager.send(new GameListData(hostIDs), clientID);
+				_connectionManager.send(gameList, clientID);
 			}
 		});
 		
