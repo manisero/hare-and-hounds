@@ -10,10 +10,11 @@ import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
+import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
+import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListData;
-import com.fARmework.RockPaperScissors.Data.GameStartInfo;
 import com.fARmework.RockPaperScissors.Data.GameJoinData;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
@@ -78,12 +79,19 @@ public class GameListViewModel extends ViewModel
 			}
 		});
 		
-		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
+		ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
 		{
 			@Override
-			public void handle(GameStartInfo data)
+			public void handle(GameJoinResponse data)
 			{
-				NavigationManager.navigateTo(GameViewModel.class);
+				if (data.Response == GameJoinResponseType.Accept)
+				{
+					NavigationManager.navigateTo(GameViewModel.class);
+				}
+				else
+				{
+					// TODO: handle Deny
+				}
 			}
 		});
 		
