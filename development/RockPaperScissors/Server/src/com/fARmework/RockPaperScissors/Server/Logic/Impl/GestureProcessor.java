@@ -1,15 +1,15 @@
-package com.fARmework.RockPaperScissors.Server.Logic.DataHandlers;
+package com.fARmework.RockPaperScissors.Server.Logic.Impl;
 
-import com.fARmework.core.server.Connection.IDataHandler;
+import com.fARmework.RockPaperScissors.Server.Logic.IGestureProcessor;
 import com.fARmework.modules.ScreenGestures.Data.GestureData;
 import com.fARmework.modules.ScreenGestures.Data.GestureData.Point;
 import java.awt.*;
 import java.util.*;
 
-public class GestureProcessor implements IDataHandler<GestureData>
+public class GestureProcessor implements IGestureProcessor
 {
 	@Override
-	public void handle(int clientID, GestureData data)
+	public void processGesture(GestureData data)
 	{
 		System.out.println("Processing gesture data...");
 		

@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Data.*;
-import com.fARmework.RockPaperScissors.Data.GestureData.GestureType;
+import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
@@ -22,7 +22,7 @@ public class GameViewModel extends ViewModel
 		public void Invoke(View arg0, Object... arg1)
 		{
 			status.set("Waiting for the other player...");
-			ConnectionManager.send(new GestureData(GestureType.Rock));
+			ConnectionManager.send(new GestureInfo(GestureType.Rock));
 		}
 	};
 	
@@ -32,7 +32,7 @@ public class GameViewModel extends ViewModel
 		public void Invoke(View arg0, Object... arg1)
 		{
 			status.set("Waiting for the other player...");
-			ConnectionManager.send(new GestureData(GestureType.Paper));
+			ConnectionManager.send(new GestureInfo(GestureType.Paper));
 		}
 	};
 	
@@ -42,7 +42,16 @@ public class GameViewModel extends ViewModel
 		public void Invoke(View arg0, Object... arg1)
 		{
 			status.set("Waiting for the other player...");
-			ConnectionManager.send(new GestureData(GestureType.Scissors));
+			ConnectionManager.send(new GestureInfo(GestureType.Scissors));
+		}
+	};
+	
+	public Command sendGesture = new Command()
+	{
+		@Override
+		public void Invoke(View arg0, Object... arg1)
+		{
+			ConnectionManager.send(arg1[0]);
 		}
 	};
 	

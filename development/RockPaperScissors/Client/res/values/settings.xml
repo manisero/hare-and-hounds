@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="serverAddress">192.168.0.103</string>
+    <string name="defaultServerAddress">192.168.0.101</string>
     <string name="port">6969</string>
+    <string name="defaultUserName">User</string>
 </resources>

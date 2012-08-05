@@ -67,7 +67,7 @@ public class GestureFileReader
 		{
 			System.out.println("Gesture data:");
 			
-			LinkedList<Point> points = gestureData.getPoints();
+			LinkedList<Point> points = gestureData.Points;
 			
 			for(Point point : points)
 			{
