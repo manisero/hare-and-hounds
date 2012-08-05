@@ -12,21 +12,28 @@
 	    binding:text="status" />
     
     <Button android:id="@+id/rockButton"
-		android:layout_width="200dp"
-		android:layout_height="100dp"
+		android:layout_width="100dp"
+		android:layout_height="50dp"
 		android:text="@string/gestures_rock"
 		binding:onClick="sendRock" />
     
 	<Button android:id="@+id/paperButton"
-		android:layout_width="200dp"
-		android:layout_height="100dp"
+		android:layout_width="100dp"
+		android:layout_height="50dp"
 		android:text="@string/gestures_paper"
 		binding:onClick="sendPaper" />
     
 	<Button android:id="@+id/scissorsButton"
-		android:layout_width="200dp"
-		android:layout_height="100dp"
+		android:layout_width="100dp"
+		android:layout_height="50dp"
 		android:text="@string/gestures_scissors"
 		binding:onClick="sendScissors" />
+	
+	<com.fARmework.modules.ScreenGestures.Presentation.GesturePicker
+	    android:id="@+id/gesturePicker"
+	    android:layout_width="250dp"
+	    android:layout_height="250dp"
+	    android:background="#FFFFFF"
+	    binding:onGesture="sendGesture" />
 	
 </LinearLayout>

@@ -3,18 +3,18 @@
     xmlns:binding="http://www.gueei.com/android-binding/"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical" >
-   
-    <Button android:id="@+id/createGameButton"
-		android:layout_width="200dp"
-		android:layout_height="100dp"
-		android:text="@string/mode_create"
-		binding:onClick="create" />
+    android:orientation="vertical"
+    android:gravity="center">
     
     <TextView android:id="@+id/status"
-	    android:layout_width="fill_parent"
+	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    binding:text="status" />
+
+    <ProgressBar android:id="@+id/hostingProgress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        binding:visibility="isWaiting" />
 
 </LinearLayout>

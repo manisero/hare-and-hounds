@@ -7,9 +7,9 @@ public abstract class DataHandler<T> implements IDataHandler<T>
 	@Override
 	public void handle(int clientID, T data)
 	{
-		String dataClassName = data.getClass().getCanonicalName();
-		String dataTypeName = dataClassName.subSequence(dataClassName.lastIndexOf('.') + 1, dataClassName.length()).toString();
-		
-		System.out.println(dataTypeName + " received (clientID = " + clientID + ")");
+		System.out.println(data.getClass().getSimpleName() + " received (clientID = " + clientID + ")");
+		handleData(clientID, data);
 	}
+	
+	protected abstract void handleData(int clientID, T data);
 }

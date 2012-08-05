@@ -4,15 +4,21 @@ import java.util.LinkedList;
 
 import gueei.binding.Command;
 import gueei.binding.collections.ArrayListObservable;
-import gueei.binding.observables.IntegerObservable;
+import gueei.binding.observables.BooleanObservable;
+import gueei.binding.observables.StringObservable;
 
 import android.view.View;
 
+import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
+import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
+import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListData;
-import com.fARmework.RockPaperScissors.Data.GameStartInfo;
-import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
+import com.fARmework.RockPaperScissors.Data.GameJoinData;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
@@ -21,24 +27,49 @@ public class GameListViewModel extends ViewModel
 {
 	public class Game
 	{
-		public IntegerObservable hostID = new IntegerObservable();
+		private int _hostID;
+		public StringObservable hostUserName = new StringObservable();
 		
 		public Command joinGame = new Command()
 		{
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
-				ConnectionManager.send(new GameJoinRequest(hostID.get()));
+				ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
+				{
+					@Override
+					public void handle(GameJoinResponse data)
+					{
+						isWaiting.set(false);
+						
+						if (data.Response == GameJoinResponseType.Accept)
+						{
+							NavigationManager.navigateTo(GameViewModel.class);
+						}
+						else
+						{
+							NavigationManager.showNotification(String.format(ResourcesProvider.get(R.string.gameList_joinRefused), hostUserName.get()),
+															   false);
+						}
+					}
+				});
+				
+				status.set(String.format(ResourcesProvider.get(R.string.gameList_joining), hostUserName.get()));
+				isWaiting.set(true);
+				ConnectionManager.send(new GameJoinData(_hostID, _settingsProvider.userName()));
 			}
 		};
 		
-		public Game(Integer hostID)
+		public Game(GameInfo game)
 		{
-			this.hostID.set(hostID);
+			_hostID = game.HostID;
+			hostUserName.set(game.HostUserName);
 		}
 	}
 	
 	public ArrayListObservable<Game> games = new ArrayListObservable<Game>(Game.class);
+	public StringObservable status = new StringObservable();
+	public BooleanObservable isWaiting = new BooleanObservable(false);
 	
 	public Command getGames = new Command()
 	{
@@ -49,10 +80,14 @@ public class GameListViewModel extends ViewModel
 		}
 	};
 	
+	private ISettingsProvider _settingsProvider;
+	
 	@Inject
-	public GameListViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
+	public GameListViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
 		super(connectionManager, navigationManager);
+		
+		_settingsProvider = settingsProvider;
 		
 		ConnectionManager.registerDataHandler(GameListData.class, new IDataHandler<GameListData>()
 		{
@@ -61,22 +96,15 @@ public class GameListViewModel extends ViewModel
 			{
 				LinkedList<Game> gameList = new LinkedList<Game>();
 				
-				for (Integer hostID : data.HostIDs)
+				for (GameInfo game : data.Games)
 				{
-					gameList.add(new Game(hostID));
+					gameList.add(new Game(game));
 				}
 				
 				games.setArray(gameList.toArray(new Game[0]));
 			}
 		});
 		
-		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
-		{
-			@Override
-			public void handle(GameStartInfo data)
-			{
-				NavigationManager.navigateTo(GameViewModel.class);
-			}
-		});
+		ConnectionManager.send(new GameListRequest());
 	}
 }
