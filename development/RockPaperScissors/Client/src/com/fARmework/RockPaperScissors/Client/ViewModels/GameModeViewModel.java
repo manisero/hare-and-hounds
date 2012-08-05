@@ -119,7 +119,7 @@ public class GameModeViewModel extends ViewModel
 	private void createGame()
 	{
 		status.set(ResourcesProvider.get(R.string.hosting_creating));
-		ConnectionManager.send(new GameCreationRequest());
+		ConnectionManager.send(new GameCreationRequest(userName.get()));
 	}
 	
 	public void disconnect()

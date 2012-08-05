@@ -16,20 +16,27 @@ public class Game
 	
 	private int _hostID;
 	private int _guestID;
+	private String _hostUserName;
 	private GestureType _hostGesture;
 	private GestureType _guestGesture;
 	
-	public Game(IConnectionManager connectionManager, IGestureProcessor gestureProcessor, int hostID)
+	public Game(IConnectionManager connectionManager, IGestureProcessor gestureProcessor, int hostID, String hostUserName)
 	{
 		_connectionManager = connectionManager;
 		_gestureProcessor = gestureProcessor;
 		
 		_hostID = hostID;
+		_hostUserName = hostUserName;
 	}
 	
 	public int getHostID()
 	{
 		return _hostID;
+	}
+	
+	public String getHostUserName()
+	{
+		return _hostUserName;
 	}
 	
 	public void start(int guestID)

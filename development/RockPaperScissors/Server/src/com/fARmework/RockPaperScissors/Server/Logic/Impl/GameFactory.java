@@ -19,8 +19,8 @@ public class GameFactory implements IGameFactory
 	}
 	
 	@Override
-	public Game createGame(int hostID)
+	public Game createGame(int hostID, String hostUserName)
 	{
-		return new Game(_connectionManager, _gestureProcessor, hostID);
+		return new Game(_connectionManager, _gestureProcessor, hostID, hostUserName);
 	}
 }

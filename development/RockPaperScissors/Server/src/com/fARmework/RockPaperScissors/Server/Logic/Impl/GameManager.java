@@ -34,7 +34,8 @@ public class GameManager implements IGameManager
 			@Override
 			public void handleData(int clientID, GameCreationRequest data)
 			{
-				_games.put(clientID, _gameFactory.createGame(clientID));
+				System.out.println("HostUserName: " + data.HostUserName);
+				_games.put(clientID, _gameFactory.createGame(clientID, data.HostUserName));
 				_connectionManager.send(new GameCreationInfo(), clientID);
 			}
 		});
@@ -60,6 +61,7 @@ public class GameManager implements IGameManager
 			@Override
 			public void handleData(int clientID, GameJoinRequest data)
 			{
+				System.out.println("HostID: " + data.HostID);
 				_games.get(data.HostID).start(clientID);
 			}
 		});
