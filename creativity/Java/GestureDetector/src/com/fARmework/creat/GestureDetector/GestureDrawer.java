@@ -23,7 +23,7 @@ public class GestureDrawer
 			}
 		}
 		
-		LinkedList<GestureData.Point> points = data.getPoints();
+		LinkedList<GestureData.Point> points = data.Points;
 		
 		for(GestureData.Point point : points)
 		{
@@ -38,7 +38,7 @@ public class GestureDrawer
 	
 	private Rectangle getBoundingBox(GestureData data)
 	{
-		LinkedList<GestureData.Point> points = data.getPoints();
+		LinkedList<GestureData.Point> points = data.Points;
 		
 		if(points.size() == 0)
 		{
