@@ -11,18 +11,18 @@ public class SettingsProvider implements ISettingsProvider
 	@Override
 	public String serverAddress()
 	{
-		return ResourcesProvider.get(R.string.defaultServerAddress);
+		return ResourcesProvider.getString(R.string.defaultServerAddress);
 	}
 
 	@Override
 	public int port()
 	{
-		return Integer.valueOf(ResourcesProvider.get(R.string.port));
+		return ResourcesProvider.getInteger(R.integer.port);
 	}
 
 	@Override
 	public String userName()
 	{
-		return ResourcesProvider.get(R.string.defaultUserName);
+		return ResourcesProvider.getString(R.string.defaultUserName);
 	}
 }

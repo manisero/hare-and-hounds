@@ -16,7 +16,7 @@ import com.google.inject.Inject;
 
 public class HostingViewModel extends ViewModel
 {
-	public StringObservable status = new StringObservable(ResourcesProvider.get(R.string.hosting_waiting));
+	public StringObservable status = new StringObservable(ResourcesProvider.getString(R.string.hosting_waiting));
 	public BooleanObservable isWaiting = new BooleanObservable(true);
 	
 	@Inject
@@ -29,16 +29,16 @@ public class HostingViewModel extends ViewModel
 			@Override
 			public void handle(final GameJoinRequest data)
 			{
-				NavigationManager.showYesNoDialog(String.format(ResourcesProvider.get(R.string.hosting_guestConnected), data.GuestUserName),
-												  ResourcesProvider.get(R.string.hosting_allowJoin),
-												  ResourcesProvider.get(R.string.hosting_denyJoin),
+				NavigationManager.showYesNoDialog(String.format(ResourcesProvider.getString(R.string.hosting_guestConnected), data.GuestUserName),
+												  ResourcesProvider.getString(R.string.hosting_allowJoin),
+												  ResourcesProvider.getString(R.string.hosting_denyJoin),
 												  new IDialogListener()
 													{
 														@Override
 														public void onDialogResult()
 														{
 															isWaiting.set(false);
-															status.set(String.format(ResourcesProvider.get(R.string.hosting_guestJoined), data.GuestUserName));
+															status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestUserName));
 															ConnectionManager.send(new GameJoinResponse(data.HostID, data.GuestID, GameJoinResponseType.Accept));
 															NavigationManager.navigateTo(GameViewModel.class);
 														}

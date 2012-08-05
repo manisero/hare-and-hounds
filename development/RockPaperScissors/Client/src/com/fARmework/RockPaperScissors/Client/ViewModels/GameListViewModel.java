@@ -48,13 +48,13 @@ public class GameListViewModel extends ViewModel
 						}
 						else
 						{
-							NavigationManager.showNotification(String.format(ResourcesProvider.get(R.string.gameList_joinRefused), hostUserName.get()),
+							NavigationManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()),
 															   false);
 						}
 					}
 				});
 				
-				status.set(String.format(ResourcesProvider.get(R.string.gameList_joining), hostUserName.get()));
+				status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostUserName.get()));
 				isWaiting.set(true);
 				ConnectionManager.send(new GameJoinData(_hostID, _settingsProvider.userName()));
 			}

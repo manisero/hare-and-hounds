@@ -64,7 +64,7 @@ public class GameModeViewModel extends ViewModel
 					public void handle(ConnectionSuccessInfo data)
 					{
 						isConnected.set(true);
-						status.set(ResourcesProvider.get(R.string.connection_success));
+						status.set(ResourcesProvider.getString(R.string.connection_success));
 						isWaiting.set(false);
 						NavigationManager.navigateTo(GameListViewModel.class);
 					}
@@ -101,7 +101,7 @@ public class GameModeViewModel extends ViewModel
 			@Override
 			public void handle(ConnectionFaultInfo data)
 			{
-				status.set(ResourcesProvider.get(R.string.connection_fault));
+				status.set(ResourcesProvider.getString(R.string.connection_fault));
 				isWaiting.set(false);
 			}
 		});
@@ -111,7 +111,7 @@ public class GameModeViewModel extends ViewModel
 			@Override
 			public void handle(GameCreationInfo data)
 			{
-				status.set(ResourcesProvider.get(R.string.hosting_created));
+				status.set(ResourcesProvider.getString(R.string.hosting_created));
 				isWaiting.set(false);
 				NavigationManager.navigateTo(HostingViewModel.class);
 			}
@@ -120,14 +120,14 @@ public class GameModeViewModel extends ViewModel
 	
 	private void connect()
 	{
-		status.set(ResourcesProvider.get(R.string.connection_connecting));
+		status.set(ResourcesProvider.getString(R.string.connection_connecting));
 		isWaiting.set(true);
 		ConnectionManager.connect(serverAddress.get());
 	}
 	
 	private void createGame()
 	{
-		status.set(ResourcesProvider.get(R.string.hosting_creating));
+		status.set(ResourcesProvider.getString(R.string.hosting_creating));
 		ConnectionManager.send(new GameCreationRequest(userName.get()));
 	}
 	
@@ -135,6 +135,7 @@ public class GameModeViewModel extends ViewModel
 	{
 		ConnectionManager.disconnect();
 		isConnected.set(false);
-		status.set(ResourcesProvider.get(R.string.connection_disconnected));
+		isWaiting.set(false);
+		status.set(ResourcesProvider.getString(R.string.connection_disconnected));
 	}
 }
