@@ -11,4 +11,6 @@ public interface INavigationManager
 	void setCurrentActivity(BoundActivity activity);
 	
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass);
+	
+	void showNotification(String notification, boolean longDisplay);
 }
