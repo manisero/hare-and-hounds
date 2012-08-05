@@ -4,10 +4,28 @@
     android:layout_height="match_parent" >
 
     <com.fARmework.creat.GestureWriter.MainView
-        android:id="@+id/MainView1"
+        android:id="@+id/main_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/clear_button"
+        android:layout_alignParentLeft="true" />
+
+    <Button
+        android:id="@+id/clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_marginLeft="52dp"
+        android:text="@string/clear_string" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="57dp"
+        android:text="@string/save_string" />
 
 </RelativeLayout>
