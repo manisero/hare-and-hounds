@@ -13,6 +13,7 @@
     <string name="connection_success">Connected</string>
     <string name="connection_fault">Connection failed</string>
     <string name="connection_error">Connection error</string>
+    <string name="connection_disconnect">Disconnect</string>
     <string name="connection_disconnected">Disconnected</string>
     
     <string name="hosting_creating">Creating game&#8230;</string>
