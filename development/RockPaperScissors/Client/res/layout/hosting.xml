@@ -11,8 +11,7 @@
 	    android:layout_height="wrap_content"
 	    binding:text="status" />
 
-    <ProgressBar
-        android:id="@+id/hostingProgress"
+    <ProgressBar android:id="@+id/hostingProgress"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

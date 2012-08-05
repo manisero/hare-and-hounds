@@ -9,11 +9,12 @@ import gueei.binding.observables.StringObservable;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListData;
 import com.fARmework.RockPaperScissors.Data.GameStartInfo;
-import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
+import com.fARmework.RockPaperScissors.Data.GameJoinData;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
@@ -30,7 +31,7 @@ public class GameListViewModel extends ViewModel
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
-				ConnectionManager.send(new GameJoinRequest(_hostID));
+				ConnectionManager.send(new GameJoinData(_hostID, _settingsProvider.userName()));
 			}
 		};
 		
@@ -52,10 +53,14 @@ public class GameListViewModel extends ViewModel
 		}
 	};
 	
+	private ISettingsProvider _settingsProvider;
+	
 	@Inject
-	public GameListViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
+	public GameListViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
 		super(connectionManager, navigationManager);
+		
+		_settingsProvider = settingsProvider;
 		
 		ConnectionManager.registerDataHandler(GameListData.class, new IDataHandler<GameListData>()
 		{
