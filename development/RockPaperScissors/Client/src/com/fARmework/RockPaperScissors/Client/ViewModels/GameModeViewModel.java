@@ -93,8 +93,8 @@ public class GameModeViewModel extends ViewModel
 	{
 		super(connectionManager, navigationManager);
 		
-		serverAddress.set(settingsProvider.serverAddress());
-		userName.set(settingsProvider.userName());
+		serverAddress.set(settingsProvider.getServerAddress());
+		userName.set(settingsProvider.getUserName());
 		
 		ConnectionManager.registerDataHandler(ConnectionFaultInfo.class, new IDataHandler<ConnectionFaultInfo>()
 		{
@@ -134,8 +134,12 @@ public class GameModeViewModel extends ViewModel
 	public void disconnect()
 	{
 		ConnectionManager.disconnect();
-		isConnected.set(false);
 		isWaiting.set(false);
-		status.set(ResourcesProvider.getString(R.string.connection_disconnected));
+		
+		if (isConnected.get())
+		{
+			isConnected.set(false);
+			status.set(ResourcesProvider.getString(R.string.connection_disconnected));
+		}
 	}
 }

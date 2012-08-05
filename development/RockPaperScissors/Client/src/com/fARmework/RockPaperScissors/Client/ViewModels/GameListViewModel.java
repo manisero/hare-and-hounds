@@ -56,7 +56,7 @@ public class GameListViewModel extends ViewModel
 				
 				status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostUserName.get()));
 				isWaiting.set(true);
-				ConnectionManager.send(new GameJoinData(_hostID, _settingsProvider.userName()));
+				ConnectionManager.send(new GameJoinData(_hostID, _settingsProvider.getUserName()));
 			}
 		};
 		
