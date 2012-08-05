@@ -4,11 +4,12 @@ import java.util.LinkedList;
 
 import gueei.binding.Command;
 import gueei.binding.collections.ArrayListObservable;
-import gueei.binding.observables.IntegerObservable;
+import gueei.binding.observables.StringObservable;
 
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListData;
 import com.fARmework.RockPaperScissors.Data.GameStartInfo;
@@ -21,20 +22,22 @@ public class GameListViewModel extends ViewModel
 {
 	public class Game
 	{
-		public IntegerObservable hostID = new IntegerObservable();
+		private int _hostID;
+		public StringObservable hostUserName = new StringObservable();
 		
 		public Command joinGame = new Command()
 		{
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
-				ConnectionManager.send(new GameJoinRequest(hostID.get()));
+				ConnectionManager.send(new GameJoinRequest(_hostID));
 			}
 		};
 		
-		public Game(Integer hostID)
+		public Game(GameInfo game)
 		{
-			this.hostID.set(hostID);
+			_hostID = game.HostID;
+			hostUserName.set(game.HostUserName);
 		}
 	}
 	
@@ -61,9 +64,9 @@ public class GameListViewModel extends ViewModel
 			{
 				LinkedList<Game> gameList = new LinkedList<Game>();
 				
-				for (Integer hostID : data.HostIDs)
+				for (GameInfo game : data.Games)
 				{
-					gameList.add(new Game(hostID));
+					gameList.add(new Game(game));
 				}
 				
 				games.setArray(gameList.toArray(new Game[0]));
