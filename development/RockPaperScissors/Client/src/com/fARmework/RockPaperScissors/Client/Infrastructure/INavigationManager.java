@@ -13,6 +13,7 @@ public interface INavigationManager
 	
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass);
 	
-	void showNotification(String notification, boolean longDisplay);
+	void showShortNotification(String notification);
+	void showLongNotification(String notification);
 	void showYesNoDialog(String message, String yesLabel, String noLabel, IDialogListener yesListener, IDialogListener noListener);
 }
