@@ -3,6 +3,8 @@ package com.fARmework.RockPaperScissors.Client.ViewModels;
 import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
+import android.os.Bundle;
+
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
@@ -40,7 +42,10 @@ public class HostingViewModel extends ViewModel
 															isWaiting.set(false);
 															status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestUserName));
 															ConnectionManager.send(new GameJoinResponse(data.HostID, data.GuestID, GameJoinResponseType.Accept));
-															NavigationManager.navigateTo(GameViewModel.class);
+															
+															Bundle bundle = new Bundle();
+															bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.GuestUserName);
+															NavigationManager.navigateTo(GameViewModel.class, bundle);
 														}
 													},
 												  new IDialogListener()

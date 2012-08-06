@@ -19,6 +19,8 @@ public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActi
     {
         super.onCreate(savedInstanceState);
         NavigationManager.setCurrentActivity(this);
+        
+        viewModel.setData((savedInstanceState != null) ? savedInstanceState : getIntent().getExtras());
         setAndBindRootView(NavigationManager.getLayout(viewModel.getClass()), viewModel);
     }
 }
