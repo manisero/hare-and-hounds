@@ -1,5 +1,7 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
+import java.util.Collection;
+
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
@@ -14,6 +16,8 @@ import com.google.inject.Inject;
 
 import android.view.View;
 import gueei.binding.Command;
+import gueei.binding.IObservable;
+import gueei.binding.Observer;
 import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
@@ -64,7 +68,7 @@ public class GameModeViewModel extends ViewModel
 					public void handle(ConnectionSuccessInfo data)
 					{
 						isConnected.set(true);
-						status.set(ResourcesProvider.get(R.string.connection_success));
+						status.set(ResourcesProvider.getString(R.string.connection_success));
 						isWaiting.set(false);
 						NavigationManager.navigateTo(GameListViewModel.class);
 					}
@@ -79,20 +83,55 @@ public class GameModeViewModel extends ViewModel
 		}
 	};
 	
+	public Command disconnect = new Command()
+	{
+		@Override
+		public void Invoke(View arg0, Object... arg1)
+		{
+			disconnect();
+		}
+	};
+	
+	// NOTE: Is is recommended that Observers are declared as fields so that reference to them is kept
+	private Observer _serverAddressObserver = new Observer()
+	{
+		@Override
+		public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
+		{
+			_settingsProvider.setServerAddress((String)arg0.get());
+		}
+	};
+	
+	private Observer _userNameObserver = new Observer()
+	{
+		@Override
+		public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
+		{
+			_settingsProvider.setUserName((String)arg0.get());
+		}
+	};
+	
+	private ISettingsProvider _settingsProvider;
+	
 	@Inject
 	public GameModeViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
 		super(connectionManager, navigationManager);
 		
-		serverAddress.set(settingsProvider.serverAddress());
-		userName.set(settingsProvider.userName());
+		_settingsProvider = settingsProvider;
+		
+		serverAddress.set(_settingsProvider.getServerAddress());
+		serverAddress.subscribe(_serverAddressObserver);
+		
+		userName.set(_settingsProvider.getUserName());
+		userName.subscribe(_userNameObserver);
 		
 		ConnectionManager.registerDataHandler(ConnectionFaultInfo.class, new IDataHandler<ConnectionFaultInfo>()
 		{
 			@Override
 			public void handle(ConnectionFaultInfo data)
 			{
-				status.set(ResourcesProvider.get(R.string.connection_fault));
+				status.set(ResourcesProvider.getString(R.string.connection_fault));
 				isWaiting.set(false);
 			}
 		});
@@ -102,7 +141,7 @@ public class GameModeViewModel extends ViewModel
 			@Override
 			public void handle(GameCreationInfo data)
 			{
-				status.set(ResourcesProvider.get(R.string.hosting_created));
+				status.set(ResourcesProvider.getString(R.string.hosting_created));
 				isWaiting.set(false);
 				NavigationManager.navigateTo(HostingViewModel.class);
 			}
@@ -111,21 +150,26 @@ public class GameModeViewModel extends ViewModel
 	
 	private void connect()
 	{
-		status.set(ResourcesProvider.get(R.string.connection_connecting));
+		status.set(ResourcesProvider.getString(R.string.connection_connecting));
 		isWaiting.set(true);
-		ConnectionManager.connect();
+		ConnectionManager.connect(serverAddress.get());
 	}
 	
 	private void createGame()
 	{
-		status.set(ResourcesProvider.get(R.string.hosting_creating));
+		status.set(ResourcesProvider.getString(R.string.hosting_creating));
 		ConnectionManager.send(new GameCreationRequest(userName.get()));
 	}
 	
 	public void disconnect()
 	{
 		ConnectionManager.disconnect();
-		isConnected.set(false);
-		status.set(ResourcesProvider.get(R.string.connection_disconnected));
+		isWaiting.set(false);
+		
+		if (isConnected.get())
+		{
+			isConnected.set(false);
+			status.set(ResourcesProvider.getString(R.string.connection_disconnected));
+		}
 	}
 }

@@ -11,7 +11,7 @@ public class InfrastructureModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
-		bind(ISettingsProvider.class).to(SettingsProvider.class);
+		bind(ISettingsProvider.class).to(SettingsProvider.class).asEagerSingleton();
 		bind(INavigationManager.class).to(NavigationManager.class).asEagerSingleton();
 	}
 }

@@ -16,11 +16,20 @@ import com.fARmework.RockPaperScissors.Client.ViewModels.GameViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.HostingViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface.OnClickListener;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.widget.Toast;
 
 @SuppressWarnings("rawtypes")
 public class NavigationManager implements INavigationManager
 {
+	public interface IDialogListener
+	{
+		void onDialogResult();
+	}
+	
 	private Map<Class<? extends ViewModel>, Integer> _layouts = new LinkedHashMap<Class<? extends ViewModel>, Integer>();
 	private Map<Class<? extends ViewModel>, Class<? extends BoundActivity>> _activities = new LinkedHashMap<Class<? extends ViewModel>, Class<? extends BoundActivity>>();
 	
@@ -66,5 +75,45 @@ public class NavigationManager implements INavigationManager
 		}
 		
 		_currentActivity.startActivity(new Intent(_currentActivity, _activities.get(viewModelClass)));
+	}
+	
+	@Override
+	public void showShortNotification(String notification)
+	{
+		Toast.makeText(_currentActivity, notification, Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	public void showLongNotification(String notification)
+	{
+		Toast.makeText(_currentActivity, notification, Toast.LENGTH_LONG).show();
+	}
+	
+	@Override
+	public void showYesNoDialog(String message, String yesLabel, String noLabel, final IDialogListener yesListener, final IDialogListener noListener)
+	{
+		new AlertDialog.Builder(_currentActivity)
+			.setMessage(message)
+			.setCancelable(false)
+			.setPositiveButton(yesLabel, new OnClickListener()
+											{
+												@Override
+												public void onClick(DialogInterface dialog, int which)
+												{
+													if (yesListener != null)
+														yesListener.onDialogResult();
+												}
+											})
+			.setNegativeButton(noLabel, new OnClickListener()
+											{
+												@Override
+												public void onClick(DialogInterface dialog, int which)
+												{
+													if (noListener != null)
+														noListener.onDialogResult();
+												}
+											})
+			.create()
+			.show();
 	}
 }

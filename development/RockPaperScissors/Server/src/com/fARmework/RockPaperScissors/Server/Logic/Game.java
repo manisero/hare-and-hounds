@@ -1,7 +1,6 @@
 package com.fARmework.RockPaperScissors.Server.Logic;
 
 import com.fARmework.RockPaperScissors.Data.GameResultInfo;
-import com.fARmework.RockPaperScissors.Data.GameStartInfo;
 import com.fARmework.RockPaperScissors.Data.GestureInfo;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
@@ -71,9 +70,6 @@ public class Game
 				_gestureProcessor.processGesture(data);
 			}
 		});
-		
-		_connectionManager.send(new GameStartInfo(), _hostID);
-		_connectionManager.send(new GameStartInfo(), _guestID);
 	}
 	
 	private void handleGameState()
