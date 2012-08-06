@@ -4,5 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:textSize="20dip"
+    android:layout_margin="3dp"
     binding:text="hostUserName"
     binding:onClick="joinGame" />
