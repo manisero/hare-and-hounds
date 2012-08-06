@@ -1,12 +1,10 @@
-package com.fARmework.creat.GestureDetector;
+package com.fARmework.creat.GestureDetector.Utilities;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
-import com.fARmework.modules.ScreenGestures.Data.GestureData.*;
-
 import java.io.*;
 import java.util.*;
 
-public class GestureFileReader 
+public class GestureFileReader
 {
 	private File _file;
 	
@@ -59,20 +57,5 @@ public class GestureFileReader
 		}
 		
 		return _gestures;
-	}
-	
-	public void print()
-	{
-		for(GestureData gestureData : _gestures)
-		{
-			System.out.println("Gesture data:");
-			
-			LinkedList<Point> points = gestureData.Points;
-			
-			for(Point point : points)
-			{
-				System.out.println("x: " + point.X + " y: " + point.Y);
-			}
-		}
 	}
 }
