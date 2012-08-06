@@ -11,8 +11,13 @@ public class ResourcesProvider
 		_resources = resources;
 	}
 	
-	public static String get(int resourceID)
+	public static String getString(int resourceID)
 	{
 		return _resources.getString(resourceID);
+	}
+	
+	public static int getInteger(int resourceID)
+	{
+		return _resources.getInteger(resourceID);
 	}
 }
