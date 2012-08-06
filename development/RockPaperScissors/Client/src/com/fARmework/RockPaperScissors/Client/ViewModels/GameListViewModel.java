@@ -44,6 +44,7 @@ public class GameListViewModel extends ViewModel
 						
 						if (data.Response == GameJoinResponseType.Accept)
 						{
+							// TODO: create bundle with host name
 							NavigationManager.navigateTo(GameViewModel.class);
 						}
 						else

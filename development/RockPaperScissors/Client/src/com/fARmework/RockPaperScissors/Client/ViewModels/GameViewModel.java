@@ -3,9 +3,11 @@ package com.fARmework.RockPaperScissors.Client.ViewModels;
 import gueei.binding.Command;
 import gueei.binding.observables.StringObservable;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.core.client.Connection.IConnectionManager;
@@ -14,6 +16,10 @@ import com.google.inject.Inject;
 
 public class GameViewModel extends ViewModel
 {
+	public static final String OPPONENT_NAME_KEY = GameViewModel.class.getCanonicalName() + "OPPONENT_NAME";
+	
+	public StringObservable playerName = new StringObservable();
+	public StringObservable opponentName = new StringObservable();
 	public StringObservable status = new StringObservable();
 	
 	public Command sendRock = new Command()
@@ -56,9 +62,11 @@ public class GameViewModel extends ViewModel
 	};
 	
 	@Inject
-	protected GameViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
+	protected GameViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
 		super(connectionManager, navigationManager);
+		
+		playerName.set(settingsProvider.getUserName());
 		
 		ConnectionManager.registerDataHandler(GameResultInfo.class, new IDataHandler<GameResultInfo>()
 		{
@@ -80,5 +88,11 @@ public class GameViewModel extends ViewModel
 				
 			}
 		});
+	}
+	
+	@Override
+	public void setData(Bundle data)
+	{
+		opponentName.set(data.getString(OPPONENT_NAME_KEY));
 	}
 }
