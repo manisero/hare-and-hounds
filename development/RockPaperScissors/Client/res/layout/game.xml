@@ -6,22 +6,60 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
     
-    <LinearLayout android:orientation="vertical"
+    <LinearLayout android:orientation="horizontal"
         android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_horizontal">
+		android:layout_height="70dp"
+		android:gravity="center_horizontal"
+		android:baselineAligned="false">
 		
-        <TextView android:id="@+id/playerName"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="@string/game_player"
-		    binding:text="playerName" />
+        <LinearLayout android:orientation="vertical"
+	        android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_horizontal">
+            
+            <TextView android:id="@+id/playerName"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/game_player"
+			    binding:text="playerName" />
+            
+            <TextView android:id="@+id/playerGesture"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="15dp"
+			    android:textSize="25dip"
+			    binding:visibility="hasGameEnded"
+			    binding:text="playerGesture" />
+            
+        </LinearLayout>
         
-        <TextView android:id="@+id/opponentName"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="@string/game_opponent"
-		    binding:text="opponentName" />
+        <LinearLayout android:orientation="vertical"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center_horizontal">
+        
+	        <TextView android:id="@+id/opponentName"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/game_opponent"
+			    binding:text="opponentName" />
+	        
+	        <ProgressBar android:id="@+id/opponentProgress"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        binding:visibility="isWaitingForOpponent" />
+	        
+	        <TextView android:id="@+id/opponentGesture"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="15dp"
+			    android:textSize="25dip"
+			    binding:visibility="hasGameEnded"
+			    binding:text="opponentGesture" />
+	      
+		</LinearLayout>
         
     </LinearLayout>
     
@@ -39,22 +77,24 @@
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_rock"
-			binding:onClick="sendRock" />
+			binding:onClick="sendRock"
+			binding:enabled="NOT(isPlayerGestureSent)" />
 	    
 		<Button android:id="@+id/paperButton"
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_paper"
-			binding:onClick="sendPaper" />
+			binding:onClick="sendPaper"
+			binding:enabled="NOT(isPlayerGestureSent)" />
 	    
 		<Button android:id="@+id/scissorsButton"
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_scissors"
-			binding:onClick="sendScissors" />
+			binding:onClick="sendScissors"
+			binding:enabled="NOT(isPlayerGestureSent)" />
 	
     </LinearLayout>
-
 	
 	<com.fARmework.modules.ScreenGestures.Presentation.GesturePicker
 	    android:id="@+id/gesturePicker"

@@ -1,13 +1,16 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import gueei.binding.Command;
+import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
 import android.os.Bundle;
 import android.view.View;
 
+import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.core.client.Connection.IConnectionManager;
@@ -20,15 +23,19 @@ public class GameViewModel extends ViewModel
 	
 	public StringObservable playerName = new StringObservable();
 	public StringObservable opponentName = new StringObservable();
+	public StringObservable playerGesture = new StringObservable();
+	public StringObservable opponentGesture = new StringObservable();
 	public StringObservable status = new StringObservable();
+	public BooleanObservable isPlayerGestureSent = new BooleanObservable(false);
+	public BooleanObservable isWaitingForOpponent = new BooleanObservable(false);
+	public BooleanObservable hasGameEnded = new BooleanObservable(false);
 	
 	public Command sendRock = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			status.set("Waiting for the other player...");
-			ConnectionManager.send(new GestureInfo(GestureType.Rock));
+			sendGesture(GestureType.Rock);
 		}
 	};
 	
@@ -37,8 +44,7 @@ public class GameViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			status.set("Waiting for the other player...");
-			ConnectionManager.send(new GestureInfo(GestureType.Paper));
+			sendGesture(GestureType.Paper);
 		}
 	};
 	
@@ -47,8 +53,7 @@ public class GameViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			status.set("Waiting for the other player...");
-			ConnectionManager.send(new GestureInfo(GestureType.Scissors));
+			sendGesture(GestureType.Scissors);
 		}
 	};
 	
@@ -57,6 +62,7 @@ public class GameViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
+			// TODO: Finish implementing when gesture recognition is finished
 			ConnectionManager.send(arg1[0]);
 		}
 	};
@@ -68,22 +74,29 @@ public class GameViewModel extends ViewModel
 		
 		playerName.set(settingsProvider.getUserName());
 		opponentName.set(settingsProvider.getServerAddress());
+		status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
 		
 		ConnectionManager.registerDataHandler(GameResultInfo.class, new IDataHandler<GameResultInfo>()
 		{
 			@Override
 			public void handle(GameResultInfo data)
 			{
+				isWaitingForOpponent.set(false);
+				hasGameEnded.set(true);
+				
+				displayGesture(playerGesture, data.PlayerGesture);
+				displayGesture(opponentGesture, data.OpponentGesture);
+				
 				switch (data.GameResult)
 				{
 					case Victory:
-						status.set("victory");
+						status.set(ResourcesProvider.getString(R.string.game_victory));
 						break;
 					case Defeat:
-						status.set("defeat");
+						status.set(ResourcesProvider.getString(R.string.game_defeat));
 						break;
 					default:
-						status.set("draw");
+						status.set(ResourcesProvider.getString(R.string.game_draw));
 						break;
 				}
 			}
@@ -94,5 +107,29 @@ public class GameViewModel extends ViewModel
 	public void setData(Bundle data)
 	{
 		opponentName.set(data.getString(OPPONENT_NAME_KEY));
+	}
+	
+	private void sendGesture(GestureType gesture)
+	{
+		isPlayerGestureSent.set(true);
+		isWaitingForOpponent.set(true);
+		status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
+		ConnectionManager.send(new GestureInfo(gesture));
+	}
+	
+	private void displayGesture(StringObservable target, GestureType gesture)
+	{
+		switch (gesture)
+		{
+			case Rock:
+				target.set(ResourcesProvider.getString(R.string.gestures_rock));
+				break;
+			case Paper:
+				target.set(ResourcesProvider.getString(R.string.gestures_paper));
+				break;
+			default:
+				target.set(ResourcesProvider.getString(R.string.gestures_scissors));
+				break;
+		}
 	}
 }

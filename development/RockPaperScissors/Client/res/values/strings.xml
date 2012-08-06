@@ -31,10 +31,14 @@
     <string name="gameList_joining">Joining %1$s\'s game&#8230;</string>
     <string name="gameList_joinRefused">%1$s has refused your join request</string>
     
-    <string name="game_player">Player:</string>
-    <string name="game_opponent">Opponent:</string>
+    <string name="game_player">Player</string>
+    <string name="game_opponent">Opponent</string>
+    <string name="game_chooseGesture">Choose gesture:</string>
+    <string name="game_waitingForOpponent">Waiting for %1$s&#8230;</string>
+    <string name="game_victory">Victory!</string>
+    <string name="game_defeat">Defeat!</string>
+    <string name="game_draw">Draw!</string>
     
-    <string name="gestures_send">Send gesture</string>
     <string name="gestures_rock">Rock</string>
     <string name="gestures_paper">Paper</string>
     <string name="gestures_scissors">Scissors</string>
