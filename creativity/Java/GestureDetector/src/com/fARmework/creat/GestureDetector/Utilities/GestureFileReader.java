@@ -58,4 +58,14 @@ public class GestureFileReader
 		
 		return _gestures;
 	}
+	
+	public void clear()
+	{
+		_gestures.clear();
+	}
+	
+	public void setFile(File file)
+	{
+		_file = file;
+	}
 }
