@@ -1,4 +1,4 @@
-package com.fARmework.create.GestureDetector.DefaultImpl;
+package com.fARmework.creat.GestureDetector.DefaultImpl;
 
 import com.fARmework.creat.GestureDetector.*;
 import com.fARmework.modules.ScreenGestures.Data.*;

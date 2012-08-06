@@ -1,8 +1,8 @@
-package com.fARmework.creat.GestureDetectory.EntryPoint;
+package com.fARmework.creat.GestureDetector.EntryPoint;
 
 import com.fARmework.creat.GestureDetector.*;
+import com.fARmework.creat.GestureDetector.DefaultImpl.*;
 import com.fARmework.creat.GestureDetector.Utilities.*;
-import com.fARmework.create.GestureDetector.DefaultImpl.*;
 import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.image.*;
 import java.io.*;
