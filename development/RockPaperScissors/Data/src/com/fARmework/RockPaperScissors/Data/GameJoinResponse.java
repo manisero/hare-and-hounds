@@ -9,10 +9,11 @@ public class GameJoinResponse
 	}
 	
 	public int HostID;
+	public String HostUserName;
 	public int GuestID;
 	public GameJoinResponseType Response;
 	
-	public GameJoinResponse(int hostID, int guestID, GameJoinResponseType response)
+	public GameJoinResponse(int hostID, String hostUserName, int guestID, GameJoinResponseType response)
 	{
 		HostID = hostID;
 		GuestID = guestID;

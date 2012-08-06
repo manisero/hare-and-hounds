@@ -67,6 +67,7 @@ public class GameViewModel extends ViewModel
 		super(connectionManager, navigationManager);
 		
 		playerName.set(settingsProvider.getUserName());
+		opponentName.set(settingsProvider.getServerAddress());
 		
 		ConnectionManager.registerDataHandler(GameResultInfo.class, new IDataHandler<GameResultInfo>()
 		{
@@ -85,7 +86,6 @@ public class GameViewModel extends ViewModel
 						status.set("draw");
 						break;
 				}
-				
 			}
 		});
 	}
