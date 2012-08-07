@@ -10,10 +10,16 @@ public class GestureFileReader
 	
 	private LinkedList<GestureData> _gestures;
 	
+	public GestureFileReader()
+	{
+		_gestures = new LinkedList<GestureData>();
+	}
+	
 	public GestureFileReader(File file)
 	{
+		this();
+		
 		_file = file;
-		_gestures = new LinkedList<GestureData>();
 	}
 	
 	public void readFromFile()
