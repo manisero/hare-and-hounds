@@ -16,6 +16,7 @@ public class GameJoinResponse
 	public GameJoinResponse(int hostID, String hostUserName, int guestID, GameJoinResponseType response)
 	{
 		HostID = hostID;
+		HostUserName = hostUserName;
 		GuestID = guestID;
 		Response = response;
 	}
