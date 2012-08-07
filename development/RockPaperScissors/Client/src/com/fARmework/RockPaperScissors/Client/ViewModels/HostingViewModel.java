@@ -3,8 +3,11 @@ package com.fARmework.RockPaperScissors.Client.ViewModels;
 import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
+import android.os.Bundle;
+
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.NavigationManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
@@ -19,10 +22,14 @@ public class HostingViewModel extends ViewModel
 	public StringObservable status = new StringObservable(ResourcesProvider.getString(R.string.hosting_waiting));
 	public BooleanObservable isWaiting = new BooleanObservable(true);
 	
+	private ISettingsProvider _settingsProvider;
+	
 	@Inject
-	public HostingViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
+	public HostingViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
 	{
 		super(connectionManager, navigationManager);
+		
+		_settingsProvider = settingsProvider;
 		
 		ConnectionManager.registerDataHandler(GameJoinRequest.class, new IDataHandler<GameJoinRequest>()
 		{
@@ -39,8 +46,11 @@ public class HostingViewModel extends ViewModel
 														{
 															isWaiting.set(false);
 															status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestUserName));
-															ConnectionManager.send(new GameJoinResponse(data.HostID, data.GuestID, GameJoinResponseType.Accept));
-															NavigationManager.navigateTo(GameViewModel.class);
+															ConnectionManager.send(new GameJoinResponse(data.HostID, _settingsProvider.getUserName(), data.GuestID, GameJoinResponseType.Accept));
+															
+															Bundle bundle = new Bundle();
+															bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.GuestUserName);
+															NavigationManager.navigateTo(GameViewModel.class, bundle);
 														}
 													},
 												  new IDialogListener()
@@ -48,7 +58,7 @@ public class HostingViewModel extends ViewModel
 														@Override
 														public void onDialogResult()
 														{
-															ConnectionManager.send(new GameJoinResponse(data.HostID, data.GuestID, GameJoinResponseType.Deny));
+															ConnectionManager.send(new GameJoinResponse(data.HostID, _settingsProvider.getUserName(), data.GuestID, GameJoinResponseType.Deny));
 														}
 													});
 			}
