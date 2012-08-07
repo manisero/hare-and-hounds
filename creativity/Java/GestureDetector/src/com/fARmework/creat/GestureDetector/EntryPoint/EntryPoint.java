@@ -1,27 +1,49 @@
 package com.fARmework.creat.GestureDetector.EntryPoint;
 
 import com.fARmework.creat.GestureDetector.*;
+import com.fARmework.creat.GestureDetector.Data.*;
 import com.fARmework.creat.GestureDetector.DefaultImpl.*;
+import com.fARmework.creat.GestureDetector.Matchers.*;
+import com.fARmework.creat.GestureDetector.Processors.*;
 import com.fARmework.creat.GestureDetector.Utilities.*;
-import com.fARmework.modules.ScreenGestures.Data.*;
+import com.fARmework.modules.ScreenGestures.Data.GestureData;
 import java.awt.image.*;
 import java.io.*;
 import java.util.*;
-
 import javax.swing.*;
 
 public class EntryPoint extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 
-	private GestureFileReader _fileReader;
-	private GestureDrawer _gestureDrawer;
+	private static final Integer[][] CLOCKWISE_SQUARE_PATTERN = 
+	{
+		{	1,	28,	27,	26,	25,	24,	23, 22	},
+		{	2,	0,	0,	0,	0,	0,	0,	21	},
+		{	3,	0,	0,	0,	0,	0,	0,	20	},	
+		{	4,	0,	0,	0,	0,	0,	0,	19	},	
+		{	5,	0,	0,	0,	0,	0,	0,	18	},	
+		{	6,	0,	0,	0,	0,	0,	0,	17	},	
+		{	7,	0,	0,	0,	0,	0,	0,	16	},
+		{	8,	9,	10,	11,	12,	13,	14,	15	}
+	};	
 	
-	private IGesturesDetector _gesturesDetector;
-	private IGestureProcessor _gestureProcessor;
+	private static final Integer[][] COUNTER_CLOCKWISE_SQUARE_PATTERN = 
+	{
+		{	1,	2,	3,	4,	5,	6,	7,	8	},
+		{	28,	0,	0,	0,	0,	0,	0,	9	},
+		{	27,	0,	0,	0,	0,	0,	0,	10	},	
+		{	26,	0,	0,	0,	0,	0,	0,	11	},	
+		{	25,	0,	0,	0,	0,	0,	0,	12	},	
+		{	24,	0,	0,	0,	0,	0,	0,	13	},	
+		{	23,	0,	0,	0,	0,	0,	0,	14	},
+		{	22,	21,	20,	19,	18,	17,	16,	15	}
+	};	
 	
-	private static final String _directory = "samples";
-	private static final String[] _files = {
+	private static final String DIRECTORY = "samples";
+	
+	private static final String[] FILES = 
+	{
 		"circle_counterclockwise.dat",
 		"circle_clockwise.dat",
 		"cross1.dat",
@@ -33,73 +55,79 @@ public class EntryPoint extends JFrame
 		"triangle_counterclockwise.dat"
 	};
 	
-	private Set<String> _filesWithGestures;
+	private IGestureProcessor<Integer> _intProcessor;
+	private IPatternMatcher<Integer> _intMatcher;
+	private IGestureRecognizer _recognizer;
+	
+	private GestureFileReader _reader;
+	private GestureDrawer _drawer;
 	
 	public EntryPoint()
 	{
-		_filesWithGestures = new LinkedHashSet<String>();
-		_fileReader = new GestureFileReader(new File("samples/square_clockwise.dat"));
-		_gestureDrawer = new GestureDrawer();
+		_intProcessor = new DirectionalGestureProcessor();
+		_intMatcher = new DirectionalPatternMatcher(_intProcessor);
+		_recognizer = new DefaultGestureRecognizer();
 		
-		_gesturesDetector = new DefaultGesturesDetector();
-		_gestureProcessor = new DefaultGestureProcessor();
-		new ClockwiseSquareRecognizer(_gesturesDetector, _gestureProcessor);
-		new CounterClockwiseSquareRecognizer(_gesturesDetector, _gestureProcessor);
+		_intMatcher.add(new GesturePattern<Integer>(
+				"CLOCKWISE_SQUARE", CLOCKWISE_SQUARE_PATTERN));
+				
+		_intMatcher.add(new GesturePattern<Integer>(
+				"COUNTER_CLOCKWISE_SQUARE", COUNTER_CLOCKWISE_SQUARE_PATTERN));
+		
+		_recognizer.add(_intMatcher);
+		
+		_reader = new GestureFileReader();
+		_drawer = new GestureDrawer();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
+		setVisible(true);		
 	}
 	
-	public void detect()
+	public void recognizeGestures()
 	{
-		for(String file : _files)
+		for(String file : FILES)
 		{
-			_fileReader.clear();
-			_fileReader.setFile(new File(_directory + "/" + file));
+			_reader.clear();
+			_reader.setFile(new File(DIRECTORY + "/" + file));
 			
-			LinkedList<GestureData> gestures = _fileReader.getGestures();
+			LinkedList<GestureData> gestures = _reader.getGestures();
 			
-			for(GestureData data : gestures)
-			{	
-				String gestureType = _gesturesDetector.recognizeGesture(data);
+			for(GestureData gesture : gestures)
+			{
+				String type = _recognizer.recognize(gesture);
 				
-				if(_gesturesDetector.unrecognizedGestureString().equals(gestureType))
+				if(type == null)
 				{
 					continue;
 				}
-					
-				BufferedImage image = _gestureDrawer.drawGesture(data);
 				
-				JFrame frame = new JFrame();
-				JLabel label = new JLabel();
-				
-				label.setIcon(new ImageIcon(image));
-				frame.add(label);
-				frame.setTitle("Recognized: " + gestureType + " in file: " + file);
-				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				frame.pack();
-				frame.setVisible(true);
-				
-				_filesWithGestures.add(file);
+				drawGesture(gesture, type, file);
 			}
 		}
-		
-		System.out.println("Gestures found in files: ");
-		
-		for(String filename : _filesWithGestures)
-		{
-			System.out.println("* " + filename);
-		}
 	}
-
+	
+	public void drawGesture(GestureData gesture, String type, String file)
+	{
+		BufferedImage image = _drawer.drawGesture(gesture);
+		
+		JLabel label = new JLabel(new ImageIcon(image));
+		
+		JFrame frame = new JFrame();
+		frame.add(label);
+		frame.setTitle("Recognized: " + type + " in file: " + file);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
 	public static void main(String args[])
 	{
 		SwingUtilities.invokeLater(new Runnable()
 		{
 			public void run()
 			{
-				new EntryPoint().detect();
+				new EntryPoint().recognizeGestures();
 			}
 		});
-	}
+	}	
 }
