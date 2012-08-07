@@ -79,23 +79,6 @@ public class EntryPoint extends JFrame
 				frame.pack();
 				frame.setVisible(true);
 				
-				
-				System.out.println("\n ---------- \n");
-				
-				int gridSize = 8;
-				
-				int[][] orientedGrid = _gestureProcessor.getOrientedGrid(data, gridSize);
-				
-				for(int i = 0; i < gridSize; ++i)
-				{
-					for(int j = 0; j < gridSize; ++j)
-					{
-						System.out.print("" + orientedGrid[i][j] + " ");
-					}
-					
-					System.out.println(" ");
-				}
-				
 				_filesWithGestures.add(file);
 			}
 		}

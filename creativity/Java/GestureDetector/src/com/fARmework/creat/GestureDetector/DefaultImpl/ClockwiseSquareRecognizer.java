@@ -20,6 +20,9 @@ public class ClockwiseSquareRecognizer implements IGestureRecognizer
 	
 	private IGestureProcessor _processor;
 	
+	private int _xNext = 0;
+	private int _yNext = 0;
+	
 	public ClockwiseSquareRecognizer(IGesturesDetector detector, IGestureProcessor processor)
 	{
 		detector.attach(this);
@@ -37,6 +40,70 @@ public class ClockwiseSquareRecognizer implements IGestureRecognizer
 		
 		if(matchPercentage >= 0.95)
 		{
+			int[][] orientedPattern = _processor.getOrientedGrid(data, GRID_SIZE);
+			
+			int maximum = findMaximumInOrientedPattern(orientedPattern, GRID_SIZE);
+			
+			int xStart = 0;
+			int yStart = 0;
+			int counter = 0;
+			
+			boolean finish = false;
+			
+			for(int i = 1; i < maximum; ++i)
+			{
+				if(finish)
+				{
+					break;
+				}
+				
+				for(int x = 0; x < GRID_SIZE; ++x)
+				{
+					if(finish)
+					{
+						break;
+					}
+					
+					for(int y = 0; y < GRID_SIZE; ++y)
+					{
+						if(orientedPattern[x][y] == i && samplePattern[x][y] == true)
+						{
+							xStart = x;
+							yStart = y;
+							counter = i;
+							
+							finish = true;
+							break;
+						}
+					}
+				}
+			}
+			
+			if(!finish)
+			{
+				return false;
+			}
+			
+			while(counter <= maximum)
+			{
+				if(	orientedPattern[xStart][yStart] == counter || 
+					orientedPattern[xStart][yStart] == 0)
+				{
+					if(orientedPattern[xStart][yStart] != 0)
+					{
+						counter++;
+					}
+					
+					findNext(xStart, yStart);
+					xStart = _xNext;
+					yStart = _yNext;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			
 			return true;
 		}
 		
@@ -47,5 +114,79 @@ public class ClockwiseSquareRecognizer implements IGestureRecognizer
 	public String getType() 
 	{
 		return "CLOCKWISE_SQUARE";
+	}
+	
+	private int findMaximumInOrientedPattern(int[][] orientedPattern, int gridSize)
+	{
+		int maximum = 0;
+		
+		for(int x = 0; x < gridSize; ++x)
+		{
+			for(int y = 0; y < gridSize; ++y)
+			{
+				if(orientedPattern[x][y] > maximum)
+				{
+					maximum = orientedPattern[x][y];
+				}
+			}
+		}
+		
+		return maximum;
+	}
+	
+	private void findNext(int x, int y)
+	{
+		if(x == 0)
+		{
+			if(y != 0)
+			{
+				_xNext = 0;
+				_yNext = y - 1;
+			}
+			else
+			{
+				_xNext = 1;
+				_yNext = 0;
+			}
+		}
+		else if(y == 0)
+		{
+			if(x != 7)
+			{
+				_xNext = x + 1;
+				_yNext = 0;
+			}
+			else
+			{
+				_xNext = 7;
+				_yNext = 1;
+			}
+		}
+		else if(x == 7)
+		{
+			if(y != 7)
+			{
+				_xNext = 7;
+				_yNext = y + 1;
+			}
+			else
+			{
+				_xNext = 6;
+				_yNext = 7;
+			}
+		}
+		else if(y == 7)
+		{
+			if(x != 0)
+			{
+				_xNext = x - 1;
+				_yNext = 7;
+			}
+			else
+			{
+				_xNext = 0;
+				_yNext = 1;
+			}
+		}
 	}
 }
