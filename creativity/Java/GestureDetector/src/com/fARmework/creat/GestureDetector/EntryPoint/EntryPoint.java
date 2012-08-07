@@ -81,20 +81,6 @@ public class EntryPoint extends JFrame
 				frame.setVisible(true);
 				
 				_filesWithGestures.add(file);
-				
-				int[][] input = _gestureProcessor.getOrientedGrid(data, 8);
-				
-				System.out.println("\n ----- " + file + " ----- \n");
-				
-				for(int x = 0; x < 8; ++x)
-				{
-					for(int y = 0; y < 8; ++y)
-					{
-						System.out.print("" + input[x][y] + " ");
-					}
-					
-					System.out.println("");
-				}
 			}
 		}
 		
