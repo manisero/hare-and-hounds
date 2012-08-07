@@ -44,6 +44,7 @@ public class EntryPoint extends JFrame
 		_gesturesDetector = new DefaultGesturesDetector();
 		_gestureProcessor = new DefaultGestureProcessor();
 		new ClockwiseSquareRecognizer(_gesturesDetector, _gestureProcessor);
+		new CounterClockwiseSquareRecognizer(_gesturesDetector, _gestureProcessor);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
