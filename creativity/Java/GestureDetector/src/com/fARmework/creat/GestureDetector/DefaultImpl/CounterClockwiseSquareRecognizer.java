@@ -136,9 +136,11 @@ public class CounterClockwiseSquareRecognizer implements IGestureRecognizer
 	
 	private void findNext(int x, int y)
 	{
+		int lastGrid = GRID_SIZE - 1;
+		
 		if(x == 0)
 		{
-			if(y != 7)
+			if(y != lastGrid)
 			{
 				_xNext = 0;
 				_yNext = y + 1;
@@ -146,32 +148,32 @@ public class CounterClockwiseSquareRecognizer implements IGestureRecognizer
 			else
 			{
 				_xNext = 1;
-				_yNext = 7;
+				_yNext = lastGrid;
 			}
 		}
-		else if(y == 7)
+		else if(y == lastGrid)
 		{
-			if(x != 7)
+			if(x != lastGrid)
 			{
 				_xNext = x + 1;
-				_yNext = 7;
+				_yNext = lastGrid;
 			}
 			else
 			{
-				_xNext = 7;
-				_yNext = 6;
+				_xNext = lastGrid;
+				_yNext = lastGrid - 1;
 			}
 		}
-		else if(x == 7)
+		else if(x == lastGrid)
 		{
 			if(y != 0)
 			{
-				_xNext = 7;
+				_xNext = lastGrid;
 				_yNext = y - 1;
 			}
 			else
 			{
-				_xNext = 6;
+				_xNext = lastGrid - 1;
 				_yNext = 0;
 			}
 		}
