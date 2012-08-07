@@ -18,10 +18,18 @@ public class CounterClockwiseSquareRecognizer implements IGestureRecognizer
 		{ 	true,	true,	true,	true,	true,	true,	true,	true	}
 	};
 	
-	private IGestureProcessor _processor;
+	private static final int[][] ORIENTED_GESTURE_PATTERN = {
+		{	23,	22,	21,	20,	19,	18,	17,	16	},
+		{	24,	0,	0,	0,	0,	0,	0,	15	},
+		{	25,	0,	0,	0,	0,	0,	0,	14	},	
+		{	26,	0,	0,	0,	0,	0,	0,	13	},	
+		{	27,	0,	0,	0,	0,	0,	0,	12	},	
+		{	28,	0,	0,	0,	0,	0,	0,	11	},	
+		{	1,	0,	0,	0,	0,	0,	0,	10	},
+		{	2,	3,	4,	5,	6,	7,	8,	9	}
+	};	
 	
-	private int _xNext = 0;
-	private int _yNext = 0;
+	private IGestureProcessor _processor;
 	
 	public CounterClockwiseSquareRecognizer(IGesturesDetector detector, IGestureProcessor processor)
 	{
@@ -38,75 +46,18 @@ public class CounterClockwiseSquareRecognizer implements IGestureRecognizer
 		double matchPercentage = _processor.getMatchPercentage(samplePattern, 
 				GESTURE_PATTERN);
 		
-		if(matchPercentage >= 0.95)
+		if(matchPercentage == 1)
 		{
 			int[][] orientedPattern = _processor.getOrientedGrid(data, GRID_SIZE);
 			
-			int maximum = findMaximumInOrientedPattern(orientedPattern, GRID_SIZE);
+			matchPercentage = _processor.getMatchPercentage(orientedPattern, ORIENTED_GESTURE_PATTERN);
 			
-			int xStart = 0;
-			int yStart = 0;
-			int counter = 0;
-			
-			boolean finish = false;
-			
-			for(int i = 1; i < maximum; ++i)
+			if(matchPercentage == 1)
 			{
-				if(finish)
-				{
-					break;
-				}
-				
-				for(int x = 0; x < GRID_SIZE; ++x)
-				{
-					if(finish)
-					{
-						break;
-					}
-					
-					for(int y = 0; y < GRID_SIZE; ++y)
-					{
-						if(orientedPattern[x][y] == i && samplePattern[x][y] == true)
-						{
-							xStart = x;
-							yStart = y;
-							counter = i;
-							
-							finish = true;
-							break;
-						}
-					}
-				}
+				return true;
 			}
-			
-			if(!finish)
-			{
-				return false;
-			}
-			
-			while(counter <= maximum)
-			{
-				if(	orientedPattern[xStart][yStart] == counter || 
-					orientedPattern[xStart][yStart] == 0)
-				{
-					if(orientedPattern[xStart][yStart] != 0)
-					{
-						counter++;
-					}
-					
-					findNext(xStart, yStart);
-					xStart = _xNext;
-					yStart = _yNext;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			
-			return true;
 		}
-		
+			
 		return false;
 	}
 
@@ -114,81 +65,5 @@ public class CounterClockwiseSquareRecognizer implements IGestureRecognizer
 	public String getType() 
 	{
 		return "COUNTER_CLOCKWISE_SQUARE";
-	}
-	
-	private int findMaximumInOrientedPattern(int[][] orientedPattern, int gridSize)
-	{
-		int maximum = 0;
-		
-		for(int x = 0; x < gridSize; ++x)
-		{
-			for(int y = 0; y < gridSize; ++y)
-			{
-				if(orientedPattern[x][y] > maximum)
-				{
-					maximum = orientedPattern[x][y];
-				}
-			}
-		}
-		
-		return maximum;
-	}
-	
-	private void findNext(int x, int y)
-	{
-		int lastGrid = GRID_SIZE - 1;
-		
-		if(x == 0)
-		{
-			if(y != lastGrid)
-			{
-				_xNext = 0;
-				_yNext = y + 1;
-			}
-			else
-			{
-				_xNext = 1;
-				_yNext = lastGrid;
-			}
-		}
-		else if(y == lastGrid)
-		{
-			if(x != lastGrid)
-			{
-				_xNext = x + 1;
-				_yNext = lastGrid;
-			}
-			else
-			{
-				_xNext = lastGrid;
-				_yNext = lastGrid - 1;
-			}
-		}
-		else if(x == lastGrid)
-		{
-			if(y != 0)
-			{
-				_xNext = lastGrid;
-				_yNext = y - 1;
-			}
-			else
-			{
-				_xNext = lastGrid - 1;
-				_yNext = 0;
-			}
-		}
-		else if(y == 0)
-		{
-			if(x != 0)
-			{
-				_xNext = x - 1;
-				_yNext = 0;
-			}
-			else
-			{
-				_xNext = 0;
-				_yNext = 1;
-			}
-		}
 	}
 }

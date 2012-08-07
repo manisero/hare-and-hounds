@@ -26,12 +26,21 @@ public class GestureDrawer
 		
 		LinkedList<GestureData.Point> points = data.Points;
 		
+		int pointsSize = points.size();
+		int pointNo = 0;
+		
 		for(GestureData.Point point : points)
 		{	
+			++pointNo;
+			
+			double red = 255 * (double) pointNo / (double) pointsSize;
+			
 			int x = (int) point.X - boundingBox.x;
 			int y = (int) point.Y - boundingBox.y;
 			
-			image.setRGB(x, y, Color.black.getRGB());
+			Color color = new Color((int) red, 0, 0, 0);
+			
+			image.setRGB(x, y, color.getRGB());
 		}
 		
 		return image;

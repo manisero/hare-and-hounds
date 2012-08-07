@@ -9,4 +9,6 @@ public interface IGestureProcessor
 	int[][] getOrientedGrid(GestureData data, int gridSize);
 	
 	double getMatchPercentage(boolean[][] input, boolean[][] pattern);
+	
+	double getMatchPercentage(int[][] input, int[][] pattern);
 }

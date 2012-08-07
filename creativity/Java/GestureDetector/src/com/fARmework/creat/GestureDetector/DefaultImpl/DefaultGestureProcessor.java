@@ -143,6 +143,61 @@ public class DefaultGestureProcessor implements IGestureProcessor
 		return (double) matches / (double) total;
 	}	
 	
+	@Override
+	public double getMatchPercentage(int[][] input, int[][] pattern) 
+	{
+		int gridSize = input.length;
+		
+		int inputMaximum = 0;
+		int xBeginPattern = 0;
+		int yBeginPattern = 0;
+		
+		for(int x = 0; x < gridSize; ++x)
+		{
+			for(int y = 0; y < gridSize; ++y)
+			{
+				if(input[x][y] > inputMaximum)
+				{
+					inputMaximum = input[x][y];
+				}
+				
+				if(pattern[x][y] == 1)
+				{
+					xBeginPattern = x;
+					yBeginPattern = y;
+				}
+			}
+		}
+		
+		int initialDifference = input[xBeginPattern][yBeginPattern] - 1;
+		
+		int total = 0;
+		int matches = 0;
+		
+		for(int x = 0; x < gridSize; ++x)
+		{
+			for(int y = 0; y < gridSize; ++y)
+			{
+				if(input[x][y] == 0 && pattern[x][y] == 0)
+				{
+					continue;
+				}
+				
+				++total;
+				
+				int patternWithOffset = (pattern[x][y] + initialDifference) % inputMaximum;
+				patternWithOffset = (patternWithOffset == 0) ? inputMaximum : patternWithOffset;
+				
+				if(input[x][y] == patternWithOffset)
+				{
+					++matches;
+				}
+			}
+		}
+		
+		return (double) matches / (double) total;
+	}	
+	
 	private Rectangle getGestureBoundingBox(GestureData data) 
 	{
 		LinkedList<GestureData.Point> points = data.Points;
