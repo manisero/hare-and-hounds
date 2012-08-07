@@ -7,6 +7,7 @@ import gueei.binding.collections.ArrayListObservable;
 import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
@@ -44,7 +45,9 @@ public class GameListViewModel extends ViewModel
 						
 						if (data.Response == GameJoinResponseType.Accept)
 						{
-							NavigationManager.navigateTo(GameViewModel.class);
+							Bundle bundle = new Bundle();
+							bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.HostUserName);
+							NavigationManager.navigateTo(GameViewModel.class, bundle);
 						}
 						else
 						{

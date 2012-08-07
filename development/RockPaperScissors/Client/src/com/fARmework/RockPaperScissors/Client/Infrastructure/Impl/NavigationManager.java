@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 @SuppressWarnings("rawtypes")
@@ -69,12 +70,21 @@ public class NavigationManager implements INavigationManager
 	@Override
 	public <T extends ViewModel> void navigateTo(Class<T> viewModelClass)
 	{
-		if (!_activities.containsKey(viewModelClass))
+		if (_activities.containsKey(viewModelClass))
 		{
-			return;
+			_currentActivity.startActivity(new Intent(_currentActivity, _activities.get(viewModelClass)));
 		}
-		
-		_currentActivity.startActivity(new Intent(_currentActivity, _activities.get(viewModelClass)));
+	}
+	
+	@Override
+	public <T extends ViewModel> void navigateTo(Class<T> viewModelClass, Bundle data)
+	{
+		if (_activities.containsKey(viewModelClass))
+		{
+			Intent intent = new Intent(_currentActivity, _activities.get(viewModelClass));
+			intent.putExtras(data);
+			_currentActivity.startActivity(intent);
+		}
 	}
 	
 	@Override

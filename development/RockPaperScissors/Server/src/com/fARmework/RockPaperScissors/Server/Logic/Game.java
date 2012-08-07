@@ -80,20 +80,20 @@ public class Game
 		}
 		else if (_hostGesture == _guestGesture) // draw
 		{
-			_connectionManager.send(new GameResultInfo(GameResult.Draw), _hostID);
-			_connectionManager.send(new GameResultInfo(GameResult.Draw), _guestID);
+			_connectionManager.send(new GameResultInfo(_hostGesture, _guestGesture, GameResult.Draw), _hostID);
+			_connectionManager.send(new GameResultInfo(_guestGesture, _hostGesture, GameResult.Draw), _guestID);
 		}
 		else if (_hostGesture == GestureType.Rock && _guestGesture == GestureType.Scissors ||
 				 _hostGesture == GestureType.Paper && _guestGesture == GestureType.Rock ||
 				 _hostGesture == GestureType.Scissors && _guestGesture == GestureType.Paper) // host won
 		{
-			_connectionManager.send(new GameResultInfo(GameResult.Victory), _hostID);
-			_connectionManager.send(new GameResultInfo(GameResult.Defeat), _guestID);
+			_connectionManager.send(new GameResultInfo(_hostGesture, _guestGesture, GameResult.Victory), _hostID);
+			_connectionManager.send(new GameResultInfo(_guestGesture, _hostGesture, GameResult.Defeat), _guestID);
 		}
 		else // guest won
 		{
-			_connectionManager.send(new GameResultInfo(GameResult.Victory), _guestID);
-			_connectionManager.send(new GameResultInfo(GameResult.Defeat), _hostID);
+			_connectionManager.send(new GameResultInfo(_guestGesture, _hostGesture, GameResult.Victory), _guestID);
+			_connectionManager.send(new GameResultInfo(_hostGesture, _guestGesture, GameResult.Defeat), _hostID);
 		}
 	}
 }
