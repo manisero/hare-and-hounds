@@ -18,6 +18,7 @@ public class EntryPoint extends JFrame
 	private GestureDrawer _gestureDrawer;
 	
 	private IGesturesDetector _gesturesDetector;
+	private IGestureProcessor _gestureProcessor;
 	
 	private static final String _directory = "samples";
 	private static final String[] _files = {
@@ -41,7 +42,8 @@ public class EntryPoint extends JFrame
 		_gestureDrawer = new GestureDrawer();
 		
 		_gesturesDetector = new DefaultGesturesDetector();
-		new ClockwiseSquareRecognizer(_gesturesDetector, new DefaultGestureProcessor());
+		_gestureProcessor = new DefaultGestureProcessor();
+		new ClockwiseSquareRecognizer(_gesturesDetector, _gestureProcessor);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -76,6 +78,23 @@ public class EntryPoint extends JFrame
 				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				frame.pack();
 				frame.setVisible(true);
+				
+				
+				System.out.println("\n ---------- \n");
+				
+				int gridSize = 8;
+				
+				int[][] orientedGrid = _gestureProcessor.getOrientedGrid(data, gridSize);
+				
+				for(int i = 0; i < gridSize; ++i)
+				{
+					for(int j = 0; j < gridSize; ++j)
+					{
+						System.out.print("" + orientedGrid[i][j] + " ");
+					}
+					
+					System.out.println(" ");
+				}
 				
 				_filesWithGestures.add(file);
 			}

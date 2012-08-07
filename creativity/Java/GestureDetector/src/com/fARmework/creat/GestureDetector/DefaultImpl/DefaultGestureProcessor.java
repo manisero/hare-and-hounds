@@ -2,7 +2,6 @@ package com.fARmework.creat.GestureDetector.DefaultImpl;
 
 import com.fARmework.creat.GestureDetector.*;
 import com.fARmework.modules.ScreenGestures.Data.*;
-
 import java.awt.*;
 import java.util.*;
 
@@ -18,8 +17,8 @@ public class DefaultGestureProcessor implements IGestureProcessor
 		int width = boundingBox.width;
 		int height = boundingBox.height;
 		
-		float xCell = width / (float) gridSize;
-		float yCell = height / (float) gridSize;
+		float xCell = (float) width / (float) gridSize;
+		float yCell = (float) height / (float) gridSize;
 		
 		LinkedList<GestureData.Point> points = data.Points;
 		
@@ -59,6 +58,63 @@ public class DefaultGestureProcessor implements IGestureProcessor
 	}
 
 	@Override
+	public int[][] getOrientedGrid(GestureData data, int gridSize) 
+	{
+		int[][] grid = new int[gridSize][gridSize];
+		
+		Rectangle boundingBox = getGestureBoundingBox(data);
+		
+		int width = boundingBox.width;
+		int height = boundingBox.height;
+		
+		float xCell = (float) width / (float) gridSize;
+		float yCell = (float) height / (float) gridSize;
+		
+		LinkedList<GestureData.Point> points = data.Points;
+		
+		int counter = 0;
+		
+		for(GestureData.Point point : points)
+		{
+			boolean gridFound = false;
+			
+			for(int x = 0; x < gridSize; ++x)
+			{
+				if(gridFound)
+				{
+					break;	
+				}
+				
+				for(int y = 0; y < gridSize; ++y)
+				{
+					if(gridFound)
+					{
+						break;
+					}
+					
+					float xStart = boundingBox.x + x * xCell;
+					float xEnd = boundingBox.x + (x + 1) * xCell;
+					float yStart = boundingBox.y + y * yCell;
+					float yEnd = boundingBox.y + (y + 1) * yCell;
+					
+					if(	point.X >= xStart && point.X < xEnd && 
+						point.Y >= yStart && point.Y < yEnd)
+					{
+						gridFound = true;
+						
+						if(grid[x][y] == 0 && (grid[x][y] != counter || counter == 0))
+						{
+							grid[x][y] = ++counter;
+						}
+					}
+				}
+			}
+		}
+		
+		return grid;
+	}	
+	
+	@Override
 	public double getMatchPercentage(boolean[][] input, boolean[][] pattern) 
 	{
 		if(!sizeCheck(input, pattern))
@@ -85,7 +141,7 @@ public class DefaultGestureProcessor implements IGestureProcessor
 		}
 		
 		return (double) matches / (double) total;
-	}
+	}	
 	
 	private Rectangle getGestureBoundingBox(GestureData data) 
 	{
