@@ -6,10 +6,10 @@ import gueei.binding.observables.StringObservable;
 import android.os.Bundle;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.NavigationManager.IDialogListener;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.ContextManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Data.GameCreationInfo;
 import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
@@ -27,9 +27,9 @@ public class HostingViewModel extends ViewModel
 	private ISettingsProvider _settingsProvider;
 	
 	@Inject
-	public HostingViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
+	public HostingViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
-		super(connectionManager, navigationManager);
+		super(connectionManager, contextManager);
 		
 		_settingsProvider = settingsProvider;
 		
@@ -47,7 +47,7 @@ public class HostingViewModel extends ViewModel
 			@Override
 			public void handle(final GameJoinRequest data)
 			{
-				NavigationManager.showYesNoDialog(String.format(ResourcesProvider.getString(R.string.hosting_guestConnected), data.GuestUserName),
+				ContextManager.showYesNoDialog(String.format(ResourcesProvider.getString(R.string.hosting_guestConnected), data.GuestUserName),
 												  ResourcesProvider.getString(R.string.hosting_allowJoin),
 												  ResourcesProvider.getString(R.string.hosting_denyJoin),
 												  new IDialogListener()
@@ -61,7 +61,7 @@ public class HostingViewModel extends ViewModel
 															
 															Bundle bundle = new Bundle();
 															bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.GuestUserName);
-															NavigationManager.navigateTo(GameViewModel.class, bundle);
+															ContextManager.navigateTo(GameViewModel.class, bundle);
 														}
 													},
 												  new IDialogListener()

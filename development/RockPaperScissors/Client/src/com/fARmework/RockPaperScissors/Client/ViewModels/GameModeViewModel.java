@@ -11,7 +11,7 @@ import java.util.Collection;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.core.client.Connection.IConnectionManager;
@@ -43,7 +43,7 @@ public class GameModeViewModel extends ViewModel
 						isConnected.set(true);
 						status.set(ResourcesProvider.getString(R.string.connection_success));
 						isWaiting.set(false);
-						NavigationManager.navigateTo(HostingViewModel.class);
+						ContextManager.navigateTo(HostingViewModel.class);
 					}
 				});
 				
@@ -51,7 +51,7 @@ public class GameModeViewModel extends ViewModel
 			}
 			else
 			{
-				NavigationManager.navigateTo(HostingViewModel.class);
+				ContextManager.navigateTo(HostingViewModel.class);
 			}
 		}
 	};
@@ -71,7 +71,7 @@ public class GameModeViewModel extends ViewModel
 						isConnected.set(true);
 						status.set(ResourcesProvider.getString(R.string.connection_success));
 						isWaiting.set(false);
-						NavigationManager.navigateTo(GameListViewModel.class);
+						ContextManager.navigateTo(GameListViewModel.class);
 					}
 				});
 				
@@ -79,7 +79,7 @@ public class GameModeViewModel extends ViewModel
 			}
 			else
 			{
-				NavigationManager.navigateTo(GameListViewModel.class);
+				ContextManager.navigateTo(GameListViewModel.class);
 			}
 		}
 	};
@@ -115,9 +115,9 @@ public class GameModeViewModel extends ViewModel
 	private ISettingsProvider _settingsProvider;
 	
 	@Inject
-	public GameModeViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
+	public GameModeViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
-		super(connectionManager, navigationManager);
+		super(connectionManager, contextManager);
 		
 		_settingsProvider = settingsProvider;
 		

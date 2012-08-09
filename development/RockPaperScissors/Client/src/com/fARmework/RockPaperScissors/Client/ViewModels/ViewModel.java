@@ -2,18 +2,18 @@ package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import android.os.Bundle;
 
-import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.core.client.Connection.IConnectionManager;
 
 public abstract class ViewModel
 {
 	protected IConnectionManager ConnectionManager;
-	protected INavigationManager NavigationManager;
+	protected IContextManager ContextManager;
 	
-	protected ViewModel(IConnectionManager connectionManager, INavigationManager navigationManager)
+	protected ViewModel(IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		ConnectionManager = connectionManager;
-		NavigationManager = navigationManager;
+		ContextManager = contextManager;
 	}
 	
 	public void setData(Bundle data)

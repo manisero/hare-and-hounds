@@ -3,10 +3,10 @@ package com.fARmework.RockPaperScissors.Client.Infrastructure;
 import android.os.Bundle;
 
 import com.fARmework.RockPaperScissors.Client.Activities.BoundActivity;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.NavigationManager.IDialogListener;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.ContextManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 
-public interface INavigationManager
+public interface IContextManager
 {
 	int getLayout(Class<? extends ViewModel> viewModelClass);
 	

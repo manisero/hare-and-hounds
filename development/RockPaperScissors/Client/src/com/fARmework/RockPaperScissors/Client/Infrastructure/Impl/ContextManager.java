@@ -9,7 +9,7 @@ import com.fARmework.RockPaperScissors.Client.Activities.GameActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameListActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameModeActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.HostingActivity;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameListViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameViewModel;
@@ -24,7 +24,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 @SuppressWarnings("rawtypes")
-public class NavigationManager implements INavigationManager
+public class ContextManager implements IContextManager
 {
 	public interface IDialogListener
 	{
@@ -36,7 +36,7 @@ public class NavigationManager implements INavigationManager
 	
 	private BoundActivity _currentActivity;
 
-	public NavigationManager()
+	public ContextManager()
 	{
 		// GameMode
 		_layouts.put(GameModeViewModel.class, R.layout.game_mode);

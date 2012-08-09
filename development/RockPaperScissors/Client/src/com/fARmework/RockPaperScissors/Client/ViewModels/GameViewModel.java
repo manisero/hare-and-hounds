@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Data.*;
@@ -68,9 +68,9 @@ public class GameViewModel extends ViewModel
 	};
 	
 	@Inject
-	protected GameViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
+	protected GameViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
-		super(connectionManager, navigationManager);
+		super(connectionManager, contextManager);
 		
 		playerName.set(settingsProvider.getUserName());
 		opponentName.set(settingsProvider.getServerAddress());
