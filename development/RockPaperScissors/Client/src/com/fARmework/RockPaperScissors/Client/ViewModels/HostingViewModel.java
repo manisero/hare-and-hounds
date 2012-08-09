@@ -10,6 +10,8 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.NavigationManager.IDialogListener;
+import com.fARmework.RockPaperScissors.Data.GameCreationInfo;
+import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
@@ -19,7 +21,7 @@ import com.google.inject.Inject;
 
 public class HostingViewModel extends ViewModel
 {
-	public StringObservable status = new StringObservable(ResourcesProvider.getString(R.string.hosting_waiting));
+	public StringObservable status = new StringObservable();
 	public BooleanObservable isWaiting = new BooleanObservable(true);
 	
 	private ISettingsProvider _settingsProvider;
@@ -30,6 +32,15 @@ public class HostingViewModel extends ViewModel
 		super(connectionManager, navigationManager);
 		
 		_settingsProvider = settingsProvider;
+		
+		ConnectionManager.registerDataHandler(GameCreationInfo.class, new IDataHandler<GameCreationInfo>()
+		{
+			@Override
+			public void handle(GameCreationInfo data)
+			{
+				status.set(ResourcesProvider.getString(R.string.hosting_waiting));
+			}
+		});
 		
 		ConnectionManager.registerDataHandler(GameJoinRequest.class, new IDataHandler<GameJoinRequest>()
 		{
@@ -63,5 +74,8 @@ public class HostingViewModel extends ViewModel
 													});
 			}
 		});
+		
+		status.set(ResourcesProvider.getString(R.string.hosting_creating));
+		ConnectionManager.send(new GameCreationRequest(_settingsProvider.getUserName()));
 	}
 }

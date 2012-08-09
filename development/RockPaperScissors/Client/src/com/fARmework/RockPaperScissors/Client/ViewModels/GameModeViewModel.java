@@ -1,25 +1,24 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
-import java.util.Collection;
-
-import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Data.GameCreationInfo;
-import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
-import com.fARmework.core.client.Connection.IConnectionManager;
-import com.fARmework.core.client.Connection.IDataHandler;
-import com.fARmework.core.client.Data.ConnectionFaultInfo;
-import com.fARmework.core.client.Data.ConnectionSuccessInfo;
-import com.google.inject.Inject;
-
-import android.view.View;
 import gueei.binding.Command;
 import gueei.binding.IObservable;
 import gueei.binding.Observer;
 import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
+
+import java.util.Collection;
+
+import android.view.View;
+
+import com.fARmework.RockPaperScissors.Client.R;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.core.client.Connection.IConnectionManager;
+import com.fARmework.core.client.Connection.IDataHandler;
+import com.fARmework.core.client.Data.ConnectionFaultInfo;
+import com.fARmework.core.client.Data.ConnectionSuccessInfo;
+import com.google.inject.Inject;
 
 public class GameModeViewModel extends ViewModel
 {
@@ -42,7 +41,9 @@ public class GameModeViewModel extends ViewModel
 					public void handle(ConnectionSuccessInfo data)
 					{
 						isConnected.set(true);
-						createGame();
+						status.set(ResourcesProvider.getString(R.string.connection_success));
+						isWaiting.set(false);
+						NavigationManager.navigateTo(HostingViewModel.class);
 					}
 				});
 				
@@ -50,7 +51,7 @@ public class GameModeViewModel extends ViewModel
 			}
 			else
 			{
-				createGame();
+				NavigationManager.navigateTo(HostingViewModel.class);
 			}
 		}
 	};
@@ -135,17 +136,6 @@ public class GameModeViewModel extends ViewModel
 				isWaiting.set(false);
 			}
 		});
-		
-		ConnectionManager.registerDataHandler(GameCreationInfo.class, new IDataHandler<GameCreationInfo>()
-		{
-			@Override
-			public void handle(GameCreationInfo data)
-			{
-				status.set(ResourcesProvider.getString(R.string.hosting_created));
-				isWaiting.set(false);
-				NavigationManager.navigateTo(HostingViewModel.class);
-			}
-		});
 	}
 	
 	private void connect()
@@ -153,12 +143,6 @@ public class GameModeViewModel extends ViewModel
 		status.set(ResourcesProvider.getString(R.string.connection_connecting));
 		isWaiting.set(true);
 		ConnectionManager.connect(serverAddress.get());
-	}
-	
-	private void createGame()
-	{
-		status.set(ResourcesProvider.getString(R.string.hosting_creating));
-		ConnectionManager.send(new GameCreationRequest(userName.get()));
 	}
 	
 	public void disconnect()
