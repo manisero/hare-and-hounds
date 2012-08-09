@@ -46,7 +46,7 @@ public class GameListViewModel extends ViewModel
 						if (data.Response == GameJoinResponseType.Accept)
 						{
 							Bundle bundle = new Bundle();
-							bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.HostUserName);
+							bundle.putString(GameViewModel.OPPONENT_NAME_KEY, hostUserName.get());
 							ContextManager.navigateTo(GameViewModel.class, bundle);
 						}
 						else

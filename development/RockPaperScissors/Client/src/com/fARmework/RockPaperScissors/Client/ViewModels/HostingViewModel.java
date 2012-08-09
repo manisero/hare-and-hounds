@@ -57,7 +57,7 @@ public class HostingViewModel extends ViewModel
 														{
 															isWaiting.set(false);
 															status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestUserName));
-															ConnectionManager.send(new GameJoinResponse(data.HostID, _settingsProvider.getUserName(), data.GuestID, GameJoinResponseType.Accept));
+															ConnectionManager.send(new GameJoinResponse(data.GuestID, GameJoinResponseType.Accept));
 															
 															Bundle bundle = new Bundle();
 															bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.GuestUserName);
@@ -69,7 +69,7 @@ public class HostingViewModel extends ViewModel
 														@Override
 														public void onDialogResult()
 														{
-															ConnectionManager.send(new GameJoinResponse(data.HostID, _settingsProvider.getUserName(), data.GuestID, GameJoinResponseType.Deny));
+															ConnectionManager.send(new GameJoinResponse(data.GuestID, GameJoinResponseType.Deny));
 														}
 													});
 			}

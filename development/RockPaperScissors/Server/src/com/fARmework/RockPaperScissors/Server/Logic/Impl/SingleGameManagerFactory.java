@@ -1,26 +1,27 @@
 package com.fARmework.RockPaperScissors.Server.Logic.Impl;
 
 import com.fARmework.RockPaperScissors.Server.Logic.Game;
-import com.fARmework.RockPaperScissors.Server.Logic.IGameFactory;
 import com.fARmework.RockPaperScissors.Server.Logic.IGestureProcessor;
+import com.fARmework.RockPaperScissors.Server.Logic.ISingleGameManager;
+import com.fARmework.RockPaperScissors.Server.Logic.ISingleGameManagerFactory;
 import com.fARmework.core.server.Connection.IConnectionManager;
 import com.google.inject.Inject;
 
-public class GameFactory implements IGameFactory
+public class SingleGameManagerFactory implements ISingleGameManagerFactory
 {
 	private IConnectionManager _connectionManager;
 	private IGestureProcessor _gestureProcessor;
 	
 	@Inject
-	public GameFactory(IConnectionManager connectionManager, IGestureProcessor gestureProcessor)
+	public SingleGameManagerFactory(IConnectionManager connectionManager, IGestureProcessor gestureProcessor)
 	{
 		_connectionManager = connectionManager;
 		_gestureProcessor = gestureProcessor;
 	}
 	
 	@Override
-	public Game createGame(int hostID, String hostUserName)
+	public ISingleGameManager create(Game game)
 	{
-		return new Game(_connectionManager, _gestureProcessor, hostID, hostUserName);
+		return new SingleGameManager(_connectionManager, _gestureProcessor, game);
 	}
 }
