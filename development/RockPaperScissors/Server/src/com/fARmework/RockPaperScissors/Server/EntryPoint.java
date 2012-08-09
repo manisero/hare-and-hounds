@@ -1,7 +1,7 @@
 package com.fARmework.RockPaperScissors.Server;
 
 import com.fARmework.RockPaperScissors.Server.GuiceModules.*;
-import com.fARmework.RockPaperScissors.Server.Logic.IGameManager;
+import com.fARmework.RockPaperScissors.Server.Logic.IGamesManager;
 import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.DataHandler;
 import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.EmptyDataHandler;
 import com.fARmework.core.data.IDataRegistry;
@@ -39,7 +39,6 @@ public class EntryPoint
 		});
 		
 		// run
-		IGameManager gameManager = injector.getInstance(IGameManager.class);
-		gameManager.run();
+		injector.getInstance(IGamesManager.class).run();
 	}
 }
