@@ -7,10 +7,15 @@ public class Game
 	public int HostID;
 	public String HostUserName;
 	public GestureType HostGesture;
+	public int HostScore;
 	
 	public int GuestID;
 	public String GuestUserName;
 	public GestureType GuestGesture;
+	public int GuestScore;
+	
+	public boolean HasStarted;
+	public boolean HasEnded;
 	
 	public Game()
 	{

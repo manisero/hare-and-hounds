@@ -1,7 +1,6 @@
 package com.fARmework.RockPaperScissors.Server.Logic.Impl;
 
 import com.fARmework.RockPaperScissors.Data.*;
-import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
@@ -33,9 +32,9 @@ public class SingleGameManager implements ISingleGameManager
 			protected void handleData(int clientID, GameJoinResponse data)
 			{
 				System.out.println("GuestID: " + data.GuestID);
-				System.out.println("Response: " + data.Response.toString());
+				System.out.println("Accepted: " + String.valueOf(data.Accepted));
 				
-				if (data.Response == GameJoinResponseType.Accept)
+				if (data.Accepted)
 				{
 					_game.GuestID = data.GuestID;
 					startGame();
@@ -50,6 +49,8 @@ public class SingleGameManager implements ISingleGameManager
 	
 	private void startGame()
 	{
+		_game.HasStarted = true;
+		
 		_connectionManager.registerDataHandler(GestureInfo.class, _game.HostID, new DataHandler<GestureInfo>()
 		{
 			@Override
@@ -87,22 +88,53 @@ public class SingleGameManager implements ISingleGameManager
 		{
 			return;
 		}
-		else if (_game.HostGesture == _game.GuestGesture) // draw
+		
+		if (_game.HostGesture == _game.GuestGesture) // draw
 		{
-			_connectionManager.send(new GameResultInfo(_game.HostGesture, _game.GuestGesture, GameResult.Draw), _game.HostID);
-			_connectionManager.send(new GameResultInfo(_game.GuestGesture, _game.HostGesture, GameResult.Draw), _game.GuestID);
+			_connectionManager.send(new GameResultInfo(_game.HostGesture, _game.GuestGesture, GameResult.Draw, _game.HostScore, _game.GuestScore), _game.HostID);
+			_connectionManager.send(new GameResultInfo(_game.GuestGesture, _game.HostGesture, GameResult.Draw, _game.GuestScore, _game.HostScore), _game.GuestID);
 		}
 		else if (_game.HostGesture == GestureType.Rock && _game.GuestGesture == GestureType.Scissors ||
 				_game.HostGesture == GestureType.Paper && _game.GuestGesture == GestureType.Rock ||
 				_game.HostGesture == GestureType.Scissors && _game.GuestGesture == GestureType.Paper) // host won
 		{
-			_connectionManager.send(new GameResultInfo(_game.HostGesture, _game.GuestGesture, GameResult.Victory), _game.HostID);
-			_connectionManager.send(new GameResultInfo(_game.GuestGesture, _game.HostGesture, GameResult.Defeat), _game.GuestID);
+			_game.HostScore++;
+			_connectionManager.send(new GameResultInfo(_game.HostGesture, _game.GuestGesture, GameResult.Victory, _game.HostScore, _game.GuestScore), _game.HostID);
+			_connectionManager.send(new GameResultInfo(_game.GuestGesture, _game.HostGesture, GameResult.Defeat, _game.GuestScore, _game.HostScore), _game.GuestID);
 		}
 		else // guest won
 		{
-			_connectionManager.send(new GameResultInfo(_game.GuestGesture, _game.HostGesture, GameResult.Victory), _game.GuestID);
-			_connectionManager.send(new GameResultInfo(_game.HostGesture, _game.GuestGesture, GameResult.Defeat), _game.HostID);
+			_game.GuestScore++;
+			_connectionManager.send(new GameResultInfo(_game.GuestGesture, _game.HostGesture, GameResult.Victory, _game.HostScore, _game.GuestScore), _game.GuestID);
+			_connectionManager.send(new GameResultInfo(_game.HostGesture, _game.GuestGesture, GameResult.Defeat, _game.GuestScore, _game.HostScore), _game.HostID);
 		}
+		
+		_connectionManager.registerDataHandler(NextGameInfo.class, _game.HostID, new DataHandler<NextGameInfo>()
+		{
+			@Override
+			protected void handleData(int clientID, NextGameInfo data)
+			{
+				if (!data.WantsNextGame)
+				{
+					_game.HasEnded = true;
+				}
+				
+				_connectionManager.send(data, _game.GuestID);
+			}
+		});
+		
+		_connectionManager.registerDataHandler(NextGameInfo.class, _game.GuestID, new DataHandler<NextGameInfo>()
+		{
+			@Override
+			protected void handleData(int clientID, NextGameInfo data)
+			{
+				if (!data.WantsNextGame)
+				{
+					_game.HasEnded = true;
+				}
+				
+				_connectionManager.send(data, _game.HostID);
+			}
+		});
 	}
 }

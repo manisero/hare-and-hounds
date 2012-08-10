@@ -53,7 +53,10 @@ public class GamesManager implements IGamesManager
 				
 				for (Game game : _games.values())
 				{
-					gameList.addGame(game.HostID, game.HostUserName);
+					if (!game.HasStarted)
+					{
+						gameList.addGame(game.HostID, game.HostUserName);
+					}
 				}
 				
 				_connectionManager.send(gameList, clientID);

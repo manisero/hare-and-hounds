@@ -15,7 +15,6 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
-import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListData;
@@ -43,7 +42,7 @@ public class GameListViewModel extends ViewModel
 					{
 						isWaiting.set(false);
 						
-						if (data.Response == GameJoinResponseType.Accept)
+						if (data.Accepted)
 						{
 							Bundle bundle = new Bundle();
 							bundle.putString(GameViewModel.OPPONENT_NAME_KEY, hostUserName.get());
