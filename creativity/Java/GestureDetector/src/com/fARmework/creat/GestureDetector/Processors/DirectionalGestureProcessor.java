@@ -1,6 +1,7 @@
 package com.fARmework.creat.GestureDetector.Processors;
 
 import com.fARmework.creat.GestureDetector.*;
+import com.fARmework.creat.GestureDetector.Utilities.*;
 import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.*;
 import java.util.*;
@@ -12,7 +13,7 @@ public class DirectionalGestureProcessor implements IGestureProcessor<Integer>
 	{
 		Integer[][] grid = new Integer[gridSize][gridSize];
 		
-		Rectangle boundingBox = getGestureBoundingBox(data);
+		Rectangle boundingBox = GestureRecognizerUtilities.getGestureBoundingBox(data);
 		
 		int width = boundingBox.width;
 		int height = boundingBox.height;
@@ -70,45 +71,5 @@ public class DirectionalGestureProcessor implements IGestureProcessor<Integer>
 		}
 		
 		return grid;
-	}
-	
-	private Rectangle getGestureBoundingBox(GestureData data) 
-	{
-		LinkedList<GestureData.Point> points = data.Points;
-		
-		int xMin, xMax, yMin, yMax;
-
-		xMin = xMax = (int) points.getFirst().X;
-		yMin = yMax = (int) points.getFirst().Y;
-		
-		for(GestureData.Point point : points)
-		{
-			if(xMin > point.X)
-			{
-				xMin = (int) point.X;
-			}
-			
-			else if(xMax < point.X)
-			{
-				xMax = (int) point.X;
-			}
-			
-			if(yMin > point.Y)
-			{
-				yMin = (int) point.Y;
-			}
-			
-			else if(yMax < point.Y)
-			{
-				yMax = (int) point.Y;
-			}
-		}
-		
-		int x = xMin;
-		int y = yMin;
-		int width = xMax - xMin + 1;
-		int height = yMax - yMin + 1;
-		
-		return new Rectangle(x, y, width, height);
 	}			
 }

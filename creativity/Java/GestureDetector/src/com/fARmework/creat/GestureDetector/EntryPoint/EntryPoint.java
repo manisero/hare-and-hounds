@@ -1,12 +1,13 @@
 package com.fARmework.creat.GestureDetector.EntryPoint;
 
 import com.fARmework.creat.GestureDetector.*;
-import com.fARmework.creat.GestureDetector.Data.*;
 import com.fARmework.creat.GestureDetector.DefaultImpl.*;
-import com.fARmework.creat.GestureDetector.Matchers.*;
+import com.fARmework.creat.GestureDetector.Factories.*;
+import com.fARmework.creat.GestureDetector.Gestures.*;
+import com.fARmework.creat.GestureDetector.PatternMatchers.*;
 import com.fARmework.creat.GestureDetector.Processors.*;
 import com.fARmework.creat.GestureDetector.Utilities.*;
-import com.fARmework.modules.ScreenGestures.Data.GestureData;
+import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.image.*;
 import java.io.*;
 import java.util.*;
@@ -55,8 +56,6 @@ public class EntryPoint extends JFrame
 		"triangle_counterclockwise.dat"
 	};
 	
-	private IGestureProcessor<Integer> _intProcessor;
-	private IPatternMatcher<Integer> _intMatcher;
 	private IGestureRecognizer _recognizer;
 	
 	private GestureFileReader _reader;
@@ -64,23 +63,38 @@ public class EntryPoint extends JFrame
 	
 	public EntryPoint()
 	{
-		_intProcessor = new DirectionalGestureProcessor();
-		_intMatcher = new DirectionalPatternMatcher(_intProcessor);
-		_recognizer = new DefaultGestureRecognizer();
-		
-		_intMatcher.add(new GesturePattern<Integer>(
-				"CLOCKWISE_SQUARE", CLOCKWISE_SQUARE_PATTERN));
-				
-		_intMatcher.add(new GesturePattern<Integer>(
-				"COUNTER_CLOCKWISE_SQUARE", COUNTER_CLOCKWISE_SQUARE_PATTERN));
-		
-		_recognizer.add(_intMatcher);
+		setupGestureRecognition();
 		
 		_reader = new GestureFileReader();
 		_drawer = new GestureDrawer();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);		
+	}
+	
+	public void setupGestureRecognition()
+	{
+		DirectionalGesture clockwiseSquare = new DirectionalGesture(
+				CLOCKWISE_SQUARE_PATTERN, "CLOCKWISE_SQUARE");
+		
+		DirectionalGesture counterClockwiseSquare = new DirectionalGesture(
+				COUNTER_CLOCKWISE_SQUARE_PATTERN, "COUNTER_CLOCKWISE_SQUARE");
+		
+		GestureRegistry gestureRegistry = new GestureRegistry();
+		
+		gestureRegistry.add(clockwiseSquare);
+		gestureRegistry.add(counterClockwiseSquare);
+		
+		DirectionalGestureProcessor processor = new DirectionalGestureProcessor();
+		DirectionalPatternMatcher matcher = new DirectionalPatternMatcher();
+		
+		GestureProcessorFactory processorFactory = new GestureProcessorFactory();
+		PatternMatcherFactory matcherFactory = new PatternMatcherFactory();
+		
+		processorFactory.register(clockwiseSquare.getClass(), processor);
+		matcherFactory.register(clockwiseSquare.getClass(), matcher);
+		
+		_recognizer = new GestureRecognizer(gestureRegistry, matcherFactory, processorFactory);
 	}
 	
 	public void recognizeGestures()
