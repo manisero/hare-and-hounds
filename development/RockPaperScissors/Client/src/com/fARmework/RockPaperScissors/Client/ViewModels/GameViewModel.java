@@ -14,6 +14,7 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.ContextManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Data.*;
+import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
@@ -27,11 +28,8 @@ public class GameViewModel extends ViewModel
 	public StringObservable opponentName = new StringObservable();
 	public IntegerObservable playerScore = new IntegerObservable(0);
 	public IntegerObservable opponentScore = new IntegerObservable(0);
-	public StringObservable playerGesture = new StringObservable();
-	public StringObservable opponentGesture = new StringObservable();
 	public StringObservable status = new StringObservable();
 	public BooleanObservable isWaiting = new BooleanObservable(false);
-	public BooleanObservable hasGameEnded = new BooleanObservable(false);
 	
 	public Command sendRock = new Command()
 	{
@@ -85,30 +83,12 @@ public class GameViewModel extends ViewModel
 			public void handle(GameResultInfo data)
 			{
 				isWaiting.set(false);
-				hasGameEnded.set(true);
 				
 				playerScore.set(data.PlayerScore);
 				opponentScore.set(data.OpponentScore);
-				displayGesture(playerGesture, data.PlayerGesture);
-				displayGesture(opponentGesture, data.OpponentGesture);
 				
-				String result;
-				
-				switch (data.GameResult)
-				{
-					case Victory:
-						status.set(ResourcesProvider.getString(R.string.game_victory));
-						result = ResourcesProvider.getString(R.string.game_victory);
-						break;
-					case Defeat:
-						status.set(ResourcesProvider.getString(R.string.game_defeat));
-						result = ResourcesProvider.getString(R.string.game_defeat);
-						break;
-					default:
-						status.set(ResourcesProvider.getString(R.string.game_draw));
-						result = ResourcesProvider.getString(R.string.game_draw);
-						break;
-				}
+				String result = getResultString(data.GameResult);
+				status.set(result);
 				
 				ConnectionManager.registerDataHandler(NextGameInfo.class, new IDataHandler<NextGameInfo>()
 				{
@@ -123,7 +103,7 @@ public class GameViewModel extends ViewModel
 				});
 				
 				ContextManager.showYesNoDialog(
-					String.format(ResourcesProvider.getString(R.string.game_result_pattern), result, playerGesture.get(), opponentName.get(), opponentGesture.get()),
+					String.format(ResourcesProvider.getString(R.string.game_result_pattern), result, getGestureString(data.PlayerGesture), opponentName.get(), getGestureString(data.OpponentGesture)),
 					ResourcesProvider.getString(R.string.game_continue_yes),
 					ResourcesProvider.getString(R.string.game_continue_no),
 					new IDialogListener()
@@ -162,19 +142,29 @@ public class GameViewModel extends ViewModel
 		ConnectionManager.send(new GestureInfo(gesture));
 	}
 	
-	private void displayGesture(StringObservable target, GestureType gesture)
+	private String getResultString(GameResult result)
+	{
+		switch (result)
+		{
+			case Victory:
+				return ResourcesProvider.getString(R.string.game_victory);
+			case Defeat:
+				return ResourcesProvider.getString(R.string.game_defeat);
+			default:
+				return ResourcesProvider.getString(R.string.game_draw);
+		}
+	}
+	
+	private String getGestureString(GestureType gesture)
 	{
 		switch (gesture)
 		{
 			case Rock:
-				target.set(ResourcesProvider.getString(R.string.gestures_rock));
-				break;
+				return ResourcesProvider.getString(R.string.gestures_rock);
 			case Paper:
-				target.set(ResourcesProvider.getString(R.string.gestures_paper));
-				break;
+				return ResourcesProvider.getString(R.string.gestures_paper);
 			default:
-				target.set(ResourcesProvider.getString(R.string.gestures_scissors));
-				break;
+				return ResourcesProvider.getString(R.string.gestures_scissors);
 		}
 	}
 }
