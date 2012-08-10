@@ -9,7 +9,7 @@ import com.fARmework.RockPaperScissors.Client.Activities.GameActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameListActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameModeActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.HostingActivity;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameListViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameViewModel;
@@ -20,10 +20,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 @SuppressWarnings("rawtypes")
-public class NavigationManager implements INavigationManager
+public class ContextManager implements IContextManager
 {
 	public interface IDialogListener
 	{
@@ -35,7 +36,7 @@ public class NavigationManager implements INavigationManager
 	
 	private BoundActivity _currentActivity;
 
-	public NavigationManager()
+	public ContextManager()
 	{
 		// GameMode
 		_layouts.put(GameModeViewModel.class, R.layout.game_mode);
@@ -69,12 +70,21 @@ public class NavigationManager implements INavigationManager
 	@Override
 	public <T extends ViewModel> void navigateTo(Class<T> viewModelClass)
 	{
-		if (!_activities.containsKey(viewModelClass))
+		if (_activities.containsKey(viewModelClass))
 		{
-			return;
+			_currentActivity.startActivity(new Intent(_currentActivity, _activities.get(viewModelClass)));
 		}
-		
-		_currentActivity.startActivity(new Intent(_currentActivity, _activities.get(viewModelClass)));
+	}
+	
+	@Override
+	public <T extends ViewModel> void navigateTo(Class<T> viewModelClass, Bundle data)
+	{
+		if (_activities.containsKey(viewModelClass))
+		{
+			Intent intent = new Intent(_currentActivity, _activities.get(viewModelClass));
+			intent.putExtras(data);
+			_currentActivity.startActivity(intent);
+		}
 	}
 	
 	@Override
