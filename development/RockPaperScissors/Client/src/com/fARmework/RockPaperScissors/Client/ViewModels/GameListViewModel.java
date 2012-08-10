@@ -7,10 +7,11 @@ import gueei.binding.collections.ArrayListObservable;
 import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
@@ -44,11 +45,13 @@ public class GameListViewModel extends ViewModel
 						
 						if (data.Response == GameJoinResponseType.Accept)
 						{
-							NavigationManager.navigateTo(GameViewModel.class);
+							Bundle bundle = new Bundle();
+							bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.HostUserName);
+							ContextManager.navigateTo(GameViewModel.class, bundle);
 						}
 						else
 						{
-							NavigationManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()));
+							ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()));
 						}
 					}
 				});
@@ -82,9 +85,9 @@ public class GameListViewModel extends ViewModel
 	private ISettingsProvider _settingsProvider;
 	
 	@Inject
-	public GameListViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
+	public GameListViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
-		super(connectionManager, navigationManager);
+		super(connectionManager, contextManager);
 		
 		_settingsProvider = settingsProvider;
 		
