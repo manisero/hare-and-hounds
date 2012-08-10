@@ -30,8 +30,7 @@ public class GameViewModel extends ViewModel
 	public StringObservable playerGesture = new StringObservable();
 	public StringObservable opponentGesture = new StringObservable();
 	public StringObservable status = new StringObservable();
-	public BooleanObservable isPlayerGestureSent = new BooleanObservable(false);
-	public BooleanObservable isWaitingForOpponent = new BooleanObservable(false);
+	public BooleanObservable isWaiting = new BooleanObservable(false);
 	public BooleanObservable hasGameEnded = new BooleanObservable(false);
 	
 	public Command sendRock = new Command()
@@ -85,7 +84,7 @@ public class GameViewModel extends ViewModel
 			@Override
 			public void handle(GameResultInfo data)
 			{
-				isWaitingForOpponent.set(false);
+				isWaiting.set(false);
 				hasGameEnded.set(true);
 				
 				playerScore.set(data.PlayerScore);
@@ -118,13 +117,13 @@ public class GameViewModel extends ViewModel
 					{
 						if (data.WantsNextGame)
 						{
-							isWaitingForOpponent.set(false);
+							isWaiting.set(false);
 						}
 					}
 				});
 				
 				ContextManager.showYesNoDialog(
-					String.format("%1$s %2$s", result, ResourcesProvider.getString(R.string.game_continue)),
+					String.format(ResourcesProvider.getString(R.string.game_result_pattern), result, playerGesture.get(), opponentName.get(), opponentGesture.get()),
 					ResourcesProvider.getString(R.string.game_continue_yes),
 					ResourcesProvider.getString(R.string.game_continue_no),
 					new IDialogListener()
@@ -132,7 +131,7 @@ public class GameViewModel extends ViewModel
 						@Override
 						public void onDialogResult()
 						{
-							isWaitingForOpponent.set(true);
+							isWaiting.set(true);
 							status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
 							
 							ConnectionManager.send(new NextGameInfo(true));
@@ -158,8 +157,7 @@ public class GameViewModel extends ViewModel
 	
 	private void sendGesture(GestureType gesture)
 	{
-		isPlayerGestureSent.set(true);
-		isWaitingForOpponent.set(true);
+		isWaiting.set(true);
 		status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
 		ConnectionManager.send(new GestureInfo(gesture));
 	}
