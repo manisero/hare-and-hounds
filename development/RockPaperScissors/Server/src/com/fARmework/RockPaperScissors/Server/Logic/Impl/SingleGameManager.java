@@ -105,8 +105,8 @@ public class SingleGameManager implements ISingleGameManager
 		else // guest won
 		{
 			_game.GuestScore++;
-			_connectionManager.send(new GameResultInfo(_game.GuestGesture, _game.HostGesture, GameResult.Victory, _game.HostScore, _game.GuestScore), _game.GuestID);
-			_connectionManager.send(new GameResultInfo(_game.HostGesture, _game.GuestGesture, GameResult.Defeat, _game.GuestScore, _game.HostScore), _game.HostID);
+			_connectionManager.send(new GameResultInfo(_game.HostGesture, _game.GuestGesture, GameResult.Defeat, _game.HostScore, _game.GuestScore), _game.HostID);
+			_connectionManager.send(new GameResultInfo(_game.GuestGesture, _game.HostGesture, GameResult.Victory, _game.GuestScore, _game.HostScore), _game.GuestID);
 		}
 		
 		_connectionManager.registerDataHandler(NextGameInfo.class, _game.HostID, new DataHandler<NextGameInfo>()

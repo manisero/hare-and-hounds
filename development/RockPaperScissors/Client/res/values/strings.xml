@@ -39,7 +39,7 @@
     <string name="game_victory">Victory!</string>
     <string name="game_defeat">Defeat!</string>
     <string name="game_draw">Draw!</string>
-    <string name="game_continue">Continue?</string>
+    <string name="game_result_pattern">%1$s\nYour gesture: %2$s\n%3$s\'s gesture: %4$s\nContinue?</string>
     <string name="game_continue_yes">Yes</string>
     <string name="game_continue_no">No</string>
     
