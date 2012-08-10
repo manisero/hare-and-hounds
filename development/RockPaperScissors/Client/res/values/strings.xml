@@ -4,6 +4,7 @@
     
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">RockPaperScissors</string>
+    <string name="colon">: </string>
     
     <string name="serverAddress">Server address</string>
     <string name="userName">User name</string>
@@ -38,6 +39,9 @@
     <string name="game_victory">Victory!</string>
     <string name="game_defeat">Defeat!</string>
     <string name="game_draw">Draw!</string>
+    <string name="game_continue">Continue?</string>
+    <string name="game_continue_yes">Yes</string>
+    <string name="game_continue_no">No</string>
     
     <string name="gestures_rock">Rock</string>
     <string name="gestures_paper">Paper</string>
