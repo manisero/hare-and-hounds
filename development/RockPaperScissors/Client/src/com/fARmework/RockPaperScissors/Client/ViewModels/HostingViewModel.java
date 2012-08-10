@@ -14,6 +14,7 @@ import com.fARmework.RockPaperScissors.Data.GameCreationInfo;
 import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
+import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
@@ -57,7 +58,7 @@ public class HostingViewModel extends ViewModel
 						{
 							isWaiting.set(false);
 							status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestUserName));
-							ConnectionManager.send(new GameJoinResponse(data.GuestID, true));
+							ConnectionManager.send(new GameJoinResponse(data.GuestID, GameJoinResponseType.Accept));
 							
 							Bundle bundle = new Bundle();
 							bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.GuestUserName);
@@ -69,7 +70,7 @@ public class HostingViewModel extends ViewModel
 						@Override
 						public void onDialogResult()
 						{
-							ConnectionManager.send(new GameJoinResponse(data.GuestID, false));
+							ConnectionManager.send(new GameJoinResponse(data.GuestID, GameJoinResponseType.Deny));
 						}
 					});
 			}

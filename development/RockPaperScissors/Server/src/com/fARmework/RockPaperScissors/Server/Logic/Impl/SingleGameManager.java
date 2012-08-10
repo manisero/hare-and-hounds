@@ -1,6 +1,7 @@
 package com.fARmework.RockPaperScissors.Server.Logic.Impl;
 
 import com.fARmework.RockPaperScissors.Data.*;
+import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
@@ -32,9 +33,9 @@ public class SingleGameManager implements ISingleGameManager
 			protected void handleData(int clientID, GameJoinResponse data)
 			{
 				System.out.println("GuestID: " + data.GuestID);
-				System.out.println("Accepted: " + String.valueOf(data.Accepted));
+				System.out.println("Accepted: " + data.Response.toString());
 				
-				if (data.Accepted)
+				if (data.Response == GameJoinResponseType.Accept)
 				{
 					_game.GuestID = data.GuestID;
 					startGame();
@@ -89,6 +90,38 @@ public class SingleGameManager implements ISingleGameManager
 			return;
 		}
 		
+		_connectionManager.registerDataHandler(NextGameInfo.class, _game.HostID, new DataHandler<NextGameInfo>()
+		{
+			@Override
+			protected void handleData(int clientID, NextGameInfo data)
+			{
+				System.out.println("WantsNextGame: " + String.valueOf(data.WantsNextGame));
+				
+				if (!data.WantsNextGame)
+				{
+					_game.HasEnded = true;
+				}
+				
+				_connectionManager.send(data, _game.GuestID);
+			}
+		});
+		
+		_connectionManager.registerDataHandler(NextGameInfo.class, _game.GuestID, new DataHandler<NextGameInfo>()
+		{
+			@Override
+			protected void handleData(int clientID, NextGameInfo data)
+			{
+				System.out.println("WantsNextGame: " + String.valueOf(data.WantsNextGame));
+				
+				if (!data.WantsNextGame)
+				{
+					_game.HasEnded = true;
+				}
+				
+				_connectionManager.send(data, _game.HostID);
+			}
+		});
+		
 		if (_game.HostGesture == _game.GuestGesture) // draw
 		{
 			_connectionManager.send(new GameResultInfo(_game.HostGesture, _game.GuestGesture, GameResult.Draw, _game.HostScore, _game.GuestScore), _game.HostID);
@@ -109,32 +142,7 @@ public class SingleGameManager implements ISingleGameManager
 			_connectionManager.send(new GameResultInfo(_game.GuestGesture, _game.HostGesture, GameResult.Victory, _game.GuestScore, _game.HostScore), _game.GuestID);
 		}
 		
-		_connectionManager.registerDataHandler(NextGameInfo.class, _game.HostID, new DataHandler<NextGameInfo>()
-		{
-			@Override
-			protected void handleData(int clientID, NextGameInfo data)
-			{
-				if (!data.WantsNextGame)
-				{
-					_game.HasEnded = true;
-				}
-				
-				_connectionManager.send(data, _game.GuestID);
-			}
-		});
-		
-		_connectionManager.registerDataHandler(NextGameInfo.class, _game.GuestID, new DataHandler<NextGameInfo>()
-		{
-			@Override
-			protected void handleData(int clientID, NextGameInfo data)
-			{
-				if (!data.WantsNextGame)
-				{
-					_game.HasEnded = true;
-				}
-				
-				_connectionManager.send(data, _game.HostID);
-			}
-		});
+		_game.HostGesture = null;
+		_game.GuestGesture = null;
 	}
 }

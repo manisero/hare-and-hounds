@@ -2,12 +2,19 @@ package com.fARmework.RockPaperScissors.Data;
 
 public class GameJoinResponse
 {
-	public int GuestID;
-	public boolean Accepted;
+	public enum GameJoinResponseType
+	{
+		Accept,
+		Deny,
+		NotAvailable
+	}
 	
-	public GameJoinResponse(int guestID, boolean accepted)
+	public int GuestID;
+	public GameJoinResponseType Response;
+	
+	public GameJoinResponse(int guestID, GameJoinResponseType response)
 	{
 		GuestID = guestID;
-		Accepted = accepted;
+		Response = response;
 	}
 }

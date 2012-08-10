@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.fARmework.RockPaperScissors.Data.*;
+import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.DataHandler;
 import com.fARmework.core.server.Connection.IConnectionManager;
@@ -70,6 +71,12 @@ public class GamesManager implements IGamesManager
 			{
 				System.out.println("HostID: " + data.HostID);
 				System.out.println("GuestUserName: " + data.GuestUserName);
+				
+				if (!_games.containsKey(data.HostID) || _games.get(data.HostID).HasStarted)
+				{
+					_connectionManager.send(new GameJoinResponse(clientID, GameJoinResponseType.NotAvailable), clientID);
+					return;
+				}
 				
 				_gameManagerFactory.create(_games.get(data.HostID)).handleJoin(clientID, data.GuestUserName);
 			}
