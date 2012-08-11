@@ -8,11 +8,13 @@ public class Game
 	public String HostUserName;
 	public GestureType HostGesture;
 	public int HostScore;
+	public Boolean HostWantsNextGame;
 	
 	public int GuestID;
 	public String GuestUserName;
 	public GestureType GuestGesture;
 	public int GuestScore;
+	public Boolean GuestWantsNextGame;
 	
 	public boolean HasStarted;
 	public boolean HasEnded;

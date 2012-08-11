@@ -87,23 +87,8 @@ public class GameViewModel extends ViewModel
 				playerScore.set(data.PlayerScore);
 				opponentScore.set(data.OpponentScore);
 				
-				String result = getResultString(data.GameResult);
-				status.set(result);
-				
-				ConnectionManager.registerDataHandler(NextGameInfo.class, new IDataHandler<NextGameInfo>()
-				{
-					@Override
-					public void handle(NextGameInfo data)
-					{
-						if (data.WantsNextGame)
-						{
-							isWaiting.set(false);
-						}
-					}
-				});
-				
 				ContextManager.showYesNoDialog(
-					String.format(ResourcesProvider.getString(R.string.game_result_pattern), result, getGestureString(data.PlayerGesture), opponentName.get(), getGestureString(data.OpponentGesture)),
+					String.format(ResourcesProvider.getString(R.string.game_result_pattern), getResultString(data.GameResult), getGestureString(data.PlayerGesture), opponentName.get(), getGestureString(data.OpponentGesture)),
 					new IDialogListener()
 					{
 						@Override
@@ -111,7 +96,6 @@ public class GameViewModel extends ViewModel
 						{
 							isWaiting.set(true);
 							status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
-							
 							ConnectionManager.send(new NextGameInfo(true));
 						}
 					},
@@ -123,6 +107,16 @@ public class GameViewModel extends ViewModel
 							ConnectionManager.send(new NextGameInfo(false));
 						}
 					});
+			}
+		});
+		
+		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
+		{
+			@Override
+			public void handle(GameStartInfo data)
+			{
+				isWaiting.set(false);
+				status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
 			}
 		});
 	}

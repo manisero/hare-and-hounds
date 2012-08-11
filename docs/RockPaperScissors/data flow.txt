@@ -6,11 +6,11 @@ GameCreationInfo
 						<- GameJoinRequest
 GameJoinResponse
 						GameJoinResponse ->
+						<- GameStartInfo ->
 GestureInfo										GestureInfo
 						<- GameResultInfo ->
-NextGameInfo			
-						NextGameInfo ->
-												NextGameInfo
-						<- NextGameInfo
-GestureInfo										GestureInfo
+NextGameInfo(true)								NextGameInfo(true)
+						<- GameStartInfo ->
 						...
+NextGameInfo(false)
+						GameEndInfo ->

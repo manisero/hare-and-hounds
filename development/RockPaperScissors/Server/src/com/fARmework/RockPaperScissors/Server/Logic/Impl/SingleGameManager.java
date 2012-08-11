@@ -38,6 +38,8 @@ public class SingleGameManager implements ISingleGameManager
 				if (data.Response == GameJoinResponseType.Accept)
 				{
 					_game.GuestID = data.GuestID;
+					_game.HasStarted = true;
+					registerGestureHandlers();
 					startGame();
 				}
 				
@@ -48,10 +50,8 @@ public class SingleGameManager implements ISingleGameManager
 		_connectionManager.send(new GameJoinRequest(_game.HostID, guestID, guestUserName), _game.HostID);
 	}
 	
-	private void startGame()
+	private void registerGestureHandlers()
 	{
-		_game.HasStarted = true;
-		
 		_connectionManager.registerDataHandler(GestureInfo.class, _game.HostID, new DataHandler<GestureInfo>()
 		{
 			@Override
@@ -81,8 +81,19 @@ public class SingleGameManager implements ISingleGameManager
 				_gestureProcessor.processGesture(data);
 			}
 		});
+		
+		_connectionManager.send(new GameStartInfo(), _game.HostID);
+		_connectionManager.send(new GameStartInfo(), _game.GuestID);
 	}
 
+	private void startGame()
+	{
+		_game.HostWantsNextGame = null;
+		_game.GuestWantsNextGame = null;
+		_connectionManager.send(new GameStartInfo(), _game.HostID);
+		_connectionManager.send(new GameStartInfo(), _game.GuestID);
+	}
+	
 	private void handleGameState()
 	{
 		if (_game.HostGesture == null || _game.GuestGesture == null) // game still in progress
@@ -97,12 +108,19 @@ public class SingleGameManager implements ISingleGameManager
 			{
 				System.out.println("WantsNextGame: " + String.valueOf(data.WantsNextGame));
 				
-				if (!data.WantsNextGame)
+				_game.HostWantsNextGame = data.WantsNextGame;
+				
+				if (data.WantsNextGame)
+				{
+					if (_game.GuestWantsNextGame != null && _game.GuestWantsNextGame.booleanValue())
+					{
+						startGame();
+					}
+				}
+				else
 				{
 					_game.HasEnded = true;
 				}
-				
-				_connectionManager.send(data, _game.GuestID);
 			}
 		});
 		
@@ -113,12 +131,19 @@ public class SingleGameManager implements ISingleGameManager
 			{
 				System.out.println("WantsNextGame: " + String.valueOf(data.WantsNextGame));
 				
-				if (!data.WantsNextGame)
+				_game.GuestWantsNextGame = data.WantsNextGame;
+				
+				if (data.WantsNextGame)
+				{
+					if (_game.HostWantsNextGame != null && _game.HostWantsNextGame.booleanValue())
+					{
+						startGame();
+					}
+				}
+				else
 				{
 					_game.HasEnded = true;
 				}
-				
-				_connectionManager.send(data, _game.HostID);
 			}
 		});
 		

@@ -20,6 +20,7 @@ import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListData;
 import com.fARmework.RockPaperScissors.Data.GameJoinData;
+import com.fARmework.RockPaperScissors.Data.GameStartInfo;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
@@ -36,6 +37,9 @@ public class GameListViewModel extends ViewModel
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
+				status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostUserName.get()));
+				isWaiting.set(true);
+				
 				ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
 				{
 					@Override
@@ -43,25 +47,28 @@ public class GameListViewModel extends ViewModel
 					{
 						isWaiting.set(false);
 						
-						if (data.Response == GameJoinResponseType.Accept)
-						{
-							Bundle bundle = new Bundle();
-							bundle.putString(GameViewModel.OPPONENT_NAME_KEY, hostUserName.get());
-							ContextManager.navigateTo(GameViewModel.class, bundle);
-						}
-						else if (data.Response == GameJoinResponseType.Deny)
+						if (data.Response == GameJoinResponseType.Deny)
 						{
 							ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()));
 						}
-						else
+						else if (data.Response == GameJoinResponseType.NotAvailable)
 						{
 							ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_notAvailable), hostUserName.get()));
 						}
 					}
 				});
 				
-				status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostUserName.get()));
-				isWaiting.set(true);
+				ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
+				{
+					@Override
+					public void handle(GameStartInfo data)
+					{
+						Bundle bundle = new Bundle();
+						bundle.putString(GameViewModel.OPPONENT_NAME_KEY, hostUserName.get());
+						ContextManager.navigateTo(GameViewModel.class, bundle);
+					}
+				});
+				
 				ConnectionManager.send(new GameJoinData(_hostID, _settingsProvider.getUserName()));
 			}
 		};
