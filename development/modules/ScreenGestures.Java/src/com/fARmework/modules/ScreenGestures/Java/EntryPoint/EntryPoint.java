@@ -93,9 +93,9 @@ public class EntryPoint extends JFrame
 		
 		GestureRegistry gestureRegistry = new GestureRegistry();
 		
-		gestureRegistry.add(clockwiseSquare);
-		gestureRegistry.add(counterClockwiseSquare);
-		gestureRegistry.add(cross);
+		gestureRegistry.register(clockwiseSquare);
+		gestureRegistry.register(counterClockwiseSquare);
+		gestureRegistry.register(cross);
 				
 		DirectionalGestureProcessor processor = new DirectionalGestureProcessor();
 		DirectionalPatternMatcher matcher = new DirectionalPatternMatcher();

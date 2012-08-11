@@ -4,8 +4,7 @@ import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
 
 public interface IPatternMatcherFactory 
 {
-	boolean register(Class<? extends Gesture<?>> gesture, IPatternMatcher<?> matcher);
-	
+	<T> boolean register(Class<? extends Gesture<T>> gesture, IPatternMatcher<T> matcher);
 	boolean unregister(Class<? extends Gesture<?>> gesture);
 	
 	@SuppressWarnings("rawtypes")

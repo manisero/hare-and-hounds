@@ -16,8 +16,7 @@ public class GestureProcessorFactory implements IGestureProcessorFactory
 	}
 	
 	@Override
-	public boolean register(Class<? extends Gesture<?>> gesture,
-			IGestureProcessor<?> processor) 
+	public <T> boolean register(Class<? extends Gesture<T>> gesture, IGestureProcessor<T> processor) 
 	{
 		if(_processors.containsKey(gesture))
 		{
