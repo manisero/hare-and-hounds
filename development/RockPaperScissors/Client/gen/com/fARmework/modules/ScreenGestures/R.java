@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.fARmework.core.client;
+package com.fARmework.modules.ScreenGestures;
 
 public final class R {
     public static final class array {

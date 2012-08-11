@@ -102,7 +102,7 @@
 	
     </LinearLayout>
 	
-	<com.fARmework.modules.ScreenGestures.Presentation.GesturePicker
+	<com.fARmework.modules.ScreenGestures.Android.GesturePicker
 	    android:id="@+id/gesturePicker"
 	    android:layout_width="250dp"
 	    android:layout_height="250dp"
