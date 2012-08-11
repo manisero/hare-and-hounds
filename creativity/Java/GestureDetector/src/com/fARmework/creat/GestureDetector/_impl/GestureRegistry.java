@@ -65,13 +65,6 @@ public class GestureRegistry implements IGestureRegistry
 			}
 		});
 		
-		for(IGesture<?> gesture : gesturesList)
-		{
-			System.out.println("gesture.size(): " + gesture.getPattern().length);
-		}
-		
-		System.out.println();
-		
 		return gesturesList;
 	}
 }
