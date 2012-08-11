@@ -19,18 +19,6 @@ public class EntryPoint extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 
-	private static final Integer[][] COUNTER_CLOCKWISE_SQUARE_PATTERN = 
-	{
-		{	1,	28,	27,	26,	25,	24,	23, 22	},
-		{	2,	0,	0,	0,	0,	0,	0,	21	},
-		{	3,	0,	0,	0,	0,	0,	0,	20	},	
-		{	4,	0,	0,	0,	0,	0,	0,	19	},	
-		{	5,	0,	0,	0,	0,	0,	0,	18	},	
-		{	6,	0,	0,	0,	0,	0,	0,	17	},	
-		{	7,	0,	0,	0,	0,	0,	0,	16	},
-		{	8,	9,	10,	11,	12,	13,	14,	15	}
-	};	
-	
 	private static final Integer[][] CLOCKWISE_SQUARE_PATTERN = 
 	{
 		{	1,	2,	3,	4,	5,	6,	7,	8	},
@@ -41,7 +29,19 @@ public class EntryPoint extends JFrame
 		{	24,	0,	0,	0,	0,	0,	0,	13	},	
 		{	23,	0,	0,	0,	0,	0,	0,	14	},
 		{	22,	21,	20,	19,	18,	17,	16,	15	}
-	};	
+	};
+	
+	private static final Integer[][] COUNTER_CLOCKWISE_SQUARE_PATTERN = 
+	{
+		{	1,	28,	27,	26,	25,	24,	23, 22	},
+		{	2,	0,	0,	0,	0,	0,	0,	21	},
+		{	3,	0,	0,	0,	0,	0,	0,	20	},	
+		{	4,	0,	0,	0,	0,	0,	0,	19	},	
+		{	5,	0,	0,	0,	0,	0,	0,	18	},	
+		{	6,	0,	0,	0,	0,	0,	0,	17	},	
+		{	7,	0,	0,	0,	0,	0,	0,	16	},
+		{	8,	9,	10,	11,	12,	13,	14,	15	}
+	};
 	
 	private static final Double[][] CROSS_PATTERN =
 	{
@@ -111,7 +111,7 @@ public class EntryPoint extends JFrame
 		matcherFactory.register(clockwiseSquare.getClass(), matcher);
 		matcherFactory.register(cross.getClass(), diffusedMatcher);
 		
-		_recognizer = new GestureRecognizer(gestureRegistry, matcherFactory, processorFactory);
+		_recognizer = new GestureRecognizer(gestureRegistry, processorFactory, matcherFactory);
 	}
 	
 	public void recognizeGestures()
