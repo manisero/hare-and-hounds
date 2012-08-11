@@ -1,5 +1,6 @@
 HOST:					SERVER:					GUEST:
-GameCreationInfo		
+GameCreationRequest
+						<- GameCreationResponse
 												GameListRequest
 						GameListData ->
 												GameJoinRequest
