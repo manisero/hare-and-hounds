@@ -6,8 +6,8 @@ import java.util.Map;
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
-import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.DataHandler;
 import com.fARmework.core.server.Connection.IConnectionManager;
+import com.fARmework.core.server.Connection.IDataHandler;
 import com.google.inject.Inject;
 
 public class GamesManager implements IGamesManager
@@ -29,13 +29,11 @@ public class GamesManager implements IGamesManager
 	{
 		_connectionManager.startConnection();
 		
-		_connectionManager.registerDataHandler(GameCreationRequest.class, new DataHandler<GameCreationRequest>()
+		_connectionManager.registerDataHandler(GameCreationRequest.class, new IDataHandler<GameCreationRequest>()
 		{
 			@Override
-			public void handleData(int clientID, GameCreationRequest data)
+			public void handle(int clientID, GameCreationRequest data)
 			{
-				System.out.println("HostUserName: " + data.HostUserName);
-				
 				Game newGame = new Game();
 				newGame.HostID = clientID;
 				newGame.HostUserName = data.HostUserName;
@@ -45,10 +43,10 @@ public class GamesManager implements IGamesManager
 			}
 		});
 		
-		_connectionManager.registerDataHandler(GameListRequest.class, new DataHandler<GameListRequest>()
+		_connectionManager.registerDataHandler(GameListRequest.class, new IDataHandler<GameListRequest>()
 		{
 			@Override
-			public void handleData(int clientID, GameListRequest data)
+			public void handle(int clientID, GameListRequest data)
 			{
 				GameListData gameList = new GameListData();
 				
@@ -64,14 +62,11 @@ public class GamesManager implements IGamesManager
 			}
 		});
 		
-		_connectionManager.registerDataHandler(GameJoinData.class, new DataHandler<GameJoinData>()
+		_connectionManager.registerDataHandler(GameJoinData.class, new IDataHandler<GameJoinData>()
 		{
 			@Override
-			public void handleData(int clientID, GameJoinData data)
+			public void handle(int clientID, GameJoinData data)
 			{
-				System.out.println("HostID: " + data.HostID);
-				System.out.println("GuestUserName: " + data.GuestUserName);
-				
 				if (!_games.containsKey(data.HostID) || _games.get(data.HostID).HasStarted)
 				{
 					_connectionManager.send(new GameJoinResponse(clientID, GameJoinResponseType.NotAvailable), clientID);
