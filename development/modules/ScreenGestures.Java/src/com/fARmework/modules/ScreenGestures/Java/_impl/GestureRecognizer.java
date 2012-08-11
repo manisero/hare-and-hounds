@@ -11,17 +11,17 @@ import java.util.*;
 public class GestureRecognizer implements IGestureRecognizer
 {
 	private IGestureRegistry _gestureRegistry;
-	private IPatternMatcherFactory _matcherFactory;
 	private IGestureProcessorFactory _processorFactory;
+	private IPatternMatcherFactory _matcherFactory;
 	
 	@Inject
 	public GestureRecognizer(IGestureRegistry gestureRegistry,
-			IPatternMatcherFactory matcherFactory,
-			IGestureProcessorFactory processorFactory)
+			IGestureProcessorFactory processorFactory,
+			IPatternMatcherFactory matcherFactory)
 	{
 		_gestureRegistry = gestureRegistry;
-		_matcherFactory = matcherFactory;
 		_processorFactory = processorFactory;
+		_matcherFactory = matcherFactory;
 	}
 
 	@Override
@@ -32,11 +32,10 @@ public class GestureRecognizer implements IGestureRecognizer
 		
 		for(IGesture<?> gesture : gestures)
 		{
-			IPatternMatcher matcher = _matcherFactory.get(gesture.getClass());
 			IGestureProcessor processor = _processorFactory.get(gesture.getClass());
+			IPatternMatcher matcher = _matcherFactory.get(gesture.getClass());
 			
-			if(matcher.match(processor.getGestureGrid(data, gesture.getPattern().length), 
-					gesture.getPattern()))
+			if(matcher.match(processor.getGestureGrid(data, gesture.getPattern().length), gesture.getPattern()))
 			{
 				return gesture.getName();
 			}
