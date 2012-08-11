@@ -14,12 +14,12 @@ import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListData;
-import com.fARmework.RockPaperScissors.Data.GameJoinData;
 import com.fARmework.RockPaperScissors.Data.GameStartInfo;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
@@ -69,7 +69,7 @@ public class GameListViewModel extends ViewModel
 					}
 				});
 				
-				ConnectionManager.send(new GameJoinData(_hostID, _settingsProvider.getUserName()));
+				ConnectionManager.send(new GameJoinRequest(_hostID, _settingsProvider.getUserName()));
 			}
 		};
 		

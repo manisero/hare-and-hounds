@@ -1,1 +1,2 @@
 - connection seems to be established successfully when wifi is turned off
+- RPS: sometimes (after second game start?) GameActivity is created two times (so that pressing back navigates to the same activity)
