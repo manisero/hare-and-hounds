@@ -1,6 +1,7 @@
 package com.fARmework.creat.GestureDetector._impl;
 
 import com.fARmework.creat.GestureDetector.*;
+
 import java.util.*;
 
 public class GestureRegistry implements IGestureRegistry 
@@ -41,6 +42,29 @@ public class GestureRegistry implements IGestureRegistry
 	@Override
 	public List<IGesture<?>> getGestures() 
 	{
-		return new LinkedList<IGesture<?>>(_gestures.values());
+		List<IGesture<?>> gesturesList = new LinkedList<IGesture<?>>(_gestures.values());
+		
+		Collections.sort(gesturesList, new Comparator<IGesture<?>>() 
+		{
+			@Override
+			public int compare(IGesture<?> firstGesture, IGesture<?> secondGesture) 
+			{
+				int sizeFirst = firstGesture.getPattern().length;
+				int sizeSecond = secondGesture.getPattern().length;
+				
+				if(sizeFirst > sizeSecond)
+				{
+					return 1;
+				}
+				else if(sizeSecond > sizeFirst)
+				{
+					return -1;
+				}
+
+				return 0;
+			}
+		});
+		
+		return gesturesList;
 	}
 }
