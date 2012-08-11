@@ -10,7 +10,7 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.ContextManager.IDialogListener;
-import com.fARmework.RockPaperScissors.Data.GameCreationInfo;
+import com.fARmework.RockPaperScissors.Data.GameCreationResponse;
 import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
@@ -30,10 +30,10 @@ public class HostingViewModel extends ViewModel
 	{
 		super(connectionManager, contextManager);
 		
-		ConnectionManager.registerDataHandler(GameCreationInfo.class, new IDataHandler<GameCreationInfo>()
+		ConnectionManager.registerDataHandler(GameCreationResponse.class, new IDataHandler<GameCreationResponse>()
 		{
 			@Override
-			public void handle(GameCreationInfo data)
+			public void handle(GameCreationResponse data)
 			{
 				status.set(ResourcesProvider.getString(R.string.hosting_waiting));
 			}

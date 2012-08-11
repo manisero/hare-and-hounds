@@ -8,7 +8,7 @@ public class DataRegistrar
 	public void registerData(IDataRegistry dataRegistry)
 	{
 		dataRegistry.register(GameCreationRequest.class);
-		dataRegistry.register(GameCreationInfo.class);
+		dataRegistry.register(GameCreationResponse.class);
 		
 		dataRegistry.register(GameListRequest.class);
 		dataRegistry.register(GameListData.class);
