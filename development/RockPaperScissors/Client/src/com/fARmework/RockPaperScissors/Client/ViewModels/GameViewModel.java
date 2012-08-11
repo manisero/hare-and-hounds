@@ -2,6 +2,7 @@ package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import gueei.binding.Command;
 import gueei.binding.observables.BooleanObservable;
+import gueei.binding.observables.IntegerObservable;
 import gueei.binding.observables.StringObservable;
 
 import android.os.Bundle;
@@ -11,7 +12,10 @@ import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.ContextManager.IDialogListener;
+import com.fARmework.RockPaperScissors.Client.R.string;
 import com.fARmework.RockPaperScissors.Data.*;
+import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
@@ -23,12 +27,10 @@ public class GameViewModel extends ViewModel
 	
 	public StringObservable playerName = new StringObservable();
 	public StringObservable opponentName = new StringObservable();
-	public StringObservable playerGesture = new StringObservable();
-	public StringObservable opponentGesture = new StringObservable();
+	public IntegerObservable playerScore = new IntegerObservable(0);
+	public IntegerObservable opponentScore = new IntegerObservable(0);
 	public StringObservable status = new StringObservable();
-	public BooleanObservable isPlayerGestureSent = new BooleanObservable(false);
-	public BooleanObservable isWaitingForOpponent = new BooleanObservable(false);
-	public BooleanObservable hasGameEnded = new BooleanObservable(false);
+	public BooleanObservable isWaiting = new BooleanObservable(false);
 	
 	public Command sendRock = new Command()
 	{
@@ -81,24 +83,52 @@ public class GameViewModel extends ViewModel
 			@Override
 			public void handle(GameResultInfo data)
 			{
-				isWaitingForOpponent.set(false);
-				hasGameEnded.set(true);
+				isWaiting.set(false);
 				
-				displayGesture(playerGesture, data.PlayerGesture);
-				displayGesture(opponentGesture, data.OpponentGesture);
+				playerScore.set(data.PlayerScore);
+				opponentScore.set(data.OpponentScore);
 				
-				switch (data.GameResult)
-				{
-					case Victory:
-						status.set(ResourcesProvider.getString(R.string.game_victory));
-						break;
-					case Defeat:
-						status.set(ResourcesProvider.getString(R.string.game_defeat));
-						break;
-					default:
-						status.set(ResourcesProvider.getString(R.string.game_draw));
-						break;
-				}
+				ContextManager.showYesNoDialog(
+					String.format(ResourcesProvider.getString(R.string.game_result_pattern), getResultString(data.GameResult), getGestureString(data.PlayerGesture), opponentName.get(), getGestureString(data.OpponentGesture)),
+					new IDialogListener()
+					{
+						@Override
+						public void onDialogResult()
+						{
+							isWaiting.set(true);
+							status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
+							ConnectionManager.send(new NextGameInfo(true));
+						}
+					},
+					new IDialogListener()
+					{
+						@Override
+						public void onDialogResult()
+						{
+							ConnectionManager.send(new NextGameInfo(false));
+						}
+					});
+			}
+		});
+		
+		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
+		{
+			@Override
+			public void handle(GameStartInfo data)
+			{
+				isWaiting.set(false);
+				status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
+			}
+		});
+		
+		ConnectionManager.registerDataHandler(GameEndInfo.class, new IDataHandler<GameEndInfo>()
+		{
+			@Override
+			public void handle(GameEndInfo data)
+			{
+				ContextManager.showDialogNotification(
+					String.format(ResourcesProvider.getString(string.game_opponentLeft), opponentName.get(), playerName.get(), playerScore.get(), opponentName.get(), opponentScore.get()),
+					null);
 			}
 		});
 	}
@@ -111,25 +141,34 @@ public class GameViewModel extends ViewModel
 	
 	private void sendGesture(GestureType gesture)
 	{
-		isPlayerGestureSent.set(true);
-		isWaitingForOpponent.set(true);
+		isWaiting.set(true);
 		status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
 		ConnectionManager.send(new GestureInfo(gesture));
 	}
 	
-	private void displayGesture(StringObservable target, GestureType gesture)
+	private String getResultString(GameResult result)
+	{
+		switch (result)
+		{
+			case Victory:
+				return ResourcesProvider.getString(R.string.game_victory);
+			case Defeat:
+				return ResourcesProvider.getString(R.string.game_defeat);
+			default:
+				return ResourcesProvider.getString(R.string.game_draw);
+		}
+	}
+	
+	private String getGestureString(GestureType gesture)
 	{
 		switch (gesture)
 		{
 			case Rock:
-				target.set(ResourcesProvider.getString(R.string.gestures_rock));
-				break;
+				return ResourcesProvider.getString(R.string.gestures_rock);
 			case Paper:
-				target.set(ResourcesProvider.getString(R.string.gestures_paper));
-				break;
+				return ResourcesProvider.getString(R.string.gestures_paper);
 			default:
-				target.set(ResourcesProvider.getString(R.string.gestures_scissors));
-				break;
+				return ResourcesProvider.getString(R.string.gestures_scissors);
 		}
 	}
 }

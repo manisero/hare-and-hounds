@@ -1,0 +1,16 @@
+HOST:					SERVER:					GUEST:
+GameCreationInfo		
+												GameListRequest
+						GameListData ->
+												GameJoinRequest
+						<- GameJoinRequest
+GameJoinResponse
+						GameJoinResponse ->
+						<- GameStartInfo ->
+GestureInfo										GestureInfo
+						<- GameResultInfo ->
+NextGameInfo(true)								NextGameInfo(true)
+						<- GameStartInfo ->
+						...
+NextGameInfo(false)
+						GameEndInfo ->

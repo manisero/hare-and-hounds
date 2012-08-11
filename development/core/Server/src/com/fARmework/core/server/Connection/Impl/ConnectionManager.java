@@ -6,6 +6,7 @@ import com.fARmework.core.server.Data.*;
 import com.fARmework.core.server.Infrastructure.ISettingsProvider;
 import com.google.inject.*;
 
+import java.lang.reflect.Field;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.*;
@@ -144,6 +145,8 @@ public class ConnectionManager implements IConnectionManager
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void handleData(int clientID, Object data)
 	{
+		logData(data, "received from", clientID);
+		
 		IDataHandler handler = _dataHandlers.get(data.getClass(), clientID);
 		
 		if (handler != null)
@@ -155,6 +158,8 @@ public class ConnectionManager implements IConnectionManager
 	@Override
 	public void send(Object data)
 	{
+		logData(data, "sent to", "all clients");
+		
 		for (Map.Entry<Integer, Channel> channel : _channels.entrySet())
 		{
 			channel.getValue().write(_dataService.toSerializedMessage(data));
@@ -164,6 +169,8 @@ public class ConnectionManager implements IConnectionManager
 	@Override
 	public void send(Object data, int clientID)
 	{	
+		logData(data, "sent to", clientID);
+		
 		Channel channel = _channels.get(clientID);
 		channel.write(_dataService.toSerializedMessage(data));
 	}
@@ -175,5 +182,21 @@ public class ConnectionManager implements IConnectionManager
 		{
 			send(data, clientID);
 		}
+	}
+	
+	private void logData(Object data, String action, Object who)
+	{
+		System.out.println(String.format("%1$s %2$s %3$s", data.getClass().getSimpleName(), action, who));
+		
+		for (Field field : data.getClass().getFields())
+		{
+			try
+			{
+				System.out.println(field.getName() + ": " + field.get(data));
+			}
+			catch (Exception e) { }
+		}
+		
+		System.out.println();
 	}
 }
