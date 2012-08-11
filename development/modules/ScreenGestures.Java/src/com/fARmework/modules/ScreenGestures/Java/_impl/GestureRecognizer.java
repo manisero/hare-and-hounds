@@ -4,6 +4,7 @@ import com.fARmework.modules.ScreenGestures.Data.*;
 import com.fARmework.modules.ScreenGestures.Java.*;
 import com.fARmework.modules.ScreenGestures.Java.Matching.*;
 import com.fARmework.modules.ScreenGestures.Java.Processing.*;
+import com.google.inject.Inject;
 
 import java.util.*;
 
@@ -12,7 +13,8 @@ public class GestureRecognizer implements IGestureRecognizer
 	private IGestureRegistry _gestureRegistry;
 	private IPatternMatcherFactory _matcherFactory;
 	private IGestureProcessorFactory _processorFactory;
-		
+	
+	@Inject
 	public GestureRecognizer(IGestureRegistry gestureRegistry,
 			IPatternMatcherFactory matcherFactory,
 			IGestureProcessorFactory processorFactory)
