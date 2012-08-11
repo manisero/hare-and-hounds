@@ -1,12 +1,12 @@
 package com.fARmework.RockPaperScissors.Client.RoboGuiceModules;
 
 import com.fARmework.core.client.Connection.IConnectionManager;
-import com.fARmework.core.client.Connection.Impl.NettyConnectionManager;
+import com.fARmework.core.client.Connection._impl.NettyConnectionManager;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
 import com.fARmework.core.data.IDataRegistry;
 import com.fARmework.core.data.IDataService;
-import com.fARmework.core.data.Impl.DataRegistry;
-import com.fARmework.core.data.Impl.DataService;
+import com.fARmework.core.data._impl.DataRegistry;
+import com.fARmework.core.data._impl.DataService;
 import com.google.inject.AbstractModule;
 
 public class CoreModule extends AbstractModule

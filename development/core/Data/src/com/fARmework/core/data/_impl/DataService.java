@@ -1,4 +1,4 @@
-package com.fARmework.core.data.Impl;
+package com.fARmework.core.data._impl;
 
 import com.fARmework.core.data.IDataRegistry;
 import com.fARmework.core.data.IDataService;

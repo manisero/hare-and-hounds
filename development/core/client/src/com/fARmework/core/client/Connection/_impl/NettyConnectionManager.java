@@ -1,4 +1,4 @@
-package com.fARmework.core.client.Connection.Impl;
+package com.fARmework.core.client.Connection._impl;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import org.jboss.netty.channel.Channel;
 
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
-import com.fARmework.core.client.Connection.Impl.NettyConnectionTask.IConnectionListener;
+import com.fARmework.core.client.Connection._impl.NettyConnectionTask.IConnectionListener;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
 import com.fARmework.core.data.IDataService;
 import com.google.inject.Inject;

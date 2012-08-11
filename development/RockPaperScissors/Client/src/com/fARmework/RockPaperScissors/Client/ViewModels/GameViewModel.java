@@ -12,7 +12,7 @@ import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.ContextManager.IDialogListener;
+import com.fARmework.RockPaperScissors.Client.Infrastructure._impl.ContextManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Client.R.string;
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;

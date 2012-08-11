@@ -3,9 +3,9 @@ package com.fARmework.RockPaperScissors.Server.GuiceModules;
 import com.fARmework.RockPaperScissors.Server.Logic.IGamesManager;
 import com.fARmework.RockPaperScissors.Server.Logic.IGestureProcessor;
 import com.fARmework.RockPaperScissors.Server.Logic.ISingleGameManagerFactory;
-import com.fARmework.RockPaperScissors.Server.Logic.Impl.GamesManager;
-import com.fARmework.RockPaperScissors.Server.Logic.Impl.GestureProcessor;
-import com.fARmework.RockPaperScissors.Server.Logic.Impl.SingleGameManagerFactory;
+import com.fARmework.RockPaperScissors.Server.Logic._impl.GamesManager;
+import com.fARmework.RockPaperScissors.Server.Logic._impl.GestureProcessor;
+import com.fARmework.RockPaperScissors.Server.Logic._impl.SingleGameManagerFactory;
 import com.google.inject.AbstractModule;
 
 public class LogicModule extends AbstractModule
