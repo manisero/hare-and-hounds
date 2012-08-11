@@ -5,8 +5,8 @@ import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseTyp
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
-import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.DataHandler;
 import com.fARmework.core.server.Connection.IConnectionManager;
+import com.fARmework.core.server.Connection.IDataHandler;
 import com.fARmework.modules.ScreenGestures.Data.GestureData;
 
 public class SingleGameManager implements ISingleGameManager
@@ -27,14 +27,11 @@ public class SingleGameManager implements ISingleGameManager
 	@Override
 	public void handleJoin(int guestID, String guestUserName)
 	{
-		_connectionManager.registerDataHandler(GameJoinResponse.class, _game.HostID, new DataHandler<GameJoinResponse>()
+		_connectionManager.registerDataHandler(GameJoinResponse.class, _game.HostID, new IDataHandler<GameJoinResponse>()
 		{
 			@Override
-			protected void handleData(int clientID, GameJoinResponse data)
+			public void handle(int clientID, GameJoinResponse data)
 			{
-				System.out.println("GuestID: " + data.GuestID);
-				System.out.println("Accepted: " + data.Response.toString());
-				
 				if (data.Response == GameJoinResponseType.Accept)
 				{
 					_game.GuestID = data.GuestID;
@@ -52,30 +49,30 @@ public class SingleGameManager implements ISingleGameManager
 	
 	private void registerGestureHandlers()
 	{
-		_connectionManager.registerDataHandler(GestureInfo.class, _game.HostID, new DataHandler<GestureInfo>()
+		_connectionManager.registerDataHandler(GestureInfo.class, _game.HostID, new IDataHandler<GestureInfo>()
 		{
 			@Override
-			public void handleData(int clientID, GestureInfo data)
+			public void handle(int clientID, GestureInfo data)
 			{
 				_game.HostGesture = data.GestureType;
 				handleGameState();
 			}
 		});
 		
-		_connectionManager.registerDataHandler(GestureInfo.class, _game.GuestID, new DataHandler<GestureInfo>()
+		_connectionManager.registerDataHandler(GestureInfo.class, _game.GuestID, new IDataHandler<GestureInfo>()
 		{
 			@Override
-			public void handleData(int clientID, GestureInfo data)
+			public void handle(int clientID, GestureInfo data)
 			{
 				_game.GuestGesture = data.GestureType;
 				handleGameState();
 			}
 		});
 		
-		_connectionManager.registerDataHandler(GestureData.class, new DataHandler<GestureData>()
+		_connectionManager.registerDataHandler(GestureData.class, new IDataHandler<GestureData>()
 		{
 			@Override
-			public void handleData(int clientID, GestureData data)
+			public void handle(int clientID, GestureData data)
 			{
 				// TODO: Finish implementing when gesture recognition is finished
 				_gestureProcessor.processGesture(data);
@@ -101,13 +98,11 @@ public class SingleGameManager implements ISingleGameManager
 			return;
 		}
 		
-		_connectionManager.registerDataHandler(NextGameInfo.class, _game.HostID, new DataHandler<NextGameInfo>()
+		_connectionManager.registerDataHandler(NextGameInfo.class, _game.HostID, new IDataHandler<NextGameInfo>()
 		{
 			@Override
-			protected void handleData(int clientID, NextGameInfo data)
+			public void handle(int clientID, NextGameInfo data)
 			{
-				System.out.println("WantsNextGame: " + String.valueOf(data.WantsNextGame));
-				
 				_game.HostWantsNextGame = data.WantsNextGame;
 				
 				if (data.WantsNextGame)
@@ -124,13 +119,11 @@ public class SingleGameManager implements ISingleGameManager
 			}
 		});
 		
-		_connectionManager.registerDataHandler(NextGameInfo.class, _game.GuestID, new DataHandler<NextGameInfo>()
+		_connectionManager.registerDataHandler(NextGameInfo.class, _game.GuestID, new IDataHandler<NextGameInfo>()
 		{
 			@Override
-			protected void handleData(int clientID, NextGameInfo data)
+			public void handle(int clientID, NextGameInfo data)
 			{
-				System.out.println("WantsNextGame: " + String.valueOf(data.WantsNextGame));
-				
 				_game.GuestWantsNextGame = data.WantsNextGame;
 				
 				if (data.WantsNextGame)
