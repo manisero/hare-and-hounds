@@ -1,13 +1,13 @@
 package com.fARmework.modules.ScreenGestures.Java.Processing;
 
-import com.fARmework.modules.ScreenGestures.Java.*;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
 
 public interface IGestureProcessorFactory 
 {
-	boolean register(Class<? extends IGesture<?>> gesture, IGestureProcessor<?> processor);
+	boolean register(Class<? extends Gesture<?>> gesture, IGestureProcessor<?> processor);
 	
-	boolean unregister(Class<? extends IGesture<?>> gesture);
+	boolean unregister(Class<? extends Gesture<?>> gesture);
 	
 	@SuppressWarnings("rawtypes")
-	IGestureProcessor<?> get(Class<? extends IGesture> gesture);
+	IGestureProcessor<?> get(Class<? extends Gesture> gesture);
 }

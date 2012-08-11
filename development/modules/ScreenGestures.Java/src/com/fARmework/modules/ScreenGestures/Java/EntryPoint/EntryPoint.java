@@ -84,12 +84,12 @@ public class EntryPoint extends JFrame
 	public void setupGestureRecognition()
 	{
 		DirectionalGesture clockwiseSquare = new DirectionalGesture(
-				CLOCKWISE_SQUARE_PATTERN, "CLOCKWISE_SQUARE");
+				"CLOCKWISE_SQUARE", CLOCKWISE_SQUARE_PATTERN);
 		
 		DirectionalGesture counterClockwiseSquare = new DirectionalGesture(
-				COUNTER_CLOCKWISE_SQUARE_PATTERN, "COUNTER_CLOCKWISE_SQUARE");
+				"COUNTER_CLOCKWISE_SQUARE", COUNTER_CLOCKWISE_SQUARE_PATTERN);
 		
-		DiffusedGesture cross = new DiffusedGesture(CROSS_PATTERN, "CROSS");
+		DiffusedGesture cross = new DiffusedGesture("CROSS", CROSS_PATTERN);
 		
 		GestureRegistry gestureRegistry = new GestureRegistry();
 		

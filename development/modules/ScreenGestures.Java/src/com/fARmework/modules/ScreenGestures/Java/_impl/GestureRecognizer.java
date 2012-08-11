@@ -2,6 +2,7 @@ package com.fARmework.modules.ScreenGestures.Java._impl;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 import com.fARmework.modules.ScreenGestures.Java.*;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
 import com.fARmework.modules.ScreenGestures.Java.Matching.*;
 import com.fARmework.modules.ScreenGestures.Java.Processing.*;
 import com.google.inject.Inject;
@@ -28,9 +29,9 @@ public class GestureRecognizer implements IGestureRecognizer
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String recognize(GestureData data) 
 	{
-		List<IGesture<?>> gestures = _gestureRegistry.getGestures();
+		List<Gesture<?>> gestures = _gestureRegistry.getGestures();
 		
-		for(IGesture<?> gesture : gestures)
+		for(Gesture<?> gesture : gestures)
 		{
 			IGestureProcessor processor = _processorFactory.get(gesture.getClass());
 			IPatternMatcher matcher = _matcherFactory.get(gesture.getClass());

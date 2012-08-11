@@ -1,6 +1,6 @@
 package com.fARmework.modules.ScreenGestures.Java.Processing._impl;
 
-import com.fARmework.modules.ScreenGestures.Java.*;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
 import com.fARmework.modules.ScreenGestures.Java.Processing.IGestureProcessor;
 import com.fARmework.modules.ScreenGestures.Java.Processing.IGestureProcessorFactory;
 
@@ -8,15 +8,15 @@ import java.util.*;
 
 public class GestureProcessorFactory implements IGestureProcessorFactory 
 {
-	private Map<Class<? extends IGesture<?>>, IGestureProcessor<?>> _processors;
+	private Map<Class<? extends Gesture<?>>, IGestureProcessor<?>> _processors;
 	
 	public GestureProcessorFactory()
 	{
-		_processors = new LinkedHashMap<Class<? extends IGesture<?>>, IGestureProcessor<?>>();
+		_processors = new LinkedHashMap<Class<? extends Gesture<?>>, IGestureProcessor<?>>();
 	}
 	
 	@Override
-	public boolean register(Class<? extends IGesture<?>> gesture,
+	public boolean register(Class<? extends Gesture<?>> gesture,
 			IGestureProcessor<?> processor) 
 	{
 		if(_processors.containsKey(gesture))
@@ -30,7 +30,7 @@ public class GestureProcessorFactory implements IGestureProcessorFactory
 	}
 	
 	@Override
-	public boolean unregister(Class<? extends IGesture<?>> gesture) 
+	public boolean unregister(Class<? extends Gesture<?>> gesture) 
 	{
 		if(!_processors.containsKey(gesture))
 		{
@@ -44,7 +44,7 @@ public class GestureProcessorFactory implements IGestureProcessorFactory
 
 	@Override
 	@SuppressWarnings("rawtypes")
-	public IGestureProcessor<?> get(Class<? extends IGesture> gesture) 
+	public IGestureProcessor<?> get(Class<? extends Gesture> gesture) 
 	{
 		return _processors.get(gesture);
 	}

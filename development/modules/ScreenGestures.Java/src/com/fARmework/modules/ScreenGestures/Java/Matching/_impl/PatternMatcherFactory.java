@@ -1,6 +1,6 @@
 package com.fARmework.modules.ScreenGestures.Java.Matching._impl;
 
-import com.fARmework.modules.ScreenGestures.Java.*;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
 import com.fARmework.modules.ScreenGestures.Java.Matching.IPatternMatcher;
 import com.fARmework.modules.ScreenGestures.Java.Matching.IPatternMatcherFactory;
 
@@ -8,15 +8,15 @@ import java.util.*;
 
 public class PatternMatcherFactory implements IPatternMatcherFactory 
 {
-	private Map<Class<? extends IGesture<?>>, IPatternMatcher<?>> _gestures;
+	private Map<Class<? extends Gesture<?>>, IPatternMatcher<?>> _gestures;
 	
 	public PatternMatcherFactory()
 	{
-		_gestures = new LinkedHashMap<Class<? extends IGesture<?>>, IPatternMatcher<?>>();
+		_gestures = new LinkedHashMap<Class<? extends Gesture<?>>, IPatternMatcher<?>>();
 	}
 	
 	@Override
-	public boolean register(Class<? extends IGesture<?>> gesture,
+	public boolean register(Class<? extends Gesture<?>> gesture,
 			IPatternMatcher<?> matcher) 
 	{
 		if(_gestures.containsKey(gesture))
@@ -30,7 +30,7 @@ public class PatternMatcherFactory implements IPatternMatcherFactory
 	}
 
 	@Override
-	public boolean unregister(Class<? extends IGesture<?>> gesture) 
+	public boolean unregister(Class<? extends Gesture<?>> gesture) 
 	{
 		if(!_gestures.containsKey(gesture))
 		{
@@ -44,7 +44,7 @@ public class PatternMatcherFactory implements IPatternMatcherFactory
 
 	@Override
 	@SuppressWarnings("rawtypes")
-	public IPatternMatcher<?> get(Class<? extends IGesture> gesture) 
+	public IPatternMatcher<?> get(Class<? extends Gesture> gesture) 
 	{
 		return _gestures.get(gesture);
 	}
