@@ -1,6 +1,9 @@
-package com.fARmework.creat.GestureDetector.Factories;
+package com.fARmework.creat.GestureDetector.Matching._impl;
 
 import com.fARmework.creat.GestureDetector.*;
+import com.fARmework.creat.GestureDetector.Matching.IPatternMatcher;
+import com.fARmework.creat.GestureDetector.Matching.IPatternMatcherFactory;
+
 import java.util.*;
 
 public class PatternMatcherFactory implements IPatternMatcherFactory 

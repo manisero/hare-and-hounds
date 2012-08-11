@@ -1,6 +1,8 @@
-package com.fARmework.creat.GestureDetector.Factories;
+package com.fARmework.creat.GestureDetector.Processing._impl;
 
 import com.fARmework.creat.GestureDetector.*;
+import com.fARmework.creat.GestureDetector.Processing.IGestureProcessor;
+import com.fARmework.creat.GestureDetector.Processing.IGestureProcessorFactory;
 
 import java.util.*;
 

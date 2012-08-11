@@ -1,4 +1,4 @@
-package com.fARmework.creat.GestureDetector.DefaultImpl;
+package com.fARmework.creat.GestureDetector._impl;
 
 import com.fARmework.creat.GestureDetector.*;
 import java.util.*;

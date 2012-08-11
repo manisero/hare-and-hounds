@@ -1,4 +1,4 @@
-package com.fARmework.creat.GestureDetector;
+package com.fARmework.creat.GestureDetector.Matching;
 
 public interface IPatternMatcher<T> 
 {	

@@ -1,4 +1,6 @@
-package com.fARmework.creat.GestureDetector;
+package com.fARmework.creat.GestureDetector.Processing;
+
+import com.fARmework.creat.GestureDetector.*;
 
 public interface IGestureProcessorFactory 
 {

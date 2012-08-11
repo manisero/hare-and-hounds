@@ -1,4 +1,4 @@
-package com.fARmework.creat.GestureDetector.Processors;
+package com.fARmework.creat.GestureDetector.Processing.GestureProcessors;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.*;
