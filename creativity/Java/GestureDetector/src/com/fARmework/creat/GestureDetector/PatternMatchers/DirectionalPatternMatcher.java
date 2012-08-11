@@ -1,14 +1,11 @@
 package com.fARmework.creat.GestureDetector.PatternMatchers;
 
-import com.fARmework.creat.GestureDetector.*;
-import com.fARmework.creat.GestureDetector.Utilities.*;
-
-public class DirectionalPatternMatcher implements IPatternMatcher<Integer> 
+public class DirectionalPatternMatcher extends PatternMatcherBase<Integer> 
 {
 	@Override
 	public boolean match(Integer[][] input, Integer[][] pattern) 
 	{
-		if(!GestureRecognizerUtilities.sizeCheck(input, pattern))
+		if(!sizeCheck(input, pattern))
 		{
 			return false;
 		}

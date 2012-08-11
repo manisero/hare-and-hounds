@@ -1,19 +1,17 @@
 package com.fARmework.creat.GestureDetector.Processors;
 
-import com.fARmework.creat.GestureDetector.*;
-import com.fARmework.creat.GestureDetector.Utilities.*;
 import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.*;
 import java.util.*;
 
-public class PlainGestureProcessor implements IGestureProcessor<Boolean>
+public class PlainGestureProcessor extends GestureProcessorBase<Boolean>
 {
 	@Override
 	public Boolean[][] getGestureGrid(GestureData data, int gridSize) 
 	{
 		Boolean[][] grid = new Boolean[gridSize][gridSize];
 		
-		Rectangle boundingBox = GestureRecognizerUtilities.getGestureBoundingBox(data);
+		Rectangle boundingBox = getGestureBoundingBox(data);
 		
 		int width = boundingBox.width;
 		int height = boundingBox.height;

@@ -1,12 +1,13 @@
-package com.fARmework.creat.GestureDetector.Utilities;
+package com.fARmework.creat.GestureDetector.Processors;
 
+import com.fARmework.creat.GestureDetector.*;
 import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.*;
 import java.util.*;
 
-public class GestureRecognizerUtilities 
+public abstract class GestureProcessorBase<T> implements IGestureProcessor<T>
 {
-	public static Rectangle getGestureBoundingBox(GestureData data) 
+	public Rectangle getGestureBoundingBox(GestureData data) 
 	{
 		LinkedList<GestureData.Point> points = data.Points;
 		
@@ -44,23 +45,5 @@ public class GestureRecognizerUtilities
 		int height = yMax - yMin + 1;
 		
 		return new Rectangle(x, y, width, height);
-	}
-	
-	public static <T> boolean sizeCheck(T[][] input, T[][] pattern)
-	{
-		if(input.length != pattern.length || input.length == 0)
-		{
-			return false;
-		}
-		
-		for(int i = 0; i < input.length; ++i)
-		{
-			if(input[i].length != pattern[i].length || input[i].length != input.length)
-			{
-				return false;
-			}
-		}
-		
-		return true;
 	}
 }

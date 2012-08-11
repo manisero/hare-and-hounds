@@ -1,19 +1,17 @@
 package com.fARmework.creat.GestureDetector.Processors;
 
-import com.fARmework.creat.GestureDetector.*;
-import com.fARmework.creat.GestureDetector.Utilities.*;
 import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.*;
 import java.util.*;
 
-public class DirectionalGestureProcessor implements IGestureProcessor<Integer> 
+public class DirectionalGestureProcessor extends GestureProcessorBase<Integer> 
 {
 	@Override
 	public Integer[][] getGestureGrid(GestureData data, int gridSize) 
 	{
 		Integer[][] grid = new Integer[gridSize][gridSize];
 		
-		Rectangle boundingBox = GestureRecognizerUtilities.getGestureBoundingBox(data);
+		Rectangle boundingBox = getGestureBoundingBox(data);
 		
 		int width = boundingBox.width;
 		int height = boundingBox.height;

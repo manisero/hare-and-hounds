@@ -1,14 +1,11 @@
 package com.fARmework.creat.GestureDetector.PatternMatchers;
 
-import com.fARmework.creat.GestureDetector.*;
-import com.fARmework.creat.GestureDetector.Utilities.*;
-
-public class PlainPatternMatcher implements IPatternMatcher<Boolean> 
+public class PlainPatternMatcher extends PatternMatcherBase<Boolean> 
 {
 	@Override
 	public boolean match(Boolean[][] input, Boolean[][] pattern) 
 	{
-		if(!GestureRecognizerUtilities.sizeCheck(input, pattern))
+		if(!sizeCheck(input, pattern))
 		{
 			return false;
 		}
