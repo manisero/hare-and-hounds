@@ -39,7 +39,7 @@ public class GamesManager implements IGamesManager
 				newGame.HostUserName = data.HostUserName;
 				_games.put(clientID, newGame);
 				
-				_connectionManager.send(new GameCreationInfo(), clientID);
+				_connectionManager.send(new GameCreationResponse(), clientID);
 			}
 		});
 		
