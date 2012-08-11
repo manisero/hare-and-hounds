@@ -1,4 +1,4 @@
-package com.fARmework.RockPaperScissors.Client.Infrastructure.Impl;
+package com.fARmework.RockPaperScissors.Client.Infrastructure._impl;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.fARmework.RockPaperScissors.Server.Logic.Impl;
+package com.fARmework.RockPaperScissors.Server.Logic._impl;
 
 import com.fARmework.RockPaperScissors.Server.Logic.IGestureProcessor;
 import com.fARmework.modules.ScreenGestures.Data.GestureData;

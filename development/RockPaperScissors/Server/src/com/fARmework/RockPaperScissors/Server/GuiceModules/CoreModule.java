@@ -3,10 +3,10 @@ package com.fARmework.RockPaperScissors.Server.GuiceModules;
 import com.fARmework.RockPaperScissors.Server.SettingsProvider;
 import com.fARmework.core.data.IDataRegistry;
 import com.fARmework.core.data.IDataService;
-import com.fARmework.core.data.Impl.DataRegistry;
-import com.fARmework.core.data.Impl.DataService;
+import com.fARmework.core.data._impl.DataRegistry;
+import com.fARmework.core.data._impl.DataService;
 import com.fARmework.core.server.Connection.IConnectionManager;
-import com.fARmework.core.server.Connection.Impl.ConnectionManager;
+import com.fARmework.core.server.Connection._impl.ConnectionManager;
 import com.fARmework.core.server.Infrastructure.ISettingsProvider;
 import com.google.inject.AbstractModule;
 

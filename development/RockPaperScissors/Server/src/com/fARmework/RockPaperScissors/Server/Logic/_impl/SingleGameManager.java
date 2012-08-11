@@ -1,4 +1,4 @@
-package com.fARmework.RockPaperScissors.Server.Logic.Impl;
+package com.fARmework.RockPaperScissors.Server.Logic._impl;
 
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;

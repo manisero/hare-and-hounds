@@ -1,4 +1,4 @@
-package com.fARmework.core.server.Connection.Impl;
+package com.fARmework.core.server.Connection._impl;
 
 import com.fARmework.core.data.*;
 import com.fARmework.core.server.Connection.*;

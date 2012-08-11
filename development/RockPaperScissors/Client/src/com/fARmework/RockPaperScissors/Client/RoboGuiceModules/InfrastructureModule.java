@@ -2,8 +2,8 @@ package com.fARmework.RockPaperScissors.Client.RoboGuiceModules;
 
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.ContextManager;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.SettingsProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure._impl.ContextManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure._impl.SettingsProvider;
 import com.google.inject.AbstractModule;
 
 public class InfrastructureModule extends AbstractModule

@@ -1,4 +1,4 @@
-package com.fARmework.core.client.Connection.Impl;
+package com.fARmework.core.client.Connection._impl;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;

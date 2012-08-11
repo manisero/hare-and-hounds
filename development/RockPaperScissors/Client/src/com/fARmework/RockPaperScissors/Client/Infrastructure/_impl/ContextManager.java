@@ -1,4 +1,4 @@
-package com.fARmework.RockPaperScissors.Client.Infrastructure.Impl;
+package com.fARmework.RockPaperScissors.Client.Infrastructure._impl;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
