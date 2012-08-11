@@ -8,7 +8,10 @@ import com.fARmework.RockPaperScissors.Server.ScreenGestures.*;
 import com.fARmework.core.data.IDataRegistry;
 import com.fARmework.modules.ScreenGestures.Java.IGestureRegistry;
 import com.fARmework.modules.ScreenGestures.Java.Matching.IPatternMatcherFactory;
+import com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers.DiffusedPatternMatcher;
+import com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers.PlainPatternMatcher;
 import com.fARmework.modules.ScreenGestures.Java.Processing.IGestureProcessorFactory;
+import com.fARmework.modules.ScreenGestures.Java.Processing.GestureProcessors.*;
 import com.google.inject.*;
 
 public class EntryPoint
@@ -44,13 +47,18 @@ public class EntryPoint
 	private static void configureScreenGestures(Injector injector)
 	{
 		IGestureRegistry gestureRegistry = injector.getInstance(IGestureRegistry.class);
-		gestureRegistry.add(new RockScreenGesture());
-		gestureRegistry.add(new PaperScreenGesture());
-		gestureRegistry.add(new ScissorsScreenGesture());
+		gestureRegistry.register(new RockScreenGesture());
+		gestureRegistry.register(new PaperScreenGesture());
+		gestureRegistry.register(new ScissorsScreenGesture());
 		
 		IGestureProcessorFactory processorFactory = injector.getInstance(IGestureProcessorFactory.class);
-		
+		processorFactory.register(RockScreenGesture.class, new PlainGestureProcessor());
+		processorFactory.register(PaperScreenGesture.class, new PlainGestureProcessor());
+		processorFactory.register(ScissorsScreenGesture.class, new DiffusedGestureProcessor());
 		
 		IPatternMatcherFactory matcherFactory = injector.getInstance(IPatternMatcherFactory.class);
+		matcherFactory.register(RockScreenGesture.class, new PlainPatternMatcher());
+		matcherFactory.register(PaperScreenGesture.class, new PlainPatternMatcher());
+		matcherFactory.register(ScissorsScreenGesture.class, new DiffusedPatternMatcher());
 	}
 }

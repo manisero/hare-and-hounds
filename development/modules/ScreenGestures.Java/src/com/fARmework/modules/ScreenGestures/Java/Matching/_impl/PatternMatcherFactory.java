@@ -16,8 +16,7 @@ public class PatternMatcherFactory implements IPatternMatcherFactory
 	}
 	
 	@Override
-	public boolean register(Class<? extends Gesture<?>> gesture,
-			IPatternMatcher<?> matcher) 
+	public <T> boolean register(Class<? extends Gesture<T>> gesture, IPatternMatcher<T> matcher) 
 	{
 		if(_gestures.containsKey(gesture))
 		{

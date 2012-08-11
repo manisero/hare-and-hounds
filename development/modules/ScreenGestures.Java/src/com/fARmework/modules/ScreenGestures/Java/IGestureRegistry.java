@@ -6,9 +6,8 @@ import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
 
 public interface IGestureRegistry 
 {
-	boolean add(Gesture<?> gesture);
-	
-	boolean delete(Gesture<?> gesture);
+	boolean register(Gesture<?> gesture);
+	boolean unregister(Gesture<?> gesture);
 	
 	List<Gesture<?>> getGestures();
 }

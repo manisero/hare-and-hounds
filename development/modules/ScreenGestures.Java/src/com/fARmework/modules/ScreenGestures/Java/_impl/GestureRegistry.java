@@ -15,7 +15,7 @@ public class GestureRegistry implements IGestureRegistry
 	}
 
 	@Override
-	public boolean add(Gesture<?> gesture) 
+	public boolean register(Gesture<?> gesture) 
 	{
 		if(_gestures.containsKey(gesture.getName()))
 		{
@@ -28,7 +28,7 @@ public class GestureRegistry implements IGestureRegistry
 	}
 
 	@Override
-	public boolean delete(Gesture<?> gesture) 
+	public boolean unregister(Gesture<?> gesture) 
 	{
 		if(!_gestures.containsKey(gesture.getName()))
 		{

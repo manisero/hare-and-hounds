@@ -4,8 +4,7 @@ import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
 
 public interface IGestureProcessorFactory 
 {
-	boolean register(Class<? extends Gesture<?>> gesture, IGestureProcessor<?> processor);
-	
+	<T> boolean register(Class<? extends Gesture<T>> gesture, IGestureProcessor<T> processor);
 	boolean unregister(Class<? extends Gesture<?>> gesture);
 	
 	@SuppressWarnings("rawtypes")
