@@ -4,7 +4,9 @@
     
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">RockPaperScissors</string>
-    <string name="colon">: </string>
+    
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
     
     <string name="serverAddress">Server address</string>
     <string name="userName">User name</string>
@@ -24,8 +26,6 @@
     <string name="hosting_created">Game created</string>
     <string name="hosting_waiting">Waiting for guest&#8230;</string>
     <string name="hosting_guestConnected">%1$s wants to join your game. Allow?</string>
-    <string name="hosting_allowJoin">Allow</string>
-    <string name="hosting_denyJoin">Deny</string>
     <string name="hosting_guestJoined">%1$s has joined your game.</string>
     
     <string name="gameList_refresh">Refresh</string>
@@ -41,8 +41,6 @@
     <string name="game_defeat">Defeat!</string>
     <string name="game_draw">Draw!</string>
     <string name="game_result_pattern">%1$s\nYour gesture: %2$s\n%3$s\'s gesture: %4$s\nContinue?</string>
-    <string name="game_continue_yes">Yes</string>
-    <string name="game_continue_no">No</string>
     
     <string name="gestures_rock">Rock</string>
     <string name="gestures_paper">Paper</string>

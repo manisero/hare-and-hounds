@@ -49,8 +49,6 @@ public class HostingViewModel extends ViewModel
 			{
 				ContextManager.showYesNoDialog(
 					String.format(ResourcesProvider.getString(R.string.hosting_guestConnected), data.GuestUserName),
-					ResourcesProvider.getString(R.string.hosting_allowJoin),
-					ResourcesProvider.getString(R.string.hosting_denyJoin),
 					new IDialogListener()
 					{
 						@Override
