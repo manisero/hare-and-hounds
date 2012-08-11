@@ -61,9 +61,9 @@ public class DirectionalGestureProcessor implements IGestureProcessor<Integer>
 					{
 						gridFound = true;
 						
-						if(grid[x][y] == 0 && (grid[x][y] != counter || counter == 0))
+						if(grid[y][x] == 0 && (grid[y][x] != counter || counter == 0))
 						{
-							grid[x][y] = ++counter;
+							grid[y][x] = ++counter;
 						}
 					}
 				}

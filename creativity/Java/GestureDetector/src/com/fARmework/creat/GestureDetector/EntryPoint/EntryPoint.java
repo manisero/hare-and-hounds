@@ -17,7 +17,7 @@ public class EntryPoint extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 
-	private static final Integer[][] CLOCKWISE_SQUARE_PATTERN = 
+	private static final Integer[][] COUNTER_CLOCKWISE_SQUARE_PATTERN = 
 	{
 		{	1,	28,	27,	26,	25,	24,	23, 22	},
 		{	2,	0,	0,	0,	0,	0,	0,	21	},
@@ -29,7 +29,7 @@ public class EntryPoint extends JFrame
 		{	8,	9,	10,	11,	12,	13,	14,	15	}
 	};	
 	
-	private static final Integer[][] COUNTER_CLOCKWISE_SQUARE_PATTERN = 
+	private static final Integer[][] CLOCKWISE_SQUARE_PATTERN = 
 	{
 		{	1,	2,	3,	4,	5,	6,	7,	8	},
 		{	28,	0,	0,	0,	0,	0,	0,	9	},
