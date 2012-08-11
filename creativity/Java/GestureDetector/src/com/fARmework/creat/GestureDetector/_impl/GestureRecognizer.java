@@ -1,6 +1,8 @@
-package com.fARmework.creat.GestureDetector.DefaultImpl;
+package com.fARmework.creat.GestureDetector._impl;
 
 import com.fARmework.creat.GestureDetector.*;
+import com.fARmework.creat.GestureDetector.Matching.*;
+import com.fARmework.creat.GestureDetector.Processing.*;
 import com.fARmework.modules.ScreenGestures.Data.*;
 import java.util.*;
 

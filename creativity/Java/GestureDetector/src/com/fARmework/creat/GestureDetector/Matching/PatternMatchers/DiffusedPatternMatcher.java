@@ -1,4 +1,4 @@
-package com.fARmework.creat.GestureDetector.PatternMatchers;
+package com.fARmework.creat.GestureDetector.Matching.PatternMatchers;
 
 public class DiffusedPatternMatcher extends PatternMatcherBase<Double> 
 {

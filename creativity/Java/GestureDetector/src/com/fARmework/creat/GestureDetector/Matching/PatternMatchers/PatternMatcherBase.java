@@ -1,6 +1,6 @@
-package com.fARmework.creat.GestureDetector.PatternMatchers;
+package com.fARmework.creat.GestureDetector.Matching.PatternMatchers;
 
-import com.fARmework.creat.GestureDetector.*;
+import com.fARmework.creat.GestureDetector.Matching.*;
 
 public abstract class PatternMatcherBase<T> implements IPatternMatcher<T> 
 {

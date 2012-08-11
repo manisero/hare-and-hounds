@@ -1,7 +1,6 @@
 package com.fARmework.creat.GestureDetector.Utilities;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
-
 import java.awt.*;
 import java.awt.image.*;
 import java.util.*;

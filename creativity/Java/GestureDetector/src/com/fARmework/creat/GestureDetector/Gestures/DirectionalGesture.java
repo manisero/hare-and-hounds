@@ -1,6 +1,6 @@
 package com.fARmework.creat.GestureDetector.Gestures;
 
-import com.fARmework.creat.GestureDetector.IGesture;
+import com.fARmework.creat.GestureDetector.*;
 
 public class DirectionalGesture implements IGesture<Integer> 
 {
