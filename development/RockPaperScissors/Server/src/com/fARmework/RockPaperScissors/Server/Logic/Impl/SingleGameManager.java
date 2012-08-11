@@ -115,6 +115,7 @@ public class SingleGameManager implements ISingleGameManager
 				else
 				{
 					_game.HasEnded = true;
+					_connectionManager.send(new GameEndInfo(), _game.GuestID);
 				}
 			}
 		});
@@ -136,6 +137,7 @@ public class SingleGameManager implements ISingleGameManager
 				else
 				{
 					_game.HasEnded = true;
+					_connectionManager.send(new GameEndInfo(), _game.HostID);
 				}
 			}
 		});

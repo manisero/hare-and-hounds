@@ -101,6 +101,46 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
+	public void showDialogNotification(String notification, final IDialogListener confirmListener)
+	{
+		new AlertDialog.Builder(_currentActivity)
+			.setMessage(notification)
+			.setCancelable(false)
+			.setPositiveButton(ResourcesProvider.getString(R.string.dialog_confirm),
+							   new OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										if (confirmListener != null)
+											confirmListener.onDialogResult();
+									}
+								})
+			.create()
+			.show();
+	}
+	
+	@Override
+	public void showDialogNotification(String notification, String confirmLabel, final IDialogListener confirmListener)
+	{
+		new AlertDialog.Builder(_currentActivity)
+			.setMessage(notification)
+			.setCancelable(false)
+			.setPositiveButton(confirmLabel,
+							   new OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										if (confirmListener != null)
+											confirmListener.onDialogResult();
+									}
+								})
+			.create()
+			.show();
+	}
+	
+	@Override
 	public void showYesNoDialog(String message, final IDialogListener yesListener, final IDialogListener noListener)
 	{
 		new AlertDialog.Builder(_currentActivity)

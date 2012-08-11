@@ -13,6 +13,7 @@ import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.Impl.ContextManager.IDialogListener;
+import com.fARmework.RockPaperScissors.Client.R.string;
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
@@ -117,6 +118,17 @@ public class GameViewModel extends ViewModel
 			{
 				isWaiting.set(false);
 				status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
+			}
+		});
+		
+		ConnectionManager.registerDataHandler(GameEndInfo.class, new IDataHandler<GameEndInfo>()
+		{
+			@Override
+			public void handle(GameEndInfo data)
+			{
+				ContextManager.showDialogNotification(
+					String.format(ResourcesProvider.getString(string.game_opponentLeft), opponentName.get(), playerName.get(), playerScore.get(), opponentName.get(), opponentScore.get()),
+					null);
 			}
 		});
 	}
