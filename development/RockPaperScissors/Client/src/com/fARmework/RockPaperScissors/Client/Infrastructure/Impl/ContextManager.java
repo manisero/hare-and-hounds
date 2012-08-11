@@ -10,6 +10,7 @@ import com.fARmework.RockPaperScissors.Client.Activities.GameListActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.GameModeActivity;
 import com.fARmework.RockPaperScissors.Client.Activities.HostingActivity;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameListViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.GameViewModel;
@@ -100,29 +101,101 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
+	public void showDialogNotification(String notification, final IDialogListener confirmListener)
+	{
+		new AlertDialog.Builder(_currentActivity)
+			.setMessage(notification)
+			.setCancelable(false)
+			.setPositiveButton(ResourcesProvider.getString(R.string.dialog_confirm),
+							   new OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										if (confirmListener != null)
+											confirmListener.onDialogResult();
+									}
+								})
+			.create()
+			.show();
+	}
+	
+	@Override
+	public void showDialogNotification(String notification, String confirmLabel, final IDialogListener confirmListener)
+	{
+		new AlertDialog.Builder(_currentActivity)
+			.setMessage(notification)
+			.setCancelable(false)
+			.setPositiveButton(confirmLabel,
+							   new OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										if (confirmListener != null)
+											confirmListener.onDialogResult();
+									}
+								})
+			.create()
+			.show();
+	}
+	
+	@Override
+	public void showYesNoDialog(String message, final IDialogListener yesListener, final IDialogListener noListener)
+	{
+		new AlertDialog.Builder(_currentActivity)
+			.setMessage(message)
+			.setCancelable(false)
+			.setPositiveButton(ResourcesProvider.getString(R.string.dialog_yes),
+							   new OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										if (yesListener != null)
+											yesListener.onDialogResult();
+									}
+								})
+			.setNegativeButton(ResourcesProvider.getString(R.string.dialog_no),
+							   new OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										if (noListener != null)
+											noListener.onDialogResult();
+									}
+								})
+			.create()
+			.show();
+	}
+	
+	@Override
 	public void showYesNoDialog(String message, String yesLabel, String noLabel, final IDialogListener yesListener, final IDialogListener noListener)
 	{
 		new AlertDialog.Builder(_currentActivity)
 			.setMessage(message)
 			.setCancelable(false)
-			.setPositiveButton(yesLabel, new OnClickListener()
-											{
-												@Override
-												public void onClick(DialogInterface dialog, int which)
-												{
-													if (yesListener != null)
-														yesListener.onDialogResult();
-												}
-											})
-			.setNegativeButton(noLabel, new OnClickListener()
-											{
-												@Override
-												public void onClick(DialogInterface dialog, int which)
-												{
-													if (noListener != null)
-														noListener.onDialogResult();
-												}
-											})
+			.setPositiveButton(yesLabel,
+							   new OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										if (yesListener != null)
+											yesListener.onDialogResult();
+									}
+								})
+			.setNegativeButton(noLabel,
+							   new OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										if (noListener != null)
+											noListener.onDialogResult();
+									}
+								})
 			.create()
 			.show();
 	}

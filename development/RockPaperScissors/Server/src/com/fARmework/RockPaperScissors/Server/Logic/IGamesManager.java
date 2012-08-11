@@ -1,6 +1,6 @@
 package com.fARmework.RockPaperScissors.Server.Logic;
 
-public interface IGameManager
+public interface IGamesManager
 {
 	void run();
 }

@@ -8,7 +8,7 @@
     
     <LinearLayout android:orientation="horizontal"
         android:layout_width="fill_parent"
-		android:layout_height="70dp"
+		android:layout_height="wrap_content"
 		android:gravity="center_horizontal"
 		android:baselineAligned="false">
 		
@@ -24,13 +24,12 @@
 			    android:text="@string/game_player"
 			    binding:text="playerName" />
             
-            <TextView android:id="@+id/playerGesture"
+            <TextView android:id="@+id/playerScore"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:layout_marginTop="10dp"
-			    android:textSize="25dip"
-			    binding:visibility="hasGameEnded"
-			    binding:text="playerGesture" />
+			    android:layout_marginTop="5dp"
+			    android:textSize="30dip"
+			    binding:text="playerScore" />
             
         </LinearLayout>
         
@@ -40,33 +39,40 @@
 			android:layout_weight="1"
 			android:gravity="center_horizontal">
         
-	        <TextView android:id="@+id/opponentName"
+            <TextView android:id="@+id/opponentName"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:text="@string/game_opponent"
 			    binding:text="opponentName" />
 	        
-	        <ProgressBar android:id="@+id/opponentProgress"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        binding:visibility="isWaitingForOpponent" />
-	        
-	        <TextView android:id="@+id/opponentGesture"
+	        <TextView android:id="@+id/opponentScore"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:layout_marginTop="10dp"
-			    android:textSize="25dip"
-			    binding:visibility="hasGameEnded"
-			    binding:text="opponentGesture" />
+			    android:layout_marginTop="5dp"
+			    android:textSize="30dip"
+			    binding:text="opponentScore" />
 	      
 		</LinearLayout>
         
     </LinearLayout>
     
-    <TextView android:id="@+id/status"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    binding:text="status" />
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
+    
+	    <TextView android:id="@+id/status"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    binding:text="status" />
+
+	    <ProgressBar android:id="@+id/gameProgress"
+	        style="?android:attr/progressBarStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        binding:visibility="isWaiting" />
+    
+    </LinearLayout>
     
     <LinearLayout android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -78,21 +84,21 @@
 			android:layout_height="50dp"
 			android:text="@string/gestures_rock"
 			binding:onClick="sendRock"
-			binding:enabled="NOT(isPlayerGestureSent)" />
+			binding:enabled="NOT(isWaiting)" />
 	    
 		<Button android:id="@+id/paperButton"
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_paper"
 			binding:onClick="sendPaper"
-			binding:enabled="NOT(isPlayerGestureSent)" />
+			binding:enabled="NOT(isWaiting)" />
 	    
 		<Button android:id="@+id/scissorsButton"
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_scissors"
 			binding:onClick="sendScissors"
-			binding:enabled="NOT(isPlayerGestureSent)" />
+			binding:enabled="NOT(isWaiting)" />
 	
     </LinearLayout>
 	
