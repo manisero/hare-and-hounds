@@ -54,16 +54,23 @@ public class GestureRegistry implements IGestureRegistry
 				
 				if(sizeFirst > sizeSecond)
 				{
-					return 1;
+					return -1;
 				}
 				else if(sizeSecond > sizeFirst)
 				{
-					return -1;
+					return 1;
 				}
 
 				return 0;
 			}
 		});
+		
+		for(IGesture<?> gesture : gesturesList)
+		{
+			System.out.println("gesture.size(): " + gesture.getPattern().length);
+		}
+		
+		System.out.println();
 		
 		return gesturesList;
 	}
