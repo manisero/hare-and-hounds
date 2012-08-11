@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import com.fARmework.RockPaperScissors.Server.GuiceModules.*;
 import com.fARmework.RockPaperScissors.Server.Logic.IGamesManager;
+import com.fARmework.RockPaperScissors.Server.ScreenGestures.*;
 import com.fARmework.core.data.IDataRegistry;
 import com.fARmework.modules.ScreenGestures.Java.IGestureRegistry;
+import com.fARmework.modules.ScreenGestures.Java.Matching.IPatternMatcherFactory;
+import com.fARmework.modules.ScreenGestures.Java.Processing.IGestureProcessorFactory;
 import com.google.inject.*;
 
 public class EntryPoint
@@ -41,6 +44,13 @@ public class EntryPoint
 	private static void configureScreenGestures(Injector injector)
 	{
 		IGestureRegistry gestureRegistry = injector.getInstance(IGestureRegistry.class);
+		gestureRegistry.add(new RockScreenGesture());
+		gestureRegistry.add(new PaperScreenGesture());
+		gestureRegistry.add(new ScissorsScreenGesture());
 		
+		IGestureProcessorFactory processorFactory = injector.getInstance(IGestureProcessorFactory.class);
+		
+		
+		IPatternMatcherFactory matcherFactory = injector.getInstance(IPatternMatcherFactory.class);
 	}
 }
