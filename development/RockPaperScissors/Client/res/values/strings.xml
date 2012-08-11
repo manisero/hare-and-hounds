@@ -5,6 +5,7 @@
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">RockPaperScissors</string>
     
+    <string name="dialog_confirm">OK</string>
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
     
@@ -37,6 +38,7 @@
     <string name="game_opponent">Opponent</string>
     <string name="game_chooseGesture">Choose gesture:</string>
     <string name="game_waitingForOpponent">Waiting for %1$s&#8230;</string>
+    <string name="game_opponentLeft">%1$s has left. Game result:\n%2$s: %3$s\n%4$s: %5$s</string>
     <string name="game_victory">Victory!</string>
     <string name="game_defeat">Defeat!</string>
     <string name="game_draw">Draw!</string>
