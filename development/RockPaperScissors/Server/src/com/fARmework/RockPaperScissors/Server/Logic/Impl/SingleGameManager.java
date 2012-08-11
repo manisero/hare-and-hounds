@@ -25,7 +25,7 @@ public class SingleGameManager implements ISingleGameManager
 	}
 	
 	@Override
-	public void handleJoin(int guestID, String guestUserName)
+	public void handleJoin(GameJoinRequest request)
 	{
 		_connectionManager.registerDataHandler(GameJoinResponse.class, _game.HostID, new IDataHandler<GameJoinResponse>()
 		{
@@ -44,7 +44,7 @@ public class SingleGameManager implements ISingleGameManager
 			}
 		});
 		
-		_connectionManager.send(new GameJoinRequest(_game.HostID, guestID, guestUserName), _game.HostID);
+		_connectionManager.send(request, _game.HostID);
 	}
 	
 	private void registerGestureHandlers()

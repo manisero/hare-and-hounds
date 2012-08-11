@@ -62,10 +62,10 @@ public class GamesManager implements IGamesManager
 			}
 		});
 		
-		_connectionManager.registerDataHandler(GameJoinData.class, new IDataHandler<GameJoinData>()
+		_connectionManager.registerDataHandler(GameJoinRequest.class, new IDataHandler<GameJoinRequest>()
 		{
 			@Override
-			public void handle(int clientID, GameJoinData data)
+			public void handle(int clientID, GameJoinRequest data)
 			{
 				if (!_games.containsKey(data.HostID) || _games.get(data.HostID).HasStarted)
 				{
@@ -73,7 +73,8 @@ public class GamesManager implements IGamesManager
 					return;
 				}
 				
-				_gameManagerFactory.create(_games.get(data.HostID)).handleJoin(clientID, data.GuestUserName);
+				data.GuestID = clientID;
+				_gameManagerFactory.create(_games.get(data.HostID)).handleJoin(data);
 			}
 		});
 	}
