@@ -41,6 +41,13 @@ public class EntryPoint extends JFrame
 		{	22,	21,	20,	19,	18,	17,	16,	15	}
 	};	
 	
+	private static final Double[][] CROSS_PATTERN =
+	{
+		{	1.0,	0.5,	1.0	},
+		{	0.5,	1.0,	0.5	},
+		{	1.0,	0.5,	1.0	}
+	};
+	
 	private static final String DIRECTORY = "samples";
 	
 	private static final String[] FILES = 
@@ -80,19 +87,27 @@ public class EntryPoint extends JFrame
 		DirectionalGesture counterClockwiseSquare = new DirectionalGesture(
 				COUNTER_CLOCKWISE_SQUARE_PATTERN, "COUNTER_CLOCKWISE_SQUARE");
 		
+		DiffusedGesture cross = new DiffusedGesture(CROSS_PATTERN, "CROSS");
+		
 		GestureRegistry gestureRegistry = new GestureRegistry();
 		
 		gestureRegistry.add(clockwiseSquare);
 		gestureRegistry.add(counterClockwiseSquare);
-		
+		gestureRegistry.add(cross);
+				
 		DirectionalGestureProcessor processor = new DirectionalGestureProcessor();
 		DirectionalPatternMatcher matcher = new DirectionalPatternMatcher();
+		
+		DiffusedGestureProcessor diffusedProcessor = new DiffusedGestureProcessor();
+		DiffusedPatternMatcher diffusedMatcher = new DiffusedPatternMatcher();
 		
 		GestureProcessorFactory processorFactory = new GestureProcessorFactory();
 		PatternMatcherFactory matcherFactory = new PatternMatcherFactory();
 		
 		processorFactory.register(clockwiseSquare.getClass(), processor);
+		processorFactory.register(cross.getClass(), diffusedProcessor);
 		matcherFactory.register(clockwiseSquare.getClass(), matcher);
+		matcherFactory.register(cross.getClass(), diffusedMatcher);
 		
 		_recognizer = new GestureRecognizer(gestureRegistry, matcherFactory, processorFactory);
 	}
