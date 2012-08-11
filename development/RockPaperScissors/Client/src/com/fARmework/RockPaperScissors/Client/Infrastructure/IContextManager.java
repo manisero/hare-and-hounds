@@ -18,5 +18,6 @@ public interface IContextManager
 	
 	void showShortNotification(String notification);
 	void showLongNotification(String notification);
+	void showYesNoDialog(String message, IDialogListener yesListener, IDialogListener noListener);
 	void showYesNoDialog(String message, String yesLabel, String noLabel, IDialogListener yesListener, IDialogListener noListener);
 }

@@ -104,8 +104,6 @@ public class GameViewModel extends ViewModel
 				
 				ContextManager.showYesNoDialog(
 					String.format(ResourcesProvider.getString(R.string.game_result_pattern), result, getGestureString(data.PlayerGesture), opponentName.get(), getGestureString(data.OpponentGesture)),
-					ResourcesProvider.getString(R.string.game_continue_yes),
-					ResourcesProvider.getString(R.string.game_continue_no),
 					new IDialogListener()
 					{
 						@Override
