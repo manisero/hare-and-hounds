@@ -28,11 +28,6 @@ import android.widget.Toast;
 @SuppressWarnings("rawtypes")
 public class ContextManager implements IContextManager
 {
-	public interface IDialogListener
-	{
-		void onDialogResult();
-	}
-	
 	private Map<Class<? extends ViewModel>, Integer> _layouts = new LinkedHashMap<Class<? extends ViewModel>, Integer>();
 	private Map<Class<? extends ViewModel>, Class<? extends BoundActivity>> _activities = new LinkedHashMap<Class<? extends ViewModel>, Class<? extends BoundActivity>>();
 	
@@ -108,23 +103,9 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
-	public void showDialogNotification(String notification, final IDialogListener confirmListener)
+	public void showDialogNotification(String notification, IDialogListener confirmListener)
 	{
-		new AlertDialog.Builder(_currentActivity)
-			.setMessage(notification)
-			.setCancelable(false)
-			.setPositiveButton(ResourcesProvider.getString(R.string.dialog_confirm),
-							   new OnClickListener()
-								{
-									@Override
-									public void onClick(DialogInterface dialog, int which)
-									{
-										if (confirmListener != null)
-											confirmListener.onDialogResult();
-									}
-								})
-			.create()
-			.show();
+		showDialogNotification(notification, ResourcesProvider.getString(R.string.dialog_confirm), confirmListener);
 	}
 	
 	@Override
@@ -148,33 +129,9 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
-	public void showYesNoDialog(String message, final IDialogListener yesListener, final IDialogListener noListener)
+	public void showYesNoDialog(String message, IDialogListener yesListener, IDialogListener noListener)
 	{
-		new AlertDialog.Builder(_currentActivity)
-			.setMessage(message)
-			.setCancelable(false)
-			.setPositiveButton(ResourcesProvider.getString(R.string.dialog_yes),
-							   new OnClickListener()
-								{
-									@Override
-									public void onClick(DialogInterface dialog, int which)
-									{
-										if (yesListener != null)
-											yesListener.onDialogResult();
-									}
-								})
-			.setNegativeButton(ResourcesProvider.getString(R.string.dialog_no),
-							   new OnClickListener()
-								{
-									@Override
-									public void onClick(DialogInterface dialog, int which)
-									{
-										if (noListener != null)
-											noListener.onDialogResult();
-									}
-								})
-			.create()
-			.show();
+		showYesNoDialog(message, ResourcesProvider.getString(R.string.dialog_yes), ResourcesProvider.getString(R.string.dialog_no), yesListener, noListener);
 	}
 	
 	@Override
