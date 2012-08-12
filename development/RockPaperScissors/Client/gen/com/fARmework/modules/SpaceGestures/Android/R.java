@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.fARmework.RockPaperScissors.Client;
+package com.fARmework.modules.SpaceGestures.Android;
 
 public final class R {
     public static final class array {

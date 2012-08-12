@@ -32,6 +32,9 @@ public class SpaceGestureListener implements ISpaceGestureListener
 	public SpaceGestureData stopRecording()
 	{
 		_sensorManager.unregisterListener(this);
+		_currentDirection = null;
+		_detectedDirection = null;
+		
 		return _gesture;
 	}
 	
