@@ -41,10 +41,10 @@ public class PatternMatcherFactory implements IPatternMatcherFactory
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	@SuppressWarnings("rawtypes")
-	public IPatternMatcher<?> get(Class<? extends Gesture> gesture) 
+	public <T> IPatternMatcher<T> get(Class<? extends Gesture<T>> gesture) 
 	{
-		return _gestures.get(gesture);
+		return (IPatternMatcher<T>)_gestures.get(gesture);
 	}
 }

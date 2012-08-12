@@ -41,10 +41,10 @@ public class GestureProcessorFactory implements IGestureProcessorFactory
 		return true;
 	}	
 
+	@SuppressWarnings("unchecked")
 	@Override
-	@SuppressWarnings("rawtypes")
-	public IGestureProcessor<?> get(Class<? extends Gesture> gesture) 
+	public <T> IGestureProcessor<T> get(Class<? extends Gesture<T>> gesture) 
 	{
-		return _processors.get(gesture);
+		return (IGestureProcessor<T>)_processors.get(gesture);
 	}
 }

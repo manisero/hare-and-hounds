@@ -20,4 +20,9 @@ public abstract class Gesture<T>
 	{
 		return Pattern;
 	}
+	
+	public int getPatternSize()
+	{
+		return Pattern.length;
+	}
 }

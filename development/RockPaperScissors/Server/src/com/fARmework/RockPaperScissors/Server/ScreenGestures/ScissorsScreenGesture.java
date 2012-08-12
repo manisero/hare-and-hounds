@@ -7,9 +7,15 @@ public class ScissorsScreenGesture extends DiffusedGesture
 	private static final String NAME = "scissors";
 	private static final Double[][] PATTERN =
 											{
-												{	1.0,	0.5,	1.0	},
-												{	0.5,	1.0,	0.5	},
-												{	1.0,	0.5,	1.0	}
+												{	1.0,	0.1,	0.0,	0.1,	1.0	},
+												
+												{	0.1,	1.0,	0.1,	1.0,	0.1 },
+												
+												{	0.0,	0.1,	1.0,	0.1,	0.0 },
+												
+												{	0.1,	1.0,	0.1,	1.0,	0.1 },
+												
+												{	1.0,	1.0,	1.0,	1.0,	1.0	}
 											}; // TODO: define the pattern better
 	
 	public ScissorsScreenGesture()

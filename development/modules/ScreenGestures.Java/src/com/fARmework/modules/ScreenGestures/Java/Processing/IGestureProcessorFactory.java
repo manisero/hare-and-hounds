@@ -7,6 +7,5 @@ public interface IGestureProcessorFactory
 	<T> boolean register(Class<? extends Gesture<T>> gesture, IGestureProcessor<T> processor);
 	boolean unregister(Class<? extends Gesture<?>> gesture);
 	
-	@SuppressWarnings("rawtypes")
-	IGestureProcessor<?> get(Class<? extends Gesture> gesture);
+	<T> IGestureProcessor<T> get(Class<? extends Gesture<T>> gesture);
 }

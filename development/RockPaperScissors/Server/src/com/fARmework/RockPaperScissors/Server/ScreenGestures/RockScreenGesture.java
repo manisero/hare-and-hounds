@@ -7,10 +7,12 @@ public class RockScreenGesture extends PlainGesture
 	private static final String NAME = "rock";
 	private static final Boolean[][] PATTERN =
 											{
-												{ true, true, true },
-												{ true, false, true },
-												{ true, true, true }
-											}; // TODO: define the pattern better
+												{ true, true, true, true, true },
+												{ true, false, false, false, true },
+												{ true, false, false, false, true },
+												{ true, false, false, false, true },
+												{ true, true, true, true, true }
+											};
 	
 	public RockScreenGesture()
 	{

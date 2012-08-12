@@ -14,6 +14,12 @@ public class GestureData
 			X = x;
 			Y = y;
 		}
+		
+		@Override
+		public String toString()
+		{
+			return String.format("(X = %1$s Y = %2$s)", X, Y);
+		}
 	}
 	
 	public LinkedList<Point> Points;
