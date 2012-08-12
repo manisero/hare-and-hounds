@@ -4,6 +4,7 @@ import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
+import com.fARmework.RockPaperScissors.Server.Gestures.GesturesData;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.core.server.Connection.IConnectionManager;
 import com.fARmework.core.server.Connection.IDataHandler;
@@ -74,13 +75,37 @@ public class SingleGameManager implements ISingleGameManager
 			}
 		});
 		
-		_connectionManager.registerDataHandler(GestureData.class, new IDataHandler<GestureData>()
+		_connectionManager.registerDataHandler(GestureData.class, _game.HostID, new IDataHandler<GestureData>()
 		{
 			@Override
 			public void handle(int clientID, GestureData data)
 			{
-				// TODO: Finish implementing when gesture recognition is finished
-				System.out.println(_gestureRecognizer.recognize(data));
+				GestureType gesture = GesturesData.getGestureType(_gestureRecognizer.recognize(data));
+				
+				_connectionManager.send(new GestureInfo(gesture), clientID);
+				
+				if (gesture != GestureType.Unknown)
+				{
+					_game.HostGesture = gesture;
+					handleGameState();
+				}
+			}
+		});
+		
+		_connectionManager.registerDataHandler(GestureData.class, _game.GuestID, new IDataHandler<GestureData>()
+		{
+			@Override
+			public void handle(int clientID, GestureData data)
+			{
+				GestureType gesture = GesturesData.getGestureType(_gestureRecognizer.recognize(data));
+				
+				_connectionManager.send(new GestureInfo(gesture), clientID);
+				
+				if (gesture != GestureType.Unknown)
+				{
+					_game.GuestGesture = gesture;
+					handleGameState();
+				}
 			}
 		});
 		
