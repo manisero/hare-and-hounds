@@ -14,6 +14,7 @@ public class GesturesData
 	private static final Map<String, GestureType> _gestures = new LinkedHashMap<String, GestureType>();
 	
 	// Initialization
+	static
 	{
 		_gestures.put(ROCK_NAME, GestureType.Rock);
 		_gestures.put(PAPER_NAME, GestureType.Paper);
