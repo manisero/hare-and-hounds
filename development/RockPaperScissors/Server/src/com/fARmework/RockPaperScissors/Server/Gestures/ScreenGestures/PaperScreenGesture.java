@@ -1,10 +1,10 @@
-package com.fARmework.RockPaperScissors.Server.ScreenGestures;
+package com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures;
 
+import com.fARmework.RockPaperScissors.Server.Gestures.GesturesData;
 import com.fARmework.modules.ScreenGestures.Java.Gestures.PlainGesture;
 
 public class PaperScreenGesture extends PlainGesture
 {
-	private static final String NAME = "paper";
 	private static final Boolean[][] PATTERN =  
 											{
 												{ true, true, true },
@@ -14,6 +14,6 @@ public class PaperScreenGesture extends PlainGesture
 	
 	public PaperScreenGesture()
 	{
-		super(NAME, PATTERN);
+		super(GesturesData.PAPER_NAME, PATTERN);
 	}
 }

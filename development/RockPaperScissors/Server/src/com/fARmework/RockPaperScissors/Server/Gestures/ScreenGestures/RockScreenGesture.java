@@ -1,4 +1,4 @@
-package com.fARmework.RockPaperScissors.Server.ScreenGestures;
+package com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures;
 
 import com.fARmework.modules.ScreenGestures.Java.Gestures.PlainGesture;
 

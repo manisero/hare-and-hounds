@@ -2,10 +2,10 @@ package com.fARmework.RockPaperScissors.Server;
 
 import java.util.ArrayList;
 
+import com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures.*;
+import com.fARmework.RockPaperScissors.Server.Gestures.SpaceGestures.RockSpaceGesture;
 import com.fARmework.RockPaperScissors.Server.GuiceModules.*;
 import com.fARmework.RockPaperScissors.Server.Logic.IGamesManager;
-import com.fARmework.RockPaperScissors.Server.ScreenGestures.*;
-import com.fARmework.RockPaperScissors.Server.SpaceGestures.RockSpaceGesture;
 import com.fARmework.core.data.IDataRegistry;
 import com.fARmework.modules.ScreenGestures.Java.IGestureRegistry;
 import com.fARmework.modules.ScreenGestures.Java.Matching.IPatternMatcherFactory;
