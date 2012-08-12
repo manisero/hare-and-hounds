@@ -12,7 +12,7 @@ development/core/client/bin/*
 development/core/Client/bin/*
 development/core/Data/bin/*
 development/core/Server/bin/*
-development/modules/ScreenGestures/bin/*
+development/modules/ScreenGestures.Android/bin/*
 development/modules/ScreenGestures.Data/bin/*
 development/modules/ScreenGestures.Java/bin/*
 development/modules/SpaceGestures.Android/bin/*
