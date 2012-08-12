@@ -7,9 +7,9 @@ import android.os.Bundle;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure._impl.ContextManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Data.GameCreationResponse;
 import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinRequest;

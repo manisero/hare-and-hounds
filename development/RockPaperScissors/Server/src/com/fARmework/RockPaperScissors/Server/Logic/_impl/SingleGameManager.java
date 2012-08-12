@@ -16,15 +16,15 @@ import com.fARmework.modules.SpaceGestures.Java.ISpaceGestureRecognizer;
 public class SingleGameManager implements ISingleGameManager
 {
 	private IConnectionManager _connectionManager;
-	private IScreenGestureRecognizer _gestureRecognizer;
+	private IScreenGestureRecognizer _screenGestureRecognizer;
 	private ISpaceGestureRecognizer _spaceGestureRecognizer;
 	
 	private Game _game;
 	
-	public SingleGameManager(IConnectionManager connectionManager, IScreenGestureRecognizer gestureRecognizer, ISpaceGestureRecognizer spaceGestureRecognizer, Game game)
+	public SingleGameManager(IConnectionManager connectionManager, IScreenGestureRecognizer screenGestureRecognizer, ISpaceGestureRecognizer spaceGestureRecognizer, Game game)
 	{
 		_connectionManager = connectionManager;
-		_gestureRecognizer = gestureRecognizer;
+		_screenGestureRecognizer = screenGestureRecognizer;
 		_spaceGestureRecognizer = spaceGestureRecognizer;
 		
 		_game = game;
@@ -80,7 +80,7 @@ public class SingleGameManager implements ISingleGameManager
 			@Override
 			public void handle(int clientID, ScreenGestureData data)
 			{
-				GestureType gesture = GesturesData.getGestureType(_gestureRecognizer.recognize(data));
+				GestureType gesture = GesturesData.getGestureType(_screenGestureRecognizer.recognize(data));
 				
 				_connectionManager.send(new GestureInfo(gesture), clientID);
 				
@@ -97,7 +97,7 @@ public class SingleGameManager implements ISingleGameManager
 			@Override
 			public void handle(int clientID, ScreenGestureData data)
 			{
-				GestureType gesture = GesturesData.getGestureType(_gestureRecognizer.recognize(data));
+				GestureType gesture = GesturesData.getGestureType(_screenGestureRecognizer.recognize(data));
 				
 				_connectionManager.send(new GestureInfo(gesture), clientID);
 				

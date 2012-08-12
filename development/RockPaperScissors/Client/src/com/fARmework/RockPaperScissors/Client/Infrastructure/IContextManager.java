@@ -4,11 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.fARmework.RockPaperScissors.Client.Activities.BoundActivity;
-import com.fARmework.RockPaperScissors.Client.Infrastructure._impl.ContextManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 
 public interface IContextManager
 {
+	public interface IDialogListener
+	{
+		void onDialogResult();
+	}
+	
 	Context getContext();
 	
 	int getLayout(Class<? extends ViewModel> viewModelClass);

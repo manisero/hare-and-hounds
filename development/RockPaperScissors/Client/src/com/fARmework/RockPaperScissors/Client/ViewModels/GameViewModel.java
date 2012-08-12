@@ -10,12 +10,11 @@ import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure._impl.ContextManager.IDialogListener;
 import com.fARmework.RockPaperScissors.Client.R.string;
 import com.fARmework.RockPaperScissors.Data.*;
-import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
@@ -68,7 +67,6 @@ public class GameViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			// TODO: Finish implementing when gesture recognition is finished
 			ConnectionManager.send(arg1[0]);
 		}
 	};
@@ -100,6 +98,22 @@ public class GameViewModel extends ViewModel
 		opponentName.set(settingsProvider.getServerAddress());
 		status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
 		
+		ConnectionManager.registerDataHandler(GestureInfo.class, new IDataHandler<GestureInfo>()
+		{
+			@Override
+			public void handle(GestureInfo data)
+			{
+				if (data.GestureType != GestureType.Unknown)
+				{
+					
+				}
+				else
+				{
+					
+				}
+			}
+		});
+		
 		ConnectionManager.registerDataHandler(GameResultInfo.class, new IDataHandler<GameResultInfo>()
 		{
 			@Override
@@ -111,7 +125,7 @@ public class GameViewModel extends ViewModel
 				opponentScore.set(data.OpponentScore);
 				
 				ContextManager.showYesNoDialog(
-					String.format(ResourcesProvider.getString(R.string.game_result_pattern), getResultString(data.GameResult), getGestureString(data.PlayerGesture), opponentName.get(), getGestureString(data.OpponentGesture)),
+					String.format(ResourcesProvider.getString(R.string.game_result_pattern), ResourcesProvider.getGameResultString(data.GameResult), ResourcesProvider.getGestureString(data.PlayerGesture), opponentName.get(), ResourcesProvider.getGestureString(data.OpponentGesture)),
 					new IDialogListener()
 					{
 						@Override
@@ -166,31 +180,5 @@ public class GameViewModel extends ViewModel
 		isWaiting.set(true);
 		status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
 		ConnectionManager.send(new GestureInfo(gesture));
-	}
-	
-	private String getResultString(GameResult result)
-	{
-		switch (result)
-		{
-			case Victory:
-				return ResourcesProvider.getString(R.string.game_victory);
-			case Defeat:
-				return ResourcesProvider.getString(R.string.game_defeat);
-			default:
-				return ResourcesProvider.getString(R.string.game_draw);
-		}
-	}
-	
-	private String getGestureString(GestureType gesture)
-	{
-		switch (gesture)
-		{
-			case Rock:
-				return ResourcesProvider.getString(R.string.gestures_rock);
-			case Paper:
-				return ResourcesProvider.getString(R.string.gestures_paper);
-			default:
-				return ResourcesProvider.getString(R.string.gestures_scissors);
-		}
 	}
 }
