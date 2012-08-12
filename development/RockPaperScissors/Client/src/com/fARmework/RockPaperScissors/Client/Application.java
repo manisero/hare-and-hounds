@@ -28,5 +28,6 @@ public class Application extends android.app. Application
 		IDataRegistry dataRegistry = injector.getInstance(IDataRegistry.class);
 		new com.fARmework.RockPaperScissors.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 		new com.fARmework.modules.ScreenGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.modules.SpaceGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
     }
 }
