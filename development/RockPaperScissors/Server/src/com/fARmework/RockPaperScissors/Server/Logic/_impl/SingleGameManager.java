@@ -109,13 +109,37 @@ public class SingleGameManager implements ISingleGameManager
 			}
 		});
 		
-		_connectionManager.registerDataHandler(SpaceGestureData.class, new IDataHandler<SpaceGestureData>()
+		_connectionManager.registerDataHandler(SpaceGestureData.class, _game.HostID, new IDataHandler<SpaceGestureData>()
 		{
 			@Override
 			public void handle(int clientID, SpaceGestureData data)
 			{
-				// TODO: Finish implementing when gesture recognition is finished
-				System.out.println(_spaceGestureRecognizer.recognize(data));
+				GestureType gesture = GesturesData.getGestureType(_spaceGestureRecognizer.recognize(data));
+				
+				_connectionManager.send(new GestureInfo(gesture), clientID);
+				
+				if (gesture != GestureType.Unknown)
+				{
+					_game.HostGesture = gesture;
+					handleGameState();
+				}
+			}
+		});
+		
+		_connectionManager.registerDataHandler(SpaceGestureData.class, _game.GuestID, new IDataHandler<SpaceGestureData>()
+		{
+			@Override
+			public void handle(int clientID, SpaceGestureData data)
+			{
+				GestureType gesture = GesturesData.getGestureType(_spaceGestureRecognizer.recognize(data));
+				
+				_connectionManager.send(new GestureInfo(gesture), clientID);
+				
+				if (gesture != GestureType.Unknown)
+				{
+					_game.GuestGesture = gesture;
+					handleGameState();
+				}
 			}
 		});
 		

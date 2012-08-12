@@ -72,6 +72,9 @@ public class SpaceGesturePicker extends View implements IBindableView<SpaceGestu
 					_gestureListener.onGesture(v, _spaceGestureRecorder.stopRecording());
 				}
 				
+				try { Thread.sleep(500); }
+				catch (InterruptedException e) { }
+				
 				return true;
 			}
 		});
