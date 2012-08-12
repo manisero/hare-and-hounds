@@ -10,6 +10,8 @@ import android.os.CountDownTimer;
 public class SpaceGestureRecorder implements ISpaceGestureListener
 {
 	private static final double THRESHOLD = 3;
+	private static final int RATE = SensorManager.SENSOR_DELAY_UI;
+	private static final int SLEEP_TIME = 250;
 	
 	private SensorManager _sensorManager;
 	private Sensor _accelerometer;
@@ -25,7 +27,7 @@ public class SpaceGestureRecorder implements ISpaceGestureListener
 		_accelerometer = _sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
 
 		_gesture = new SpaceGestureData();
-		_sensorManager.registerListener(this, _accelerometer, SensorManager.SENSOR_DELAY_UI);
+		_sensorManager.registerListener(this, _accelerometer, RATE);
 	}
 	
 	@Override
@@ -137,7 +139,7 @@ public class SpaceGestureRecorder implements ISpaceGestureListener
 			_gesture.addDirection(_detectedDirection);
 			_sensorManager.unregisterListener(this);
 			
-			new CountDownTimer(200, 200)
+			new CountDownTimer(SLEEP_TIME, SLEEP_TIME)
 			{
 				@Override
 				public void onTick(long millisUntilFinished)
@@ -149,7 +151,7 @@ public class SpaceGestureRecorder implements ISpaceGestureListener
 				{
 					_currentDirection = null;
 					_detectedDirection = null;
-					_sensorManager.registerListener(SpaceGestureRecorder.this, _accelerometer, SensorManager.SENSOR_DELAY_UI);
+					_sensorManager.registerListener(SpaceGestureRecorder.this, _accelerometer, RATE);
 				}
 			}.start();
 		}
