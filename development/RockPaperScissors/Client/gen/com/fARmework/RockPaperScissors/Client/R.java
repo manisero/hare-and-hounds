@@ -71,19 +71,20 @@ public final class R {
         public static final int gameList_notAvailable=0x7f04001a;
         public static final int gameList_refresh=0x7f040017;
         public static final int game_chooseGesture=0x7f04001d;
-        public static final int game_defeat=0x7f040023;
-        public static final int game_draw=0x7f040024;
+        public static final int game_defeat=0x7f040024;
+        public static final int game_draw=0x7f040025;
+        public static final int game_gestureNotRecognized=0x7f040020;
         public static final int game_opponent=0x7f04001c;
-        public static final int game_opponentLeft=0x7f040021;
+        public static final int game_opponentLeft=0x7f040022;
         public static final int game_player=0x7f04001b;
         public static final int game_recordGesture_start=0x7f04001e;
         public static final int game_recordGesture_stop=0x7f04001f;
-        public static final int game_result_pattern=0x7f040025;
-        public static final int game_victory=0x7f040022;
-        public static final int game_waitingForOpponent=0x7f040020;
-        public static final int gestures_paper=0x7f040027;
-        public static final int gestures_rock=0x7f040026;
-        public static final int gestures_scissors=0x7f040028;
+        public static final int game_result_pattern=0x7f040026;
+        public static final int game_victory=0x7f040023;
+        public static final int game_waitingForOpponent=0x7f040021;
+        public static final int gestures_paper=0x7f040028;
+        public static final int gestures_rock=0x7f040027;
+        public static final int gestures_scissors=0x7f040029;
         /**  "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) 
          */
         public static final int hello=0x7f040003;
