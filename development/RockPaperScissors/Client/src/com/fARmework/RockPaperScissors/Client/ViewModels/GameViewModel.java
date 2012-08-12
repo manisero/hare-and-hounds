@@ -19,11 +19,15 @@ import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
+import com.fARmework.modules.SpaceGestures.Android.ISpaceGestureListener;
+import com.fARmework.modules.SpaceGestures.Android.SpaceGestureListener;
 import com.google.inject.Inject;
 
 public class GameViewModel extends ViewModel
 {
 	public static final String OPPONENT_NAME_KEY = GameViewModel.class.getCanonicalName() + "OPPONENT_NAME";
+	
+	private ISpaceGestureListener _spaceGestureListener = new SpaceGestureListener();
 	
 	public StringObservable playerName = new StringObservable();
 	public StringObservable opponentName = new StringObservable();
@@ -66,6 +70,24 @@ public class GameViewModel extends ViewModel
 		{
 			// TODO: Finish implementing when gesture recognition is finished
 			ConnectionManager.send(arg1[0]);
+		}
+	};
+	
+	public Command startRecordingGesture = new Command()
+	{
+		@Override
+		public void Invoke(View arg0, Object... arg1)
+		{
+			_spaceGestureListener.startRecording(ContextManager.getContext());
+		}
+	};
+	
+	public Command stopRecordingGesture = new Command()
+	{
+		@Override
+		public void Invoke(View arg0, Object... arg1)
+		{
+			ConnectionManager.send(_spaceGestureListener.stopRecording());
 		}
 	};
 	

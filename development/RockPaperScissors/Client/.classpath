@@ -9,5 +9,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Core.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/RockPaperScissors.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Android"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Data"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

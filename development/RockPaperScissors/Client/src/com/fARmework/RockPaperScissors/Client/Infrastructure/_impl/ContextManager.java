@@ -18,6 +18,7 @@ import com.fARmework.RockPaperScissors.Client.ViewModels.HostingViewModel;
 import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -54,6 +55,12 @@ public class ContextManager implements IContextManager
 		// Game
 		_layouts.put(GameViewModel.class, R.layout.game);
 		_activities.put(GameViewModel.class, GameActivity.class);
+	}
+	
+	@Override
+	public Context getContext()
+	{
+		return _currentActivity;
 	}
 	
 	@Override

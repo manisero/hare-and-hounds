@@ -9,18 +9,22 @@ import com.fARmework.core.server.Connection.IConnectionManager;
 import com.fARmework.core.server.Connection.IDataHandler;
 import com.fARmework.modules.ScreenGestures.Data.GestureData;
 import com.fARmework.modules.ScreenGestures.Java.IGestureRecognizer;
+import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData;
+import com.fARmework.modules.SpaceGestures.Java.ISpaceGestureRecognizer;
 
 public class SingleGameManager implements ISingleGameManager
 {
 	private IConnectionManager _connectionManager;
 	private IGestureRecognizer _gestureRecognizer;
+	private ISpaceGestureRecognizer _spaceGestureRecognizer;
 	
 	private Game _game;
 	
-	public SingleGameManager(IConnectionManager connectionManager, IGestureRecognizer gestureRecognizer, Game game)
+	public SingleGameManager(IConnectionManager connectionManager, IGestureRecognizer gestureRecognizer, ISpaceGestureRecognizer spaceGestureRecognizer, Game game)
 	{
 		_connectionManager = connectionManager;
 		_gestureRecognizer = gestureRecognizer;
+		_spaceGestureRecognizer = spaceGestureRecognizer;
 		
 		_game = game;
 	}
@@ -77,6 +81,16 @@ public class SingleGameManager implements ISingleGameManager
 			{
 				// TODO: Finish implementing when gesture recognition is finished
 				System.out.println(_gestureRecognizer.recognize(data));
+			}
+		});
+		
+		_connectionManager.registerDataHandler(SpaceGestureData.class, new IDataHandler<SpaceGestureData>()
+		{
+			@Override
+			public void handle(int clientID, SpaceGestureData data)
+			{
+				// TODO: Finish implementing when gesture recognition is finished
+				System.out.println(_spaceGestureRecognizer.recognize(data));
 			}
 		});
 		

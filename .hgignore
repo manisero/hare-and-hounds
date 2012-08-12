@@ -4,6 +4,7 @@ creativity/Android/Binding/bin/*
 creativity/Android/Compass/bin/*
 creativity/Android/GPS/bin/*
 creativity/Android/JSON/bin/*
+creativity/Android/GestureWriter/bin/*
 creativity/Java/Client/bin/*
 creativity/Java/DI/bin/*
 creativity/Java/NettyClient/bin/*
@@ -13,10 +14,10 @@ development/core/Data/bin/*
 development/core/Server/bin/*
 development/modules/ScreenGestures/bin/*
 development/modules/ScreenGestures.Data/bin/*
+development/modules/ScreenGestures.Java/bin/*
+development/modules/SpaceGestures.Android/bin/*
+development/modules/SpaceGestures.Data/bin/*
+development/modules/SpaceGestures.Java/bin/*
 development/RockPaperScissors/Client/bin/*
 development/RockPaperScissors/Data/bin/*
 development/RockPaperScissors/Server/bin/*
-creativity/Android/GestureWriter/bin/*
-development/core/client/Connection/bin/*
-development/core/client/Infrastructure/bin/*
-development/modules/ScreenGestures.Java/bin/*
