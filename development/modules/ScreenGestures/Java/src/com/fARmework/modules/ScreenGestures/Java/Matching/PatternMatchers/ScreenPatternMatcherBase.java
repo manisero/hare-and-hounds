@@ -2,7 +2,7 @@ package com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers;
 
 import com.fARmework.modules.ScreenGestures.Java.Matching.*;
 
-public abstract class PatternMatcherBase<T> implements IPatternMatcher<T> 
+public abstract class ScreenPatternMatcherBase<T> implements IScreenPatternMatcher<T> 
 {
 	public boolean sizeCheck(T[][] input, T[][] pattern)
 	{

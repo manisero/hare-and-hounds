@@ -1,11 +1,11 @@
 package com.fARmework.modules.ScreenGestures.Java.Gestures;
 
-public abstract class Gesture<T> 
+public abstract class ScreenGesture<T> 
 {
 	protected String Name;
 	protected T[][] Pattern;
 	
-	protected Gesture(String name, T[][] pattern)
+	protected ScreenGesture(String name, T[][] pattern)
 	{
 		Name = name;
 		Pattern = pattern;

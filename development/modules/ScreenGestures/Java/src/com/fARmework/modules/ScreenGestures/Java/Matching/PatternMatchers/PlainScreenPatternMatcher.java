@@ -1,6 +1,6 @@
 package com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers;
 
-public class PlainPatternMatcher extends PatternMatcherBase<Boolean> 
+public class PlainScreenPatternMatcher extends ScreenPatternMatcherBase<Boolean> 
 {
 	@Override
 	public boolean match(Boolean[][] input, Boolean[][] pattern) 

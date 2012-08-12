@@ -8,20 +8,20 @@ import com.fARmework.RockPaperScissors.Server.Gestures.GesturesData;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.core.server.Connection.IConnectionManager;
 import com.fARmework.core.server.Connection.IDataHandler;
-import com.fARmework.modules.ScreenGestures.Data.GestureData;
-import com.fARmework.modules.ScreenGestures.Java.IGestureRecognizer;
+import com.fARmework.modules.ScreenGestures.Data.ScreenGestureData;
+import com.fARmework.modules.ScreenGestures.Java.IScreenGestureRecognizer;
 import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData;
 import com.fARmework.modules.SpaceGestures.Java.ISpaceGestureRecognizer;
 
 public class SingleGameManager implements ISingleGameManager
 {
 	private IConnectionManager _connectionManager;
-	private IGestureRecognizer _gestureRecognizer;
+	private IScreenGestureRecognizer _gestureRecognizer;
 	private ISpaceGestureRecognizer _spaceGestureRecognizer;
 	
 	private Game _game;
 	
-	public SingleGameManager(IConnectionManager connectionManager, IGestureRecognizer gestureRecognizer, ISpaceGestureRecognizer spaceGestureRecognizer, Game game)
+	public SingleGameManager(IConnectionManager connectionManager, IScreenGestureRecognizer gestureRecognizer, ISpaceGestureRecognizer spaceGestureRecognizer, Game game)
 	{
 		_connectionManager = connectionManager;
 		_gestureRecognizer = gestureRecognizer;
@@ -75,10 +75,10 @@ public class SingleGameManager implements ISingleGameManager
 			}
 		});
 		
-		_connectionManager.registerDataHandler(GestureData.class, _game.HostID, new IDataHandler<GestureData>()
+		_connectionManager.registerDataHandler(ScreenGestureData.class, _game.HostID, new IDataHandler<ScreenGestureData>()
 		{
 			@Override
-			public void handle(int clientID, GestureData data)
+			public void handle(int clientID, ScreenGestureData data)
 			{
 				GestureType gesture = GesturesData.getGestureType(_gestureRecognizer.recognize(data));
 				
@@ -92,10 +92,10 @@ public class SingleGameManager implements ISingleGameManager
 			}
 		});
 		
-		_connectionManager.registerDataHandler(GestureData.class, _game.GuestID, new IDataHandler<GestureData>()
+		_connectionManager.registerDataHandler(ScreenGestureData.class, _game.GuestID, new IDataHandler<ScreenGestureData>()
 		{
 			@Override
-			public void handle(int clientID, GestureData data)
+			public void handle(int clientID, ScreenGestureData data)
 			{
 				GestureType gesture = GesturesData.getGestureType(_gestureRecognizer.recognize(data));
 				

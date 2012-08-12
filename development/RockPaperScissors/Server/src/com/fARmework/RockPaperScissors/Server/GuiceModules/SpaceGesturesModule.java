@@ -13,6 +13,6 @@ public class SpaceGesturesModule extends AbstractModule
 	{
 		bind(ISpaceGestureRecognizer.class).to(SpaceGestureRecognizer.class);
 		bind(ISpaceGestureRegistry.class).to(SpaceGestureRegistry.class).asEagerSingleton();
-		bind(ISpaceGestureMatcherFactory.class).to(SpaceGestureMatcherFactory.class).asEagerSingleton();
+		bind(ISpacePatternMatcherFactory.class).to(SpacePatternMatcherFactory.class).asEagerSingleton();
 	}
 }

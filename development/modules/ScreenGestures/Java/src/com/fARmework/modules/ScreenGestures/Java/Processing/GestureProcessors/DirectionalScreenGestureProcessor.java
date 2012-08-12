@@ -4,10 +4,10 @@ import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.*;
 import java.util.*;
 
-public class DirectionalGestureProcessor extends GestureProcessorBase<Integer> 
+public class DirectionalScreenGestureProcessor extends ScreenGestureProcessorBase<Integer> 
 {
 	@Override
-	public Integer[][] getGestureGrid(GestureData data, int gridSize) 
+	public Integer[][] getGestureGrid(ScreenGestureData data, int gridSize) 
 	{
 		Integer[][] grid = new Integer[gridSize][gridSize];
 		
@@ -27,11 +27,11 @@ public class DirectionalGestureProcessor extends GestureProcessorBase<Integer>
 		float xCell = (float) width / (float) gridSize;
 		float yCell = (float) height / (float) gridSize;
 		
-		LinkedList<GestureData.Point> points = data.Points;
+		LinkedList<ScreenGestureData.Point> points = data.Points;
 		
 		int counter = 0;
 		
-		for(GestureData.Point point : points)
+		for(ScreenGestureData.Point point : points)
 		{
 			boolean gridFound = false;
 			

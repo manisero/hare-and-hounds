@@ -6,7 +6,8 @@ public class GestureInfo
 	{
 		Rock,
 		Paper,
-		Scissors
+		Scissors,
+		Unknown
 	}
 	
 	public GestureType GestureType;

@@ -1,8 +1,8 @@
 package com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures;
 
-import com.fARmework.modules.ScreenGestures.Java.Gestures.PlainGesture;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.PlainScreenGesture;
 
-public class RockScreenGesture extends PlainGesture
+public class RockScreenGesture extends PlainScreenGesture
 {
 	private static final String NAME = "rock";
 	private static final Boolean[][] PATTERN =

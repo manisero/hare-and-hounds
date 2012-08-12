@@ -7,7 +7,7 @@ import java.util.*;
 
 public class GestureDrawer 
 {	
-	public BufferedImage drawGesture(GestureData data)
+	public BufferedImage drawGesture(ScreenGestureData data)
 	{
 		Rectangle boundingBox = getBoundingBox(data);
 		
@@ -23,12 +23,12 @@ public class GestureDrawer
 			}
 		}
 		
-		LinkedList<GestureData.Point> points = data.Points;
+		LinkedList<ScreenGestureData.Point> points = data.Points;
 		
 		int pointsSize = points.size();
 		int pointNo = 0;
 		
-		for(GestureData.Point point : points)
+		for(ScreenGestureData.Point point : points)
 		{	
 			++pointNo;
 			
@@ -45,16 +45,16 @@ public class GestureDrawer
 		return image;
 	}
 	
-	private Rectangle getBoundingBox(GestureData data)
+	private Rectangle getBoundingBox(ScreenGestureData data)
 	{
-		LinkedList<GestureData.Point> points = data.Points;
+		LinkedList<ScreenGestureData.Point> points = data.Points;
 		
 		int xMin, xMax, yMin, yMax;
 	
 		xMin = xMax = (int) points.getFirst().X;
 		yMin = yMax = (int) points.getFirst().Y;
 		
-		for(GestureData.Point point : points)
+		for(ScreenGestureData.Point point : points)
 		{
 			if(xMin > point.X)
 			{

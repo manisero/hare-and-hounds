@@ -6,18 +6,18 @@ import com.fARmework.modules.ScreenGestures.Java.Processing.*;
 import java.awt.*;
 import java.util.*;
 
-public abstract class GestureProcessorBase<T> implements IGestureProcessor<T>
+public abstract class ScreenGestureProcessorBase<T> implements IScreenGestureProcessor<T>
 {
-	public Rectangle getGestureBoundingBox(GestureData data) 
+	public Rectangle getGestureBoundingBox(ScreenGestureData data) 
 	{
-		LinkedList<GestureData.Point> points = data.Points;
+		LinkedList<ScreenGestureData.Point> points = data.Points;
 		
 		int xMin, xMax, yMin, yMax;
 
 		xMin = xMax = (int) points.getFirst().X;
 		yMin = yMax = (int) points.getFirst().Y;
 		
-		for(GestureData.Point point : points)
+		for(ScreenGestureData.Point point : points)
 		{
 			if(xMin > point.X)
 			{

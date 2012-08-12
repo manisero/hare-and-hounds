@@ -2,23 +2,23 @@ package com.fARmework.modules.ScreenGestures.Java._impl;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 import com.fARmework.modules.ScreenGestures.Java.*;
-import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.ScreenGesture;
 import com.fARmework.modules.ScreenGestures.Java.Matching.*;
 import com.fARmework.modules.ScreenGestures.Java.Processing.*;
 import com.google.inject.Inject;
 
 import java.util.*;
 
-public class GestureRecognizer implements IGestureRecognizer
+public class ScreenGestureRecognizer implements IScreenGestureRecognizer
 {
-	private IGestureRegistry _gestureRegistry;
-	private IGestureProcessorFactory _processorFactory;
-	private IPatternMatcherFactory _matcherFactory;
+	private IScreenGestureRegistry _gestureRegistry;
+	private IScreenGestureProcessorFactory _processorFactory;
+	private IScreenPatternMatcherFactory _matcherFactory;
 	
 	@Inject
-	public GestureRecognizer(IGestureRegistry gestureRegistry,
-			IGestureProcessorFactory processorFactory,
-			IPatternMatcherFactory matcherFactory)
+	public ScreenGestureRecognizer(IScreenGestureRegistry gestureRegistry,
+			IScreenGestureProcessorFactory processorFactory,
+			IScreenPatternMatcherFactory matcherFactory)
 	{
 		_gestureRegistry = gestureRegistry;
 		_processorFactory = processorFactory;
@@ -26,11 +26,11 @@ public class GestureRecognizer implements IGestureRecognizer
 	}
 
 	@Override
-	public String recognize(GestureData data) 
+	public String recognize(ScreenGestureData data) 
 	{
-		List<Gesture<?>> gestures = _gestureRegistry.getGestures();
+		List<ScreenGesture<?>> gestures = _gestureRegistry.getGestures();
 		
-		for (Gesture<?> gesture : gestures)
+		for (ScreenGesture<?> gesture : gestures)
 		{
 			String result = recognizeGesture(data, gesture);
 			
@@ -42,10 +42,10 @@ public class GestureRecognizer implements IGestureRecognizer
 	}
 	
 	@SuppressWarnings("unchecked")
-	private <T> String recognizeGesture(GestureData data, Gesture<T> gesture)
+	private <T> String recognizeGesture(ScreenGestureData data, ScreenGesture<T> gesture)
 	{
-		IGestureProcessor<T> processor = _processorFactory.get((Class<? extends Gesture<T>>)gesture.getClass());
-		IPatternMatcher<T> matcher = _matcherFactory.get((Class<? extends Gesture<T>>)gesture.getClass());
+		IScreenGestureProcessor<T> processor = _processorFactory.get((Class<? extends ScreenGesture<T>>)gesture.getClass());
+		IScreenPatternMatcher<T> matcher = _matcherFactory.get((Class<? extends ScreenGesture<T>>)gesture.getClass());
 		
 		T[][] grid = processor.getGestureGrid(data, gesture.getPatternSize());
 		
