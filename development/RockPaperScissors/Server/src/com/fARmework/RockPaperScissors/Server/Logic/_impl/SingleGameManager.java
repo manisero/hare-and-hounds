@@ -8,18 +8,19 @@ import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.core.server.Connection.IConnectionManager;
 import com.fARmework.core.server.Connection.IDataHandler;
 import com.fARmework.modules.ScreenGestures.Data.GestureData;
+import com.fARmework.modules.ScreenGestures.Java.IGestureRecognizer;
 
 public class SingleGameManager implements ISingleGameManager
 {
 	private IConnectionManager _connectionManager;
-	private IGestureProcessor _gestureProcessor;
+	private IGestureRecognizer _gestureRecognizer;
 	
 	private Game _game;
 	
-	public SingleGameManager(IConnectionManager connectionManager, IGestureProcessor gestureProcessor, Game game)
+	public SingleGameManager(IConnectionManager connectionManager, IGestureRecognizer gestureRecognizer, Game game)
 	{
 		_connectionManager = connectionManager;
-		_gestureProcessor = gestureProcessor;
+		_gestureRecognizer = gestureRecognizer;
 		
 		_game = game;
 	}
@@ -75,7 +76,7 @@ public class SingleGameManager implements ISingleGameManager
 			public void handle(int clientID, GestureData data)
 			{
 				// TODO: Finish implementing when gesture recognition is finished
-				_gestureProcessor.processGesture(data);
+				System.out.println(_gestureRecognizer.recognize(data));
 			}
 		});
 		

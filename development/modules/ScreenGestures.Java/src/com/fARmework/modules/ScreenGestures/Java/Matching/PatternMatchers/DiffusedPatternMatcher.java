@@ -5,7 +5,7 @@ public class DiffusedPatternMatcher extends PatternMatcherBase<Double>
 	@Override
 	public boolean match(Double[][] input, Double[][] pattern) 
 	{
-		if(!sizeCheck(input, pattern))
+		if (!sizeCheck(input, pattern))
 		{
 			return false;
 		}
@@ -14,23 +14,21 @@ public class DiffusedPatternMatcher extends PatternMatcherBase<Double>
 		
 		double diffusedSum = 0.0;
 		
-		for(int x = 0; x < gridSize; ++x)
+		for (int x = 0; x < gridSize; ++x)
 		{
-			for(int y = 0; y < gridSize; ++y)
+			for (int y = 0; y < gridSize; ++y)
 			{
-				if(!input[x][y].equals(pattern[x][y]))
+				if (!input[x][y].equals(pattern[x][y]))
 				{
-					if(input[x][y].equals(1.0) && pattern[x][y] > 0.0 && pattern[x][y] < 1.0)
+					if (pattern[x][y].equals(0.0) || pattern[x][y].equals(1.0))
 					{
-						diffusedSum += pattern[x][y];
-						
-						if(diffusedSum > 1.0)
-						{							
-							return false;
-						}
+						return false;
 					}
-					else if(!input[x][y].equals(0.0))
-					{
+					
+					diffusedSum += pattern[x][y];
+						
+					if (diffusedSum > 1.0)
+					{							
 						return false;
 					}
 				}
