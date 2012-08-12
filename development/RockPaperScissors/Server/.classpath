@@ -20,5 +20,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Core.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/RockPaperScissors.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures.Java"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Data"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

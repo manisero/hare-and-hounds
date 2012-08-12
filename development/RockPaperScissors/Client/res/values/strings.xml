@@ -37,6 +37,8 @@
     <string name="game_player">Player</string>
     <string name="game_opponent">Opponent</string>
     <string name="game_chooseGesture">Choose gesture:</string>
+    <string name="game_recordGesture_start">Record gesture</string>
+    <string name="game_recordGesture_stop">Stop recording</string>
     <string name="game_waitingForOpponent">Waiting for %1$s&#8230;</string>
     <string name="game_opponentLeft">%1$s has left. Game result:\n%2$s: %3$s\n%4$s: %5$s</string>
     <string name="game_victory">Victory!</string>
