@@ -105,11 +105,12 @@ public class GameViewModel extends ViewModel
 			{
 				if (data.GestureType != GestureType.Unknown)
 				{
-					
+					isWaiting.set(true);
+					status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
 				}
 				else
 				{
-					
+					ContextManager.showShortNotification(ResourcesProvider.getString(R.string.game_gestureNotRecognized));
 				}
 			}
 		});
