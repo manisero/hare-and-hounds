@@ -1,6 +1,5 @@
 package com.fARmework.RockPaperScissors.Client.Infrastructure;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import com.fARmework.RockPaperScissors.Client.Activities.BoundActivity;
@@ -12,8 +11,6 @@ public interface IContextManager
 	{
 		void onDialogResult();
 	}
-	
-	Context getContext();
 	
 	int getLayout(Class<? extends ViewModel> viewModelClass);
 	

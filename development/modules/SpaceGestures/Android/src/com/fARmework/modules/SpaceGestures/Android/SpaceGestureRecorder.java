@@ -7,7 +7,7 @@ import android.content.Context;
 import android.hardware.*;
 import android.os.CountDownTimer;
 
-public class SpaceGestureListener implements ISpaceGestureListener
+public class SpaceGestureRecorder implements ISpaceGestureListener
 {
 	private static final double THRESHOLD = 3;
 	
@@ -149,7 +149,7 @@ public class SpaceGestureListener implements ISpaceGestureListener
 				{
 					_currentDirection = null;
 					_detectedDirection = null;
-					_sensorManager.registerListener(SpaceGestureListener.this, _accelerometer, SensorManager.SENSOR_DELAY_UI);
+					_sensorManager.registerListener(SpaceGestureRecorder.this, _accelerometer, SensorManager.SENSOR_DELAY_UI);
 				}
 			}.start();
 		}

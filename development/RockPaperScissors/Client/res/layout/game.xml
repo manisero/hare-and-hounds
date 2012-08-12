@@ -103,28 +103,24 @@
     </LinearLayout>
 	
 	<com.fARmework.modules.ScreenGestures.Android.ScreenGesturePicker
-	    android:id="@+id/gesturePicker"
+	    android:id="@+id/screenGesturePicker"
 	    android:layout_width="250dp"
 	    android:layout_height="250dp"
 	    android:background="#FFFFFF"
-	    binding:onGesture="sendGesture" />
+	    binding:onGesture="sendScreenGesture" />
 	
 	<LinearLayout android:orientation="horizontal"
         android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:gravity="center_horizontal">
 	
-		<Button android:id="@+id/startRecordButton"
-			android:layout_width="100dp"
-			android:layout_height="50dp"
-			android:text="@string/game_recordGesture_start"
-			binding:onClick="startRecordingGesture" />
-		
-		<Button android:id="@+id/stopRecordButton"
-			android:layout_width="100dp"
-			android:layout_height="50dp"
-			android:text="@string/game_recordGesture_stop"
-			binding:onClick="stopRecordingGesture" />
+		<com.fARmework.modules.SpaceGestures.Android.SpaceGesturePicker
+		    android:id="@+id/spaceGesturePicker"
+		    android:layout_width="50dp"
+		    android:layout_height="50dp"
+		    android:layout_marginTop="15dp"
+		    android:background="#FF0000"
+		    binding:onGesture="sendSpaceGesture" />
 	
 	</LinearLayout>
 	

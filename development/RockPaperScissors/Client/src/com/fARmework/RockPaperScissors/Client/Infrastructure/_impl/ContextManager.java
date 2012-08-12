@@ -1,27 +1,13 @@
 package com.fARmework.RockPaperScissors.Client.Infrastructure._impl;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import java.util.*;
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Activities.BoundActivity;
-import com.fARmework.RockPaperScissors.Client.Activities.GameActivity;
-import com.fARmework.RockPaperScissors.Client.Activities.GameListActivity;
-import com.fARmework.RockPaperScissors.Client.Activities.GameModeActivity;
-import com.fARmework.RockPaperScissors.Client.Activities.HostingActivity;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Client.ViewModels.GameListViewModel;
-import com.fARmework.RockPaperScissors.Client.ViewModels.GameModeViewModel;
-import com.fARmework.RockPaperScissors.Client.ViewModels.GameViewModel;
-import com.fARmework.RockPaperScissors.Client.ViewModels.HostingViewModel;
-import com.fARmework.RockPaperScissors.Client.ViewModels.ViewModel;
-
+import com.fARmework.RockPaperScissors.Client.Activities.*;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
+import com.fARmework.RockPaperScissors.Client.ViewModels.*;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -50,12 +36,6 @@ public class ContextManager implements IContextManager
 		// Game
 		_layouts.put(GameViewModel.class, R.layout.game);
 		_activities.put(GameViewModel.class, GameActivity.class);
-	}
-	
-	@Override
-	public Context getContext()
-	{
-		return _currentActivity;
 	}
 	
 	@Override
