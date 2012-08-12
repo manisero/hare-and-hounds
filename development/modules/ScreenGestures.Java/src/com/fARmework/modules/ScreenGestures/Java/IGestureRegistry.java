@@ -2,11 +2,12 @@ package com.fARmework.modules.ScreenGestures.Java;
 
 import java.util.*;
 
+import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
+
 public interface IGestureRegistry 
 {
-	boolean add(IGesture<?> gesture);
+	boolean register(Gesture<?> gesture);
+	boolean unregister(Gesture<?> gesture);
 	
-	boolean delete(IGesture<?> gesture);
-	
-	List<IGesture<?>> getGestures();
+	List<Gesture<?>> getGestures();
 }
