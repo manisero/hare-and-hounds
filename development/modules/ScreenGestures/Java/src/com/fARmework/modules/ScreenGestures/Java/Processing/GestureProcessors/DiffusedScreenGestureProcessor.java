@@ -4,10 +4,10 @@ import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.*;
 import java.util.*;
 
-public class DiffusedGestureProcessor extends GestureProcessorBase<Double> 
+public class DiffusedScreenGestureProcessor extends ScreenGestureProcessorBase<Double> 
 {
 	@Override
-	public Double[][] getGestureGrid(GestureData data, int gridSize) 
+	public Double[][] getGestureGrid(ScreenGestureData data, int gridSize) 
 	{
 		Double[][] grid = new Double[gridSize][gridSize];
 		
@@ -19,7 +19,7 @@ public class DiffusedGestureProcessor extends GestureProcessorBase<Double>
 		float xCell = (float) width / (float) gridSize;
 		float yCell = (float) height / (float) gridSize;
 		
-		LinkedList<GestureData.Point> points = data.Points;
+		LinkedList<ScreenGestureData.Point> points = data.Points;
 		
 		for(int x = 0; x < gridSize; ++x)
 		{
@@ -27,7 +27,7 @@ public class DiffusedGestureProcessor extends GestureProcessorBase<Double>
 			{
 				boolean hasPoint = false;
 				
-				for(GestureData.Point point : points)
+				for(ScreenGestureData.Point point : points)
 				{
 					float xStart = boundingBox.x + x * xCell;
 					float xEnd = boundingBox.x + (x + 1) * xCell;

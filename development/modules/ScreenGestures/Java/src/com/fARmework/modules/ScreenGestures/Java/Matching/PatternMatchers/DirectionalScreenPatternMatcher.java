@@ -1,6 +1,6 @@
 package com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers;
 
-public class DirectionalPatternMatcher extends PatternMatcherBase<Integer> 
+public class DirectionalScreenPatternMatcher extends ScreenPatternMatcherBase<Integer> 
 {
 	@Override
 	public boolean match(Integer[][] input, Integer[][] pattern) 

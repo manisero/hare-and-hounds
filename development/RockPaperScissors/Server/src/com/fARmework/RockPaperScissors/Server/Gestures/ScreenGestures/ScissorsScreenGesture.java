@@ -1,9 +1,9 @@
 package com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures;
 
 import com.fARmework.RockPaperScissors.Server.Gestures.GesturesData;
-import com.fARmework.modules.ScreenGestures.Java.Gestures.DiffusedGesture;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.DiffusedScreenGesture;
 
-public class ScissorsScreenGesture extends DiffusedGesture
+public class ScissorsScreenGesture extends DiffusedScreenGesture
 {
 	private static final Double[][] PATTERN =
 											{

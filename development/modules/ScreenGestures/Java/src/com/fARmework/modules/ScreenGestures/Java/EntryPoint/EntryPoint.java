@@ -65,7 +65,7 @@ public class EntryPoint extends JFrame
 		"triangle_counterclockwise.dat"
 	};
 	
-	private IGestureRecognizer _recognizer;
+	private IScreenGestureRecognizer _recognizer;
 	
 	private GestureFileReader _reader;
 	private GestureDrawer _drawer;
@@ -83,35 +83,35 @@ public class EntryPoint extends JFrame
 	
 	public void setupGestureRecognition()
 	{
-		DirectionalGesture clockwiseSquare = new DirectionalGesture(
+		DirectionalScreenGesture clockwiseSquare = new DirectionalScreenGesture(
 				"CLOCKWISE_SQUARE", CLOCKWISE_SQUARE_PATTERN);
 		
-		DirectionalGesture counterClockwiseSquare = new DirectionalGesture(
+		DirectionalScreenGesture counterClockwiseSquare = new DirectionalScreenGesture(
 				"COUNTER_CLOCKWISE_SQUARE", COUNTER_CLOCKWISE_SQUARE_PATTERN);
 		
-		DiffusedGesture cross = new DiffusedGesture("CROSS", CROSS_PATTERN);
+		DiffusedScreenGesture cross = new DiffusedScreenGesture("CROSS", CROSS_PATTERN);
 		
-		GestureRegistry gestureRegistry = new GestureRegistry();
+		ScreenGestureRegistry gestureRegistry = new ScreenGestureRegistry();
 		
 		gestureRegistry.register(clockwiseSquare);
 		gestureRegistry.register(counterClockwiseSquare);
 		gestureRegistry.register(cross);
 				
-		DirectionalGestureProcessor processor = new DirectionalGestureProcessor();
-		DirectionalPatternMatcher matcher = new DirectionalPatternMatcher();
+		DirectionalScreenGestureProcessor processor = new DirectionalScreenGestureProcessor();
+		DirectionalScreenPatternMatcher matcher = new DirectionalScreenPatternMatcher();
 		
-		DiffusedGestureProcessor diffusedProcessor = new DiffusedGestureProcessor();
-		DiffusedPatternMatcher diffusedMatcher = new DiffusedPatternMatcher();
+		DiffusedScreenGestureProcessor diffusedProcessor = new DiffusedScreenGestureProcessor();
+		DiffusedScreenPatternMatcher diffusedMatcher = new DiffusedScreenPatternMatcher();
 		
-		GestureProcessorFactory processorFactory = new GestureProcessorFactory();
-		PatternMatcherFactory matcherFactory = new PatternMatcherFactory();
+		ScreenGestureProcessorFactory processorFactory = new ScreenGestureProcessorFactory();
+		ScreenPatternMatcherFactory matcherFactory = new ScreenPatternMatcherFactory();
 		
 		processorFactory.register(clockwiseSquare.getClass(), processor);
 		processorFactory.register(cross.getClass(), diffusedProcessor);
 		matcherFactory.register(clockwiseSquare.getClass(), matcher);
 		matcherFactory.register(cross.getClass(), diffusedMatcher);
 		
-		_recognizer = new GestureRecognizer(gestureRegistry, processorFactory, matcherFactory);
+		_recognizer = new ScreenGestureRecognizer(gestureRegistry, processorFactory, matcherFactory);
 	}
 	
 	public void recognizeGestures()
@@ -121,9 +121,9 @@ public class EntryPoint extends JFrame
 			_reader.clear();
 			_reader.setFile(new File(DIRECTORY + "/" + file));
 			
-			LinkedList<GestureData> gestures = _reader.getGestures();
+			LinkedList<ScreenGestureData> gestures = _reader.getGestures();
 			
-			for(GestureData gesture : gestures)
+			for(ScreenGestureData gesture : gestures)
 			{
 				String type = _recognizer.recognize(gesture);
 				
@@ -137,7 +137,7 @@ public class EntryPoint extends JFrame
 		}
 	}
 	
-	public void drawGesture(GestureData gesture, String type, String file)
+	public void drawGesture(ScreenGestureData gesture, String type, String file)
 	{
 		BufferedImage image = _drawer.drawGesture(gesture);
 		

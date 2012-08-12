@@ -4,10 +4,10 @@ import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.*;
 import java.util.*;
 
-public class PlainGestureProcessor extends GestureProcessorBase<Boolean>
+public class PlainScreenGestureProcessor extends ScreenGestureProcessorBase<Boolean>
 {
 	@Override
-	public Boolean[][] getGestureGrid(GestureData data, int gridSize) 
+	public Boolean[][] getGestureGrid(ScreenGestureData data, int gridSize) 
 	{
 		Boolean[][] grid = new Boolean[gridSize][gridSize];
 		
@@ -19,7 +19,7 @@ public class PlainGestureProcessor extends GestureProcessorBase<Boolean>
 		float xCell = (float) width / (float) gridSize;
 		float yCell = (float) height / (float) gridSize;
 		
-		LinkedList<GestureData.Point> points = data.Points;
+		LinkedList<ScreenGestureData.Point> points = data.Points;
 		
 		for(int x = 0; x < gridSize; ++x)
 		{
@@ -27,7 +27,7 @@ public class PlainGestureProcessor extends GestureProcessorBase<Boolean>
 			{
 				boolean hasPoint = false;
 				
-				for(GestureData.Point point : points)
+				for(ScreenGestureData.Point point : points)
 				{
 					float xStart = boundingBox.x + x * xCell;
 					float xEnd = boundingBox.x + (x + 1) * xCell;

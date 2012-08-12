@@ -8,11 +8,11 @@ public class GestureFileReader
 {
 	private File _file;
 	
-	private LinkedList<GestureData> _gestures;
+	private LinkedList<ScreenGestureData> _gestures;
 	
 	public GestureFileReader()
 	{
-		_gestures = new LinkedList<GestureData>();
+		_gestures = new LinkedList<ScreenGestureData>();
 	}
 	
 	public GestureFileReader(File file)
@@ -36,7 +36,7 @@ public class GestureFileReader
 			{
 				int totalPoints = scanner.nextInt();
 				
-				GestureData gestureData = new GestureData();
+				ScreenGestureData gestureData = new ScreenGestureData();
 				
 				for(int j = 0; j < totalPoints; ++j)
 				{	
@@ -55,7 +55,7 @@ public class GestureFileReader
 		}	
 	}
 	
-	public LinkedList<GestureData> getGestures()
+	public LinkedList<ScreenGestureData> getGestures()
 	{
 		if(_gestures.size() == 0)
 		{

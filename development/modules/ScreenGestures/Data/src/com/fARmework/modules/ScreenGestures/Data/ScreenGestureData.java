@@ -2,7 +2,7 @@ package com.fARmework.modules.ScreenGestures.Data;
 
 import java.util.LinkedList;
 
-public class GestureData
+public class ScreenGestureData
 {
 	public class Point
 	{
@@ -24,12 +24,12 @@ public class GestureData
 	
 	public LinkedList<Point> Points;
 	
-	public GestureData()
+	public ScreenGestureData()
 	{
 		Points = new LinkedList<Point>();
 	}
 	
-	public GestureData(LinkedList<Point> points)
+	public ScreenGestureData(LinkedList<Point> points)
 	{
 		Points = points;
 	}

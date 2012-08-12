@@ -1,21 +1,21 @@
 package com.fARmework.modules.ScreenGestures.Java._impl;
 
 import com.fARmework.modules.ScreenGestures.Java.*;
-import com.fARmework.modules.ScreenGestures.Java.Gestures.Gesture;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.ScreenGesture;
 
 import java.util.*;
 
-public class GestureRegistry implements IGestureRegistry 
+public class ScreenGestureRegistry implements IScreenGestureRegistry 
 {
-	private Map<String, Gesture<?>> _gestures;
+	private Map<String, ScreenGesture<?>> _gestures;
 	
-	public GestureRegistry()
+	public ScreenGestureRegistry()
 	{
-		_gestures = new LinkedHashMap<String, Gesture<?>>();
+		_gestures = new LinkedHashMap<String, ScreenGesture<?>>();
 	}
 
 	@Override
-	public boolean register(Gesture<?> gesture) 
+	public boolean register(ScreenGesture<?> gesture) 
 	{
 		if(_gestures.containsKey(gesture.getName()))
 		{
@@ -28,7 +28,7 @@ public class GestureRegistry implements IGestureRegistry
 	}
 
 	@Override
-	public boolean unregister(Gesture<?> gesture) 
+	public boolean unregister(ScreenGesture<?> gesture) 
 	{
 		if(!_gestures.containsKey(gesture.getName()))
 		{
@@ -41,14 +41,14 @@ public class GestureRegistry implements IGestureRegistry
 	}
 
 	@Override
-	public List<Gesture<?>> getGestures() 
+	public List<ScreenGesture<?>> getGestures() 
 	{
-		List<Gesture<?>> gesturesList = new LinkedList<Gesture<?>>(_gestures.values());
+		List<ScreenGesture<?>> gesturesList = new LinkedList<ScreenGesture<?>>(_gestures.values());
 		
-		Collections.sort(gesturesList, new Comparator<Gesture<?>>() 
+		Collections.sort(gesturesList, new Comparator<ScreenGesture<?>>() 
 		{
 			@Override
-			public int compare(Gesture<?> firstGesture, Gesture<?> secondGesture) 
+			public int compare(ScreenGesture<?> firstGesture, ScreenGesture<?> secondGesture) 
 			{
 				int sizeFirst = firstGesture.getPattern().length;
 				int sizeSecond = secondGesture.getPattern().length;

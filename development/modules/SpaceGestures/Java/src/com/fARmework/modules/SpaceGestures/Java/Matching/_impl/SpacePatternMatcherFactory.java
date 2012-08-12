@@ -4,23 +4,23 @@ import com.fARmework.modules.SpaceGestures.Java.*;
 import com.fARmework.modules.SpaceGestures.Java.Matching.*;
 import java.util.*;
 
-public class SpaceGestureMatcherFactory implements ISpaceGestureMatcherFactory
+public class SpacePatternMatcherFactory implements ISpacePatternMatcherFactory
 {
-	private Map<Class<? extends SpaceGesture>, ISpaceGestureMatcher> _matchersMap;
+	private Map<Class<? extends SpaceGesture>, ISpacePatternMatcher> _matchersMap;
 	
-	public SpaceGestureMatcherFactory()
+	public SpacePatternMatcherFactory()
 	{
-		_matchersMap = new LinkedHashMap<Class<? extends SpaceGesture>, ISpaceGestureMatcher>();
+		_matchersMap = new LinkedHashMap<Class<? extends SpaceGesture>, ISpacePatternMatcher>();
 	}
 	
 	@Override
-	public ISpaceGestureMatcher get(Class<? extends SpaceGesture> gesture)
+	public ISpacePatternMatcher get(Class<? extends SpaceGesture> gesture)
 	{
 		return _matchersMap.get(gesture);
 	}
 
 	@Override
-	public boolean register(Class<? extends SpaceGesture> gesture, ISpaceGestureMatcher matcher)
+	public boolean register(Class<? extends SpaceGesture> gesture, ISpacePatternMatcher matcher)
 	{
 		if(_matchersMap.containsKey(gesture))
 		{

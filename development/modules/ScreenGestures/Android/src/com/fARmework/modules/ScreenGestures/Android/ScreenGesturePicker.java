@@ -1,6 +1,6 @@
 package com.fARmework.modules.ScreenGestures.Android;
 
-import com.fARmework.modules.ScreenGestures.Data.GestureData;
+import com.fARmework.modules.ScreenGestures.Data.ScreenGestureData;
 
 import gueei.binding.Command;
 import gueei.binding.IBindableView;
@@ -10,22 +10,22 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class GesturePicker extends View implements IBindableView<GesturePicker>
+public class ScreenGesturePicker extends View implements IBindableView<ScreenGesturePicker>
 {
-	private GestureData _gesture = new GestureData();
-	private OnGestureListener _gestureListener;
+	private ScreenGestureData _gesture = new ScreenGestureData();
+	private OnScreenGestureListener _gestureListener;
 	
 	// onGesture attribute (Android-Binding support)
-	private ViewAttribute<GesturePicker, Command> _onGestureAttribute =
-				new ViewAttribute<GesturePicker, Command>(Command.class, GesturePicker.this, "onGesture")
+	private ViewAttribute<ScreenGesturePicker, Command> _onGestureAttribute =
+				new ViewAttribute<ScreenGesturePicker, Command>(Command.class, ScreenGesturePicker.this, "onGesture")
 				{
 				    @Override
 				    protected void doSetAttributeValue(final Object newValue)
 				    {
-				    	setOnGestureListener(new OnGestureListener()
+				    	setOnGestureListener(new OnScreenGestureListener()
 						{
 							@Override
-							public void onGesture(View v, GestureData gesture)
+							public void onGesture(View v, ScreenGestureData gesture)
 							{
 								((Command)newValue).Invoke(v, gesture);
 							}
@@ -39,13 +39,13 @@ public class GesturePicker extends View implements IBindableView<GesturePicker>
 				    }
 				};
 	
-	public GesturePicker(Context context)
+	public ScreenGesturePicker(Context context)
 	{
 		super(context);
 		initialize();
 	}
 	
-	public GesturePicker(Context context, AttributeSet attrs)
+	public ScreenGesturePicker(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		initialize();
@@ -68,11 +68,11 @@ public class GesturePicker extends View implements IBindableView<GesturePicker>
 				if (event.getActionMasked() == MotionEvent.ACTION_UP)
 				{
 					_gestureListener.onGesture(v, _gesture);
-					_gesture = new GestureData();
+					_gesture = new ScreenGestureData();
 				}
 				else if (event.getActionMasked() == MotionEvent.ACTION_CANCEL)
 				{
-					_gesture = new GestureData();
+					_gesture = new ScreenGestureData();
 				}
 				
 				return true;
@@ -91,7 +91,7 @@ public class GesturePicker extends View implements IBindableView<GesturePicker>
 		return null;
 	}
 	
-	public void setOnGestureListener(OnGestureListener listener)
+	public void setOnGestureListener(OnScreenGestureListener listener)
 	{
 		_gestureListener = listener;
 	}

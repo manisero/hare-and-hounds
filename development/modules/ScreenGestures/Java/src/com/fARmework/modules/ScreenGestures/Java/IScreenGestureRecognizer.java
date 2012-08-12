@@ -2,7 +2,7 @@ package com.fARmework.modules.ScreenGestures.Java;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 
-public interface IGestureRecognizer 
+public interface IScreenGestureRecognizer 
 {	
-	String recognize(GestureData data);
+	String recognize(ScreenGestureData data);
 }

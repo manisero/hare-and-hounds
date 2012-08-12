@@ -9,10 +9,10 @@ import java.util.*;
 public class SpaceGestureRecognizer implements ISpaceGestureRecognizer
 {
 	private ISpaceGestureRegistry _gestureRegistry;
-	private ISpaceGestureMatcherFactory _matcherFactory;
+	private ISpacePatternMatcherFactory _matcherFactory;
 	
 	@Inject
-	public SpaceGestureRecognizer(ISpaceGestureRegistry gestureRegistry, ISpaceGestureMatcherFactory matcherFactory)
+	public SpaceGestureRecognizer(ISpaceGestureRegistry gestureRegistry, ISpacePatternMatcherFactory matcherFactory)
 	{
 		_gestureRegistry = gestureRegistry;
 		_matcherFactory = matcherFactory;
@@ -25,7 +25,7 @@ public class SpaceGestureRecognizer implements ISpaceGestureRecognizer
 		
 		for(SpaceGesture gesture : gestures)
 		{
-			ISpaceGestureMatcher matcher = _matcherFactory.get(gesture.getClass());
+			ISpacePatternMatcher matcher = _matcherFactory.get(gesture.getClass());
 			
 			if(matcher.match(data.Directions.toArray(new SpaceGestureData.Direction[0]), gesture.getPattern()))
 			{
