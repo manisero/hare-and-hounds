@@ -7,6 +7,7 @@ import gueei.binding.IBindableView;
 import gueei.binding.ViewAttribute;
 import android.content.Context;
 import android.graphics.*;
+import android.os.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,8 +21,11 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	private Canvas _canvas;
 	private Paint _paint;
 	
+	private CountDownTimer _timer;
+	
 	// TODO: inject with ISettingsProvider 
 	private static final Integer INVALIDATE_RADIUS = 10;
+	private static final Integer DELAY = 2000;
 	
 	// onGesture attribute (Android-Binding support)
 	private ViewAttribute<ScreenGesturePicker, Command> _onGestureAttribute =
@@ -75,10 +79,14 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 				
 				drawPoint(event.getX(), event.getY());
 				
+				if (event.getActionMasked() == MotionEvent.ACTION_DOWN)
+				{
+					stopTimer();
+				}
+				
 				if (event.getActionMasked() == MotionEvent.ACTION_UP)
 				{
-					_gestureListener.onGesture(v, _gesture);
-					_gesture = new ScreenGestureData();
+					startTimer(v);
 				}
 				else if (event.getActionMasked() == MotionEvent.ACTION_CANCEL)
 				{
@@ -185,6 +193,40 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 			_paint.setARGB(255, 255, 255, 255);
 			_canvas.drawPaint(_paint);
 			invalidate();
+		}
+	}
+	
+	public void startTimer(final View v)
+	{
+		if(_timer == null)
+		{
+			_timer = new CountDownTimer(DELAY, DELAY) 
+			{	
+				@Override
+				public void onTick(long millisUntilFinished) 
+				{ }
+				
+				@Override
+				public void onFinish() 
+				{
+					_gestureListener.onGesture(v, _gesture);
+					_gesture = new ScreenGestureData();
+					
+					clearCanvas();
+				}
+			};
+			
+			_timer.start();
+		}
+	}
+	
+	public void stopTimer()
+	{
+		if(_timer != null)
+		{
+			_timer.cancel();
+			
+			_timer = null;
 		}
 	}
 }
