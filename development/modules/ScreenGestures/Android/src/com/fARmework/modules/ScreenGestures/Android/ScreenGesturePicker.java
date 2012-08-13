@@ -130,6 +130,11 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 			float minY = y < _previousY ? y : _previousY;
 			float maxY = y > _previousY ? y : _previousY;
 			
+			minX -= LINE_THICKNESS;
+			maxX += LINE_THICKNESS;
+			minY -= LINE_THICKNESS;
+			maxY += LINE_THICKNESS;
+			
 			Rect rectangle = new Rect((int) minX, (int) minY, (int) maxX, (int) maxY);
 			
 			_paint.setARGB(255, 0, 0, 0);
