@@ -3,13 +3,8 @@ package com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers;
 public class PlainScreenPatternMatcher extends ScreenPatternMatcherBase<Boolean> 
 {
 	@Override
-	public boolean match(Boolean[][] input, Boolean[][] pattern) 
+	public boolean matchPattern(Boolean[][] input, Boolean[][] pattern) 
 	{
-		if(!sizeCheck(input, pattern))
-		{
-			return false;
-		}
-		
 		int gridSize = input.length;
 		
 		for(int x = 0; x < gridSize; ++x)

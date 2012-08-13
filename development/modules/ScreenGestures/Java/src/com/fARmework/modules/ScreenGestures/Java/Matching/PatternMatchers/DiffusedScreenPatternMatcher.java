@@ -3,13 +3,8 @@ package com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers;
 public class DiffusedScreenPatternMatcher extends ScreenPatternMatcherBase<Double> 
 {
 	@Override
-	public boolean match(Double[][] input, Double[][] pattern) 
+	public boolean matchPattern(Double[][] input, Double[][] pattern) 
 	{
-		if (!sizeCheck(input, pattern))
-		{
-			return false;
-		}
-		
 		int gridSize = input.length;
 		
 		double diffusedSum = 0.0;

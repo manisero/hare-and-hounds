@@ -3,13 +3,8 @@ package com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers;
 public class DirectionalScreenPatternMatcher extends ScreenPatternMatcherBase<Integer> 
 {
 	@Override
-	public boolean match(Integer[][] input, Integer[][] pattern) 
+	public boolean matchPattern(Integer[][] input, Integer[][] pattern) 
 	{
-		if(!sizeCheck(input, pattern))
-		{
-			return false;
-		}
-		
 		int gridSize = input.length;
 		
 		int inputMaximum = 0;
