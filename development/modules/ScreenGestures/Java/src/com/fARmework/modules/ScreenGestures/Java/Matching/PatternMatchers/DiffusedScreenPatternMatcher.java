@@ -18,7 +18,10 @@ public class DiffusedScreenPatternMatcher extends ScreenPatternMatcherBase<Doubl
 						return false;
 					}
 					
-					diffusedSum += pattern[x][y];
+					if (!input[x][y].equals(0.0))
+					{
+						diffusedSum += pattern[x][y];
+					}
 						
 					if (diffusedSum > 1.0)
 					{							
