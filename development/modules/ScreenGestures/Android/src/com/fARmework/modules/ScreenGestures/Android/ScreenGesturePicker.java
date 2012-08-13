@@ -6,6 +6,7 @@ import gueei.binding.Command;
 import gueei.binding.IBindableView;
 import gueei.binding.ViewAttribute;
 import android.content.Context;
+import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +15,13 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 {
 	private ScreenGestureData _gesture = new ScreenGestureData();
 	private OnScreenGestureListener _gestureListener;
+	
+	private Bitmap _bitmap;
+	private Canvas _canvas;
+	private Paint _paint;
+	
+	// TODO: inject with ISettingsProvider 
+	private static final Integer INVALIDATE_RADIUS = 10;
 	
 	// onGesture attribute (Android-Binding support)
 	private ViewAttribute<ScreenGesturePicker, Command> _onGestureAttribute =
@@ -65,6 +73,8 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 				
 				_gesture.addPoint(event.getX(), event.getY());
 				
+				drawPoint(event.getX(), event.getY());
+				
 				if (event.getActionMasked() == MotionEvent.ACTION_UP)
 				{
 					_gestureListener.onGesture(v, _gesture);
@@ -78,6 +88,9 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 				return true;
 			}
 		});
+		
+		_canvas = new Canvas();
+		_paint = new Paint();
 	}
 
 	@Override
@@ -94,5 +107,84 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	public void setOnGestureListener(OnScreenGestureListener listener)
 	{
 		_gestureListener = listener;
+	}
+	
+	public void drawPoint(float x, float y)
+	{
+		if(_bitmap != null)
+		{
+			Rect rectangle = new Rect(
+					(int) x - INVALIDATE_RADIUS,
+					(int) y - INVALIDATE_RADIUS,
+					(int) x + INVALIDATE_RADIUS,
+					(int) y + INVALIDATE_RADIUS);
+			
+			_paint.setARGB(255, 0, 0, 0);
+			_canvas.drawPoint(x, y, _paint);
+			
+			invalidate(rectangle);
+		}
+	}
+	
+	@Override
+	protected void onSizeChanged(int newWidth, int newHeight,
+			int previousWidth, int previousHeight)
+	{
+		int currentWidth = 0;
+		int currentHeight = 0;
+		
+		if(_bitmap != null)
+		{
+			currentWidth = _bitmap.getWidth();
+			currentHeight = _bitmap.getHeight();
+		}
+		
+		if(currentWidth >= newWidth && currentHeight >= newHeight)
+		{
+			return;
+		}
+		
+		if(currentWidth < newWidth)
+		{
+			currentWidth = newWidth;
+		}
+		
+		if(currentHeight < newHeight)
+		{
+			currentHeight = newHeight;
+		}
+		
+		Bitmap bitmap = Bitmap.createBitmap(
+				currentWidth,
+				currentHeight,
+				Bitmap.Config.RGB_565);
+		
+		Canvas canvas = new Canvas();
+		canvas.setBitmap(bitmap);
+				
+		_bitmap = bitmap;
+		_canvas = canvas;
+		
+		clearCanvas();
+	}	
+	
+	@Override
+	public void onDraw(Canvas canvas)
+	{
+		if(_bitmap != null)
+		{
+			_paint.setARGB(255, 0, 0, 0);
+			canvas.drawBitmap(_bitmap, 0, 0, null);
+		}
+	}
+	
+	public void clearCanvas()
+	{
+		if(_bitmap != null)
+		{
+			_paint.setARGB(255, 255, 255, 255);
+			_canvas.drawPaint(_paint);
+			invalidate();
+		}
 	}
 }
