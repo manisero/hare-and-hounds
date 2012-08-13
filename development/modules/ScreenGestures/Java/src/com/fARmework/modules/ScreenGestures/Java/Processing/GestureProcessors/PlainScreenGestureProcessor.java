@@ -44,11 +44,11 @@ public class PlainScreenGestureProcessor extends ScreenGestureProcessorBase<Bool
 				
 				if(hasPoint)
 				{
-					grid[x][y] = true;
+					grid[y][x] = true;
 				}
 				else
 				{
-					grid[x][y] = false;
+					grid[y][x] = false;
 				}
 			}
 		}
