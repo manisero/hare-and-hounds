@@ -7,7 +7,7 @@ import android.content.Context;
 import android.hardware.*;
 import android.os.CountDownTimer;
 
-public class SpaceGestureRecorder implements ISpaceGestureListener
+public class SpaceGestureRecorder implements ISpaceGestureRecorder
 {
 	private static final double THRESHOLD = 3;
 	private static final int RATE = SensorManager.SENSOR_DELAY_UI;

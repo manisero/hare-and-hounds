@@ -5,7 +5,7 @@ import android.hardware.SensorEventListener;
 
 import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData;
 
-public interface ISpaceGestureListener extends SensorEventListener
+public interface ISpaceGestureRecorder extends SensorEventListener
 {
 	public void startRecording(Context context);
 	public SpaceGestureData stopRecording();

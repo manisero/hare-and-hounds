@@ -6,13 +6,14 @@ import gueei.binding.Command;
 import gueei.binding.IBindableView;
 import gueei.binding.ViewAttribute;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class SpaceGesturePicker extends View implements IBindableView<SpaceGesturePicker>
 {
-	private SpaceGestureRecorder _spaceGestureRecorder = new SpaceGestureRecorder();
+	private ISpaceGestureRecorder _spaceGestureRecorder = new SpaceGestureRecorder();
 	private OnSpaceGestureListener _gestureListener;
 	
 	// onGesture attribute (Android-Binding support)
@@ -51,8 +52,33 @@ public class SpaceGesturePicker extends View implements IBindableView<SpaceGestu
 		initialize();
 	}
 
+	OnClickListener startRecording = new OnClickListener()
+	{
+		@Override
+		public void onClick(View v)
+		{
+			setBackgroundColor(Color.RED);
+			_spaceGestureRecorder.startRecording(getContext());
+			setOnClickListener(stopRecording);
+		}
+	};
+	
+	OnClickListener stopRecording = new OnClickListener()
+	{
+		@Override
+		public void onClick(View v)
+		{
+			setBackgroundColor(Color.WHITE);
+			_gestureListener.onGesture(v, _spaceGestureRecorder.stopRecording());
+			setOnClickListener(startRecording);	
+		}
+	};
+	
 	protected void initialize()
 	{
+		setOnClickListener(startRecording);
+		
+		/*
 		setOnTouchListener(new OnTouchListener()
 		{
 			@Override
@@ -72,12 +98,13 @@ public class SpaceGesturePicker extends View implements IBindableView<SpaceGestu
 					_gestureListener.onGesture(v, _spaceGestureRecorder.stopRecording());
 				}
 				
-				try { Thread.sleep(500); }
+				try { Thread.sleep(200); }
 				catch (InterruptedException e) { }
 				
 				return true;
 			}
 		});
+		*/
 	}
 
 	@Override
