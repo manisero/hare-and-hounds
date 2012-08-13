@@ -22,3 +22,4 @@ development/RockPaperScissors/Client/bin/*
 development/RockPaperScissors/Data/bin/*
 development/RockPaperScissors/Server/bin/*
 development/modules/SpaceGestures/Test/bin/*
+development/modules/ScreenGestures/Tests/bin/*
