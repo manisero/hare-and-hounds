@@ -1,21 +1,21 @@
 package com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures;
 
-import com.fARmework.modules.ScreenGestures.Java.Gestures.PlainScreenGesture;
+import com.fARmework.RockPaperScissors.Server.Gestures.*;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.*;
 
-public class RockScreenGesture extends PlainScreenGesture
+public class RockScreenGesture extends GroupedScreenGesture
 {
-	private static final String NAME = "rock";
-	private static final Boolean[][] PATTERN =
+	private static final Character[][] PATTERN =
 											{
-												{ true, true, true, true, true },
-												{ true, false, false, false, true },
-												{ true, false, false, false, true },
-												{ true, false, false, false, true },
-												{ true, true, true, true, true }
-											};
+												{	'-',	'a',	'b',	'c',	'-'	},
+												{	'-',	'a',	'b',	'c',	'-'	},
+												{	'd',	'd',	'?',	'e',	'e'	},
+												{	'+',	'?',	'-',	'?',	'+'	},
+												{	'+',	'+',	'+',	'+',	'+'	},
+											}; // TODO: define the pattern better
 	
 	public RockScreenGesture()
 	{
-		super(NAME, PATTERN);
+		super(GesturesData.ROCK_NAME, PATTERN);
 	}
 }
