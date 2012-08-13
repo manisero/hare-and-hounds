@@ -90,6 +90,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 				if (event.getActionMasked() == MotionEvent.ACTION_UP)
 				{
 					startTimer(v);
+					clearPrevious();
 				}
 				else if (event.getActionMasked() == MotionEvent.ACTION_CANCEL)
 				{
@@ -123,7 +124,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	
 	public void drawLine(float x, float y)
 	{		
-		if(_bitmap != null && _previousX != null && _previousY != null)
+		if (_bitmap != null && _previousX != null && _previousY != null)
 		{
 			float minX = x < _previousX ? x : _previousX;
 			float maxX = x > _previousX ? x : _previousX;
@@ -155,23 +156,23 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 		int currentWidth = 0;
 		int currentHeight = 0;
 		
-		if(_bitmap != null)
+		if (_bitmap != null)
 		{
 			currentWidth = _bitmap.getWidth();
 			currentHeight = _bitmap.getHeight();
 		}
 		
-		if(currentWidth >= newWidth && currentHeight >= newHeight)
+		if (currentWidth >= newWidth && currentHeight >= newHeight)
 		{
 			return;
 		}
 		
-		if(currentWidth < newWidth)
+		if (currentWidth < newWidth)
 		{
 			currentWidth = newWidth;
 		}
 		
-		if(currentHeight < newHeight)
+		if (currentHeight < newHeight)
 		{
 			currentHeight = newHeight;
 		}
@@ -188,12 +189,13 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 		_canvas = canvas;
 		
 		clearCanvas();
+		clearPrevious();
 	}	
 	
 	@Override
 	public void onDraw(Canvas canvas)
 	{
-		if(_bitmap != null)
+		if (_bitmap != null)
 		{
 			_paint.setARGB(255, 0, 0, 0);
 			canvas.drawBitmap(_bitmap, 0, 0, null);
@@ -202,20 +204,23 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	
 	public void clearCanvas()
 	{
-		if(_bitmap != null)
+		if (_bitmap != null)
 		{
 			_paint.setARGB(255, 255, 255, 255);
 			_canvas.drawPaint(_paint);
 			invalidate();
 		}
-		
+	}
+	
+	public void clearPrevious()
+	{
 		_previousX = null;
 		_previousY = null;
 	}
 	
 	public void startTimer(final View v)
 	{
-		if(_timer == null)
+		if (_timer == null)
 		{
 			_timer = new CountDownTimer(DELAY, DELAY) 
 			{	
@@ -231,6 +236,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 					_timer = null;
 					
 					clearCanvas();
+					clearPrevious();
 				}
 			};
 			
@@ -240,7 +246,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	
 	public void stopTimer()
 	{
-		if(_timer != null)
+		if (_timer != null)
 		{
 			_timer.cancel();
 			_timer = null;
