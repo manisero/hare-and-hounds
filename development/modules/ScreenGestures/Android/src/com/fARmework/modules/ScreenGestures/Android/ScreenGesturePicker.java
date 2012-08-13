@@ -8,7 +8,7 @@ import gueei.binding.ViewAttribute;
 import android.content.Context;
 import android.graphics.*;
 import android.os.*;
-import android.util.AttributeSet;
+import android.util.*;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -21,11 +21,14 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	private Canvas _canvas;
 	private Paint _paint;
 	
+	private Float _previousX;
+	private Float _previousY;
+	
 	private CountDownTimer _timer;
 	
 	// TODO: inject with ISettingsProvider 
-	private static final Integer INVALIDATE_RADIUS = 10;
 	private static final Integer DELAY = 2000;
+	private static final Float LINE_THICKNESS = 3.0f;
 	
 	// onGesture attribute (Android-Binding support)
 	private ViewAttribute<ScreenGesturePicker, Command> _onGestureAttribute =
@@ -76,8 +79,8 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 				}
 				
 				_gesture.addPoint(event.getX(), event.getY());
-				
-				drawPoint(event.getX(), event.getY());
+								
+				drawLine(event.getX(), event.getY());
 				
 				if (event.getActionMasked() == MotionEvent.ACTION_DOWN)
 				{
@@ -99,6 +102,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 		
 		_canvas = new Canvas();
 		_paint = new Paint();
+		_paint.setStyle(Paint.Style.STROKE);
 	}
 
 	@Override
@@ -117,21 +121,26 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 		_gestureListener = listener;
 	}
 	
-	public void drawPoint(float x, float y)
-	{
-		if(_bitmap != null)
+	public void drawLine(float x, float y)
+	{		
+		if(_bitmap != null && _previousX != null && _previousY != null)
 		{
-			Rect rectangle = new Rect(
-					(int) x - INVALIDATE_RADIUS,
-					(int) y - INVALIDATE_RADIUS,
-					(int) x + INVALIDATE_RADIUS,
-					(int) y + INVALIDATE_RADIUS);
+			float minX = x < _previousX ? x : _previousX;
+			float maxX = x > _previousX ? x : _previousX;
+			float minY = y < _previousY ? y : _previousY;
+			float maxY = y > _previousY ? y : _previousY;
+			
+			Rect rectangle = new Rect((int) minX, (int) minY, (int) maxX, (int) maxY);
 			
 			_paint.setARGB(255, 0, 0, 0);
-			_canvas.drawPoint(x, y, _paint);
+			_paint.setStrokeWidth(LINE_THICKNESS);
+			_canvas.drawLine(_previousX, _previousY, x, y, _paint);
 			
 			invalidate(rectangle);
 		}
+		
+		_previousX = x;
+		_previousY = y;
 	}
 	
 	@Override
@@ -194,6 +203,9 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 			_canvas.drawPaint(_paint);
 			invalidate();
 		}
+		
+		_previousX = null;
+		_previousY = null;
 	}
 	
 	public void startTimer(final View v)
@@ -211,6 +223,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 				{
 					_gestureListener.onGesture(v, _gesture);
 					_gesture = new ScreenGestureData();
+					_timer = null;
 					
 					clearCanvas();
 				}
@@ -225,7 +238,6 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 		if(_timer != null)
 		{
 			_timer.cancel();
-			
 			_timer = null;
 		}
 	}
