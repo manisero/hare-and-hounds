@@ -1,16 +1,18 @@
 package com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures;
 
-import com.fARmework.RockPaperScissors.Server.Gestures.GesturesData;
-import com.fARmework.modules.ScreenGestures.Java.Gestures.PlainScreenGesture;
+import com.fARmework.RockPaperScissors.Server.Gestures.*;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.*;
 
 public class PaperScreenGesture extends PlainScreenGesture
 {
-	private static final Boolean[][] PATTERN =  
+	private static final Boolean[][] PATTERN =
 											{
-												{ true, true, true },
-												{ true, false, true },
-												{ true, true, true }
-											}; // TODO: define the pattern better
+												{ true, true, true, true, true },
+												{ true, false, false, false, true },
+												{ true, false, false, false, true },
+												{ true, false, false, false, true },
+												{ true, true, true, true, true }
+											};
 	
 	public PaperScreenGesture()
 	{
