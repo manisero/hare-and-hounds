@@ -1,15 +1,16 @@
 package com.fARmework.modules.ScreenGestures.Java.Processing.GestureProcessors;
 
-import com.fARmework.modules.ScreenGestures.Data.*;
 import java.awt.*;
 import java.util.*;
 
-public class PlainScreenGestureProcessor extends ScreenGestureProcessorBase<Boolean>
+import com.fARmework.modules.ScreenGestures.Data.*;
+
+public class GroupedScreenGestureProcessor extends ScreenGestureProcessorBase<Character> 
 {
 	@Override
-	public Boolean[][] getGestureGrid(ScreenGestureData data, int gridSize) 
+	public Character[][] getGestureGrid(ScreenGestureData data, int gridSize) 
 	{
-		Boolean[][] grid = new Boolean[gridSize][gridSize];
+		Character[][] grid = new Character[gridSize][gridSize];
 		
 		Rectangle boundingBox = getGestureBoundingBox(data);
 		
@@ -44,15 +45,15 @@ public class PlainScreenGestureProcessor extends ScreenGestureProcessorBase<Bool
 				
 				if(hasPoint)
 				{
-					grid[y][x] = true;
+					grid[y][x] = 't';
 				}
 				else
 				{
-					grid[y][x] = false;
+					grid[y][x] = 'f';
 				}
 			}
 		}
 		
 		return grid;
-	}			
+	}
 }
