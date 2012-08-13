@@ -5,22 +5,20 @@ public class DirectionalScreenPatternMatcher extends ScreenPatternMatcherBase<In
 	@Override
 	public boolean matchPattern(Integer[][] input, Integer[][] pattern) 
 	{
-		int gridSize = input.length;
-		
 		int inputMaximum = 0;
 		int xBeginPattern = 0;
 		int yBeginPattern = 0;
 		
-		for(int x = 0; x < gridSize; ++x)
+		for (int x = 0; x < pattern.length; ++x)
 		{
-			for(int y = 0; y < gridSize; ++y)
+			for (int y = 0; y < pattern[x].length; ++y)
 			{
-				if(input[x][y] > inputMaximum)
+				if (input[x][y] > inputMaximum)
 				{
 					inputMaximum = input[x][y];
 				}
 				
-				if(pattern[x][y] == 1)
+				if (pattern[x][y] == 1)
 				{
 					xBeginPattern = x;
 					yBeginPattern = y;
@@ -30,11 +28,11 @@ public class DirectionalScreenPatternMatcher extends ScreenPatternMatcherBase<In
 		
 		int initialDifference = input[xBeginPattern][yBeginPattern] - 1;
 		
-		for(int x = 0; x < gridSize; ++x)
+		for (int x = 0; x < pattern.length; ++x)
 		{
-			for(int y = 0; y < gridSize; ++y)
+			for (int y = 0; y < pattern[x].length; ++y)
 			{
-				if(input[x][y] == 0 && pattern[x][y] == 0)
+				if (input[x][y] == 0 && pattern[x][y] == 0)
 				{
 					continue;
 				}
@@ -42,7 +40,7 @@ public class DirectionalScreenPatternMatcher extends ScreenPatternMatcherBase<In
 				int patternWithOffset = (pattern[x][y] + initialDifference) % inputMaximum;
 				patternWithOffset = (patternWithOffset == 0) ? inputMaximum : patternWithOffset;
 				
-				if(input[x][y] != patternWithOffset)
+				if (input[x][y] != patternWithOffset)
 				{
 					return false;
 				}

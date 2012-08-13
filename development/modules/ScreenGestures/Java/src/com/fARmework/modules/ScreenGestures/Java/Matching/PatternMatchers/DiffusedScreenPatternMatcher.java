@@ -5,13 +5,11 @@ public class DiffusedScreenPatternMatcher extends ScreenPatternMatcherBase<Doubl
 	@Override
 	public boolean matchPattern(Double[][] input, Double[][] pattern) 
 	{
-		int gridSize = input.length;
-		
 		double diffusedSum = 0.0;
 		
-		for (int x = 0; x < gridSize; ++x)
+		for (int x = 0; x < pattern.length; ++x)
 		{
-			for (int y = 0; y < gridSize; ++y)
+			for (int y = 0; y < pattern[x].length; ++y)
 			{
 				if (!input[x][y].equals(pattern[x][y]))
 				{

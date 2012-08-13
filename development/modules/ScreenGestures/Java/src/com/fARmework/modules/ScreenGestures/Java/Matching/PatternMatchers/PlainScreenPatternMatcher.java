@@ -5,13 +5,11 @@ public class PlainScreenPatternMatcher extends ScreenPatternMatcherBase<Boolean>
 	@Override
 	public boolean matchPattern(Boolean[][] input, Boolean[][] pattern) 
 	{
-		int gridSize = input.length;
-		
-		for(int x = 0; x < gridSize; ++x)
+		for (int x = 0; x < pattern.length; ++x)
 		{
-			for(int y = 0; y < gridSize; ++y)
+			for (int y = 0; y < pattern[x].length; ++y)
 			{
-				if(!input[x][y].equals(pattern[x][y]))
+				if (!input[x][y].equals(pattern[x][y]))
 				{
 					return false;
 				}
