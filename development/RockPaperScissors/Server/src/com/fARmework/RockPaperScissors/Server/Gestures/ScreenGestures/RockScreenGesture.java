@@ -10,7 +10,7 @@ public class RockScreenGesture extends GroupedScreenGesture
 												{	'-',	'a',	'b',	'c',	'-'	},
 												{	'-',	'a',	'b',	'c',	'-'	},
 												{	'd',	'd',	'?',	'e',	'e'	},
-												{	'+',	'?',	'-',	'?',	'+'	},
+												{	'f',	'f',	'-',	'g',	'g'	},
 												{	'+',	'+',	'+',	'+',	'+'	},
 											}; // TODO: define the pattern better
 	

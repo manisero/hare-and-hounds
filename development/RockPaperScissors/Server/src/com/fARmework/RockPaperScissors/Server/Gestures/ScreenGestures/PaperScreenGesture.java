@@ -7,11 +7,11 @@ public class PaperScreenGesture extends PlainScreenGesture
 {
 	private static final Boolean[][] PATTERN =
 											{
-												{ true, true, true, true, true },
-												{ true, false, false, false, true },
-												{ true, false, false, false, true },
-												{ true, false, false, false, true },
-												{ true, true, true, true, true }
+												{	true,	true,	true,	true,	true	},
+												{	true,	false,	false,	false,	true	},
+												{	true,	false,	false,	false,	true	},
+												{	true,	false,	false,	false,	true	},
+												{	true,	true,	true,	true,	true	}
 											};
 	
 	public PaperScreenGesture()
