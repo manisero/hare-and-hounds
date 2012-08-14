@@ -1,10 +1,17 @@
 package com.fARmework.modules.ScreenGestures.Tests.Matching.PatternMatchers;
 
+import com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.*;
+import org.junit.runner.*;
+import org.junit.runners.*;
+import org.junit.runners.Suite.*;
 
-import com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers.*;
-
+@RunWith(Suite.class)
+@SuiteClasses(
+		{
+			PlainScreenPatternMatcherTests.TheMatchPatternMethod.class
+		})
 public class PlainScreenPatternMatcherTests 
 {
 	public static class TheMatchPatternMethod
