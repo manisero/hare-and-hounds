@@ -6,10 +6,10 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-		CyclicSpacePatternMatcherTest.class,
-		PlainSpacePatternMatcherTest.class })
+		CyclicSpacePatternMatcherTests.class,
+		PlainSpacePatternMatcherTests.class })
 
-public class PatternMatcherTest 
+public class PatternMatcherTests 
 {
 
 }

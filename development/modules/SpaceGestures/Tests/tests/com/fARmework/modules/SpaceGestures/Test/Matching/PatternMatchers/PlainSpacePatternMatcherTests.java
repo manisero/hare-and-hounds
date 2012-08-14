@@ -5,7 +5,7 @@ import com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.*;
 
-public class PlainSpacePatternMatcherTest 
+public class PlainSpacePatternMatcherTests 
 {	
 	@Test
 	public void positiveMatchTest() 
