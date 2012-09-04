@@ -34,4 +34,11 @@ public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActi
         
         setAndBindRootView(ContextManager.getLayout(viewModel.getClass()), viewModel);
     }
+	
+	@Override
+    public void onBackPressed()
+    {
+    	viewModel.onLeaving();
+    	super.onBackPressed();
+    }
 }
