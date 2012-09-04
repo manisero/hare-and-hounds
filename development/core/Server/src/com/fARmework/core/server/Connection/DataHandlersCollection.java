@@ -63,36 +63,36 @@ public class DataHandlersCollection
 	
 	// clear methods
 	
-	public void clear()
+	public void unregister()
 	{
 		_commonDataHandlers.clear();
 		_individualDataHandlers.clear();
 	}
 	
-	public void clear(int clientID)
+	public void unregister(int clientID)
 	{
 		_individualDataHandlers.remove(clientID);
 	}
 	
-	public void clear(List<Integer> clientIDs)
+	public void unregister(List<Integer> clientIDs)
 	{
 		for (Integer clientID : clientIDs)
 		{
-			clear(clientID);
+			unregister(clientID);
 		}
 	}
 	
-	public <T> void clear(Class<T> dataClass)
+	public <T> void unregister(Class<T> dataClass)
 	{
 		_commonDataHandlers.remove(dataClass);
 		
 		for (Integer clientID : _individualDataHandlers.keySet())
 		{
-			clear(dataClass, clientID);
+			unregister(dataClass, clientID);
 		}
 	}
 	
-	public <T> void clear(Class<T> dataClass, int clientID)
+	public <T> void unregister(Class<T> dataClass, int clientID)
 	{
 		if (_individualDataHandlers.containsKey(clientID))
 		{
@@ -104,11 +104,11 @@ public class DataHandlersCollection
 		}
 	}
 	
-	public <T> void clear(Class<T> dataClass, List<Integer> clientIDs)
+	public <T> void unregister(Class<T> dataClass, List<Integer> clientIDs)
 	{
 		for (Integer clientID : clientIDs)
 		{
-			clear(dataClass, clientID);
+			unregister(dataClass, clientID);
 		}
 	}
 }
