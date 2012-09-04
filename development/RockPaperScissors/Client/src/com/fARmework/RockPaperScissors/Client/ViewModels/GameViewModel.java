@@ -151,7 +151,8 @@ public class GameViewModel extends ViewModel
 			public void handle(GameEndInfo data)
 			{
 				ContextManager.showDialogNotification(
-					String.format(ResourcesProvider.getString(string.game_opponentLeft), opponentName.get(), playerName.get(), playerScore.get(), opponentName.get(), opponentScore.get()),
+					String.format(ResourcesProvider.getString(string.game_opponentLeft), opponentName.get(), playerName.get(),
+								  playerScore.get(), opponentName.get(), opponentScore.get()),
 					null);
 			}
 		});
