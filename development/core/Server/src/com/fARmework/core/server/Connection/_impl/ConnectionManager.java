@@ -107,39 +107,39 @@ public class ConnectionManager implements IConnectionManager
 	}
 	
 	@Override
-	public void clearDataHandlers()
+	public void unregisterDataHandlers()
 	{
-		_dataHandlers.clear();
+		_dataHandlers.unregister();
 	}
 	
 	@Override
-	public void clearDataHandlers(int clientID)
+	public void unregisterDataHandlers(int clientID)
 	{
-		_dataHandlers.clear(clientID);
+		_dataHandlers.unregister(clientID);
 	}
 
 	@Override
-	public void clearDataHandlers(List<Integer> clientIDs)
+	public void unregisterDataHandlers(List<Integer> clientIDs)
 	{
-		_dataHandlers.clear(clientIDs);
+		_dataHandlers.unregister(clientIDs);
 	}
 
 	@Override
-	public <T> void clearDataHandlers(Class<T> dataClass)
+	public <T> void unregisterDataHandlers(Class<T> dataClass)
 	{
-		_dataHandlers.clear(dataClass);
+		_dataHandlers.unregister(dataClass);
 	}
 	
 	@Override
-	public <T> void clearDataHandlers(Class<T> dataClass, int clientID)
+	public <T> void unregisterDataHandlers(Class<T> dataClass, int clientID)
 	{
-		_dataHandlers.clear(dataClass, clientID);
+		_dataHandlers.unregister(dataClass, clientID);
 	}
 
 	@Override
-	public <T> void clearDataHandlers(Class<T> dataClass, List<Integer> clientIDs)
+	public <T> void unregisterDataHandlers(Class<T> dataClass, List<Integer> clientIDs)
 	{
-		_dataHandlers.clear(dataClass, clientIDs);
+		_dataHandlers.unregister(dataClass, clientIDs);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
