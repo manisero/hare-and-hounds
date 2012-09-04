@@ -20,20 +20,17 @@ public class EntryPoint
 {
 	public static void main(String[] args)
 	{
-		// register modules
+		// Register modules
 		Injector injector = Guice.createInjector(getModules()); 
 		
-		// register data
-		IDataRegistry dataRegistry = injector.getInstance(IDataRegistry.class);
-		new com.fARmework.RockPaperScissors.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
-		new com.fARmework.modules.ScreenGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
-		new com.fARmework.modules.SpaceGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+		// Register data
+		registerData(injector.getInstance(IDataRegistry.class));
 		
-		// configure modules
+		// Configure modules
 		configureScreenGestures(injector);
 		configureSpaceGestures(injector);
 		
-		// run
+		// Run
 		injector.getInstance(IGamesManager.class).run();
 	}
 	
@@ -47,6 +44,13 @@ public class EntryPoint
 		modules.add(new LogicModule());
 		
 		return modules;
+	}
+	
+	private static void registerData(IDataRegistry dataRegistry)
+	{
+		new com.fARmework.RockPaperScissors.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.modules.ScreenGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.modules.SpaceGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 	}
 	
 	private static void configureScreenGestures(Injector injector)
