@@ -20,6 +20,7 @@ public class DataRegistrar
 		dataRegistry.register(GestureInfo.class);
 		dataRegistry.register(GameResultInfo.class);
 		dataRegistry.register(NextGameInfo.class);
+		dataRegistry.register(PlayerLeftInfo.class);
 		dataRegistry.register(GameEndInfo.class);
 	}
 }
