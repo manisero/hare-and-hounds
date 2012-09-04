@@ -64,9 +64,15 @@ public class NettyConnectionManager implements IConnectionManager, IConnectionLi
 	}
 	
 	@Override
-	public void clearDataHandlers()
+	public void unregisterDataHandlers()
 	{
 		_dataHandlers.clear();
+	}
+	
+	@Override
+	public <T> void unregisterDataHandlers(Class<T> dataClass)
+	{
+		_dataHandlers.remove(dataClass);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -7,7 +7,8 @@ public interface IConnectionManager
 	void disconnect();
 	
 	<T> void registerDataHandler(Class<T> dataClass, IDataHandler<T> handler);
-	void clearDataHandlers();
+	void unregisterDataHandlers();
+	<T> void unregisterDataHandlers(Class<T> dataClass);
 	
 	void send(Object data);
 }

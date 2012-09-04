@@ -63,6 +63,8 @@ public class GameListViewModel extends ViewModel
 					@Override
 					public void handle(GameStartInfo data)
 					{
+						ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
+						
 						Bundle bundle = new Bundle();
 						bundle.putString(GameViewModel.OPPONENT_NAME_KEY, hostUserName.get());
 						ContextManager.navigateTo(GameViewModel.class, bundle);

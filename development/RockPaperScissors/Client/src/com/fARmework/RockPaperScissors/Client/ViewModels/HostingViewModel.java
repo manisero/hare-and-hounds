@@ -58,6 +58,7 @@ public class HostingViewModel extends ViewModel
 								@Override
 								public void handle(GameStartInfo info)
 								{
+									ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
 									isWaiting.set(false);
 									
 									Bundle bundle = new Bundle();
