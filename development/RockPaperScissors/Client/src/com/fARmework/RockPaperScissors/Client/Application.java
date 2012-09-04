@@ -30,13 +30,22 @@ public class Application extends android.app.Application
 		injector.getInstance(ISettingsProvider.class).setContext(this);
 		
 		// Register data
-		IDataRegistry dataRegistry = injector.getInstance(IDataRegistry.class);
+		registerData(injector.getInstance(IDataRegistry.class));
+		
+		// Register connection error handler
+		registerConnectionExceptionHandler(injector.getInstance(IConnectionManager.class));
+    }
+	
+	private void registerData(IDataRegistry dataRegistry)
+	{
 		new com.fARmework.RockPaperScissors.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 		new com.fARmework.modules.ScreenGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 		new com.fARmework.modules.SpaceGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
-		
-		// Register connection error handling
-		injector.getInstance(IConnectionManager.class).registerDataHandler(ConnectionExceptionInfo.class, new IDataHandler<ConnectionExceptionInfo>()
+	}
+	
+	private void registerConnectionExceptionHandler(IConnectionManager connectionManager)
+	{
+		connectionManager.registerDataHandler(ConnectionExceptionInfo.class, new IDataHandler<ConnectionExceptionInfo>()
 		{
 			@Override
 			public void handle(ConnectionExceptionInfo data)
@@ -52,5 +61,5 @@ public class Application extends android.app.Application
 					});
 			}
 		});
-    }
+	}
 }
