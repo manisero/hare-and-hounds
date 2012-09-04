@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Core.Client"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures.Android"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Core.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RockPaperScissors.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Android"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Data"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
