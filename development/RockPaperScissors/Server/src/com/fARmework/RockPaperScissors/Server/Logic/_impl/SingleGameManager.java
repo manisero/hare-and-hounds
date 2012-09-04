@@ -43,6 +43,7 @@ public class SingleGameManager implements ISingleGameManager
 					_game.GuestID = data.GuestID;
 					_game.HasStarted = true;
 					registerGestureHandlers();
+					registerNextGameDataHandlers();
 					startGame();
 				}
 				
@@ -142,11 +143,59 @@ public class SingleGameManager implements ISingleGameManager
 				}
 			}
 		});
-		
-		_connectionManager.send(new GameStartInfo(), _game.HostID);
-		_connectionManager.send(new GameStartInfo(), _game.GuestID);
 	}
 
+	private void registerNextGameDataHandlers()
+	{
+		_connectionManager.registerDataHandler(NextGameInfo.class, _game.HostID, new IDataHandler<NextGameInfo>()
+		{
+			@Override
+			public void handle(int clientID, NextGameInfo data)
+			{
+				_game.HostWantsNextGame = true;
+				
+				if (_game.GuestWantsNextGame != null && _game.GuestWantsNextGame.booleanValue())
+				{
+					startGame();
+				}
+			}
+		});
+		
+		_connectionManager.registerDataHandler(PlayerLeftInfo.class, _game.HostID, new IDataHandler<PlayerLeftInfo>()
+		{
+			@Override
+			public void handle(int clientID, PlayerLeftInfo data)
+			{
+				_game.HasEnded = true;
+				_connectionManager.send(new GameEndInfo(), _game.GuestID);
+			}
+		});
+		
+		_connectionManager.registerDataHandler(NextGameInfo.class, _game.GuestID, new IDataHandler<NextGameInfo>()
+		{
+			@Override
+			public void handle(int clientID, NextGameInfo data)
+			{
+				_game.GuestWantsNextGame = true;
+				
+				if (_game.HostWantsNextGame != null && _game.HostWantsNextGame.booleanValue())
+				{
+					startGame();
+				}
+			}
+		});
+		
+		_connectionManager.registerDataHandler(PlayerLeftInfo.class, _game.GuestID, new IDataHandler<PlayerLeftInfo>()
+		{
+			@Override
+			public void handle(int clientID, PlayerLeftInfo data)
+			{
+				_game.HasEnded = true;
+				_connectionManager.send(new GameEndInfo(), _game.HostID);
+			}
+		});
+	}
+	
 	private void startGame()
 	{
 		_game.HostWantsNextGame = null;
@@ -161,50 +210,6 @@ public class SingleGameManager implements ISingleGameManager
 		{
 			return;
 		}
-		
-		_connectionManager.registerDataHandler(NextGameInfo.class, _game.HostID, new IDataHandler<NextGameInfo>()
-		{
-			@Override
-			public void handle(int clientID, NextGameInfo data)
-			{
-				_game.HostWantsNextGame = data.WantsNextGame;
-				
-				if (data.WantsNextGame)
-				{
-					if (_game.GuestWantsNextGame != null && _game.GuestWantsNextGame.booleanValue())
-					{
-						startGame();
-					}
-				}
-				else
-				{
-					_game.HasEnded = true;
-					_connectionManager.send(new GameEndInfo(), _game.GuestID);
-				}
-			}
-		});
-		
-		_connectionManager.registerDataHandler(NextGameInfo.class, _game.GuestID, new IDataHandler<NextGameInfo>()
-		{
-			@Override
-			public void handle(int clientID, NextGameInfo data)
-			{
-				_game.GuestWantsNextGame = data.WantsNextGame;
-				
-				if (data.WantsNextGame)
-				{
-					if (_game.HostWantsNextGame != null && _game.HostWantsNextGame.booleanValue())
-					{
-						startGame();
-					}
-				}
-				else
-				{
-					_game.HasEnded = true;
-					_connectionManager.send(new GameEndInfo(), _game.HostID);
-				}
-			}
-		});
 		
 		if (_game.HostGesture == _game.GuestGesture) // draw
 		{

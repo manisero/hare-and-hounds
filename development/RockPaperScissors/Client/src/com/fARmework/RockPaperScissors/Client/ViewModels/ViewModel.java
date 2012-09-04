@@ -19,4 +19,9 @@ public abstract class ViewModel
 	public void setData(Bundle data)
 	{
 	}
+	
+	public void onLeaving()
+	{
+		
+	}
 }

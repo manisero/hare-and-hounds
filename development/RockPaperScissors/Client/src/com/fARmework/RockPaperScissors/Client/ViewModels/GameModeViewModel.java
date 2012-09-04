@@ -156,4 +156,10 @@ public class GameModeViewModel extends ViewModel
 			status.set(ResourcesProvider.getString(R.string.connection_disconnected));
 		}
 	}
+	
+	@Override
+	public void onLeaving()
+	{
+		disconnect();
+	}
 }

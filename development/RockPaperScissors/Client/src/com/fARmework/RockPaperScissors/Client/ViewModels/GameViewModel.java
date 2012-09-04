@@ -121,7 +121,7 @@ public class GameViewModel extends ViewModel
 						{
 							isWaiting.set(true);
 							status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
-							ConnectionManager.send(new NextGameInfo(true));
+							ConnectionManager.send(new NextGameInfo());
 						}
 					},
 					new IDialogListener()
@@ -129,7 +129,7 @@ public class GameViewModel extends ViewModel
 						@Override
 						public void onDialogResult()
 						{
-							ConnectionManager.send(new NextGameInfo(false));
+							ConnectionManager.send(new PlayerLeftInfo());
 						}
 					});
 			}
@@ -151,7 +151,8 @@ public class GameViewModel extends ViewModel
 			public void handle(GameEndInfo data)
 			{
 				ContextManager.showDialogNotification(
-					String.format(ResourcesProvider.getString(string.game_opponentLeft), opponentName.get(), playerName.get(), playerScore.get(), opponentName.get(), opponentScore.get()),
+					String.format(ResourcesProvider.getString(string.game_opponentLeft), opponentName.get(), playerName.get(),
+								  playerScore.get(), opponentName.get(), opponentScore.get()),
 					null);
 			}
 		});
@@ -168,5 +169,11 @@ public class GameViewModel extends ViewModel
 		isWaiting.set(true);
 		status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
 		ConnectionManager.send(new GestureInfo(gesture));
+	}
+	
+	@Override
+	public void onLeaving()
+	{
+		ConnectionManager.send(new PlayerLeftInfo());
 	}
 }
