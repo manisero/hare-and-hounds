@@ -8,6 +8,7 @@ import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseTyp
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.core.server.Connection.IConnectionManager;
 import com.fARmework.core.server.Connection.IDataHandler;
+import com.fARmework.core.server.Data.ClientDisconnectedInfo;
 import com.google.inject.Inject;
 
 public class GamesManager implements IGamesManager
@@ -75,6 +76,18 @@ public class GamesManager implements IGamesManager
 				
 				data.GuestID = clientID;
 				_gameManagerFactory.create(_games.get(data.HostID)).handleJoin(data);
+			}
+		});
+		
+		_connectionManager.registerDataHandler(ClientDisconnectedInfo.class, new IDataHandler<ClientDisconnectedInfo>()
+		{
+			@Override
+			public void handle(int clientID, ClientDisconnectedInfo data)
+			{
+				if (_games.containsKey(clientID))
+				{
+					_games.remove(clientID);
+				}
 			}
 		});
 	}
