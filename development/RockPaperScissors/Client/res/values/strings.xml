@@ -25,6 +25,7 @@
     <string name="mode_join">Join</string>
     
     <string name="options">Options</string>
+    <string name="options_save">Save</string>
     
     <string name="hosting_creating">Creating game&#8230;</string>
     <string name="hosting_created">Game created</string>
