@@ -1,29 +1,17 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import gueei.binding.Command;
-import gueei.binding.IObservable;
-import gueei.binding.Observer;
-import gueei.binding.observables.BooleanObservable;
-import gueei.binding.observables.StringObservable;
-
-import java.util.Collection;
-
+import gueei.binding.observables.*;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.core.client.Connection.IConnectionManager;
-import com.fARmework.core.client.Connection.IDataHandler;
-import com.fARmework.core.client.Data.ConnectionFaultInfo;
-import com.fARmework.core.client.Data.ConnectionSuccessInfo;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
+import com.fARmework.core.client.Connection.*;
+import com.fARmework.core.client.Data.*;
 import com.google.inject.Inject;
 
 public class GameModeViewModel extends ViewModel
 {
-	public StringObservable serverAddress = new StringObservable();
-	public StringObservable userName = new StringObservable();
 	public StringObservable status = new StringObservable();
 	public BooleanObservable isWaiting = new BooleanObservable(false);
 	public BooleanObservable isConnected = new BooleanObservable(false);
@@ -93,22 +81,12 @@ public class GameModeViewModel extends ViewModel
 		}
 	};
 	
-	// NOTE: Is is recommended that Observers are declared as fields so that reference to them is kept
-	private Observer _serverAddressObserver = new Observer()
+	public Command options = new Command()
 	{
 		@Override
-		public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
+		public void Invoke(View arg0, Object... arg1)
 		{
-			_settingsProvider.setServerAddress((String)arg0.get());
-		}
-	};
-	
-	private Observer _userNameObserver = new Observer()
-	{
-		@Override
-		public void onPropertyChanged(IObservable<?> arg0, Collection<Object> arg1)
-		{
-			_settingsProvider.setUserName((String)arg0.get());
+			ContextManager.navigateTo(OptionsViewModel.class);
 		}
 	};
 	
@@ -120,12 +98,6 @@ public class GameModeViewModel extends ViewModel
 		super(connectionManager, contextManager);
 		
 		_settingsProvider = settingsProvider;
-		
-		serverAddress.set(_settingsProvider.getServerAddress());
-		serverAddress.subscribe(_serverAddressObserver);
-		
-		userName.set(_settingsProvider.getUserName());
-		userName.subscribe(_userNameObserver);
 		
 		ConnectionManager.registerDataHandler(ConnectionFaultInfo.class, new IDataHandler<ConnectionFaultInfo>()
 		{
@@ -142,7 +114,7 @@ public class GameModeViewModel extends ViewModel
 	{
 		status.set(ResourcesProvider.getString(R.string.connection_connecting));
 		isWaiting.set(true);
-		ConnectionManager.connect(serverAddress.get());
+		ConnectionManager.connect(_settingsProvider.getServerAddress());
 	}
 	
 	public void disconnect()
