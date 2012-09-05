@@ -25,6 +25,10 @@ public class ContextManager implements IContextManager
 		_layouts.put(GameModeViewModel.class, R.layout.game_mode);
 		_activities.put(GameModeViewModel.class, GameModeActivity.class);
 		
+		// Options
+		_layouts.put(OptionsViewModel.class, R.layout.options);
+		_activities.put(OptionsViewModel.class, OptionsActivity.class);
+		
 		// Hosting
 		_layouts.put(HostingViewModel.class, R.layout.hosting);
 		_activities.put(HostingViewModel.class, HostingActivity.class);
