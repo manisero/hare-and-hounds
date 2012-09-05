@@ -1,1 +1,0 @@
-- connection seems to be established successfully when wifi is turned off
