@@ -5,27 +5,6 @@
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical">
-
-    <EditText android:id="@+id/serverAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/serverAddress"
-        binding:text="serverAddress"
-        binding:enabled="NOT(isConnected)">
-    </EditText>
-    
-    <EditText android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/userName"
-        binding:text="userName"
-        binding:enabled="NOT(isConnected)">
-        <requestFocus />
-    </EditText>
     
 	<Button android:id="@+id/createButton"
 		android:layout_width="160dp"
@@ -65,5 +44,11 @@
 		android:text="@string/connection_disconnect"
 		binding:onClick="disconnect"
 		binding:visibility="isConnected" />
+	
+	<Button android:id="@+id/optionsButton"
+		android:layout_width="130dp"
+		android:layout_height="65dp"
+		android:text="@string/options"
+		binding:onClick="options" />
 	
 </LinearLayout>
