@@ -8,6 +8,7 @@ import com.fARmework.RockPaperScissors.Server.Gestures.GesturesData;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.core.server.Connection.IConnectionManager;
 import com.fARmework.core.server.Connection.IDataHandler;
+import com.fARmework.core.server.Data.ClientDisconnectedInfo;
 import com.fARmework.modules.ScreenGestures.Data.ScreenGestureData;
 import com.fARmework.modules.ScreenGestures.Java.IScreenGestureRecognizer;
 import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData;
@@ -31,7 +32,7 @@ public class SingleGameManager implements ISingleGameManager
 	}
 	
 	@Override
-	public void handleJoin(GameJoinRequest request)
+	public void handleJoin(final GameJoinRequest request)
 	{
 		_connectionManager.registerDataHandler(GameJoinResponse.class, _game.HostID, new IDataHandler<GameJoinResponse>()
 		{
@@ -48,6 +49,18 @@ public class SingleGameManager implements ISingleGameManager
 				}
 				
 				_connectionManager.send(data, data.GuestID);
+			}
+		});
+		
+		_connectionManager.registerDataHandler(ClientDisconnectedInfo.class, _game.HostID, new IDataHandler<ClientDisconnectedInfo>()
+		{
+			@Override
+			public void handle(int clientID, ClientDisconnectedInfo data)
+			{
+				_game.HasStarted = true;
+				_game.HasEnded = true;
+				
+				_connectionManager.send(new GameJoinResponse(request.GuestID, GameJoinResponseType.NotAvailable), request.GuestID);
 			}
 		});
 		
