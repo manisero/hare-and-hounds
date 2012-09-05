@@ -58,7 +58,7 @@ public class SingleGameManager implements ISingleGameManager
 			public void handle(int clientID, ClientDisconnectedInfo data)
 			{
 				_game.HasStarted = true;
-				_game.HasEnded = true;
+				endGame();
 				
 				_connectionManager.send(new GameJoinResponse(request.GuestID, GameJoinResponseType.NotAvailable), request.GuestID);
 			}
@@ -179,7 +179,17 @@ public class SingleGameManager implements ISingleGameManager
 			@Override
 			public void handle(int clientID, PlayerLeftInfo data)
 			{
-				_game.HasEnded = true;
+				endGame();
+				_connectionManager.send(new GameEndInfo(), _game.GuestID);
+			}
+		});
+		
+		_connectionManager.registerDataHandler(ClientDisconnectedInfo.class, _game.HostID, new IDataHandler<ClientDisconnectedInfo>()
+		{
+			@Override
+			public void handle(int clientID, ClientDisconnectedInfo data)
+			{
+				endGame();
 				_connectionManager.send(new GameEndInfo(), _game.GuestID);
 			}
 		});
@@ -203,7 +213,17 @@ public class SingleGameManager implements ISingleGameManager
 			@Override
 			public void handle(int clientID, PlayerLeftInfo data)
 			{
-				_game.HasEnded = true;
+				endGame();
+				_connectionManager.send(new GameEndInfo(), _game.HostID);
+			}
+		});
+		
+		_connectionManager.registerDataHandler(ClientDisconnectedInfo.class, _game.GuestID, new IDataHandler<ClientDisconnectedInfo>()
+		{
+			@Override
+			public void handle(int clientID, ClientDisconnectedInfo data)
+			{
+				endGame();
 				_connectionManager.send(new GameEndInfo(), _game.HostID);
 			}
 		});
@@ -246,5 +266,12 @@ public class SingleGameManager implements ISingleGameManager
 		
 		_game.HostGesture = null;
 		_game.GuestGesture = null;
+	}
+	
+	private void endGame()
+	{
+		_game.HasEnded = true;
+		_connectionManager.unregisterDataHandlers(_game.HostID);
+		_connectionManager.unregisterDataHandlers(_game.GuestID);
 	}
 }
