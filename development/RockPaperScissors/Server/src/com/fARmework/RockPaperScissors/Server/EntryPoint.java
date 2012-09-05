@@ -1,45 +1,82 @@
 package com.fARmework.RockPaperScissors.Server;
 
+import com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures.*;
+import com.fARmework.RockPaperScissors.Server.Gestures.SpaceGestures.*;
 import com.fARmework.RockPaperScissors.Server.GuiceModules.*;
-import com.fARmework.RockPaperScissors.Server.Logic.IGameManager;
-import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.DataHandler;
-import com.fARmework.RockPaperScissors.Server.Logic.DataHandlers.EmptyDataHandler;
-import com.fARmework.core.data.IDataRegistry;
-import com.fARmework.core.server.Connection.IConnectionManager;
-import com.fARmework.core.server.Data.ClientConnectedInfo;
-import com.fARmework.core.server.Data.ClientDisconnectedInfo;
-import com.fARmework.core.server.Data.ConnectionExceptionInfo;
+import com.fARmework.RockPaperScissors.Server.Logic.*;
+import com.fARmework.core.data.*;
+import com.fARmework.modules.ScreenGestures.Java.*;
+import com.fARmework.modules.ScreenGestures.Java.Matching.*;
+import com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers.*;
+import com.fARmework.modules.ScreenGestures.Java.Processing.*;
+import com.fARmework.modules.ScreenGestures.Java.Processing.GestureProcessors.*;
+import com.fARmework.modules.SpaceGestures.Java.*;
+import com.fARmework.modules.SpaceGestures.Java.Matching.*;
+import com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers.*;
 import com.google.inject.*;
+import java.util.*;
 
 public class EntryPoint
 {
 	public static void main(String[] args)
 	{
-		// register modules
-		Module coreModule = new CoreModule();
-		Module logicModule = new LogicModule();
-		Injector injector = Guice.createInjector(coreModule, logicModule); 
+		// Register modules
+		Injector injector = Guice.createInjector(getModules()); 
 		
-		// register data
-		IDataRegistry dataRegistry = injector.getInstance(IDataRegistry.class);
+		// Register data
+		registerData(injector.getInstance(IDataRegistry.class));
+		
+		// Configure modules
+		configureScreenGestures(injector);
+		configureSpaceGestures(injector);
+		
+		// Run
+		injector.getInstance(IGamesManager.class).run();
+	}
+	
+	private static Iterable<? extends Module> getModules()
+	{
+		ArrayList<AbstractModule> modules = new ArrayList<AbstractModule>();
+		
+		modules.add(new CoreModule());
+		modules.add(new ScreenGesturesModule());
+		modules.add(new SpaceGesturesModule());
+		modules.add(new LogicModule());
+		
+		return modules;
+	}
+	
+	private static void registerData(IDataRegistry dataRegistry)
+	{
 		new com.fARmework.RockPaperScissors.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 		new com.fARmework.modules.ScreenGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.modules.SpaceGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+	}
+	
+	private static void configureScreenGestures(Injector injector)
+	{
+		IScreenGestureRegistry gestureRegistry = injector.getInstance(IScreenGestureRegistry.class);
+		gestureRegistry.register(new PaperScreenGesture());
+		gestureRegistry.register(new ScissorsScreenGesture());
+		gestureRegistry.register(new RockScreenGesture());
 		
-		// register basic data handlers
-		IConnectionManager connectionManager = injector.getInstance(IConnectionManager.class);
-		connectionManager.registerDataHandler(ClientConnectedInfo.class, new EmptyDataHandler<ClientConnectedInfo>());
-		connectionManager.registerDataHandler(ClientDisconnectedInfo.class, new EmptyDataHandler<ClientDisconnectedInfo>());
-		connectionManager.registerDataHandler(ConnectionExceptionInfo.class, new DataHandler<ConnectionExceptionInfo>()
-		{
-			@Override
-			public void handleData(int clientID, ConnectionExceptionInfo data)
-			{
-				System.out.println("Exception: " + data.Exception.getMessage());
-			}
-		});
+		IScreenGestureProcessorFactory processorFactory = injector.getInstance(IScreenGestureProcessorFactory.class);
+		processorFactory.register(PaperScreenGesture.class, new PlainScreenGestureProcessor());
+		processorFactory.register(ScissorsScreenGesture.class, new DiffusedScreenGestureProcessor());
+		processorFactory.register(RockScreenGesture.class, new GroupedScreenGestureProcessor());
 		
-		// run
-		IGameManager gameManager = injector.getInstance(IGameManager.class);
-		gameManager.run();
+		IScreenPatternMatcherFactory matcherFactory = injector.getInstance(IScreenPatternMatcherFactory.class);
+		matcherFactory.register(PaperScreenGesture.class, new PlainScreenPatternMatcher());
+		matcherFactory.register(ScissorsScreenGesture.class, new DiffusedScreenPatternMatcher());
+		matcherFactory.register(RockScreenGesture.class, new GroupedScreenPatternMatcher());
+	}
+	
+	private static void configureSpaceGestures(Injector injector)
+	{
+		ISpaceGestureRegistry gestureRegistry = injector.getInstance(ISpaceGestureRegistry.class);
+		gestureRegistry.register(new RockSpaceGesture());
+		
+		ISpacePatternMatcherFactory matcherFactory = injector.getInstance(ISpacePatternMatcherFactory.class);
+		matcherFactory.register(RockSpaceGesture.class, new PlainSpacePatternMatcher());
 	}
 }

@@ -7,18 +7,20 @@ import gueei.binding.collections.ArrayListObservable;
 import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.StringObservable;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.INavigationManager;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
 import com.fARmework.RockPaperScissors.Data.GameListRequest;
 import com.fARmework.RockPaperScissors.Data.GameListData;
-import com.fARmework.RockPaperScissors.Data.GameJoinData;
+import com.fARmework.RockPaperScissors.Data.GameStartInfo;
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection.IDataHandler;
 import com.google.inject.Inject;
@@ -35,6 +37,9 @@ public class GameListViewModel extends ViewModel
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
+				status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostUserName.get()));
+				isWaiting.set(true);
+				
 				ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
 				{
 					@Override
@@ -42,21 +47,31 @@ public class GameListViewModel extends ViewModel
 					{
 						isWaiting.set(false);
 						
-						if (data.Response == GameJoinResponseType.Accept)
+						if (data.Response == GameJoinResponseType.Deny)
 						{
-							NavigationManager.navigateTo(GameViewModel.class);
+							ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()));
 						}
-						else
+						else if (data.Response == GameJoinResponseType.NotAvailable)
 						{
-							NavigationManager.showNotification(String.format(ResourcesProvider.get(R.string.gameList_joinRefused), hostUserName.get()),
-															   false);
+							ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_notAvailable), hostUserName.get()));
 						}
 					}
 				});
 				
-				status.set(String.format(ResourcesProvider.get(R.string.gameList_joining), hostUserName.get()));
-				isWaiting.set(true);
-				ConnectionManager.send(new GameJoinData(_hostID, _settingsProvider.userName()));
+				ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
+				{
+					@Override
+					public void handle(GameStartInfo data)
+					{
+						ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
+						
+						Bundle bundle = new Bundle();
+						bundle.putString(GameViewModel.OPPONENT_NAME_KEY, hostUserName.get());
+						ContextManager.navigateTo(GameViewModel.class, bundle);
+					}
+				});
+				
+				ConnectionManager.send(new GameJoinRequest(_hostID, _settingsProvider.getUserName()));
 			}
 		};
 		
@@ -83,9 +98,9 @@ public class GameListViewModel extends ViewModel
 	private ISettingsProvider _settingsProvider;
 	
 	@Inject
-	public GameListViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, INavigationManager navigationManager)
+	public GameListViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
-		super(connectionManager, navigationManager);
+		super(connectionManager, contextManager);
 		
 		_settingsProvider = settingsProvider;
 		

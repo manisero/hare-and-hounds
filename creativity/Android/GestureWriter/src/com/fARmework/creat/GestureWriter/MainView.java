@@ -157,7 +157,7 @@ public class MainView extends View
 			
 			for(GestureData data : _gestures)
 			{
-				LinkedList<GestureData.Point> points = data.getPoints();
+				LinkedList<GestureData.Point> points = data.Points;
 				
 				writer.write(points.size() + "\n");
 				

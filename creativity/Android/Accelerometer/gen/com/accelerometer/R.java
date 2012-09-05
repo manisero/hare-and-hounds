@@ -14,8 +14,8 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int log=0x7f050004;
-        public static final int test=0x7f050003;
+        public static final int clearButton=0x7f050003;
+        public static final int test=0x7f050004;
         public static final int xValue=0x7f050000;
         public static final int yValue=0x7f050001;
         public static final int zValue=0x7f050002;

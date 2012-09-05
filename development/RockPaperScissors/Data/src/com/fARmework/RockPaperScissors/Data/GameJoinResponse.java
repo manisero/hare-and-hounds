@@ -5,16 +5,15 @@ public class GameJoinResponse
 	public enum GameJoinResponseType
 	{
 		Accept,
-		Deny
+		Deny,
+		NotAvailable
 	}
 	
-	public int HostID;
 	public int GuestID;
 	public GameJoinResponseType Response;
 	
-	public GameJoinResponse(int hostID, int guestID, GameJoinResponseType response)
+	public GameJoinResponse(int guestID, GameJoinResponseType response)
 	{
-		HostID = hostID;
 		GuestID = guestID;
 		Response = response;
 	}

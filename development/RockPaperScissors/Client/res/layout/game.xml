@@ -6,34 +6,122 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
     
-    <TextView android:id="@+id/status"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    binding:text="status" />
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:baselineAligned="false">
+		
+        <LinearLayout android:orientation="vertical"
+	        android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_horizontal">
+            
+            <TextView android:id="@+id/playerName"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/game_player"
+			    binding:text="playerName" />
+            
+            <TextView android:id="@+id/playerScore"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="5dp"
+			    android:textSize="30dip"
+			    binding:text="playerScore" />
+            
+        </LinearLayout>
+        
+        <LinearLayout android:orientation="vertical"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center_horizontal">
+        
+            <TextView android:id="@+id/opponentName"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/game_opponent"
+			    binding:text="opponentName" />
+	        
+	        <TextView android:id="@+id/opponentScore"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="5dp"
+			    android:textSize="30dip"
+			    binding:text="opponentScore" />
+	      
+		</LinearLayout>
+        
+    </LinearLayout>
     
-    <Button android:id="@+id/rockButton"
-		android:layout_width="100dp"
-		android:layout_height="50dp"
-		android:text="@string/gestures_rock"
-		binding:onClick="sendRock" />
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
     
-	<Button android:id="@+id/paperButton"
-		android:layout_width="100dp"
-		android:layout_height="50dp"
-		android:text="@string/gestures_paper"
-		binding:onClick="sendPaper" />
+	    <TextView android:id="@+id/status"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    binding:text="status" />
+
+	    <ProgressBar android:id="@+id/gameProgress"
+	        style="?android:attr/progressBarStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        binding:visibility="isWaiting" />
     
-	<Button android:id="@+id/scissorsButton"
-		android:layout_width="100dp"
-		android:layout_height="50dp"
-		android:text="@string/gestures_scissors"
-		binding:onClick="sendScissors" />
+    </LinearLayout>
+    
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
+        
+        <Button android:id="@+id/rockButton"
+			android:layout_width="100dp"
+			android:layout_height="50dp"
+			android:text="@string/gestures_rock"
+			binding:onClick="sendRock"
+			binding:enabled="NOT(isWaiting)" />
+	    
+		<Button android:id="@+id/paperButton"
+			android:layout_width="100dp"
+			android:layout_height="50dp"
+			android:text="@string/gestures_paper"
+			binding:onClick="sendPaper"
+			binding:enabled="NOT(isWaiting)" />
+	    
+		<Button android:id="@+id/scissorsButton"
+			android:layout_width="100dp"
+			android:layout_height="50dp"
+			android:text="@string/gestures_scissors"
+			binding:onClick="sendScissors"
+			binding:enabled="NOT(isWaiting)" />
 	
-	<com.fARmework.modules.ScreenGestures.Presentation.GesturePicker
-	    android:id="@+id/gesturePicker"
-	    android:layout_width="250dp"
-	    android:layout_height="250dp"
+    </LinearLayout>
+	
+	<com.fARmework.modules.ScreenGestures.Android.ScreenGesturePicker
+	    android:id="@+id/screenGesturePicker"
+	    android:layout_width="220dp"
+	    android:layout_height="220dp"
 	    android:background="#FFFFFF"
-	    binding:onGesture="sendGesture" />
+	    binding:onGesture="sendScreenGesture" />
+	
+	<LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
+	
+		<com.fARmework.modules.SpaceGestures.Android.SpaceGesturePicker
+		    android:id="@+id/spaceGesturePicker"
+		    android:layout_width="50dp"
+		    android:layout_height="50dp"
+		    android:layout_marginTop="15dp"
+		    android:background="#FFFFFF"
+		    binding:onGesture="sendSpaceGesture" />
+	
+	</LinearLayout>
 	
 </LinearLayout>
