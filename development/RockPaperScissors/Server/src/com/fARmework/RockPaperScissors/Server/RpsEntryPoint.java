@@ -16,7 +16,7 @@ import com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers.*;
 import com.google.inject.*;
 import java.util.*;
 
-public class EntryPoint
+public class RpsEntryPoint
 {
 	public static void main(String[] args)
 	{

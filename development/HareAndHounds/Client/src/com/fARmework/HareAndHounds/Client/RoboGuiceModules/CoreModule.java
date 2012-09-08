@@ -1,10 +1,12 @@
-package com.fARmework.RockPaperScissors.Client.RoboGuiceModules;
+package com.fARmework.HareAndHounds.Client.RoboGuiceModules;
 
 import com.fARmework.core.client.Connection.IConnectionManager;
 import com.fARmework.core.client.Connection._impl.NettyConnectionManager;
 import com.fARmework.core.client.Infrastructure.ISettingsProvider;
-import com.fARmework.core.data.*;
-import com.fARmework.core.data._impl.*;
+import com.fARmework.core.data.IDataRegistry;
+import com.fARmework.core.data.IDataService;
+import com.fARmework.core.data._impl.DataRegistry;
+import com.fARmework.core.data._impl.DataService;
 import com.google.inject.AbstractModule;
 
 public class CoreModule extends AbstractModule
@@ -17,7 +19,7 @@ public class CoreModule extends AbstractModule
 		bind(IDataService.class).to(DataService.class);
 		
 		// core.Client.Infrastructure
-		bind(ISettingsProvider.class).to(com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider.class);
+		bind(ISettingsProvider.class).to(com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider.class);
 		
 		// core.Client.Connection
 		bind(IConnectionManager.class).to(NettyConnectionManager.class).asEagerSingleton();
