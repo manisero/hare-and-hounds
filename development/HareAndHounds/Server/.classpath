@@ -5,5 +5,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Core.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Core.Server"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/HareAndHounds.Data"/>
+	<classpathentry kind="lib" path="libs/aopalliance.jar"/>
+	<classpathentry kind="lib" path="libs/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/javax.inject.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
