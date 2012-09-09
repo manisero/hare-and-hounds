@@ -3,6 +3,7 @@ package com.fARmework.HareAndHounds.Client;
 import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.HareAndHounds.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.core.data.IDataRegistry;
+import com.fARmework.utils.Android.IContextManager;
 import com.google.inject.Injector;
 
 import gueei.binding.Binder;
@@ -26,10 +27,18 @@ public class Application extends android.app.Application
 		
 		// Register data
 		registerData(injector.getInstance(IDataRegistry.class));
+		
+		// Register views
+		registerViews(injector.getInstance(IContextManager.class));
     }
 	
 	private void registerData(IDataRegistry dataRegistry)
 	{
 		new com.fARmework.HareAndHounds.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+	}
+	
+	private void registerViews(IContextManager contextManager)
+	{
+	
 	}
 }
