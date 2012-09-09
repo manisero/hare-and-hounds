@@ -8,8 +8,6 @@ public abstract class SettingsProviderBase
 	
 	private Context _context;
 	
-	// SharedPreferences access methods
-	
 	public void setContext(Context context)
 	{
 		_context = context;

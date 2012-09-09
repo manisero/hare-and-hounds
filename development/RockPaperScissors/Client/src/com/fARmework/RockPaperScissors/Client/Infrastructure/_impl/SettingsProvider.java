@@ -1,39 +1,13 @@
 package com.fARmework.RockPaperScissors.Client.Infrastructure._impl;
 
-import android.content.Context;
-
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
+import com.fARmework.utils.Android.SettingsProviderBase;
 import com.google.inject.Singleton;
 
 @Singleton
-public class SettingsProvider implements ISettingsProvider
+public class SettingsProvider extends SettingsProviderBase implements ISettingsProvider
 {
-	private static String SHARED_PREFERENCES_NAME = "SETTINGS";
-	
-	private Context _context;
-	
-	// SharedPreferences access methods
-	
-	@Override
-	public void setContext(Context context)
-	{
-		_context = context;
-	}
-	
-	private String getString(String key, String defaultValue)
-	{
-		return _context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).getString(key, defaultValue);
-	}
-	
-	private void setString(String key, String value)
-	{
-		_context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit().putString(key, value).commit();
-	}
-	
-	// ISettingsProvider members
-	
 	@Override
 	public String getServerAddress()
 	{

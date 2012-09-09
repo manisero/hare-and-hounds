@@ -8,6 +8,7 @@ import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Data.*;
+import com.fARmework.utils.Android.*;
 import com.google.inject.Inject;
 
 public class GameModeViewModel extends ViewModel

@@ -1,13 +1,13 @@
 package com.fARmework.RockPaperScissors.Client;
 
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager.IDialogListener;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.core.client.Connection.IConnectionManager;
-import com.fARmework.core.client.Connection.IDataHandler;
-import com.fARmework.core.client.Data.ConnectionExceptionInfo;
-import com.fARmework.core.data.IDataRegistry;
+import com.fARmework.RockPaperScissors.Client.Activities.*;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
+import com.fARmework.RockPaperScissors.Client.ViewModels.*;
+import com.fARmework.core.client.Connection.*;
+import com.fARmework.core.client.Data.*;
+import com.fARmework.core.data.*;
+import com.fARmework.utils.Android.IContextManager;
+import com.fARmework.utils.Android.IContextManager.IDialogListener;
 import com.google.inject.Injector;
 
 import gueei.binding.Binder;
@@ -32,6 +32,9 @@ public class Application extends android.app.Application
 		// Register data
 		registerData(injector.getInstance(IDataRegistry.class));
 		
+		// Register views
+		registerViews(injector.getInstance(IContextManager.class));
+		
 		// Register connection error handler
 		registerConnectionExceptionHandler(injector.getInstance(IConnectionManager.class));
     }
@@ -43,6 +46,15 @@ public class Application extends android.app.Application
 		new com.fARmework.modules.SpaceGestures.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 	}
 	
+	private void registerViews(IContextManager contextManager)
+	{
+		contextManager.registerView(GameModeViewModel.class, GameModeActivity.class, R.layout.game_mode);
+		contextManager.registerView(OptionsViewModel.class, OptionsActivity.class, R.layout.options);
+		contextManager.registerView(HostingViewModel.class, HostingActivity.class, R.layout.hosting);
+		contextManager.registerView(GameListViewModel.class, GameListActivity.class, R.layout.game_list);
+		contextManager.registerView(GameViewModel.class, GameActivity.class, R.layout.game);
+	}
+	
 	private void registerConnectionExceptionHandler(IConnectionManager connectionManager)
 	{
 		connectionManager.registerDataHandler(ConnectionExceptionInfo.class, new IDataHandler<ConnectionExceptionInfo>()
@@ -51,14 +63,16 @@ public class Application extends android.app.Application
 			public void handle(ConnectionExceptionInfo data)
 			{
 				RoboGuice.getInjector(Application.this).getInstance(IContextManager.class)
-					.showDialogNotification(ResourcesProvider.getString(R.string.connection_exception), new IDialogListener()
-					{
-						@Override
-						public void onDialogResult()
-						{
-							throw new RuntimeException();
-						}
-					});
+					.showDialogNotification(ResourcesProvider.getString(R.string.connection_exception),
+											ResourcesProvider.getString(R.string.dialog_confirm),
+											new IDialogListener()
+											{
+												@Override
+												public void onDialogResult()
+												{
+													throw new RuntimeException();
+												}
+											});
 			}
 		});
 	}
