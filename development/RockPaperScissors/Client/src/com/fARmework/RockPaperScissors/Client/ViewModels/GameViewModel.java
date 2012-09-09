@@ -1,23 +1,19 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
 import gueei.binding.Command;
-import gueei.binding.observables.BooleanObservable;
-import gueei.binding.observables.IntegerObservable;
-import gueei.binding.observables.StringObservable;
+import gueei.binding.observables.*;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager.IDialogListener;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
 import com.fARmework.RockPaperScissors.Client.R.string;
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
-import com.fARmework.core.client.Connection.IConnectionManager;
-import com.fARmework.core.client.Connection.IDataHandler;
+import com.fARmework.core.client.Connection.*;
+import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.IContextManager.IDialogListener;
 import com.google.inject.Inject;
 
 public class GameViewModel extends ViewModel
@@ -114,6 +110,8 @@ public class GameViewModel extends ViewModel
 				
 				ContextManager.showYesNoDialog(
 					String.format(ResourcesProvider.getString(R.string.game_result_pattern), ResourcesProvider.getGameResultString(data.GameResult), ResourcesProvider.getGestureString(data.PlayerGesture), opponentName.get(), ResourcesProvider.getGestureString(data.OpponentGesture)),
+					ResourcesProvider.getString(R.string.dialog_yes),
+					ResourcesProvider.getString(R.string.dialog_no),
 					new IDialogListener()
 					{
 						@Override
@@ -153,6 +151,7 @@ public class GameViewModel extends ViewModel
 				ContextManager.showDialogNotification(
 					String.format(ResourcesProvider.getString(string.game_opponentLeft), opponentName.get(), playerName.get(),
 								  playerScore.get(), opponentName.get(), opponentScore.get()),
+					ResourcesProvider.getString(R.string.dialog_confirm),
 					null);
 			}
 		});

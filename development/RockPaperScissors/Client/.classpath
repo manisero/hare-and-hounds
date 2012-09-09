@@ -11,5 +11,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/RockPaperScissors.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Android"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Utils.Android"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

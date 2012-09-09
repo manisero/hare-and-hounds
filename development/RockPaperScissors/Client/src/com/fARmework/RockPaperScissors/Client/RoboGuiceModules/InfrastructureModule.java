@@ -10,6 +10,5 @@ public class InfrastructureModule extends AbstractModule
 	protected void configure()
 	{
 		bind(ISettingsProvider.class).to(SettingsProvider.class).asEagerSingleton();
-		bind(IContextManager.class).to(ContextManager.class).asEagerSingleton();
 	}
 }

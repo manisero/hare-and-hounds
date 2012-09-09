@@ -4,9 +4,9 @@ import gueei.binding.Command;
 import gueei.binding.observables.StringObservable;
 import android.view.View;
 
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
 import com.fARmework.core.client.Connection.IConnectionManager;
+import com.fARmework.utils.Android.*;
 import com.google.inject.Inject;
 
 public class OptionsViewModel extends ViewModel

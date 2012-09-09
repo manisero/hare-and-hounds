@@ -1,23 +1,16 @@
 package com.fARmework.RockPaperScissors.Client.ViewModels;
 
-import gueei.binding.observables.BooleanObservable;
-import gueei.binding.observables.StringObservable;
+import gueei.binding.observables.*;
 
 import android.os.Bundle;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager.IDialogListener;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Data.GameCreationResponse;
-import com.fARmework.RockPaperScissors.Data.GameCreationRequest;
-import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
-import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
-import com.fARmework.RockPaperScissors.Data.GameStartInfo;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
+import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
-import com.fARmework.core.client.Connection.IConnectionManager;
-import com.fARmework.core.client.Connection.IDataHandler;
+import com.fARmework.core.client.Connection.*;
+import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.IContextManager.IDialogListener;
 import com.google.inject.Inject;
 
 public class HostingViewModel extends ViewModel
@@ -46,6 +39,8 @@ public class HostingViewModel extends ViewModel
 			{
 				ContextManager.showYesNoDialog(
 					String.format(ResourcesProvider.getString(R.string.hosting_guestConnected), data.GuestUserName),
+					ResourcesProvider.getString(R.string.dialog_yes),
+					ResourcesProvider.getString(R.string.dialog_no),
 					new IDialogListener()
 					{
 						@Override

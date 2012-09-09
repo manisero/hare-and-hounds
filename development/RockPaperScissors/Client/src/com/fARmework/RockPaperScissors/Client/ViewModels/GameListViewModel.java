@@ -4,25 +4,18 @@ import java.util.LinkedList;
 
 import gueei.binding.Command;
 import gueei.binding.collections.ArrayListObservable;
-import gueei.binding.observables.BooleanObservable;
-import gueei.binding.observables.StringObservable;
+import gueei.binding.observables.*;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.IContextManager;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.RockPaperScissors.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
-import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
+import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
-import com.fARmework.RockPaperScissors.Data.GameListRequest;
-import com.fARmework.RockPaperScissors.Data.GameListData;
-import com.fARmework.RockPaperScissors.Data.GameStartInfo;
-import com.fARmework.core.client.Connection.IConnectionManager;
-import com.fARmework.core.client.Connection.IDataHandler;
+import com.fARmework.core.client.Connection.*;
+import com.fARmework.utils.Android.*;
 import com.google.inject.Inject;
 
 public class GameListViewModel extends ViewModel
