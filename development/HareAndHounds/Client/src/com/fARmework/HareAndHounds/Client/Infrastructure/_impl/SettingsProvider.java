@@ -3,9 +3,7 @@ package com.fARmework.HareAndHounds.Client.Infrastructure._impl;
 import com.fARmework.HareAndHounds.Client.R;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
 import com.fARmework.utils.Android.SettingsProviderBase;
-import com.google.inject.Singleton;
 
-@Singleton
 public class SettingsProvider extends SettingsProviderBase implements ISettingsProvider
 {
 	@Override
