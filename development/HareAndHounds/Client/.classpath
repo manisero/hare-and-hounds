@@ -8,5 +8,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Core.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/HareAndHounds.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Utils.Android"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PositionTracking.Android"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PositionTracking.Data"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
