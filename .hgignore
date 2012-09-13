@@ -21,6 +21,7 @@ development/modules/SpaceGestures/Android/bin/*
 development/modules/SpaceGestures/Data/bin/*
 development/modules/SpaceGestures/Java/bin/*
 development/modules/SpaceGestures/Tests/bin/*
+development/modules/PositionTracking/Android/bin/*
 development/RockPaperScissors/Client/bin/*
 development/RockPaperScissors/Data/bin/*
 development/RockPaperScissors/Server/bin/*
