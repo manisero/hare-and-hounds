@@ -13,6 +13,8 @@ development/core/Client/bin/*
 development/core/Data/bin/*
 development/core/Server/bin/*
 development/utils/Android/bin/*
+development/modules/PositionTracking/Android/bin/*
+development/modules/PositionTracking/Data/bin/*
 development/modules/ScreenGestures/Android/bin/*
 development/modules/ScreenGestures/Data/bin/*
 development/modules/ScreenGestures/Java/bin/*
@@ -21,7 +23,6 @@ development/modules/SpaceGestures/Android/bin/*
 development/modules/SpaceGestures/Data/bin/*
 development/modules/SpaceGestures/Java/bin/*
 development/modules/SpaceGestures/Tests/bin/*
-development/modules/PositionTracking/Android/bin/*
 development/RockPaperScissors/Client/bin/*
 development/RockPaperScissors/Data/bin/*
 development/RockPaperScissors/Server/bin/*
