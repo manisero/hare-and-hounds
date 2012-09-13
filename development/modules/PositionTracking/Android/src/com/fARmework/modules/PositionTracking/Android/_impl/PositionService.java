@@ -2,6 +2,7 @@ package com.fARmework.modules.PositionTracking.Android._impl;
 
 import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
 import com.fARmework.modules.PositionTracking.Android.IPositionService;
+import com.fARmework.modules.PositionTracking.Data.PositionData;
 
 import android.location.Criteria;
 import android.location.Location;
@@ -37,7 +38,7 @@ public class PositionService implements IPositionService
 			@Override
 			public void onLocationChanged(Location location)
 			{
-				positionListener.onPosition(location.getLongitude(), location.getLatitude());
+				positionListener.onPosition(new PositionData(location.getLongitude(), location.getLatitude()));
 			}
 			
 			@Override
