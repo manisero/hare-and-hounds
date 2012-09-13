@@ -8,6 +8,8 @@ import android.location.LocationManager;
 public class LocationManagerResolver implements ILocationManagerResolver
 {
 	private Context _context;
+
+	private LocationManager _locationManager;
 	
 	@Override
 	public void setContext(Context context)
@@ -18,6 +20,11 @@ public class LocationManagerResolver implements ILocationManagerResolver
 	@Override
 	public LocationManager resolve()
 	{
-		return (LocationManager)_context.getSystemService(Context.LOCATION_SERVICE);
+		if (_locationManager == null)
+		{
+			_locationManager = (LocationManager)_context.getSystemService(Context.LOCATION_SERVICE);
+		}
+		
+		return _locationManager;
 	}
 }

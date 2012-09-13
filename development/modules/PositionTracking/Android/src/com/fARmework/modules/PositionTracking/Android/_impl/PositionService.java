@@ -1,29 +1,17 @@
 package com.fARmework.modules.PositionTracking.Android._impl;
 
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Bundle;
+
 import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
 import com.fARmework.modules.PositionTracking.Android.IPositionService;
 import com.fARmework.modules.PositionTracking.Data.PositionData;
 
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
-
 public class PositionService implements IPositionService
 {
 	private ILocationManagerResolver _locationManagerResolver;
-	
-	private LocationManager _locationManager;
-	private LocationManager getLocationManager()
-	{
-		if (_locationManager == null)
-		{
-			_locationManager = _locationManagerResolver.resolve();
-		}
-		
-		return _locationManager;
-	}
 	
 	public PositionService(ILocationManagerResolver locationManagerResolver)
 	{
@@ -33,7 +21,7 @@ public class PositionService implements IPositionService
 	@Override
 	public void GetPosition(final IPositionListener positionListener)
 	{
-		getLocationManager().requestSingleUpdate(new Criteria(), new LocationListener()
+		_locationManagerResolver.resolve().requestSingleUpdate(new Criteria(), new LocationListener()
 		{
 			@Override
 			public void onLocationChanged(Location location)
