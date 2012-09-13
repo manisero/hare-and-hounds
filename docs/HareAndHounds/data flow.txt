@@ -2,10 +2,10 @@ HOST (hare):			SERVER:						GUEST (hounds):
 
 NewGameRequest
 - HostName
-- GpsPosition
+- PositionData
 						<- NewGameResponse
 													GameListRequest
-													- GpsPosition
+													- PositionData
 						GameListResponse ->
 						- list[HostID, HostName]
 													JoinGameRequest
