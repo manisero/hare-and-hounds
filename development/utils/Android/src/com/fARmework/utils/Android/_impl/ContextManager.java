@@ -1,13 +1,18 @@
 package com.fARmework.utils.Android._impl;
 
-import java.util.*;
-import com.fARmework.utils.Android.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.*;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.fARmework.utils.Android.BoundActivity;
+import com.fARmework.utils.Android.IContextManager;
+import com.fARmework.utils.Android.ViewModel;
 
 @SuppressWarnings("rawtypes")
 public class ContextManager implements IContextManager

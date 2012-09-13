@@ -3,25 +3,37 @@ package com.fARmework.modules.PositionTracking.Android._impl;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
 import com.fARmework.modules.PositionTracking.Android.IPositionService;
 import com.fARmework.modules.PositionTracking.Data.PositionData;
+import com.google.inject.Inject;
 
 public class PositionService implements IPositionService
 {
 	private ILocationManagerResolver _locationManagerResolver;
 	
+	@Inject
 	public PositionService(ILocationManagerResolver locationManagerResolver)
 	{
 		_locationManagerResolver = locationManagerResolver;
 	}
 	
 	@Override
-	public void GetPosition(final IPositionListener positionListener)
+	public void getPosition(final IPositionListener positionListener)
 	{
-		_locationManagerResolver.resolve().requestSingleUpdate(new Criteria(), new LocationListener()
+		LocationManager manager = _locationManagerResolver.resolve();
+		String provider = manager.getBestProvider(new Criteria(), true);
+		
+		if (provider == null)
+		{
+			positionListener.onPosition(null);
+			return;
+		}
+		
+		manager.requestSingleUpdate(provider, new LocationListener()
 		{
 			@Override
 			public void onLocationChanged(Location location)
