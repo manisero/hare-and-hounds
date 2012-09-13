@@ -3,6 +3,7 @@ package com.fARmework.HareAndHounds.Client;
 import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.HareAndHounds.Client.Infrastructure.ResourcesProvider;
 import com.fARmework.core.data.IDataRegistry;
+import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
 import com.fARmework.utils.Android.IContextManager;
 import com.google.inject.Injector;
 
@@ -30,15 +31,24 @@ public class Application extends android.app.Application
 		
 		// Register views
 		registerViews(injector.getInstance(IContextManager.class));
+		
+		// Configure modules
+		configurePositionTracking(injector);
     }
 	
 	private void registerData(IDataRegistry dataRegistry)
 	{
 		new com.fARmework.HareAndHounds.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.modules.PositionTracking.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 	}
 	
 	private void registerViews(IContextManager contextManager)
 	{
 	
+	}
+	
+	private void configurePositionTracking(Injector injector)
+	{
+		injector.getInstance(ILocationManagerResolver.class).setContext(this);
 	}
 }

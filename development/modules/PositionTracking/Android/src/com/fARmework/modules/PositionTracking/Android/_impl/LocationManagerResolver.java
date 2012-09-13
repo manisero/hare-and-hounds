@@ -9,7 +9,8 @@ public class LocationManagerResolver implements ILocationManagerResolver
 {
 	private Context _context;
 	
-	public LocationManagerResolver(Context context)
+	@Override
+	public void setContext(Context context)
 	{
 		_context = context;
 	}
