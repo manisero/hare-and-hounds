@@ -10,4 +10,10 @@ public class PositionData
 		Longitude = longitude;
 		Latitude = latitude;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return new String(Longitude + ", " + Latitude);
+	}
 }
