@@ -38,7 +38,7 @@ public class PositionService implements IPositionService
 			@Override
 			public void onLocationChanged(Location location)
 			{
-				positionListener.onPosition(new PositionData(location.getLongitude(), location.getLatitude()));
+				positionListener.onPosition(new PositionData(location.getLatitude(), location.getLongitude()));
 			}
 			
 			@Override
