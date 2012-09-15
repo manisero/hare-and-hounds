@@ -24,7 +24,7 @@ public class PositionService implements IPositionService
 	@Override
 	public void getPosition(final IPositionListener positionListener)
 	{
-		LocationManager manager = _locationManagerResolver.resolve();
+		final LocationManager manager = _locationManagerResolver.resolve();
 		String provider = manager.getBestProvider(new Criteria(), true);
 		
 		if (provider == null)
@@ -33,19 +33,20 @@ public class PositionService implements IPositionService
 			return;
 		}
 		
-		manager.requestSingleUpdate(provider, new LocationListener()
+		LocationListener listener = new LocationListener()
 		{
 			@Override
 			public void onLocationChanged(Location location)
 			{
 				positionListener.onPosition(new PositionData(location.getLatitude(), location.getLongitude()));
+				manager.removeUpdates(this);
 			}
 			
 			@Override
 			public void onStatusChanged(String provider, int status, Bundle extras)
 			{
 			}
-			
+
 			@Override
 			public void onProviderEnabled(String provider)
 			{
@@ -54,7 +55,12 @@ public class PositionService implements IPositionService
 			@Override
 			public void onProviderDisabled(String provider)
 			{
+				positionListener.onPosition(null);
+				manager.removeUpdates(this);
 			}
-		}, null);
+		};
+		
+		// seems like requestSingleUpdate does not work properly...
+		manager.requestLocationUpdates(provider, 3000, 5, listener, null);
 	}
 }
