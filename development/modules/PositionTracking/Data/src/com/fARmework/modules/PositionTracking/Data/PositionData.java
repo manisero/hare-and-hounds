@@ -2,18 +2,18 @@ package com.fARmework.modules.PositionTracking.Data;
 
 public class PositionData
 {
-	public double Longitude;
 	public double Latitude;
+	public double Longitude;
 	
-	public PositionData(double longitude, double latitude)
+	public PositionData(double latitude, double longitude)
 	{
-		Longitude = longitude;
 		Latitude = latitude;
+		Longitude = longitude;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return new String(Longitude + ", " + Latitude);
+		return new String(Latitude + ", " + Longitude);
 	}
 }
