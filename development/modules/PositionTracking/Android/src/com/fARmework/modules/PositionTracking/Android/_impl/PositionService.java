@@ -33,6 +33,12 @@ public class PositionService implements IPositionService
 			return;
 		}
 		
+		if(true)
+		{
+			positionListener.onPosition(new PositionData(66.6, 69.69));
+			return;
+		}
+		
 		manager.requestSingleUpdate(provider, new LocationListener()
 		{
 			@Override

@@ -40,8 +40,8 @@ public class Application extends android.app.Application
 	
 	private void registerData(IDataRegistry dataRegistry)
 	{
-		new com.fARmework.HareAndHounds.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 		new com.fARmework.modules.PositionTracking.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.HareAndHounds.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 	}
 	
 	private void registerViews(IContextManager contextManager)

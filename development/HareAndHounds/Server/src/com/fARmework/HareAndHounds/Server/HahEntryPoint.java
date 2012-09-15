@@ -3,6 +3,7 @@ package com.fARmework.HareAndHounds.Server;
 import java.util.ArrayList;
 
 import com.fARmework.HareAndHounds.Server.GuiceModules.*;
+import com.fARmework.HareAndHounds.Server.Logic.*;
 import com.fARmework.core.data.IDataRegistry;
 import com.google.inject.*;
 
@@ -17,7 +18,7 @@ public class HahEntryPoint
 		registerData(injector.getInstance(IDataRegistry.class));
 		
 		// Run
-		//injector.getInstance(IGamesManager.class).run();
+		injector.getInstance(IGamesManager.class).run();
 	}
 	
 	private static Iterable<? extends Module> getModules()
@@ -25,6 +26,7 @@ public class HahEntryPoint
 		ArrayList<AbstractModule> modules = new ArrayList<AbstractModule>();
 		
 		modules.add(new CoreModule());
+		modules.add(new LogicModule());
 		
 		return modules;
 	}
@@ -32,5 +34,6 @@ public class HahEntryPoint
 	private static void registerData(IDataRegistry dataRegistry)
 	{
 		new com.fARmework.HareAndHounds.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
+		new com.fARmework.modules.PositionTracking.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 	}
 }

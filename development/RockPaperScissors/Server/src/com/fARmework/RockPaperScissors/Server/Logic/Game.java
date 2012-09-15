@@ -18,8 +18,4 @@ public class Game
 	
 	public boolean HasStarted;
 	public boolean HasEnded;
-	
-	public Game()
-	{
-	}
 }
