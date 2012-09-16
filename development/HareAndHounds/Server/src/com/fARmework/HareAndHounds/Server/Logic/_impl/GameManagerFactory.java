@@ -10,19 +10,21 @@ public class GameManagerFactory implements IGameManagerFactory
 {
 	private IConnectionManager _connectionManager;
 	private ISettingsProvider _settingsProvider;
+	private IDirectionCalculator _directionCalculator;
 	private IDistanceCalculator _distanceCalculator;
 	
 	@Inject
-	public GameManagerFactory(IConnectionManager connectionManager, ISettingsProvider settingsProvider, IDistanceCalculator distanceCalculator)
+	public GameManagerFactory(IConnectionManager connectionManager, ISettingsProvider settingsProvider, IDirectionCalculator directionCalculator, IDistanceCalculator distanceCalculator)
 	{
 		_connectionManager = connectionManager;
 		_settingsProvider = settingsProvider;
+		_directionCalculator = directionCalculator;
 		_distanceCalculator = distanceCalculator;
 	}
 	
 	@Override
 	public IGameManager create(int hareID, int houndsID)
 	{
-		return new GameManager(_connectionManager, _settingsProvider, _distanceCalculator, hareID, houndsID);
+		return new GameManager(_connectionManager, _settingsProvider, _directionCalculator, _distanceCalculator, hareID, houndsID);
 	}
 }

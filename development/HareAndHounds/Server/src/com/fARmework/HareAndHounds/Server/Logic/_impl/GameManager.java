@@ -11,15 +11,18 @@ public class GameManager implements IGameManager
 {
 	private IConnectionManager _connectionManager;
 	private ISettingsProvider _settingsProvider;
+	private IDirectionCalculator _directionCalculator;
 	
 	private int _hareID;
 	private int _houndsID;
 	private PositionDataList _harePositions;
 	
-	public GameManager(IConnectionManager connectionManager, ISettingsProvider settingsProvider, IDistanceCalculator distanceCalculator, int hareID, int houndsID)
+	public GameManager(IConnectionManager connectionManager, ISettingsProvider settingsProvider, IDirectionCalculator directionCalculator,
+					   IDistanceCalculator distanceCalculator, int hareID, int houndsID)
 	{
 		_connectionManager = connectionManager;
 		_settingsProvider = settingsProvider;
+		_directionCalculator = directionCalculator;
 		
 		_hareID = hareID;
 		_houndsID = houndsID;
@@ -35,6 +38,11 @@ public class GameManager implements IGameManager
 			public void handle(int clientID, PositionData data)
 			{
 				_harePositions.add(data);
+				
+				if (_harePositions.size() >= _settingsProvider.getVictoriousHarePositions()) // hare has ran away
+				{
+					// TODO: end game
+				}
 			}
 		});
 		
@@ -43,12 +51,26 @@ public class GameManager implements IGameManager
 			@Override
 			public void handle(int clientID, PositionData data)
 			{
-				if (_harePositions.size() < _settingsProvider.getDemandedInitialHarePositions())
+				if (_harePositions.size() < _settingsProvider.getRequiredInitialHarePositions())
 				{
 					return;
 				}
 				
-				// TODO: implement
+				double checkpointRange = _settingsProvider.getCheckpointRange();
+				
+				if (_harePositions.isNearAnyPosition(data, checkpointRange))
+				{
+					PositionData nextPosition = _harePositions.getNextPosition(data, checkpointRange);
+					
+					if (nextPosition != null) // hounds have caught up the hare
+					{
+						// TODO: end game
+					}
+					else // hounds have reached a checkpoint
+					{
+						_connectionManager.send(new CheckpointData(_directionCalculator.calculateDirection(data, nextPosition)), _houndsID);
+					}
+				}
 			}
 		});
 		

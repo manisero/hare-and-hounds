@@ -17,6 +17,12 @@ public class SettingsProvider implements ISettingsProvider
 	}
 
 	@Override
+	public int getCheckpointRange()
+	{
+		return 20;
+	}
+	
+	@Override
 	public int getHareDemandedPositionUpdateInterval()
 	{
 		return 20;
@@ -29,8 +35,14 @@ public class SettingsProvider implements ISettingsProvider
 	}
 
 	@Override
-	public int getDemandedInitialHarePositions()
+	public int getRequiredInitialHarePositions()
 	{
 		return 3;
+	}
+
+	@Override
+	public int getVictoriousHarePositions()
+	{
+		return 30;
 	}
 }
