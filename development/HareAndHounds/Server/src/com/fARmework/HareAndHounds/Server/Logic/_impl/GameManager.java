@@ -1,8 +1,8 @@
 package com.fARmework.HareAndHounds.Server.Logic._impl;
 
-import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.HareAndHounds.Server.Logic.*;
 import com.fARmework.core.server.Connection.*;
+import com.fARmework.modules.PositionTracking.Data.*;
 
 public class GameManager implements IGameManager
 {
@@ -18,13 +18,15 @@ public class GameManager implements IGameManager
 	@Override
 	public void startGame(IGameEndHandler gameEndHandler)
 	{
-		_connectionManager.registerDataHandler(HarePositionData.class, _game.HareID, new IDataHandler<HarePositionData>()
+		_connectionManager.registerDataHandler(PositionData.class, _game.HareID, new IDataHandler<PositionData>()
 		{
 			@Override
-			public void handle(int clientID, HarePositionData data)
+			public void handle(int clientID, PositionData data)
 			{
-				_game.HarePositions.add(data.Position);
+				_game.HarePositions.add(data);
 			}
 		});
+		
+		
 	}
 }

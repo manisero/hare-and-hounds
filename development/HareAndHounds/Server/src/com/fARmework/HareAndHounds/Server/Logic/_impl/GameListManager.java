@@ -8,7 +8,7 @@ import com.fARmework.HareAndHounds.Server.Logic.IGameManager.IGameEndHandler;
 import com.fARmework.core.server.Connection.*;
 import com.fARmework.core.server.Data.*;
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.modules.PositionTracking.Java.DistanceCalculating.*;
+import com.fARmework.modules.PositionTracking.Java.*;
 import com.google.inject.*;
 import java.util.*;
 

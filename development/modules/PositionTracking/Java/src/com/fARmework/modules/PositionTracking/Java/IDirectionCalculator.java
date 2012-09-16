@@ -1,4 +1,4 @@
-package com.fARmework.modules.PositionTracking.Java.DirectionCalculating;
+package com.fARmework.modules.PositionTracking.Java;
 
 import com.fARmework.modules.PositionTracking.Data.*;
 
