@@ -1,16 +1,15 @@
 package com.fARmework.HareAndHounds.Client;
 
-import com.fARmework.HareAndHounds.Client.Activities.PositionActivity;
-import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.HareAndHounds.Client.Infrastructure.ResourcesProvider;
-import com.fARmework.HareAndHounds.Client.ViewModels.PositionViewModel;
-import com.fARmework.core.data.IDataRegistry;
-import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
-import com.fARmework.utils.Android.IContextManager;
-import com.google.inject.Injector;
+import com.fARmework.HareAndHounds.Client.Activities.*;
+import com.fARmework.HareAndHounds.Client.Infrastructure.*;
+import com.fARmework.HareAndHounds.Client.ViewModels.*;
+import com.fARmework.core.data.*;
+import com.fARmework.modules.PositionTracking.Android.*;
+import com.fARmework.utils.Android.*;
+import com.google.inject.*;
 
+import roboguice.*;
 import gueei.binding.Binder;
-import roboguice.RoboGuice;
 
 public class Application extends android.app.Application
 {
@@ -46,7 +45,10 @@ public class Application extends android.app.Application
 	
 	private void registerViews(IContextManager contextManager)
 	{
-		contextManager.registerView(PositionViewModel.class, PositionActivity.class, R.layout.position);
+		contextManager.registerView(GameModeViewModel.class, GameModeActivity.class, R.layout.game_mode);
+		contextManager.registerView(OptionsViewModel.class, OptionsActivity.class, R.layout.options);
+		contextManager.registerView(HostingViewModel.class, HostingActivity.class, R.layout.hosting);
+		contextManager.registerView(GameListViewModel.class, GameListActivity.class, R.layout.game_list);
 	}
 	
 	private void configurePositionTracking(Injector injector)
