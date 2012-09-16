@@ -26,6 +26,8 @@ public class HahEntryPoint
 		ArrayList<AbstractModule> modules = new ArrayList<AbstractModule>();
 		
 		modules.add(new CoreModule());
+		modules.add(new PositionTrackingModule());
+		modules.add(new InfrastructureModule());
 		modules.add(new LogicModule());
 		
 		return modules;
