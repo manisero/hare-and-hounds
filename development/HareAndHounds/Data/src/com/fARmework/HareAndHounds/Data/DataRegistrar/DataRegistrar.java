@@ -8,5 +8,8 @@ public class DataRegistrar
 	public void registerData(IDataRegistry dataRegistry)
 	{
 		dataRegistry.register(NewGameRequest.class);
+		dataRegistry.register(NewGameResponse.class);
+		
+		dataRegistry.register(HarePositionData.class);
 	}
 }

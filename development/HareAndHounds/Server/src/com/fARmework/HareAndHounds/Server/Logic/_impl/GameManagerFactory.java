@@ -1,13 +1,21 @@
 package com.fARmework.HareAndHounds.Server.Logic._impl;
 
-import com.fARmework.HareAndHounds.Server.Logic.IGameManager;
-import com.fARmework.HareAndHounds.Server.Logic.IGameManagerFactory;
+import com.fARmework.HareAndHounds.Server.Logic.*;
+import com.fARmework.core.server.Connection.*;
 
 public class GameManagerFactory implements IGameManagerFactory
 {
-	@Override
-	public IGameManager create()
+	private IConnectionManager _connectionManager;
+	
+	public GameManagerFactory(IConnectionManager connectionManager)
 	{
-		return new GameManager();
+		_connectionManager = connectionManager;
 	}
+	
+	@Override
+	public IGameManager create(int hareID, String hareName, int houndsID, String houndsName)
+	{
+		return new GameManager(_connectionManager, new Game(hareID, hareName, houndsID, houndsName));
+	}
+	
 }

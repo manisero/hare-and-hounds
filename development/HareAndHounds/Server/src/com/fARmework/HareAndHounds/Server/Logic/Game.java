@@ -6,10 +6,19 @@ import com.fARmework.modules.PositionTracking.Data.PositionData;
 
 public class Game
 {
-	public int HostID;
-	public String HostName;
+	public int HareID;
+	public String HareName;
 	
-	public int GuestID;
+	public int HoundsID;
+	public String HoundsName;
 	
-	public LinkedList<PositionData> HostPositions = new LinkedList<PositionData>();
+	public LinkedList<PositionData> HarePositions = new LinkedList<PositionData>();
+	
+	public Game(int hareID, String hareName, int houndsID, String houndsName)
+	{
+		HareID = hareID;
+		HareName = hareName;
+		HoundsID = houndsID;
+		HoundsName  = houndsName;
+	}
 }
