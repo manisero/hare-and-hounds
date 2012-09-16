@@ -2,11 +2,13 @@ package com.fARmework.HareAndHounds.Server.Logic._impl;
 
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.HareAndHounds.Data.JoinGameResponse.JoinGameResponseType;
+import com.fARmework.HareAndHounds.Server.Infrastructure.*;
 import com.fARmework.HareAndHounds.Server.Logic.*;
 import com.fARmework.HareAndHounds.Server.Logic.IGameManager.IGameEndHandler;
 import com.fARmework.core.server.Connection.*;
 import com.fARmework.core.server.Data.*;
 import com.fARmework.modules.PositionTracking.Data.*;
+import com.fARmework.modules.PositionTracking.Java.DistanceCalculating.*;
 import com.google.inject.*;
 import java.util.*;
 
@@ -28,15 +30,19 @@ public class GameListManager implements IGameListManager
 	}
 	
 	private IConnectionManager _connectionManager;
+	private IDistanceCalculator _distanceCalculator;
 	private IGameManagerFactory _gameManagerFactory;
+	private ISettingsProvider _settingsProvider;
 	
 	private Map<Integer, GameListItem> _games = new LinkedHashMap<Integer, GameListItem>();
 	
 	@Inject
-	public GameListManager(IConnectionManager connectionManager, IGameManagerFactory gameManagerFactory)
+	public GameListManager(IConnectionManager connectionManager, IDistanceCalculator distanceCalculator, IGameManagerFactory gameManagerFactory, ISettingsProvider settingsProvider)
 	{
 		_connectionManager = connectionManager;
+		_distanceCalculator = distanceCalculator;
 		_gameManagerFactory = gameManagerFactory;
+		_settingsProvider = settingsProvider;
 	}
 	
 	@Override
@@ -69,7 +75,7 @@ public class GameListManager implements IGameListManager
 				
 				for (GameListItem item : _games.values())
 				{
-					if (item.IsAvailable)
+					if (item.IsAvailable && _distanceCalculator.calculateDistance(item.HostPosition, data.Position) <= _settingsProvider.getGameRange())
 					{
 						response.Games.put(item.HostID, item.HostName);
 					}

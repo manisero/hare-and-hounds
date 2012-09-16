@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="libs/guice-3.0.jar"/>
 	<classpathentry kind="lib" path="libs/javax.inject.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PositionTracking.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PositionTracking.Java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
