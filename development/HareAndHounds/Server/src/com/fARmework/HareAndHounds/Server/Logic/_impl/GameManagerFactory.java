@@ -15,8 +15,8 @@ public class GameManagerFactory implements IGameManagerFactory
 	}
 	
 	@Override
-	public IGameManager create(int hareID, String hareName, int houndsID, String houndsName)
+	public IGameManager create(int hareID, int houndsID)
 	{
-		return new GameManager(_connectionManager, new Game(hareID, hareName, houndsID, houndsName));
+		return new GameManager(_connectionManager, new Game(hareID, houndsID));
 	}
 }

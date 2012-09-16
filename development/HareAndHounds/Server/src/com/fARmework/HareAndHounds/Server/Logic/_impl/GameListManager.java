@@ -1,9 +1,11 @@
 package com.fARmework.HareAndHounds.Server.Logic._impl;
 
 import com.fARmework.HareAndHounds.Data.*;
+import com.fARmework.HareAndHounds.Data.JoinGameResponse.JoinGameResponseType;
 import com.fARmework.HareAndHounds.Server.Logic.*;
 import com.fARmework.HareAndHounds.Server.Logic.IGameManager.IGameEndHandler;
 import com.fARmework.core.server.Connection.*;
+import com.fARmework.core.server.Data.*;
 import com.fARmework.modules.PositionTracking.Data.*;
 import com.google.inject.*;
 import java.util.*;
@@ -12,12 +14,14 @@ public class GameListManager implements IGameListManager
 {
 	private class GameListItem
 	{
+		public int HostID;
 		public String HostName;
 		public PositionData HostPosition;
 		public boolean IsAvailable = true;
 		
-		public GameListItem(String hostName, PositionData hostPosition)
+		public GameListItem(int hostID, String hostName, PositionData hostPosition)
 		{
+			HostID = hostID;
 			HostName = hostName;
 			HostPosition = hostPosition;
 		}
@@ -38,8 +42,6 @@ public class GameListManager implements IGameListManager
 	@Override
 	public void run()
 	{
-		_connectionManager.startConnection();
-		
 		_connectionManager.registerDataHandler(NewGameRequest.class, new IDataHandler<NewGameRequest>()
 		{
 			@Override
@@ -47,7 +49,7 @@ public class GameListManager implements IGameListManager
 			{
 				if (!_games.containsKey(clientID))
 				{
-					_games.put(clientID, new GameListItem(data.HostName, data.Position));
+					_games.put(clientID, new GameListItem(clientID, data.HostName, data.Position));
 				}
 				else
 				{
@@ -55,20 +57,84 @@ public class GameListManager implements IGameListManager
 				}
 				
 				_connectionManager.send(new NewGameResponse(), clientID);
-				
-				// TODO: move this to JoinGameResponse handler
-				_gameManagerFactory
-					.create(clientID, data.HostName, 0, "hounds") // TODO: retrieve hounds ID and name
-					.startGame(new IGameEndHandler()
-					{
-						@Override
-						public void onGameEnd(Game game)
-						{
-							_games.remove(game.HareID);
-						}
-					});
 			}
 		});
+		
+		_connectionManager.registerDataHandler(GameListRequest.class, new IDataHandler<GameListRequest>()
+		{
+			@Override
+			public void handle(int clientID, GameListRequest data)
+			{
+				GameListResponse response = new GameListResponse();
+				
+				for (GameListItem item : _games.values())
+				{
+					if (item.IsAvailable)
+					{
+						response.Games.put(item.HostID, item.HostName);
+					}
+				}
+				
+				_connectionManager.send(response, clientID);
+			}
+		});
+		
+		_connectionManager.registerDataHandler(JoinGameRequest.class, new IDataHandler<JoinGameRequest>()
+		{
+			@Override
+			public void handle(int clientID, JoinGameRequest data)
+			{
+				if (!_games.containsKey(data.HostID) || !_games.get(data.HostID).IsAvailable)
+				{
+					_connectionManager.send(new JoinGameResponse(JoinGameResponseType.Unavailable), clientID);
+				}
+				else
+				{
+					data.GuestID = clientID;
+					_connectionManager.send(data, data.HostID);
+				}
+			}
+		});
+		
+		_connectionManager.registerDataHandler(JoinGameResponse.class, new IDataHandler<JoinGameResponse>()
+		{
+			@Override
+			public void handle(int clientID, JoinGameResponse data)
+			{
+				if (data.Response == JoinGameResponseType.Accept)
+				{
+					GameListItem item = _games.get(clientID);
+					item.IsAvailable = false;
+					
+					_gameManagerFactory
+						.create(item.HostID, data.GuestID)
+						.startGame(new IGameEndHandler()
+						{
+							@Override
+							public void onGameEnd(Game game)
+							{
+								_games.remove(game.HareID);
+							}
+						});
+				}
+				
+				_connectionManager.send(data, data.GuestID);
+			}
+		});
+		
+		_connectionManager.registerDataHandler(ClientDisconnectedInfo.class, new IDataHandler<ClientDisconnectedInfo>()
+		{
+			@Override
+			public void handle(int clientID, ClientDisconnectedInfo data)
+			{
+				if (_games.containsKey(clientID))
+				{
+					_games.remove(clientID);
+				}
+			}
+		});
+		
+		_connectionManager.startConnection();
 	}
 }
 

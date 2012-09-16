@@ -10,6 +10,12 @@ public class DataRegistrar
 		dataRegistry.register(NewGameRequest.class);
 		dataRegistry.register(NewGameResponse.class);
 		
+		dataRegistry.register(GameListRequest.class);
+		dataRegistry.register(GameListResponse.class);
+		
+		dataRegistry.register(JoinGameRequest.class);
+		dataRegistry.register(JoinGameResponse.class);
+		
 		dataRegistry.register(HarePositionData.class);
 	}
 }
