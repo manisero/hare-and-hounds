@@ -12,8 +12,8 @@
         android:ems="10"
         android:inputType="text"
         android:hint="@string/serverAddress"
-        binding:text="serverAddress"
-        binding:enabled="NOT(isConnected)">
+        binding:text="ServerAddress"
+        binding:enabled="NOT(IsConnected)">
     </EditText>
     
     <EditText android:id="@+id/userName"
@@ -22,8 +22,8 @@
         android:ems="10"
         android:inputType="text"
         android:hint="@string/userName"
-        binding:text="userName"
-        binding:enabled="NOT(isConnected)">
+        binding:text="UserName"
+        binding:enabled="NOT(IsConnected)">
         <requestFocus />
     </EditText>
 	
@@ -31,6 +31,6 @@
 		android:layout_width="130dp"
 		android:layout_height="65dp"
 		android:text="@string/options_save"
-		binding:onClick="save" />
+		binding:onClick="Save" />
     
 </LinearLayout>

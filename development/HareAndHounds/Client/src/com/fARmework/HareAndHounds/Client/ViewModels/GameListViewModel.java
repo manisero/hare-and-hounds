@@ -13,6 +13,8 @@ import com.fARmework.HareAndHounds.Client.Infrastructure.*;
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.HareAndHounds.Data.JoinGameResponse.JoinGameResponseType;
 import com.fARmework.core.client.Connection.*;
+import com.fARmework.modules.PositionTracking.Android.*;
+import com.fARmework.modules.PositionTracking.Android.IPositionService.*;
 import com.fARmework.modules.PositionTracking.Data.*;
 import com.fARmework.utils.Android.*;
 import com.google.inject.*;
@@ -22,29 +24,32 @@ public class GameListViewModel extends ViewModel
 	public class GameListItem
 	{
 		private int _hostID;
-		public StringObservable hostName = new StringObservable();
+		public StringObservable HostName = new StringObservable();
 		
-		public Command join = new Command()
+		public Command Join = new Command()
 		{
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
-				joinGame(_hostID, hostName.get());
+				joinGame(_hostID, HostName.get());
 			}
 		};
 		
 		public GameListItem(int hostID, String hostName)
 		{
 			_hostID = hostID;
-			this.hostName.set(hostName);
+			HostName.set(hostName);
 		}
 	}
 	
-	public ArrayListObservable<GameListItem> games = new ArrayListObservable<GameListItem>(GameListItem.class);
-	public StringObservable status = new StringObservable();
-	public BooleanObservable isWaiting = new BooleanObservable(false);
+	private IPositionService _positionService;
+	private ISettingsProvider _settingsProvider;
 	
-	public Command refresh = new Command()
+	public ArrayListObservable<GameListItem> Games = new ArrayListObservable<GameListItem>(GameListItem.class);
+	public StringObservable Status = new StringObservable();
+	public BooleanObservable IsWaiting = new BooleanObservable(false);
+	
+	public Command Refresh = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
@@ -53,13 +58,12 @@ public class GameListViewModel extends ViewModel
 		}
 	};
 	
-	private ISettingsProvider _settingsProvider;
-	
 	@Inject
-	public GameListViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
+	public GameListViewModel(IPositionService positionService, ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
 		
+		_positionService = positionService;
 		_settingsProvider = settingsProvider;
 		
 		ConnectionManager.registerDataHandler(GameListResponse.class, new IDataHandler<GameListResponse>()
@@ -67,6 +71,8 @@ public class GameListViewModel extends ViewModel
 			@Override
 			public void handle(GameListResponse data)
 			{
+				IsWaiting.set(false);
+				
 				LinkedList<GameListItem> gameList = new LinkedList<GameListItem>();
 				
 				for (int hostID : data.Games.keySet())
@@ -74,7 +80,7 @@ public class GameListViewModel extends ViewModel
 					gameList.add(new GameListItem(hostID, data.Games.get(hostID)));
 				}
 				
-				games.setArray(gameList.toArray(new GameListItem[0]));
+				Games.setArray(gameList.toArray(new GameListItem[0]));
 			}
 		});
 		
@@ -83,20 +89,37 @@ public class GameListViewModel extends ViewModel
 	
 	private void getGames()
 	{
-		ConnectionManager.send(new GameListRequest(new PositionData(0, 0)));
+		Status.set(ResourcesProvider.getString(R.string.gameList_waiting));
+		IsWaiting.set(true);
+		
+		_positionService.getSinglePosition(new IPositionListener()
+		{
+			@Override
+			public void onPosition(PositionData position)
+			{
+				if (position != null)
+				{
+					ConnectionManager.send(new GameListRequest(position));
+				}
+				else
+				{
+					Status.set(ResourcesProvider.getString(R.string.position_fail));
+				}
+			}
+		});
 	}
 	
 	private void joinGame(int hostID, final String hostName)
 	{
-		status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostName));
-		isWaiting.set(true);
+		Status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostName));
+		IsWaiting.set(true);
 		
 		ConnectionManager.registerDataHandler(JoinGameResponse.class, new IDataHandler<JoinGameResponse>()
 		{
 			@Override
 			public void handle(JoinGameResponse data)
 			{
-				isWaiting.set(false);
+				IsWaiting.set(false);
 				
 				if (data.Response == JoinGameResponseType.Reject)
 				{

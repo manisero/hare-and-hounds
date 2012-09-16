@@ -14,16 +14,16 @@ public class OptionsViewModel extends ViewModel
 {
 	private ISettingsProvider _settingsProvider;
 	
-	public StringObservable serverAddress = new StringObservable();
-	public StringObservable userName = new StringObservable();
+	public StringObservable ServerAddress = new StringObservable();
+	public StringObservable UserName = new StringObservable();
 	
-	public Command save = new Command()
+	public Command Save = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			_settingsProvider.setServerAddress(serverAddress.get());
-			_settingsProvider.setUserName(userName.get());
+			_settingsProvider.setServerAddress(ServerAddress.get());
+			_settingsProvider.setUserName(UserName.get());
 		}
 	};
 	
@@ -34,7 +34,7 @@ public class OptionsViewModel extends ViewModel
 		
 		_settingsProvider = settingsProvider;
 		
-		serverAddress.set(_settingsProvider.getServerAddress());
-		userName.set(_settingsProvider.getUserName());
+		ServerAddress.set(_settingsProvider.getServerAddress());
+		UserName.set(_settingsProvider.getUserName());
 	}
 }

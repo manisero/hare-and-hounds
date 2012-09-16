@@ -74,7 +74,6 @@ public class PositionService implements IPositionService
 			return;
 		}
 		
-		// Seems like requestSingleUpdate does not work properly...
 		manager.requestLocationUpdates(provider, 3000, 5, new LocationListener()
 		{
 			@Override
