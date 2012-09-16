@@ -117,9 +117,9 @@ public class GameListManager implements IGameListManager
 						.startGame(new IGameEndHandler()
 						{
 							@Override
-							public void onGameEnd(Game game)
+							public void onGameEnd(int hostID, int guestID)
 							{
-								_games.remove(game.HareID);
+								_games.remove(hostID);
 							}
 						});
 				}

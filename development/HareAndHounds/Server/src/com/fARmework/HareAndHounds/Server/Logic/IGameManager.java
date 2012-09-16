@@ -4,7 +4,7 @@ public interface IGameManager
 {
 	public interface IGameEndHandler
 	{
-		public void onGameEnd(Game game);
+		public void onGameEnd(int hostID, int guestID);
 	}
 	
 	void startGame(IGameEndHandler gameEndHandler);

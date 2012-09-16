@@ -15,4 +15,22 @@ public class SettingsProvider implements ISettingsProvider
 	{
 		return 1000;
 	}
+
+	@Override
+	public int getHareDemandedPositionUpdateInterval()
+	{
+		return 20;
+	}
+
+	@Override
+	public int getHoundsDemandedPositionUpdateInterval()
+	{
+		return 10;
+	}
+
+	@Override
+	public int getDemandedInitialHarePositions()
+	{
+		return 3;
+	}
 }
