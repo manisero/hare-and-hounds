@@ -55,9 +55,10 @@ public class GraphicsRenderer implements GLSurfaceView.Renderer
 class Triangle {
 
     private final String vertexShaderCode =
+    	"uniform mat4 u_MVPMatrix; " +
         "attribute vec4 vPosition;" +
         "void main() {" +
-        "  gl_Position = vPosition;" +
+        "  gl_Position = u_MVPMatrix * vPosition;" +
         "}";
 
     private final String fragmentShaderCode =
@@ -68,18 +69,52 @@ class Triangle {
         "}";
 
     private final FloatBuffer vertexBuffer;
+    private final ByteBuffer indexBuffer;
     private final int mProgram;
     private int mPositionHandle;
     private int mColorHandle;
+    private int mMVPMatrixHandle;
 
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
-    static float triangleCoords[] = { // in counterclockwise order:
-         0.0f,  0.622008459f, 0.0f,   // top
-        -0.5f, -0.311004243f, 0.0f,   // bottom left
-         0.5f, -0.311004243f, 0.0f    // bottom right
+    static float vertices[] = {
+		-0.5f,	 0.1f,	 0.0f,
+		-0.1f,	 0.1f,	 0.25f,
+		-0.1f,	 0.1f,	 0.15f,
+		 0.5f,	 0.1f,	 0.15f,
+		 0.5f,	 0.1f,	-0.15f,
+		-0.1f,	 0.1f,	-0.15f,
+		-0.1f,	 0.1f,	-0.25f,
+		-0.5f,	-0.1f,	 0.0f,
+		-0.1f,	-0.1f,	 0.25f,
+		-0.1f,	-0.1f,	 0.15f,
+		 0.5f,	-0.1f,	 0.15f,
+		 0.5f,	-0.1f,	-0.15f,
+		-0.1f,	-0.1f,	-0.15f,
+		-0.1f,	-0.1f,	-0.25f
     };
-    private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
+    static byte indices[] = {
+		0,	1,	6,
+		2,	3,	5,
+		3,	4,	5,
+		7,	13,	8,
+		9,	12,	10,
+		12,	11,	10,
+		0,	7,	8,
+		0,	8,	1,
+		1,	8,	9,
+		1,	9,	2,
+		2,	9,	10,
+		2,	10,	3,
+		3,	10,	11,
+		3,	11,	4,
+		4,	11,	12,
+		4,	12,	5,
+		5,	12,	13,
+		5,	13,	6,
+		6,	13,	7,
+		6,	7,	0    	
+    };
     private final int vertexStride = COORDS_PER_VERTEX * 4; // bytes per vertex
 
     // Set color with red, green, blue and alpha (opacity) values
@@ -87,18 +122,20 @@ class Triangle {
 
     public Triangle() {
         // initialize vertex byte buffer for shape coordinates
-        ByteBuffer bb = ByteBuffer.allocateDirect(
-                // (number of coordinate values * 4 bytes per float)
-                triangleCoords.length * 4);
+        ByteBuffer bb = ByteBuffer.allocateDirect(vertices.length * 4);
         // use the device hardware's native byte order
         bb.order(ByteOrder.nativeOrder());
 
         // create a floating point buffer from the ByteBuffer
         vertexBuffer = bb.asFloatBuffer();
         // add the coordinates to the FloatBuffer
-        vertexBuffer.put(triangleCoords);
+        vertexBuffer.put(vertices);
         // set the buffer to read the first coordinate
         vertexBuffer.position(0);
+        
+        indexBuffer = ByteBuffer.allocateDirect(vertices.length * 4);
+        indexBuffer.put(indices);
+        indexBuffer.position(0);
 
         // prepare shaders and OpenGL program
         int vertexShader = GraphicsRenderer.loadShader(GLES20.GL_VERTEX_SHADER,
@@ -130,12 +167,23 @@ class Triangle {
 
         // get handle to fragment shader's vColor member
         mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
+        
+        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "u_MVPMatrix");
 
         // Set color for drawing the triangle
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
 
+        float rotationMatrix[] = new float[16];
+        
+        Matrix.setIdentityM(rotationMatrix, 0);
+        Matrix.rotateM(rotationMatrix, 0, -20.0f, 0.0f, 1.0f, 0.0f);
+        Matrix.rotateM(rotationMatrix, 0, -20.0f, 1.0f, 0.0f, 0.0f);
+        
+        GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, rotationMatrix, 0);
+        
         // Draw the triangle
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, 60, GLES20.GL_UNSIGNED_BYTE, indexBuffer);
+        //GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
 
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
