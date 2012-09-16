@@ -2,10 +2,13 @@ package com.fARmework.HareAndHounds.Client.ViewModels;
 
 import gueei.binding.observables.*;
 
+import com.fARmework.HareAndHounds.Client.R;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.HareAndHounds.Data.JoinGameResponse.JoinGameResponseType;
 import com.fARmework.core.client.Connection.*;
+import com.fARmework.modules.PositionTracking.Android.*;
+import com.fARmework.modules.PositionTracking.Android.IPositionService.IPositionListener;
 import com.fARmework.modules.PositionTracking.Data.*;
 import com.fARmework.utils.Android.*;
 import com.fARmework.utils.Android.IContextManager.IDialogListener;
@@ -13,20 +16,26 @@ import com.google.inject.*;
 
 public class HostingViewModel extends ViewModel
 {
-	public StringObservable status = new StringObservable();
-	public BooleanObservable isWaiting = new BooleanObservable(true);
+	private IPositionService _positionService;
+	private ISettingsProvider _settingsProvider;
+	
+	public StringObservable Status = new StringObservable();
+	public BooleanObservable IsWaiting = new BooleanObservable(true);
 	
 	@Inject
-	public HostingViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
+	public HostingViewModel(IPositionService positionService, ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
+		
+		_positionService = positionService;
+		_settingsProvider = settingsProvider;
 		
 		ConnectionManager.registerDataHandler(NewGameResponse.class, new IDataHandler<NewGameResponse>()
 		{
 			@Override
 			public void handle(NewGameResponse data)
 			{
-				status.set(ResourcesProvider.getString(R.string.hosting_waiting));
+				Status.set(ResourcesProvider.getString(R.string.hosting_waiting));
 			}
 		});
 		
@@ -44,7 +53,7 @@ public class HostingViewModel extends ViewModel
 						@Override
 						public void onDialogResult()
 						{
-							status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestName));
+							Status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestName));
 							
 							/*
 							ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
@@ -76,7 +85,22 @@ public class HostingViewModel extends ViewModel
 			}
 		});
 		
-		status.set(ResourcesProvider.getString(R.string.hosting_creating));
-		ConnectionManager.send(new NewGameRequest(settingsProvider.getUserName(), new PositionData(0, 0)));
+		Status.set(ResourcesProvider.getString(R.string.hosting_creating));
+		
+		_positionService.getSinglePosition(new IPositionListener()
+		{
+			@Override
+			public void onPosition(PositionData position)
+			{
+				if (position != null)
+				{
+					ConnectionManager.send(new NewGameRequest(_settingsProvider.getUserName(), position));
+				}
+				else
+				{
+					Status.set(ResourcesProvider.getString(R.string.position_fail));
+				}
+			}
+		});
 	}
 }

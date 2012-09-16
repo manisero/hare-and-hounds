@@ -20,6 +20,8 @@
     <string name="connection_disconnected">Disconnected</string>
     <string name="connection_exception">Connection error occured. The application will be closed.</string>
     
+    <string name="position_fail">Failed to read GPS position.</string>
+    
     <string name="mode_create">Create</string>
     <string name="mode_join">Join</string>
     
@@ -33,6 +35,7 @@
     <string name="hosting_guestJoined">%1$s has joined your game.</string>
     
     <string name="gameList_refresh">Refresh</string>
+    <string name="gameList_waiting">Waiting for game list&#8230;</string>
     <string name="gameList_joining">Joining %1$s\'s game&#8230;</string>
     <string name="gameList_joinRejected">%1$s has refused your join request</string>
     <string name="gameList_unavailable">%1$s\'s game is no longer available</string>

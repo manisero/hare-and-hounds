@@ -26,9 +26,7 @@ public final class R {
         public static final int hostingProgress=0x7f080009;
         public static final int joinButton=0x7f080005;
         public static final int joiningProgress=0x7f080003;
-        public static final int newGameButton=0x7f08000e;
         public static final int optionsButton=0x7f080008;
-        public static final int position=0x7f08000d;
         public static final int saveButton=0x7f08000c;
         public static final int serverAddress=0x7f08000a;
         public static final int status=0x7f080002;
@@ -43,7 +41,6 @@ public final class R {
         public static final int game_mode=0x7f030002;
         public static final int hosting=0x7f030003;
         public static final int options=0x7f030004;
-        public static final int position=0x7f030005;
     }
     public static final class string {
         /**  "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) 
@@ -62,19 +59,21 @@ public final class R {
         public static final int dialog_confirm=0x7f040003;
         public static final int dialog_no=0x7f040005;
         public static final int dialog_yes=0x7f040004;
-        public static final int gameList_joinRejected=0x7f04001b;
-        public static final int gameList_joining=0x7f04001a;
-        public static final int gameList_refresh=0x7f040019;
-        public static final int gameList_unavailable=0x7f04001c;
-        public static final int hosting_created=0x7f040015;
-        public static final int hosting_creating=0x7f040014;
-        public static final int hosting_guestConnected=0x7f040017;
-        public static final int hosting_guestJoined=0x7f040018;
-        public static final int hosting_waiting=0x7f040016;
-        public static final int mode_create=0x7f040010;
-        public static final int mode_join=0x7f040011;
-        public static final int options=0x7f040012;
-        public static final int options_save=0x7f040013;
+        public static final int gameList_joinRejected=0x7f04001d;
+        public static final int gameList_joining=0x7f04001c;
+        public static final int gameList_refresh=0x7f04001a;
+        public static final int gameList_unavailable=0x7f04001e;
+        public static final int gameList_waiting=0x7f04001b;
+        public static final int hosting_created=0x7f040016;
+        public static final int hosting_creating=0x7f040015;
+        public static final int hosting_guestConnected=0x7f040018;
+        public static final int hosting_guestJoined=0x7f040019;
+        public static final int hosting_waiting=0x7f040017;
+        public static final int mode_create=0x7f040011;
+        public static final int mode_join=0x7f040012;
+        public static final int options=0x7f040013;
+        public static final int options_save=0x7f040014;
+        public static final int position_fail=0x7f040010;
         public static final int serverAddress=0x7f040006;
         public static final int userName=0x7f040007;
     }

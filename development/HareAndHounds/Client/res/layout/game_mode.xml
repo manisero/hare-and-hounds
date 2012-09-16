@@ -10,15 +10,15 @@
 		android:layout_width="160dp"
 		android:layout_height="80dp"
 		android:text="@string/mode_create"
-		binding:onClick="newGame"
-		binding:enabled="NOT(isWaiting)" />
+		binding:onClick="NewGame"
+		binding:enabled="NOT(IsWaiting)" />
     
 	<Button android:id="@+id/joinButton"
 		android:layout_width="160dp"
 		android:layout_height="80dp"
 		android:text="@string/mode_join"
-		binding:onClick="joinGame"
-		binding:enabled="NOT(isWaiting)" />
+		binding:onClick="JoinGame"
+		binding:enabled="NOT(IsWaiting)" />
 
 	<LinearLayout android:orientation="horizontal"
 	    android:layout_width="wrap_content"
@@ -28,13 +28,13 @@
 	    <TextView android:id="@+id/status"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    binding:text="status" />
+		    binding:text="Status" />
 	    
 	    <ProgressBar android:id="@+id/connectionProgress"
 		    style="?android:attr/progressBarStyleSmall"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    binding:visibility="isWaiting" />
+		    binding:visibility="IsWaiting" />
 	    
 	</LinearLayout>
 	
@@ -42,13 +42,13 @@
 		android:layout_width="160dp"
 		android:layout_height="80dp"
 		android:text="@string/connection_disconnect"
-		binding:onClick="disconnect"
-		binding:visibility="isConnected" />
+		binding:onClick="Disconnect"
+		binding:visibility="IsConnected" />
 	
 	<Button android:id="@+id/optionsButton"
 		android:layout_width="130dp"
 		android:layout_height="65dp"
 		android:text="@string/options"
-		binding:onClick="options" />
+		binding:onClick="Options" />
 	
 </LinearLayout>
