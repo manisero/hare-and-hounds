@@ -16,6 +16,6 @@ public class DataRegistrar
 		dataRegistry.register(JoinGameRequest.class);
 		dataRegistry.register(JoinGameResponse.class);
 		
-		dataRegistry.register(HarePositionData.class);
+		dataRegistry.register(GameStartInfo.class);
 	}
 }

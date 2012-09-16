@@ -1,10 +1,9 @@
-package com.fARmework.modules.PositionTracking.Tests.PositionStores;
+package com.fARmework.modules.PositionTracking.Tests;
 
 import static org.junit.Assert.*;
 
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.modules.PositionTracking.Java.DistanceCalculating.*;
-import com.fARmework.modules.PositionTracking.Java.PositionStoring.*;
+import com.fARmework.modules.PositionTracking.Java.*;
 
 import org.junit.*;
 import org.junit.runner.*;

@@ -1,7 +1,7 @@
-package com.fARmework.modules.PositionTracking.Java.DirectionCalculating._impl;
+package com.fARmework.modules.PositionTracking.Java._impl;
 
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.modules.PositionTracking.Java.DirectionCalculating.*;
+import com.fARmework.modules.PositionTracking.Java.*;
 
 public class DirectionCalculator implements IDirectionCalculator 
 {

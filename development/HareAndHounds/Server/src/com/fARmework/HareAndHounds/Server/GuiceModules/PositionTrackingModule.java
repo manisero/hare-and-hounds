@@ -1,9 +1,7 @@
 package com.fARmework.HareAndHounds.Server.GuiceModules;
 
-import com.fARmework.modules.PositionTracking.Java.DirectionCalculating.*;
-import com.fARmework.modules.PositionTracking.Java.DirectionCalculating._impl.*;
-import com.fARmework.modules.PositionTracking.Java.DistanceCalculating.*;
-import com.fARmework.modules.PositionTracking.Java.DistanceCalculating._impl.*;
+import com.fARmework.modules.PositionTracking.Java.*;
+import com.fARmework.modules.PositionTracking.Java._impl.*;
 import com.google.inject.*;
 
 public class PositionTrackingModule extends AbstractModule

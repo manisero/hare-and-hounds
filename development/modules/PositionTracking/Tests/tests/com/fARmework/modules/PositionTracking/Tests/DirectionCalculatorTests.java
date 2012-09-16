@@ -1,10 +1,10 @@
-package com.fARmework.modules.PositionTracking.Tests.DirectionCalculators;
+package com.fARmework.modules.PositionTracking.Tests;
 
 import static org.junit.Assert.*;
 
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.modules.PositionTracking.Java.DirectionCalculating.*;
-import com.fARmework.modules.PositionTracking.Java.DirectionCalculating._impl.*;
+import com.fARmework.modules.PositionTracking.Java.*;
+import com.fARmework.modules.PositionTracking.Java._impl.*;
 
 import org.junit.*;
 import org.junit.runner.*;

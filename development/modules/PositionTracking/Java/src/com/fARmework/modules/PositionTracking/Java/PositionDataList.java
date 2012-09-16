@@ -1,7 +1,6 @@
-package com.fARmework.modules.PositionTracking.Java.PositionStoring;
+package com.fARmework.modules.PositionTracking.Java;
 
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.modules.PositionTracking.Java.DistanceCalculating.*;
 
 import java.util.*;
 
