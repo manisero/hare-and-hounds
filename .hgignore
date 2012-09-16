@@ -31,3 +31,4 @@ development/HareAndHounds/Data/bin/*
 development/HareAndHounds/Server/bin/*
 development/modules/PositionTracking/Java/bin/*
 development/modules/PositionTracking/Tests/bin/*
+development/modules/SpaceGraphics/Android/bin/*
