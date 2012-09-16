@@ -3,8 +3,8 @@ package com.fARmework.HareAndHounds.Client.ViewModels;
 import android.view.View;
 
 import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
-import com.fARmework.HareAndHounds.Data.NewGameRequest;
-import com.fARmework.core.client.Connection.IConnectionManager;
+import com.fARmework.HareAndHounds.Data.*;
+import com.fARmework.core.client.Connection.*;
 import com.fARmework.modules.PositionTracking.Android.IPositionService;
 import com.fARmework.modules.PositionTracking.Android.IPositionService.IPositionListener;
 import com.fARmework.modules.PositionTracking.Data.PositionData;
@@ -26,7 +26,7 @@ public class PositionViewModel extends ViewModel
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			_positionService.getPosition(new IPositionListener()
+			_positionService.getSinglePosition(new IPositionListener()
 			{
 				@Override
 				public void onPosition(PositionData position)
@@ -52,6 +52,23 @@ public class PositionViewModel extends ViewModel
 		
 		_positionService = positionService;
 		_settingsProvider = settingsProvider;
+		
+		ConnectionManager.registerDataHandler(NewGameResponse.class, new IDataHandler<NewGameResponse>()
+		{
+			@Override
+			public void handle(NewGameResponse data)
+			{
+				_positionService.startGettingPosition(new IPositionListener()
+				{
+					@Override
+					public void onPosition(PositionData position)
+					{
+						PositionViewModel.this.position.set(position.Longitude + ", " + position.Latitude);
+						ConnectionManager.send(new HarePositionData(position));
+					}
+				});
+			}
+		});
 		
 		connect();
 	}
