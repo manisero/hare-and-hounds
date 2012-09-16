@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://www.gueei.com/android-binding/"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+   
+    <Button android:id="@+id/getGameListButton"
+		android:layout_width="160dp"
+		android:layout_height="80dp"
+		android:text="@string/gameList_refresh"
+		binding:onClick="getGames"
+		binding:enabled="NOT(isWaiting)" />
+    
+    <ListView android:id="@+id/games"
+        android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    binding:itemSource="games"
+	    binding:itemTemplate="@layout/game_list_item"
+	    binding:visibility="NOT(isWaiting)" />
+    
+    <TextView android:id="@+id/status"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    binding:text="status"
+	    binding:visibility="isWaiting" />
+
+    <ProgressBar android:id="@+id/joiningProgress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        binding:visibility="isWaiting" />
+
+</LinearLayout>
