@@ -1,9 +1,11 @@
-package com.fARmework.modules.PositionTracking.Tests.DirectionCalculating.DirectionCalculators;
+package com.fARmework.modules.PositionTracking.Tests.DirectionCalculators;
 
 import static org.junit.Assert.*;
 
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.modules.PositionTracking.Java.*;
+import com.fARmework.modules.PositionTracking.Java.DirectionCalculating.*;
+import com.fARmework.modules.PositionTracking.Java.DirectionCalculating._impl.*;
+
 import org.junit.*;
 import org.junit.runner.*;
 import org.junit.runners.*;
@@ -24,7 +26,7 @@ public class DirectionCalculatorTests
 			PositionData currentPosition = new PositionData(52.0, 21.0);
 			PositionData northFromCurrent = new PositionData(53.0, 21.0);
 			
-			DirectionCalculator directionCalculator = new DirectionCalculator();
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, northFromCurrent);
 			
@@ -37,7 +39,7 @@ public class DirectionCalculatorTests
 			PositionData currentPosition = new PositionData(52.0, 21.0);
 			PositionData southFromCurrent = new PositionData(51.0, 21.0);
 			
-			DirectionCalculator directionCalculator = new DirectionCalculator();
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, southFromCurrent);
 			
@@ -50,7 +52,7 @@ public class DirectionCalculatorTests
 			PositionData currentPosition = new PositionData(52.0, 21.0);
 			PositionData eastFromCurrent = new PositionData(52.0, 22.0);
 			
-			DirectionCalculator directionCalculator = new DirectionCalculator();
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, eastFromCurrent);
 			
@@ -63,7 +65,7 @@ public class DirectionCalculatorTests
 			PositionData currentPosition = new PositionData(52.0, 21.0);
 			PositionData westFromCurrent = new PositionData(52.0, 20.0);
 			
-			DirectionCalculator directionCalculator = new DirectionCalculator();
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, westFromCurrent);
 			
@@ -76,7 +78,7 @@ public class DirectionCalculatorTests
 			PositionData currentPosition = new PositionData(52.0, 21.0);
 			PositionData northEastFromCurrent = new PositionData(53.0, 22.0);
 			
-			DirectionCalculator directionCalculator = new DirectionCalculator();
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, northEastFromCurrent);
 			
@@ -89,7 +91,7 @@ public class DirectionCalculatorTests
 			PositionData currentPosition = new PositionData(52.0, 21.0);
 			PositionData northWestFromCurrent = new PositionData(53.0, 20.0);
 			
-			DirectionCalculator directionCalculator = new DirectionCalculator();
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, northWestFromCurrent);
 			
@@ -102,7 +104,7 @@ public class DirectionCalculatorTests
 			PositionData currentPosition = new PositionData(52.0, 21.0);
 			PositionData southEastFromCurrent = new PositionData(51.0, 22.0);
 			
-			DirectionCalculator directionCalculator = new DirectionCalculator();
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, southEastFromCurrent);
 			
@@ -115,7 +117,7 @@ public class DirectionCalculatorTests
 			PositionData currentPosition = new PositionData(52.0, 21.0);
 			PositionData southWestFromCurrent = new PositionData(51.0, 20.0);
 			
-			DirectionCalculator directionCalculator = new DirectionCalculator();
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, southWestFromCurrent);
 			

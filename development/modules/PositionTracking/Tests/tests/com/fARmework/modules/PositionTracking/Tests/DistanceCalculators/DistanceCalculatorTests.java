@@ -1,9 +1,10 @@
-package com.fARmework.modules.PositionTracking.Tests.DistanceCalculations;
+package com.fARmework.modules.PositionTracking.Tests.DistanceCalculators;
 
 import static org.junit.Assert.*;
 
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.modules.PositionTracking.Java.*;
+import com.fARmework.modules.PositionTracking.Java.DistanceCalculating.*;
+import com.fARmework.modules.PositionTracking.Java.DistanceCalculating._impl.*;
 
 import org.junit.*;
 import org.junit.runner.*;
@@ -27,7 +28,7 @@ public class DistanceCalculatorTests
 			PositionData firstPosition = new PositionData(0.0, 179.0);
 			PositionData secondPosition = new PositionData(0.0, 180.0);
 			
-			DistanceCalculator distanceCalculator = new DistanceCalculator();
+			IDistanceCalculator distanceCalculator = new DistanceCalculator();
 			
 			double distance = distanceCalculator.calculateDistance(firstPosition, secondPosition);
 			
@@ -42,7 +43,7 @@ public class DistanceCalculatorTests
 			PositionData firstPosition = new PositionData(0.0, -180.0);
 			PositionData secondPosition = new PositionData(0.0, 180.0);
 			
-			DistanceCalculator distanceCalculator = new DistanceCalculator();
+			IDistanceCalculator distanceCalculator = new DistanceCalculator();
 			
 			double distance = distanceCalculator.calculateDistance(firstPosition, secondPosition);
 			
