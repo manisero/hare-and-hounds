@@ -18,7 +18,7 @@ public class HahEntryPoint
 		registerData(injector.getInstance(IDataRegistry.class));
 		
 		// Run
-		injector.getInstance(IGamesManager.class).run();
+		injector.getInstance(IGameListManager.class).run();
 	}
 	
 	private static Iterable<? extends Module> getModules()

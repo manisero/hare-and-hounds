@@ -6,16 +6,18 @@ import com.fARmework.core.server.Connection.*;
 import com.google.inject.*;
 import java.util.*;
 
-public class GamesManager implements IGamesManager
+public class GameListManager implements IGameListManager
 {
 	private IConnectionManager _connectionManager;
+	private IGameManagerFactory _gameManagerFactory;
 	
 	private Map<Integer, Game> _games = new LinkedHashMap<Integer, Game>();
 	
 	@Inject
-	public GamesManager(IConnectionManager connectionManager)
+	public GameListManager(IConnectionManager connectionManager, IGameManagerFactory gameManagerFactory)
 	{
 		_connectionManager = connectionManager;
+		_gameManagerFactory = gameManagerFactory;
 	}
 	
 	@Override

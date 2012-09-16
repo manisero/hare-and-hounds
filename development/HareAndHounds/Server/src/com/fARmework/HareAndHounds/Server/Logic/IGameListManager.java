@@ -1,6 +1,6 @@
 package com.fARmework.HareAndHounds.Server.Logic;
 
-public interface IGamesManager 
+public interface IGameListManager 
 {
 	void run();
 }
