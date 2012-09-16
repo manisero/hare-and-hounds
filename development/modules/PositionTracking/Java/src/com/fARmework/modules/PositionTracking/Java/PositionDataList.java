@@ -6,6 +6,8 @@ import java.util.*;
 
 public class PositionDataList extends ArrayList<PositionData> 
 {
+	private static final long serialVersionUID = 1L;
+	
 	private IDistanceCalculator _distanceCalculator;
 	
 	public PositionDataList(IDistanceCalculator distanceCalculator)
@@ -13,11 +15,11 @@ public class PositionDataList extends ArrayList<PositionData>
 		_distanceCalculator = distanceCalculator;
 	}	
 	
-	public boolean isInPositionRadius(PositionData currentPosition, double maxRadius)
+	public boolean isNearAnyPosition(PositionData position, double maxRadius)
 	{	
-		for(PositionData data : this)
+		for (PositionData data : this)
 		{
-			if(_distanceCalculator.calculateDistance(data, currentPosition) <= maxRadius)
+			if(_distanceCalculator.calculateDistance(data, position) <= maxRadius)
 			{
 				return true;
 			}
@@ -26,22 +28,17 @@ public class PositionDataList extends ArrayList<PositionData>
 		return false;
 	}
 	
-	public PositionData getNextPosition(PositionData currentPosition, double maxRadius)
+	public PositionData getNextPosition(PositionData position, double maxRadius)
 	{
-		if(!isInPositionRadius(currentPosition, maxRadius))
-		{
-			return null;
-		}
-		
 		Iterator<PositionData> iterator = iterator();
 		
-		while(iterator.hasNext())
+		while (iterator.hasNext())
 		{
 			PositionData data = iterator.next();
 			
-			if(_distanceCalculator.calculateDistance(data, currentPosition) <= maxRadius)
+			if (_distanceCalculator.calculateDistance(data, position) <= maxRadius)
 			{
-				if(iterator.hasNext())
+				if (iterator.hasNext())
 				{
 					return iterator.next();
 				}
@@ -51,5 +48,13 @@ public class PositionDataList extends ArrayList<PositionData>
 		return null;
 	}
 	
-	private static final long serialVersionUID = 1L;
+	public boolean isFinalPosition(PositionData position, double maxRadius)
+	{
+		if (size() == 0)
+		{
+			return false;
+		}
+		
+		return _distanceCalculator.calculateDistance(position, get(size() - 1)) <= maxRadius;
+	}
 }
