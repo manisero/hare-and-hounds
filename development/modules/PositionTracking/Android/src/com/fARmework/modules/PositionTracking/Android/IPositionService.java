@@ -9,5 +9,8 @@ public interface IPositionService
 		void onPosition(PositionData position);
 	}
 	
-	void getPosition(IPositionListener positionListener);
+	void getSinglePosition(IPositionListener positionListener);
+	
+	void startGettingPosition(IPositionListener positionListener);
+	void stopGettingPosition(IPositionListener positionListener);
 }

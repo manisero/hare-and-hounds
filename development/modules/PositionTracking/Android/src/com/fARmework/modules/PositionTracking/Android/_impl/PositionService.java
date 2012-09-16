@@ -22,7 +22,7 @@ public class PositionService implements IPositionService
 	}
 	
 	@Override
-	public void getPosition(final IPositionListener positionListener)
+	public void getSinglePosition(final IPositionListener positionListener)
 	{
 		final LocationManager manager = _locationManagerResolver.resolve();
 		String provider = manager.getBestProvider(new Criteria(), true);
@@ -33,7 +33,8 @@ public class PositionService implements IPositionService
 			return;
 		}
 		
-		LocationListener listener = new LocationListener()
+		// Seems like requestSingleUpdate does not work properly...
+		manager.requestLocationUpdates(provider, 3000, 5, new LocationListener()
 		{
 			@Override
 			public void onLocationChanged(Location location)
@@ -58,9 +59,52 @@ public class PositionService implements IPositionService
 				positionListener.onPosition(null);
 				manager.removeUpdates(this);
 			}
-		};
+		}, null);
+	}
+
+	@Override
+	public void startGettingPosition(final IPositionListener positionListener)
+	{
+		final LocationManager manager = _locationManagerResolver.resolve();
+		String provider = manager.getBestProvider(new Criteria(), true);
 		
-		// seems like requestSingleUpdate does not work properly...
-		manager.requestLocationUpdates(provider, 3000, 5, listener, null);
+		if (provider == null)
+		{
+			positionListener.onPosition(null);
+			return;
+		}
+		
+		// Seems like requestSingleUpdate does not work properly...
+		manager.requestLocationUpdates(provider, 3000, 5, new LocationListener()
+		{
+			@Override
+			public void onLocationChanged(Location location)
+			{
+				positionListener.onPosition(new PositionData(location.getLatitude(), location.getLongitude()));
+			}
+			
+			@Override
+			public void onStatusChanged(String provider, int status, Bundle extras)
+			{
+			}
+
+			@Override
+			public void onProviderEnabled(String provider)
+			{
+			}
+			
+			@Override
+			public void onProviderDisabled(String provider)
+			{
+				positionListener.onPosition(null);
+				manager.removeUpdates(this);
+			}
+		}, null);
+	}
+
+	@Override
+	public void stopGettingPosition(IPositionListener positionListener)
+	{
+		// TODO: implement (maybe introduce state - Dictionary<IPositionListener, LocationListener>)
 	}
 }
