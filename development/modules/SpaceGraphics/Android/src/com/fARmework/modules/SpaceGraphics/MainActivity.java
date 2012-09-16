@@ -1,20 +1,20 @@
 package com.fARmework.modules.SpaceGraphics;
 
+import android.opengl.*;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 
-public class MainActivity extends Activity {
-
+public class MainActivity extends Activity 
+{
+	private GLSurfaceView _surfaceView;
+	
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
+        
+        _surfaceView = new GraphicsView(this);
+        
+        setContentView(_surfaceView);
     }
 }
