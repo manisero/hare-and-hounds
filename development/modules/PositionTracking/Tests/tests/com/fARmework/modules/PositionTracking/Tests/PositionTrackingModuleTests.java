@@ -1,7 +1,7 @@
 package com.fARmework.modules.PositionTracking.Tests;
 
-import com.fARmework.modules.PositionTracking.Tests.DirectionCalculations.*;
-import com.fARmework.modules.PositionTracking.Tests.DistanceCalculations.*;
+import com.fARmework.modules.PositionTracking.Tests.DirectionCalculators.*;
+import com.fARmework.modules.PositionTracking.Tests.DistanceCalculators.*;
 
 import org.junit.runner.*;
 import org.junit.runners.*;

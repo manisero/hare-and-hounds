@@ -1,8 +1,9 @@
-package com.fARmework.modules.PositionTracking.Java;
+package com.fARmework.modules.PositionTracking.Java.DistanceCalculating._impl;
 
 import com.fARmework.modules.PositionTracking.Data.*;
+import com.fARmework.modules.PositionTracking.Java.DistanceCalculating.*;
 
-public class DistanceCalculator 
+public class DistanceCalculator implements IDistanceCalculator
 {	
 	public double calculateDistance(PositionData first, PositionData second)
 	{
