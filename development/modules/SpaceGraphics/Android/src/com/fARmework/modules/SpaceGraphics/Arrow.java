@@ -34,6 +34,10 @@ public class Arrow implements IDrawable, IRotatable
 	private FloatBuffer _vertexBuffer;
 	private ByteBuffer _indexBuffer;
 	
+	private float _xRotation = 0.0f;
+	private float _yRotation = 0.0f;
+	private float _zRotation = 0.0f;
+	
 	public Arrow(GLHandler glHandler)
 	{
 		this(glHandler, 0.5f, 1.0f, 0.2f, null, null);
@@ -126,8 +130,10 @@ public class Arrow implements IDrawable, IRotatable
 	    float rotationMatrix[] = new float[16];
 	        
 	    Matrix.setIdentityM(rotationMatrix, 0);
-	    Matrix.rotateM(rotationMatrix, 0, -20.0f, 0.0f, 1.0f, 0.0f);
-	    Matrix.rotateM(rotationMatrix, 0, -20.0f, 1.0f, 0.0f, 0.0f);
+	    
+	    Matrix.rotateM(rotationMatrix, 0, _xRotation, 1.0f, 0.0f, 0.0f);
+	    Matrix.rotateM(rotationMatrix, 0, _yRotation, 0.0f, 1.0f, 0.0f);
+	    Matrix.rotateM(rotationMatrix, 0, _zRotation, 0.0f, 0.0f, 1.0f);
 	        
 	    GLES20.glUniformMatrix4fv(_glHandler.getMVPMatrixHandle(), 1, false, rotationMatrix, 0);
 	        
@@ -137,9 +143,24 @@ public class Arrow implements IDrawable, IRotatable
 	}
 	
 	@Override
-	public void rotate(float degree, float x, float y, float z) 
+	public void rotate(float degree, boolean x, boolean y, boolean z) 
 	{
-		// TODO Auto-generated method stub
+		if(x && y || x && z || y && z)
+		{
+			return;
+		}
 		
+		if(x)
+		{
+			_xRotation = degree;
+		}
+		else if(y)
+		{
+			_yRotation = degree;
+		}
+		else if(z)
+		{
+			_zRotation = degree;
+		}
 	}
 }

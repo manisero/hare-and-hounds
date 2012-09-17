@@ -20,6 +20,9 @@ public class GraphicsRenderer implements GLSurfaceView.Renderer
     @Override
     public void onDrawFrame(GL10 unused) 
     {
+    	_arrow.rotate(20, true, false, false);
+    	_arrow.rotate(20, false, false, true);
+    	
     	_arrow.draw();
     }
 
