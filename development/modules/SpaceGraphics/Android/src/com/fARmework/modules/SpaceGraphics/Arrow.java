@@ -163,4 +163,10 @@ public class Arrow implements IDrawable, IRotatable
 			_zRotation = degree;
 		}
 	}
+
+	@Override
+	public void setViewport(int width, int height) 
+	{
+		GLES20.glViewport(0, 0, width, height);
+	}
 }
