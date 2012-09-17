@@ -28,26 +28,36 @@ public class Arrow implements IDrawable, IRotatable
 		6,	13,	7, 			6,	7,	0    			
 	};
 	
-	private float _color[] =
-	{
-		0.63671875f, 0.76953125f, 0.22265625f, 1.0f
-	};
+	private float _color[];
+	private float _backgroundColor[];
 	
 	private FloatBuffer _vertexBuffer;
 	private ByteBuffer _indexBuffer;
 	
 	public Arrow(GLHandler glHandler)
 	{
-		this(glHandler, 0.5f, 1.0f, 0.2f);
+		this(glHandler, 0.5f, 1.0f, 0.2f, null, null);
 	}
-	
-	public Arrow(GLHandler glHandler, float width, float length, float height)
+		
+	public Arrow(GLHandler glHandler, float width, float length, float height, float color[], float backgroundColor[])
 	{
 		_glHandler = glHandler;
 		
 		_width = width;
 		_length = length;
 		_height = height;
+		
+		if(color == null)
+		{
+			float colorArray[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
+			_color = colorArray;
+		}
+		
+		if(backgroundColor == null)
+		{
+			float backgroundColorArray[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			_backgroundColor = backgroundColorArray;
+		}
 		
 		generateVertices();
 		initializeBuffers();
@@ -95,7 +105,11 @@ public class Arrow implements IDrawable, IRotatable
 	@Override
 	public void draw() 
 	{
-		GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		GLES20.glClearColor(	_backgroundColor[0], 
+								_backgroundColor[1],
+								_backgroundColor[2],
+								_backgroundColor[3]);
+		
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 		
         GLES20.glVertexAttribPointer(	_glHandler.getPositionHandle(), 
