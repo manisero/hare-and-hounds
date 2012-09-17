@@ -29,6 +29,6 @@ public class GraphicsRenderer implements GLSurfaceView.Renderer
     @Override
     public void onSurfaceChanged(GL10 unused, int width, int height) 
     {
-        _glHandler.setViewport(width, height);
+        _arrow.setViewport(width, height);
     }
 }

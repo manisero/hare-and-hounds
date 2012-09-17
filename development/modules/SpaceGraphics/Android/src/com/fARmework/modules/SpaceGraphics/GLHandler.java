@@ -65,11 +65,6 @@ public class GLHandler
 		return _MVPMatrixHandle;
 	}
 	
-	public void setViewport(int width, int height)
-	{
-		GLES20.glViewport(0, 0, width, height);
-	}
-	
 	private void initialize()
 	{		
 		_vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTEX_SHADER_CODE);
