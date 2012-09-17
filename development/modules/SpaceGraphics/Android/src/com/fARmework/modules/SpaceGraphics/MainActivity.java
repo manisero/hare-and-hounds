@@ -1,8 +1,8 @@
 package com.fARmework.modules.SpaceGraphics;
 
 import android.opengl.*;
-import android.os.Bundle;
-import android.app.Activity;
+import android.os.*;
+import android.app.*;
 
 public class MainActivity extends Activity 
 {
