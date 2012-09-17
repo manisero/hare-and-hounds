@@ -143,25 +143,11 @@ public class Arrow implements IDrawable, IRotatable
 	}
 	
 	@Override
-	public void rotate(float degree, boolean x, boolean y, boolean z) 
+	public void rotate(float xRotation, float yRotation, float zRotation) 
 	{
-		if(x && y || x && z || y && z)
-		{
-			return;
-		}
-		
-		if(x)
-		{
-			_xRotation = degree;
-		}
-		else if(y)
-		{
-			_yRotation = degree;
-		}
-		else if(z)
-		{
-			_zRotation = degree;
-		}
+		_xRotation = xRotation;
+		_yRotation = yRotation;
+		_zRotation = zRotation;
 	}
 
 	@Override
