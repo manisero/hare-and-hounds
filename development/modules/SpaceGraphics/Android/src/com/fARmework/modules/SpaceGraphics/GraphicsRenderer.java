@@ -72,7 +72,12 @@ public class GraphicsRenderer implements GLSurfaceView.Renderer, SensorEventList
 	{
 		if(_arrow != null)
 		{
-			_arrow.rotate(event.values[0], event.values[1], event.values[2]);
+			pointToTheNorth(event.values[0], event.values[1], event.values[2]);
 		}
-	}    
+	}
+	
+	public void pointToTheNorth(float azimuth, float pitch, float roll)
+	{
+		_arrow.rotate(90.0f, -90.f + azimuth, 0.0f);
+	}
 }
