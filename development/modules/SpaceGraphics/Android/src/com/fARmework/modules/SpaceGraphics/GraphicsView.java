@@ -12,6 +12,6 @@ public class GraphicsView extends GLSurfaceView
 		setEGLContextClientVersion(2);
 		setEGLConfigChooser(true);
 		setRenderer(new GraphicsRenderer(context));
-		setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 	}
 }
