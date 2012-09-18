@@ -1,10 +1,10 @@
 package com.fARmework.modules.SpaceGraphics;
 
+import android.app.*;
 import android.opengl.*;
 import android.os.*;
-import android.app.*;
 
-public class MainActivity extends Activity 
+public class MainActivity extends Activity
 {
 	private GLSurfaceView _surfaceView;
 	
@@ -15,6 +15,6 @@ public class MainActivity extends Activity
         
         _surfaceView = new GraphicsView(this);
         
-        setContentView(_surfaceView);
+        setContentView(_surfaceView);   
     }
 }
