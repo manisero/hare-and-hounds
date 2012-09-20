@@ -8,7 +8,6 @@ import javax.microedition.khronos.opengles.*;
 import com.fARmework.modules.SpaceGraphics.Graphics.IOrientationProvider.IOrientationListener;
 import com.fARmework.modules.SpaceGraphics.Graphics.Models.*;
 
-
 public class GraphicsRenderer implements GLSurfaceView.Renderer
 {
 	private IOrientationProvider _orientationProvider;
@@ -19,6 +18,18 @@ public class GraphicsRenderer implements GLSurfaceView.Renderer
     public GraphicsRenderer(IOrientationProvider orientationProvider)
     {
 		_orientationProvider = orientationProvider;
+		
+		_orientationProvider.getOrientation(new IOrientationListener()
+		{
+			@Override
+			public void onOrientationChanged(float azimuth, float pitch, float roll)
+			{
+				if (_model == null)
+					return;
+				
+				_model.rotate(90.0f + pitch, -90.f + azimuth, 0.0f + roll); // TODO: properly implement rotating
+			}
+		});
     }
     
     @Override
@@ -26,15 +37,6 @@ public class GraphicsRenderer implements GLSurfaceView.Renderer
     {
         _glHandler = new GLHandler();
         _model = new Arrow(_glHandler);
-        
-        _orientationProvider.getOrientation(new IOrientationListener()
-		{
-			@Override
-			public void onOrientationChanged(float azimuth, float pitch, float roll)
-			{
-				_model.rotate(90.0f, -90.f + azimuth, 0.0f); // TODO: apply pitch and roll
-			}
-		});
     }
 
     @Override

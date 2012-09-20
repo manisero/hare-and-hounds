@@ -1,6 +1,7 @@
 package com.fARmework.modules.SpaceGraphics.Presentation;
 
 import com.fARmework.modules.SpaceGraphics.Graphics.GraphicsRenderer;
+import com.fARmework.modules.SpaceGraphics.Graphics._impl.*;
 
 import android.content.*;
 import android.opengl.*;
@@ -13,7 +14,7 @@ public class GraphicsView extends GLSurfaceView
 		
 		setEGLContextClientVersion(2);
 		setEGLConfigChooser(true);
-		setRenderer(new GraphicsRenderer(context));
+		setRenderer(new GraphicsRenderer(new SensorOrientationProvider(context)));
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 	}
 }

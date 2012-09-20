@@ -55,6 +55,7 @@ public abstract class Model implements IDrawable, IRotatable
 		}
 		
 		generateVertices();
+		generateIndices();
 		initializeBuffers();
 	}
 	
