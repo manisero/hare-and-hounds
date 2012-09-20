@@ -1,4 +1,6 @@
-package com.fARmework.modules.SpaceGraphics;
+package com.fARmework.modules.SpaceGraphics.Presentation;
+
+import com.fARmework.modules.SpaceGraphics.Graphics.GraphicsRenderer;
 
 import android.content.*;
 import android.opengl.*;
