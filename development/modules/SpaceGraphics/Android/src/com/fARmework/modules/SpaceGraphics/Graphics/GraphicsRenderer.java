@@ -1,4 +1,4 @@
-package com.fARmework.modules.SpaceGraphics;
+package com.fARmework.modules.SpaceGraphics.Graphics;
 
 import android.content.*;
 import android.opengl.*;
@@ -8,6 +8,9 @@ import javax.microedition.khronos.egl.*;
 import javax.microedition.khronos.opengles.*;
 
 import org.openintents.sensorsimulator.hardware.*;
+
+import com.fARmework.modules.SpaceGraphics.Graphics.Models.Arrow;
+
 
 public class GraphicsRenderer implements GLSurfaceView.Renderer, SensorEventListener
 {
