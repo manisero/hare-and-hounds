@@ -2,11 +2,13 @@ package com.fARmework.modules.SpaceGraphics.Graphics._impl;
 
 import android.content.*;
 import android.hardware.*;
+import android.widget.*;
 
 import com.fARmework.modules.SpaceGraphics.Graphics.IOrientationProvider;
 
 public class SensorOrientationProvider implements IOrientationProvider
 {
+	private Context mContext;
 	private SensorManager _sensorManager;
 	
 	private float[] _gravity = new float[3];
@@ -14,6 +16,7 @@ public class SensorOrientationProvider implements IOrientationProvider
 	
 	public SensorOrientationProvider(Context context)
 	{
+		mContext = context;
 		_sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
 	}
 	
@@ -26,7 +29,7 @@ public class SensorOrientationProvider implements IOrientationProvider
 			public void onSensorChanged(final SensorEvent event)
 			{
 				_gravity = event.values;
-				SensorOrientationProvider.this.onSensorChanged(orientationListener);
+				//SensorOrientationProvider.this.onSensorChanged(orientationListener);
 			}
 			
 			@Override
@@ -41,7 +44,9 @@ public class SensorOrientationProvider implements IOrientationProvider
 			public void onSensorChanged(SensorEvent event)
 			{
 				_geomagnetic = event.values;
-				SensorOrientationProvider.this.onSensorChanged(orientationListener);
+				//SensorOrientationProvider.this.onSensorChanged(orientationListener);
+				
+				orientationListener.onOrientationChanged(event.values[0], event.values[1], event.values[2]);
 			}
 			
 			@Override
@@ -59,6 +64,12 @@ public class SensorOrientationProvider implements IOrientationProvider
 		SensorManager.getRotationMatrix(rotationMatrix, null, _gravity, _geomagnetic);
 		SensorManager.getOrientation(rotationMatrix, values);
 		
-		orientationListener.onOrientationChanged(values[0], values[1], values[2]);
+		orientationListener.onOrientationChanged(values[0] * 180.0f / 3.14f, values[1] * 180.0f / 3.14f, values[2] * 180.0f / 3.14f);
+		
+		/*
+		Toast.makeText(mContext, "A: " + values[0] * 180.0 / 3.14 + "\nP: " + values[1] * 180.0 / 3.14 + "\nR: " + values[2] * 180.0 / 3.14, Toast.LENGTH_SHORT).show();
+		try { Thread.sleep(2000); }
+		catch (InterruptedException e) {}
+		*/
 	}
 }
