@@ -1,10 +1,10 @@
-package com.fARmework.modules.SpaceGraphics.Graphics;
+package com.fARmework.modules.SpaceGraphics.Graphics._impl;
 
-import com.fARmework.modules.SpaceGraphics.Graphics.Models.*;
+import com.fARmework.modules.SpaceGraphics.Graphics.*;
 
 import android.opengl.*;
 
-public class GLHandler 
+public class GLHandler implements IGLHandler 
 {
 	private final int COORDINATES_PER_VERTEX = 3;
 	
@@ -70,6 +70,7 @@ public class GLHandler
 		return shader;
 	}
 	
+	@Override
 	public void setViewport(int width, int height) 
 	{
 		GLES20.glViewport(0, 0, width, height);
@@ -79,6 +80,7 @@ public class GLHandler
 		Matrix.frustumM(_projectionMatrix, 0, -ratio, ratio, -3, 3, 3, 7);
 	}
 	
+	@Override
 	public void draw(Model model) 
 	{
 		float[] backgroundColor = model.getBackgroundColor();

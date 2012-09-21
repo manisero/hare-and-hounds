@@ -1,4 +1,4 @@
-package com.fARmework.modules.SpaceGraphics.Graphics.Models;
+package com.fARmework.modules.SpaceGraphics.Graphics;
 
 import java.nio.*;
 
