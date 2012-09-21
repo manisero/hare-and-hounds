@@ -1,5 +1,7 @@
 package com.fARmework.modules.SpaceGraphics.Graphics.Models;
 
+import com.fARmework.modules.SpaceGraphics.Graphics.*;
+
 public class Arrow extends Model
 {
 	public Arrow()

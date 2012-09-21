@@ -1,20 +1,18 @@
-package com.fARmework.modules.SpaceGraphics.Graphics;
-
-import android.opengl.*;
+package com.fARmework.modules.SpaceGraphics.Graphics._impl;
 
 import javax.microedition.khronos.egl.*;
 import javax.microedition.khronos.opengles.*;
 
 import com.fARmework.modules.SpaceGraphics.*;
-import com.fARmework.modules.SpaceGraphics.Graphics.Models.*;
+import com.fARmework.modules.SpaceGraphics.Graphics.*;
 import com.fARmework.modules.SpaceGraphics.IOrientationProvider.*;
 
-public class GraphicsRenderer implements GLSurfaceView.Renderer
+public class GraphicsRenderer implements IGraphicsRenderer
 {
 	private IOrientationProvider _orientationProvider;
+	private IGLHandler _glHandler;
 	
     private Model _model;
-    private GLHandler _glHandler;
     
     public GraphicsRenderer(IOrientationProvider orientationProvider)
     {
@@ -34,19 +32,24 @@ public class GraphicsRenderer implements GLSurfaceView.Renderer
     }
     
     @Override
+	public void setModel(Model model)
+    {
+    	_model = model;
+    }
+    
+	@Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) 
     {
         _glHandler = new GLHandler();
-        _model = new Arrow();
     }
-
-    @Override
+	
+	@Override
     public void onDrawFrame(GL10 unused)
     {    	
     	_glHandler.draw(_model);
     }
-
-    @Override
+	
+	@Override
     public void onSurfaceChanged(GL10 unused, int width, int height)
     {
         _glHandler.setViewport(width, height);
