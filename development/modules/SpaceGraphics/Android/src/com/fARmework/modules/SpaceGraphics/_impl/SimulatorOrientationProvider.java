@@ -11,6 +11,10 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 {
 	private SensorManagerSimulator _sensorManager;
 	
+	private float _lastAzimuth;
+	private float _lastPitch;
+	private float _lastRoll;
+	
 	public SimulatorOrientationProvider(Context context)
 	{
 		_sensorManager = (SensorManagerSimulator)SensorManagerSimulator.getSystemService(context, Context.SENSOR_SERVICE);
@@ -18,17 +22,15 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 		StrictMode.ThreadPolicy newPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(newPolicy);
 		_sensorManager.connectSimulator();
-	}
-	
-	@Override
-	public void getOrientation(final IOrientationListener orientationListener)
-	{
+		
 		_sensorManager.registerListener(new SensorEventListener()
 		{
 			@Override
 			public void onSensorChanged(final SensorEvent event)
 			{
-				orientationListener.onOrientationChanged(event.values[0], event.values[1], event.values[2]);
+				_lastAzimuth = event.values[0];
+				_lastPitch = event.values[1];
+				_lastRoll = event.values[2];
 			}
 			
 			@Override
@@ -36,5 +38,11 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 			{
 			}
 		}, _sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManagerSimulator.SENSOR_DELAY_NORMAL);
+	}
+	
+	@Override
+	public Orientation getOrientation()
+	{
+		return new Orientation(_lastAzimuth, _lastPitch, _lastRoll);
 	}
 }

@@ -2,10 +2,19 @@ package com.fARmework.modules.SpaceGraphics;
 
 public interface IOrientationProvider
 {
-	public interface IOrientationListener
+	public class Orientation
 	{
-		void onOrientationChanged(float azimuth, float pitch, float roll);
+		public float Azimuth;
+		public float Pitch;
+		public float Roll;
+		
+		public Orientation(float azimuth, float pitch, float roll)
+		{
+			Azimuth = azimuth;
+			Pitch = pitch;
+			Roll = roll;
+		}
 	}
 	
-	void getOrientation(IOrientationListener orientationListener);
+	Orientation getOrientation();
 }
