@@ -10,25 +10,15 @@ import com.fARmework.modules.SpaceGraphics.IOrientationProvider.*;
 public class GraphicsRenderer implements IGraphicsRenderer
 {
 	private IOrientationProvider _orientationProvider;
+	private IDirectionProvider _directionProvicer;
 	private IGLHandler _glHandler;
 	
     private Model _model;
     
-    public GraphicsRenderer(IOrientationProvider orientationProvider)
+    public GraphicsRenderer(IOrientationProvider orientationProvider, IDirectionProvider directionProvider)
     {
 		_orientationProvider = orientationProvider;
-		
-		_orientationProvider.getOrientation(new IOrientationListener()
-		{
-			@Override
-			public void onOrientationChanged(float azimuth, float pitch, float roll)
-			{
-				if (_model == null)
-					return;
-				
-				_model.rotate(0.0f, azimuth, 0.0f); // TODO: properly implement rotating
-			}
-		});
+		_directionProvicer = directionProvider;
     }
     
     @Override
@@ -41,6 +31,18 @@ public class GraphicsRenderer implements IGraphicsRenderer
     public void onSurfaceCreated(GL10 unused, EGLConfig config) 
     {
         _glHandler = new GLHandler();
+        
+        _orientationProvider.getOrientation(new IOrientationListener()
+		{
+			@Override
+			public void onOrientationChanged(float azimuth, float pitch, float roll)
+			{
+				if (_model == null)
+					return;
+				
+				_model.rotate(0.0f, azimuth - _directionProvicer.getDirection(), 0.0f); // TODO: properly implement rotating
+			}
+		});
     }
 	
 	@Override
