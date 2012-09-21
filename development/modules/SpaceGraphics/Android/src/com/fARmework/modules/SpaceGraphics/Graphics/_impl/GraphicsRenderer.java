@@ -14,10 +14,11 @@ public class GraphicsRenderer implements IGraphicsRenderer
 	
     private Model _model;
     
-    public GraphicsRenderer(IOrientationProvider orientationProvider, IDirectionProvider directionProvider)
+    public GraphicsRenderer(IOrientationProvider orientationProvider, IDirectionProvider directionProvider, IGLHandler glHandler)
     {
 		_orientationProvider = orientationProvider;
 		_directionProvicer = directionProvider;
+		_glHandler = glHandler;
     }
     
     @Override
@@ -29,12 +30,15 @@ public class GraphicsRenderer implements IGraphicsRenderer
 	@Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) 
     {
-        _glHandler = new GLHandler();
+		_glHandler.initialize();
     }
 	
 	@Override
     public void onDrawFrame(GL10 unused)
     {
+		if (_model == null)
+			return;
+		
 		_model.rotate(0.0f, _orientationProvider.getOrientation().Azimuth - _directionProvicer.getDirection(), 0.0f); // TODO: properly implement rotating
     	_glHandler.draw(_model);
     }
