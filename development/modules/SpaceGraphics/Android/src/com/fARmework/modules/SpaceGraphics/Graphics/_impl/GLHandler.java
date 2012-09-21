@@ -111,9 +111,9 @@ public class GLHandler implements IGLHandler
 	    
 	    float modelRotation[] = model.getRotation();
 	    
-	    Matrix.rotateM(rotationMatrix, 0, modelRotation[0], 1.0f, 0.0f, 0.0f);
 	    Matrix.rotateM(rotationMatrix, 0, modelRotation[1], 0.0f, 1.0f, 0.0f);
 	    Matrix.rotateM(rotationMatrix, 0, modelRotation[2], 0.0f, 0.0f, 1.0f);
+	    Matrix.rotateM(rotationMatrix, 0, modelRotation[0], 1.0f, 0.0f, 0.0f);
 	    
 	    float[] result = new float[16];
 	    
