@@ -123,7 +123,7 @@ public class GLHandler
 	        
 	    GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, result, 0);        
 	        
-	    GLES20.glDrawElements(GLES20.GL_TRIANGLES, 60, GLES20.GL_UNSIGNED_BYTE, model.getIndexBuffer());
+	    GLES20.glDrawElements(GLES20.GL_TRIANGLES, model.getVerticesAmount(), GLES20.GL_UNSIGNED_BYTE, model.getIndexBuffer());
 
         GLES20.glDisableVertexAttribArray(_MVPMatrixHandle);		
 	}	
