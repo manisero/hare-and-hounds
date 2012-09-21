@@ -95,4 +95,9 @@ public abstract class Model
 	{
 		return _indexBuffer;
 	}
+	
+	public int getVerticesAmount()
+	{
+		return _indices.length;
+	}
 }
