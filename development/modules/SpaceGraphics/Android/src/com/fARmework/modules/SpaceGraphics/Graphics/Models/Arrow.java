@@ -1,17 +1,15 @@
 package com.fARmework.modules.SpaceGraphics.Graphics.Models;
 
-import com.fARmework.modules.SpaceGraphics.Graphics.GLHandler;
-
 public class Arrow extends Model
 {
-	public Arrow(GLHandler glHandler)
+	public Arrow()
 	{
-		this(glHandler, 0.5f, 1.0f, 0.2f, null, null);
+		this(0.5f, 1.0f, 0.2f, null, null);
 	}
 		
-	public Arrow(GLHandler glHandler, float width, float length, float height, float[] color, float[] backgroundColor)
+	public Arrow(float width, float length, float height, float[] color, float[] backgroundColor)
 	{
-		super(glHandler, width, length, height, color, backgroundColor);
+		super(width, length, height, color, backgroundColor);
 	}
 	
 	@Override

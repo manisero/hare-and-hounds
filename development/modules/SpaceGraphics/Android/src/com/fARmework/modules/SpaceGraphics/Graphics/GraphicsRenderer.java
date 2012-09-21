@@ -36,18 +36,18 @@ public class GraphicsRenderer implements GLSurfaceView.Renderer
     public void onSurfaceCreated(GL10 unused, EGLConfig config) 
     {
         _glHandler = new GLHandler();
-        _model = new Arrow(_glHandler);
+        _model = new Arrow();
     }
 
     @Override
     public void onDrawFrame(GL10 unused)
     {    	
-    	_model.draw();
+    	_glHandler.draw(_model);
     }
 
     @Override
     public void onSurfaceChanged(GL10 unused, int width, int height)
     {
-        _model.setViewport(width, height);
+        _glHandler.setViewport(width, height);
     }
 }
