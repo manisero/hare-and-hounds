@@ -32,6 +32,10 @@ public class GLHandler
 	private int _colorHandle;
 	private int _MVPMatrixHandle;
 	
+	private float[] _projectionMatrix = new float[16];
+	private float[] _viewMatrix = new float[16];
+	private float[] _viewProjectionMatrix = new float[16];
+	
 	public GLHandler()
 	{
 		_program = GLES20.glCreateProgram();
@@ -69,6 +73,10 @@ public class GLHandler
 	public void setViewport(int width, int height) 
 	{
 		GLES20.glViewport(0, 0, width, height);
+		
+		float ratio = (float) width / height;
+		
+		Matrix.frustumM(_projectionMatrix, 0, -ratio, ratio, -3, 3, 3, 7);
 	}
 	
 	public void draw(Model model) 
@@ -88,11 +96,17 @@ public class GLHandler
         							 false,
         							 COORDINATES_PER_VERTEX * 4, 
         							 model.getVertexBuffer());
+        
+        Matrix.setLookAtM(_viewMatrix, 0, 1f, 3f, 0f, 0f, 0f, 0f, 0f, 1f, 0f);
+        
+        Matrix.multiplyMM(_viewProjectionMatrix, 0, _projectionMatrix, 0, _viewMatrix, 0);
+        
+	    GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, _viewProjectionMatrix, 0);
 
 		GLES20.glEnableVertexAttribArray(_positionHandle);
         
         GLES20.glUniform4fv(_colorHandle, 1, model.getColor(), 0);
-
+        
 	    float rotationMatrix[] = new float[16];
 	        
 	    Matrix.setIdentityM(rotationMatrix, 0);
@@ -102,8 +116,12 @@ public class GLHandler
 	    Matrix.rotateM(rotationMatrix, 0, modelRotation[0], 1.0f, 0.0f, 0.0f);
 	    Matrix.rotateM(rotationMatrix, 0, modelRotation[1], 0.0f, 1.0f, 0.0f);
 	    Matrix.rotateM(rotationMatrix, 0, modelRotation[2], 0.0f, 0.0f, 1.0f);
+	    
+	    float[] result = new float[16];
+	    
+	    Matrix.multiplyMM(result, 0, _viewProjectionMatrix, 0, rotationMatrix, 0);
 	        
-	    GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, rotationMatrix, 0);
+	    GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, result, 0);        
 	        
 	    GLES20.glDrawElements(GLES20.GL_TRIANGLES, 60, GLES20.GL_UNSIGNED_BYTE, model.getIndexBuffer());
 

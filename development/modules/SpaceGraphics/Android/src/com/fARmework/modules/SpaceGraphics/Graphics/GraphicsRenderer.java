@@ -27,7 +27,7 @@ public class GraphicsRenderer implements GLSurfaceView.Renderer
 				if (_model == null)
 					return;
 				
-				_model.rotate(90.0f, -90.f + azimuth, 0.0f); // TODO: properly implement rotating
+				_model.rotate(0.0f, azimuth, 0.0f); // TODO: properly implement rotating
 			}
 		});
     }
