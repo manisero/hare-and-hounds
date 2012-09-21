@@ -1,7 +1,5 @@
 package com.fARmework.modules.SpaceGraphics;
 
-import com.fARmework.modules.SpaceGraphics.*;
-
 import android.app.*;
 import android.opengl.*;
 import android.os.*;
@@ -15,7 +13,7 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         
-        _surfaceView = new GraphicsView(this);
+        _surfaceView = new SpaceGraphicsView(this);
         setContentView(_surfaceView);   
     }
 }

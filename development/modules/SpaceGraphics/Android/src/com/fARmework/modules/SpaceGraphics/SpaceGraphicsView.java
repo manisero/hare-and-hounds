@@ -1,14 +1,14 @@
 package com.fARmework.modules.SpaceGraphics;
 
 import com.fARmework.modules.SpaceGraphics.Graphics.GraphicsRenderer;
-import com.fARmework.modules.SpaceGraphics.Graphics._impl.*;
+import com.fARmework.modules.SpaceGraphics._impl.*;
 
 import android.content.*;
 import android.opengl.*;
 
-public class GraphicsView extends GLSurfaceView 
+public class SpaceGraphicsView extends GLSurfaceView 
 {	
-	public GraphicsView(Context context) 
+	public SpaceGraphicsView(Context context) 
 	{
 		super(context);
 		

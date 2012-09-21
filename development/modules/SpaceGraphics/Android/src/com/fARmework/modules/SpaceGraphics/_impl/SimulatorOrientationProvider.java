@@ -1,11 +1,11 @@
-package com.fARmework.modules.SpaceGraphics.Graphics._impl;
+package com.fARmework.modules.SpaceGraphics._impl;
 
 import org.openintents.sensorsimulator.hardware.*;
 
 import android.content.*;
 import android.os.*;
 
-import com.fARmework.modules.SpaceGraphics.Graphics.*;
+import com.fARmework.modules.SpaceGraphics.*;
 
 public class SimulatorOrientationProvider implements IOrientationProvider
 {

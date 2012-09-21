@@ -1,9 +1,9 @@
-package com.fARmework.modules.SpaceGraphics.Graphics._impl;
+package com.fARmework.modules.SpaceGraphics._impl;
 
 import android.content.*;
 import android.hardware.*;
 
-import com.fARmework.modules.SpaceGraphics.Graphics.*;
+import com.fARmework.modules.SpaceGraphics.*;
 
 public class SensorOrientationProvider implements IOrientationProvider
 {

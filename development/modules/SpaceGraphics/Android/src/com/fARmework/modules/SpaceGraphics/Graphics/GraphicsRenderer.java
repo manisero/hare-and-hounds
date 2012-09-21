@@ -5,8 +5,9 @@ import android.opengl.*;
 import javax.microedition.khronos.egl.*;
 import javax.microedition.khronos.opengles.*;
 
-import com.fARmework.modules.SpaceGraphics.Graphics.IOrientationProvider.IOrientationListener;
+import com.fARmework.modules.SpaceGraphics.*;
 import com.fARmework.modules.SpaceGraphics.Graphics.Models.*;
+import com.fARmework.modules.SpaceGraphics.IOrientationProvider.*;
 
 public class GraphicsRenderer implements GLSurfaceView.Renderer
 {
