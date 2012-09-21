@@ -27,7 +27,7 @@ public class GLHandler implements IGLHandler
 	private int _vertexShader;
 	private int _fragmentShader;
 	
-	private final int _program;
+	private int _program;
 	private int _positionHandle;
 	private int _colorHandle;
 	private int _MVPMatrixHandle;
@@ -36,15 +36,11 @@ public class GLHandler implements IGLHandler
 	private float[] _viewMatrix = new float[16];
 	private float[] _viewProjectionMatrix = new float[16];
 	
-	public GLHandler()
+	@Override
+	public void initialize()
 	{
 		_program = GLES20.glCreateProgram();
 		
-		initialize();
-	}
-	
-	private void initialize()
-	{		
 		_vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTEX_SHADER_CODE);
 		_fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, FRAGMENT_SHADER_CODE);
 		
