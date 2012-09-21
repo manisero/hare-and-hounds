@@ -5,7 +5,6 @@ import javax.microedition.khronos.opengles.*;
 
 import com.fARmework.modules.SpaceGraphics.*;
 import com.fARmework.modules.SpaceGraphics.Graphics.*;
-import com.fARmework.modules.SpaceGraphics.IOrientationProvider.*;
 
 public class GraphicsRenderer implements IGraphicsRenderer
 {
@@ -31,23 +30,12 @@ public class GraphicsRenderer implements IGraphicsRenderer
     public void onSurfaceCreated(GL10 unused, EGLConfig config) 
     {
         _glHandler = new GLHandler();
-        
-        _orientationProvider.getOrientation(new IOrientationListener()
-		{
-			@Override
-			public void onOrientationChanged(float azimuth, float pitch, float roll)
-			{
-				if (_model == null)
-					return;
-				
-				_model.rotate(0.0f, azimuth - _directionProvicer.getDirection(), 0.0f); // TODO: properly implement rotating
-			}
-		});
     }
 	
 	@Override
     public void onDrawFrame(GL10 unused)
-    {    	
+    {
+		_model.rotate(0.0f, _orientationProvider.getOrientation().Azimuth - _directionProvicer.getDirection(), 0.0f); // TODO: properly implement rotating
     	_glHandler.draw(_model);
     }
 	
