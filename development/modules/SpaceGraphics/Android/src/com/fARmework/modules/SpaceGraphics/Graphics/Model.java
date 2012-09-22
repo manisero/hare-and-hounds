@@ -8,22 +8,16 @@ public abstract class Model
 	protected float _length = 1.0f;
 	protected float _height = 0.2f;
 	
-	protected float _vertices[];
-	protected byte _indices[];
+	protected float[] _vertices;
+	protected byte[] _indices;
 	
-	protected float _color[];
-	protected float _backgroundColor[];
+	protected float[] _color;
+	protected float[] _backgroundColor;
 	
 	protected FloatBuffer _vertexBuffer;
 	protected ByteBuffer _indexBuffer;
 	
-	protected float _xRotation = 0.0f;
-	protected float _yRotation = 0.0f;
-	protected float _zRotation = 0.0f;
-	
-	protected float _rotationMatrix[];
-	
-	protected Model(float width, float length, float height, float color[], float backgroundColor[])
+	protected Model(float width, float length, float height, float[] color, float[] backgroundColor)
 	{		
 		_width = width;
 		_length = length;
@@ -31,13 +25,13 @@ public abstract class Model
 		
 		if(color == null)
 		{
-			float colorArray[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
+			float[] colorArray = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
 			_color = colorArray;
 		}
 		
 		if(backgroundColor == null)
 		{
-			float backgroundColorArray[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+			float[] backgroundColorArray = { 1.0f, 1.0f, 1.0f, 1.0f };
 			_backgroundColor = backgroundColorArray;
 		}
 		
@@ -62,30 +56,6 @@ public abstract class Model
 		_indexBuffer = ByteBuffer.allocateDirect(_indices.length * 4);
 		_indexBuffer.put(_indices);
 		_indexBuffer.position(0);
-	}
-	
-	public void rotate(float xRotation, float yRotation, float zRotation) 
-	{
-		_xRotation = xRotation;
-		_yRotation = yRotation;
-		_zRotation = zRotation;
-	}
-	
-	public void rotate(float[] rotation)
-	{
-		_rotationMatrix = rotation;
-	}
-	
-	public float[] getRotationMatrix()
-	{
-		return _rotationMatrix;
-	}
-	
-	public float[] getRotation()
-	{
-		float[] rotation = { _xRotation, _yRotation, _zRotation };
-		
-		return rotation;
 	}
 	
 	public float[] getColor()

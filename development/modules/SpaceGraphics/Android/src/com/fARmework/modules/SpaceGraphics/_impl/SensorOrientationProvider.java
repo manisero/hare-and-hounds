@@ -12,11 +12,7 @@ public class SensorOrientationProvider implements IOrientationProvider
 	private float[] _gravity = new float[3];
 	private float[] _geomagnetic = new float[3];
 	
-	private float[] _rotationMatrix = new float[16];
-	
-	private float _lastAzimuth;
-	private float _lastPitch;
-	private float _lastRoll;
+	private float[] _lastRotationMatrix = new float[16];
 	
 	public SensorOrientationProvider(Context context)
 	{
@@ -27,8 +23,8 @@ public class SensorOrientationProvider implements IOrientationProvider
 			@Override
 			public void onSensorChanged(final SensorEvent event)
 			{
-				System.arraycopy(event.values, 0, _gravity, 0, 3);
-				SensorOrientationProvider.this.onOrientationChanged();
+				_gravity = event.values.clone();
+				SensorManager.getRotationMatrix(_lastRotationMatrix, null, _gravity, _geomagnetic);
 			}
 			
 			@Override
@@ -42,8 +38,8 @@ public class SensorOrientationProvider implements IOrientationProvider
 			@Override
 			public void onSensorChanged(final SensorEvent event)
 			{
-				System.arraycopy(event.values, 0, _geomagnetic, 0, 3);
-				SensorOrientationProvider.this.onOrientationChanged();
+				_geomagnetic = event.values.clone();
+				SensorManager.getRotationMatrix(_lastRotationMatrix, null, _gravity, _geomagnetic);
 			}
 			
 			@Override
@@ -52,31 +48,10 @@ public class SensorOrientationProvider implements IOrientationProvider
 			}
 		}, _sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
 	}
-	
-	@Override
-	public Orientation getOrientation()
-	{
-		return new Orientation(_lastAzimuth, _lastPitch, _lastRoll);
-	}
-	
-	private void onOrientationChanged()
-	{
-		float[] rotationMatrix = new float[9];
-		float[] values = new float[3];
-		
-		if (SensorManager.getRotationMatrix(_rotationMatrix, null, _gravity, _geomagnetic))
-		{
-			SensorManager.getOrientation(rotationMatrix, values);
-			
-			_lastAzimuth = (float)Math.toDegrees(values[0]);
-			_lastPitch = (float)Math.toDegrees(values[1]);
-			_lastRoll = (float)Math.toDegrees(values[2]);
-		}
-	}
 
 	@Override
 	public float[] getRotationMatrix()
 	{
-		return _rotationMatrix;
+		return _lastRotationMatrix;
 	}
 }

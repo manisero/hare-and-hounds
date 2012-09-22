@@ -9,7 +9,7 @@ import com.fARmework.modules.SpaceGraphics.Graphics.*;
 public class GraphicsRenderer implements IGraphicsRenderer
 {
 	private IOrientationProvider _orientationProvider;
-	private IDirectionProvider _directionProvicer;
+	private IDirectionProvider _directionProvider;
 	private IGLHandler _glHandler;
 	
     private Model _model;
@@ -17,7 +17,7 @@ public class GraphicsRenderer implements IGraphicsRenderer
     public GraphicsRenderer(IOrientationProvider orientationProvider, IDirectionProvider directionProvider, IGLHandler glHandler)
     {
 		_orientationProvider = orientationProvider;
-		_directionProvicer = directionProvider;
+		_directionProvider = directionProvider;
 		_glHandler = glHandler;
     }
     
@@ -39,7 +39,7 @@ public class GraphicsRenderer implements IGraphicsRenderer
 		if (_model == null)
 			return;
 		
-		_model.rotate(_orientationProvider.getRotationMatrix());
+		_glHandler.setRotationMatrix(_orientationProvider.getRotationMatrix());
     	_glHandler.draw(_model);
     }
 	
