@@ -45,4 +45,10 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 	{
 		return new Orientation(_lastAzimuth, _lastPitch, _lastRoll);
 	}
+
+	@Override
+	public float[] getRotationMatrix()
+	{
+		return null;
+	}
 }

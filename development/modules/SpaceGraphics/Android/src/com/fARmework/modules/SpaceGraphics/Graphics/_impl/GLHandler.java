@@ -73,7 +73,7 @@ public class GLHandler implements IGLHandler
 		
 		float ratio = (float) width / height;
 		
-		Matrix.frustumM(_projectionMatrix, 0, -ratio, ratio, -3, 3, 3, 7);
+		Matrix.frustumM(_projectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
 	}
 	
 	@Override
@@ -95,7 +95,7 @@ public class GLHandler implements IGLHandler
         							 COORDINATES_PER_VERTEX * 4, 
         							 model.getVertexBuffer());
         
-        Matrix.setLookAtM(_viewMatrix, 0, 1f, 3f, 0f, 0f, 0f, 0f, 0f, 1f, 0f);
+        Matrix.setLookAtM(_viewMatrix, 0, 0.1f, 3f, 0f, 0f, 0f, 0f, 0f, 1f, 0f);
         
         Matrix.multiplyMM(_viewProjectionMatrix, 0, _projectionMatrix, 0, _viewMatrix, 0);
         
@@ -104,20 +104,12 @@ public class GLHandler implements IGLHandler
 		GLES20.glEnableVertexAttribArray(_positionHandle);
         
         GLES20.glUniform4fv(_colorHandle, 1, model.getColor(), 0);
-        
-	    float rotationMatrix[] = new float[16];
-	        
-	    Matrix.setIdentityM(rotationMatrix, 0);
-	    
-	    float modelRotation[] = model.getRotation();
-	    
-	    Matrix.rotateM(rotationMatrix, 0, modelRotation[1], 0.0f, 1.0f, 0.0f);
-	    Matrix.rotateM(rotationMatrix, 0, modelRotation[2], 0.0f, 0.0f, 1.0f);
-	    Matrix.rotateM(rotationMatrix, 0, modelRotation[0], 1.0f, 0.0f, 0.0f);
+        	    
+	    float modelRotation[] = model.getRotationMatrix();
 	    
 	    float[] result = new float[16];
 	    
-	    Matrix.multiplyMM(result, 0, _viewProjectionMatrix, 0, rotationMatrix, 0);
+	    Matrix.multiplyMM(result, 0, _viewProjectionMatrix, 0, modelRotation, 0);
 	        
 	    GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, result, 0);        
 	        

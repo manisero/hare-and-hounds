@@ -16,6 +16,8 @@ public class SensorOrientationProvider implements IOrientationProvider
 	private float _lastPitch;
 	private float _lastRoll;
 	
+	private float[] _rotationMatrix = new float[16];
+	
 	public SensorOrientationProvider(Context context)
 	{
 		_sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
@@ -61,8 +63,8 @@ public class SensorOrientationProvider implements IOrientationProvider
 	{
 		float[] rotationMatrix = new float[9];
 		float[] values = new float[3];
-
-		if (SensorManager.getRotationMatrix(rotationMatrix, null, _gravity, _geomagnetic))
+		
+		if (SensorManager.getRotationMatrix(_rotationMatrix, null, _gravity, _geomagnetic))
 		{
 			SensorManager.getOrientation(rotationMatrix, values);
 			
@@ -70,5 +72,11 @@ public class SensorOrientationProvider implements IOrientationProvider
 			_lastPitch = (float)Math.toDegrees(values[1]);
 			_lastRoll = (float)Math.toDegrees(values[2]);
 		}
+	}
+
+	@Override
+	public float[] getRotationMatrix()
+	{
+		return _rotationMatrix;
 	}
 }

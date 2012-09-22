@@ -39,9 +39,7 @@ public class GraphicsRenderer implements IGraphicsRenderer
 		if (_model == null)
 			return;
 		
-		_model.rotate(	_orientationProvider.getOrientation().Roll, 
-						_orientationProvider.getOrientation().Azimuth - _directionProvicer.getDirection(), 
-						-_orientationProvider.getOrientation().Pitch); // TODO: properly implement rotating
+		_model.rotate(_orientationProvider.getRotationMatrix());
     	_glHandler.draw(_model);
     }
 	

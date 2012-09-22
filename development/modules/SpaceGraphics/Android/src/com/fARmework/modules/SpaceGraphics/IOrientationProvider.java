@@ -17,4 +17,6 @@ public interface IOrientationProvider
 	}
 	
 	Orientation getOrientation();
+	
+	float[] getRotationMatrix();
 }
