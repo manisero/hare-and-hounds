@@ -1,15 +1,13 @@
 package com.fARmework.modules.SpaceGestures.Android;
 
-import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData;
+import android.content.*;
+import android.graphics.*;
+import android.util.*;
+import android.view.*;
 
-import gueei.binding.Command;
-import gueei.binding.IBindableView;
-import gueei.binding.ViewAttribute;
-import android.content.Context;
-import android.graphics.Color;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
+import com.fARmework.modules.SpaceGestures.Data.*;
+
+import gueei.binding.*;
 
 public class SpaceGesturePicker extends View implements IBindableView<SpaceGesturePicker>
 {

@@ -21,6 +21,8 @@ public abstract class Model
 	protected float _yRotation = 0.0f;
 	protected float _zRotation = 0.0f;
 	
+	protected float _rotationMatrix[];
+	
 	protected Model(float width, float length, float height, float color[], float backgroundColor[])
 	{		
 		_width = width;
@@ -67,6 +69,16 @@ public abstract class Model
 		_xRotation = xRotation;
 		_yRotation = yRotation;
 		_zRotation = zRotation;
+	}
+	
+	public void rotate(float[] rotation)
+	{
+		_rotationMatrix = rotation;
+	}
+	
+	public float[] getRotationMatrix()
+	{
+		return _rotationMatrix;
 	}
 	
 	public float[] getRotation()
