@@ -73,7 +73,9 @@ public class GLHandler implements IGLHandler
 		
 		float ratio = (float) width / height;
 		
-		Matrix.frustumM(_projectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+		//Matrix.frustumM(_projectionMatrix, 0, -ratio, ratio, -1, 1, 1, 7);
+		
+		Matrix.setIdentityM(_projectionMatrix, 0);
 	}
 	
 	@Override
@@ -95,23 +97,30 @@ public class GLHandler implements IGLHandler
         							 COORDINATES_PER_VERTEX * 4, 
         							 model.getVertexBuffer());
         
-        Matrix.setLookAtM(_viewMatrix, 0, 0.1f, 3f, 0f, 0f, 0f, 0f, 0f, 1f, 0f);
+        //Matrix.setLookAtM(_viewMatrix, 0, 0.1f, 3f, 0f, 0f, 0f, 0f, 0f, 1f, 0f);
         
-        Matrix.multiplyMM(_viewProjectionMatrix, 0, _projectionMatrix, 0, _viewMatrix, 0);
+        //Matrix.multiplyMM(_viewProjectionMatrix, 0, _projectionMatrix, 0, _viewMatrix, 0);
         
-	    GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, _viewProjectionMatrix, 0);
+	    //GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, _viewProjectionMatrix, 0);
+        
+        Matrix.setIdentityM(_viewMatrix, 0);
+        
+        //Matrix.rotateM(_viewMatrix, 0, -90.0f, 0.0f, 0.0f, 1.0f);
+        //Matrix.rotateM(_viewMatrix, 0, 90.0f, 1.0f, 0.0f, 0.0f);
+        
+        //Matrix.multiplyMM(_viewProjectionMatrix, 0, _projectionMatrix, 0, _viewMatrix, 0);        
 
 		GLES20.glEnableVertexAttribArray(_positionHandle);
         
         GLES20.glUniform4fv(_colorHandle, 1, model.getColor(), 0);
-        	    
+            
 	    float modelRotation[] = model.getRotationMatrix();
-	    
+  
 	    float[] result = new float[16];
 	    
-	    Matrix.multiplyMM(result, 0, _viewProjectionMatrix, 0, modelRotation, 0);
+	    Matrix.multiplyMM(_viewProjectionMatrix, 0, _viewMatrix, 0, modelRotation, 0);
 	        
-	    GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, result, 0);        
+	    GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, _viewProjectionMatrix, 0);        
 	        
 	    GLES20.glDrawElements(GLES20.GL_TRIANGLES, model.getVerticesAmount(), GLES20.GL_UNSIGNED_BYTE, model.getIndexBuffer());
 

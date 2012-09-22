@@ -12,11 +12,11 @@ public class SensorOrientationProvider implements IOrientationProvider
 	private float[] _gravity = new float[3];
 	private float[] _geomagnetic = new float[3];
 	
+	private float[] _rotationMatrix = new float[16];
+	
 	private float _lastAzimuth;
 	private float _lastPitch;
 	private float _lastRoll;
-	
-	private float[] _rotationMatrix = new float[16];
 	
 	public SensorOrientationProvider(Context context)
 	{
