@@ -114,10 +114,9 @@ public class GLHandler implements IGLHandler
         
         	GLES20.glUniform4fv(_colorHandle, 1, model.getColor(), 0);
 	    
-        	float[] postDirectionMatrix = _projectionMatrix.clone();
+        	Matrix.multiplyMM(_viewProjectionMatrix, 0, _projectionMatrix, 0, _rotationMatrix, 0);
+        	Matrix.rotateM(_viewProjectionMatrix, 0, _direction, 0.0f, 0.0f, 1.0f);
         	
-        	Matrix.rotateM(postDirectionMatrix, 0, _direction, 0.0f, 0.0f, 1.0f);
-        	Matrix.multiplyMM(_viewProjectionMatrix, 0, postDirectionMatrix, 0, _rotationMatrix, 0);
         	GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, _viewProjectionMatrix, 0);        
 	        
         	GLES20.glDrawElements(GLES20.GL_TRIANGLES, model.getVerticesAmount(), GLES20.GL_UNSIGNED_BYTE, model.getIndexBuffer());
