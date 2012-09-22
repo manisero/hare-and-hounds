@@ -18,22 +18,22 @@ public class Arrow extends Model
 	protected void generateVertices()
 	{
 		float[] vertices =
-			{
-				-0.50f * _length,	 0.50f * _height,	 0.00f * _width,
-				-0.10f * _length,	 0.50f * _height,	 0.50f * _width,
-				-0.10f * _length,	 0.50f * _height,	 0.30f * _width,
-				 0.50f * _length,	 0.50f * _height,	 0.30f * _width,
-				 0.50f * _length,	 0.50f * _height,	-0.30f * _width,
-				-0.10f * _length,	 0.50f * _height,	-0.30f * _width,
-				-0.10f * _length,	 0.50f * _height,	-0.50f * _width,
-				-0.50f * _length,	-0.50f * _height,	 0.00f * _width,
-				-0.10f * _length,	-0.50f * _height,	 0.50f * _width,
-				-0.10f * _length,	-0.50f * _height,	 0.30f * _width,
-				 0.50f * _length,	-0.50f * _height,	 0.30f * _width,
-				 0.50f * _length,	-0.50f * _height,	-0.30f * _width,
-				-0.10f * _length,	-0.50f * _height,	-0.30f * _width,
-				-0.10f * _length,	-0.50f * _height,	-0.50f * _width			
-			};
+		{
+			 0.00f * _width,	 0.50f * _length,	 0.50f * _height,	 
+			 0.50f * _width,	 0.10f * _length,	 0.50f * _height,	 
+			 0.30f * _width,	 0.10f * _length,	 0.50f * _height,	 
+			 0.30f * _width,	-0.50f * _length,	 0.50f * _height,	 
+			-0.30f * _width,	-0.50f * _length,	 0.50f * _height,	
+			-0.30f * _width,	 0.10f * _length,	 0.50f * _height,	
+			-0.50f * _width,	 0.10f * _length,	 0.50f * _height,	
+			 0.00f * _width,	 0.50f * _length,	-0.50f * _height,	 
+			 0.50f * _width,	 0.10f * _length,	-0.50f * _height,	 
+			 0.30f * _width,	 0.10f * _length,	-0.50f * _height,	 
+			 0.30f * _width,	-0.50f * _length,	-0.50f * _height,	 
+			 -0.30f * _width,	-0.50f * _length,	-0.50f * _height,	
+			 -0.30f * _width,	 0.10f * _length,	-0.50f * _height,	
+			 -0.50f * _width,	 0.10f * _length,	-0.50f * _height				
+		};
 		
 		_vertices = vertices;
 	}
