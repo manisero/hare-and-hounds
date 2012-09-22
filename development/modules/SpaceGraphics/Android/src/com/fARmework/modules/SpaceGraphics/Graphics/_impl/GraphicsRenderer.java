@@ -40,6 +40,8 @@ public class GraphicsRenderer implements IGraphicsRenderer
 			return;
 		
 		_glHandler.setRotationMatrix(_orientationProvider.getRotationMatrix());
+		_glHandler.setDirection(_directionProvider.getDirection());
+		
     	_glHandler.draw(_model);
     }
 	
