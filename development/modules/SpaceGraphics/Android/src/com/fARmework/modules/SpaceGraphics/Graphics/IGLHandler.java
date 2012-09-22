@@ -6,6 +6,7 @@ public interface IGLHandler
 	
 	void setViewport(int width, int height);
 	void setRotationMatrix(float[] rotationMatrix);
+	void setDirection(float direction);
 	
 	void draw(Model model);
 }
