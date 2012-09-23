@@ -7,21 +7,25 @@ import android.opengl.*;
 public class GLHandler implements IGLHandler 
 {
 	private final int COORDINATES_PER_VERTEX = 3;
+	private final int COLORS_PER_VERTEX = 4;
 	
 	private final String VERTEX_SHADER_CODE =
 			"uniform mat4 u_MVPMatrix; " +
-			"attribute vec4 vPosition;" +
+			"attribute vec4 a_Position; " +
+			"attribute vec4 a_Color; " +
+			"varying vec4 v_Color; " +
 			"void main() " +
 			"{" +
-			"	gl_Position = u_MVPMatrix * vPosition;" +
+			"	v_Color = a_Color; " +
+			"	gl_Position = u_MVPMatrix * a_Position;" +
 			"}";
 	
 	private final String FRAGMENT_SHADER_CODE =
-			"precision mediump float;" +
-			"uniform vec4 vColor;" +
+			"precision mediump float; " +
+			"varying vec4 v_Color; " +
 			"void main()" +
 			"{" +
-			"	gl_FragColor = vColor;" +
+			"	gl_FragColor = v_Color;" +
 			"}";
 	
 	private int _vertexShader;
@@ -52,10 +56,9 @@ public class GLHandler implements IGLHandler
 		
 		GLES20.glUseProgram(_program);
 		
-		_positionHandle = GLES20.glGetAttribLocation(_program, "vPosition");
-		
-        _colorHandle = GLES20.glGetUniformLocation(_program, "vColor");
-        _MVPMatrixHandle = GLES20.glGetUniformLocation(_program, "u_MVPMatrix");
+        _MVPMatrixHandle = GLES20.glGetUniformLocation(_program, "u_MVPMatrix");		
+		_positionHandle = GLES20.glGetAttribLocation(_program, "a_Position");
+        _colorHandle = GLES20.glGetAttribLocation(_program, "a_Color");
 	}
 	
 	private int loadShader(int type, String code)
@@ -72,10 +75,7 @@ public class GLHandler implements IGLHandler
 	public void setViewport(int width, int height) 
 	{
 		GLES20.glViewport(0, 0, width, height);
-		
-		/*float ratio = (float) width / height;
-		Matrix.frustumM(_projectionMatrix, 0, -ratio, ratio, -1, 1, 1, 7);*/
-		
+				
 		Matrix.setIdentityM(_projectionMatrix, 0);
 	}
 	
@@ -101,7 +101,7 @@ public class GLHandler implements IGLHandler
 							backgroundColor[2],
 							backgroundColor[3]);
 		
-		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+		GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
 		
         GLES20.glVertexAttribPointer(_positionHandle, 
         							 COORDINATES_PER_VERTEX,
@@ -109,11 +109,17 @@ public class GLHandler implements IGLHandler
         							 false,
         							 COORDINATES_PER_VERTEX * 4, 
         							 model.getVertexBuffer());
-
-		GLES20.glEnableVertexAttribArray(_positionHandle);
         
-        	GLES20.glUniform4fv(_colorHandle, 1, model.getColor(), 0);
-	    
+        GLES20.glVertexAttribPointer(_colorHandle, 
+        							 COLORS_PER_VERTEX, 
+        							 GLES20.GL_FLOAT, 
+        							 false, 
+        							 COLORS_PER_VERTEX * 4, 
+        							 model.getColorBuffer());
+
+        GLES20.glEnableVertexAttribArray(_colorHandle);
+		GLES20.glEnableVertexAttribArray(_positionHandle);
+        	    
         	Matrix.multiplyMM(_viewProjectionMatrix, 0, _projectionMatrix, 0, _rotationMatrix, 0);
         	Matrix.rotateM(_viewProjectionMatrix, 0, _direction, 0.0f, 0.0f, 1.0f);
         	
@@ -122,5 +128,6 @@ public class GLHandler implements IGLHandler
         	GLES20.glDrawElements(GLES20.GL_TRIANGLES, model.getVerticesAmount(), GLES20.GL_UNSIGNED_BYTE, model.getIndexBuffer());
 
         GLES20.glDisableVertexAttribArray(_positionHandle);
+        GLES20.glDisableVertexAttribArray(_colorHandle);
 	}
 }
