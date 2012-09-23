@@ -33,24 +33,20 @@ public class PositionService implements IPositionService
 			return;
 		}
 		
-		// Seems like requestSingleUpdate does not work properly...
-		manager.requestLocationUpdates(provider, 3000, 5, new LocationListener()
+		manager.requestLocationUpdates(provider, 5000, 0, new LocationListener()
 		{
+			boolean _receivedFirstLocation = false; // first location update is ignored since it's always inaccurate
+			
 			@Override
 			public void onLocationChanged(Location location)
 			{
-				positionListener.onPosition(new PositionData(location.getLatitude(), location.getLongitude()));
-				manager.removeUpdates(this);
-			}
-			
-			@Override
-			public void onStatusChanged(String provider, int status, Bundle extras)
-			{
-			}
-
-			@Override
-			public void onProviderEnabled(String provider)
-			{
+				if (_receivedFirstLocation)
+				{
+					positionListener.onPosition(new PositionData(location.getLatitude(), location.getLongitude()));
+					manager.removeUpdates(this);
+				}
+				
+				_receivedFirstLocation = true;
 			}
 			
 			@Override
@@ -59,11 +55,21 @@ public class PositionService implements IPositionService
 				positionListener.onPosition(null);
 				manager.removeUpdates(this);
 			}
+			
+			@Override
+			public void onStatusChanged(String provider, int status, Bundle extras)
+			{
+			}
+			
+			@Override
+			public void onProviderEnabled(String provider)
+			{
+			}
 		}, null);
 	}
 
 	@Override
-	public void startGettingPosition(final IPositionListener positionListener)
+	public void startGettingPosition(int updateInterval, final IPositionListener positionListener)
 	{
 		final LocationManager manager = _locationManagerResolver.resolve();
 		String provider = manager.getBestProvider(new Criteria(), true);
@@ -74,7 +80,7 @@ public class PositionService implements IPositionService
 			return;
 		}
 		
-		manager.requestLocationUpdates(provider, 3000, 5, new LocationListener()
+		manager.requestLocationUpdates(provider, updateInterval * 1000, 0, new LocationListener()
 		{
 			@Override
 			public void onLocationChanged(Location location)

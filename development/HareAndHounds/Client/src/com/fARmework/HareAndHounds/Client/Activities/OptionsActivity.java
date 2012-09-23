@@ -5,5 +5,4 @@ import com.fARmework.utils.Android.BoundActivity;
 
 public class OptionsActivity extends BoundActivity<OptionsViewModel>
 {
-
 }
