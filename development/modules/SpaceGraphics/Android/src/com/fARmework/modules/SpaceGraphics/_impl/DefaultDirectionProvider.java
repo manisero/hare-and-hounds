@@ -7,6 +7,6 @@ public class DefaultDirectionProvider implements IDirectionProvider
 	@Override
 	public float getDirection()
 	{
-		return 90.0f;
+		return 0.0f;
 	}
 }
