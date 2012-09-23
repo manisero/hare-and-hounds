@@ -48,7 +48,7 @@ public class GLHandler implements IGLHandler
 	private int _MVPMatrixHandle;
 	private int _MVMatrixHandle;
 	
-	private float[] _lightPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
+	private float[] _lightPosition = { 0.0f, 0.2f, 3.0f };
 	
 	private float[] _projectionMatrix = new float[16];
 	private float[] _viewMatrix = new float[16];
@@ -125,6 +125,9 @@ public class GLHandler implements IGLHandler
 							backgroundColor[3]);
 		
 		GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
+		
+		GLES20.glEnable(GLES20.GL_CULL_FACE);
+		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 		
         GLES20.glVertexAttribPointer(_positionHandle, 
         							 COORDINATES_PER_VERTEX,

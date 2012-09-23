@@ -93,9 +93,9 @@ public class Arrow extends Model
 		
 		for(int i = 0; i < vertices; ++i)
 		{
-			int firstPointPosition 	= _indices[i * 3 + 0];
+			int firstPointPosition 	= _indices[i * 3 + 2];
 			int secondPointPosition = _indices[i * 3 + 1];
-			int thirdPointPosition	= _indices[i * 3 + 2];
+			int thirdPointPosition	= _indices[i * 3 + 0];
 			
 			
 			float firstPoint[]	= {	_vertices[firstPointPosition * 3 + 0], 
@@ -122,7 +122,7 @@ public class Arrow extends Model
 								U[2] * V[0] - U[0] * V[2],
 								U[0] * V[1] - U[1] * V[0]	};
 
-			float length = (float) android.util.FloatMath.sqrt((N[0] * N[0]) + (N[1] * N[1]) + (N[2] * N[2]));
+			float length = FloatMath.sqrt((N[0] * N[0]) + (N[1] * N[1]) + (N[2] * N[2]));
 			
 			N[0] = N[0] / length;
 			N[1] = N[1] / length;
