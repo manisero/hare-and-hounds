@@ -2,6 +2,7 @@ package com.fARmework.HareAndHounds.Client.ViewModels;
 
 import android.os.*;
 
+import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.modules.PositionTracking.Android.*;
 import com.fARmework.modules.PositionTracking.Android.IPositionService.*;
@@ -21,6 +22,16 @@ public class HoundsViewModel extends ViewModel
 		super(connectionManager, contextManager);
 		
 		_positionSerivce = positionService;
+		
+		ConnectionManager.registerDataHandler(CheckpointData.class, new IDataHandler<CheckpointData>()
+		{
+			@Override
+			public void handle(CheckpointData data)
+			{
+				ConnectionManager.unregisterDataHandlers(CheckpointData.class);
+				ContextManager.navigateTo(CheckpointViewModel.class);
+			}
+		});
 	}
 
 	@Override
