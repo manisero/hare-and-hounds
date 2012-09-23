@@ -11,12 +11,14 @@ public abstract class Model
 	protected float[] _vertices;
 	protected byte[] _indices;
 	protected float[] _colors;
+	protected float[] _normals;
 	
 	protected float[] _backgroundColor;
 	
 	protected FloatBuffer _vertexBuffer;
 	protected ByteBuffer _indexBuffer;
 	protected FloatBuffer _colorBuffer;
+	protected FloatBuffer _normalBuffer;
 	
 	protected Model(float width, float length, float height, float[] backgroundColor)
 	{		
@@ -33,6 +35,7 @@ public abstract class Model
 		generateVertices();
 		generateIndices();
 		generateColors();
+		generateNormals();
 		initializeBuffers();
 	}
 	
@@ -42,25 +45,30 @@ public abstract class Model
 	
 	protected abstract void generateColors();
 	
+	protected abstract void generateNormals();
+	
 	private void initializeBuffers()
 	{
 		ByteBuffer vertexByteBuffer = ByteBuffer.allocateDirect(_vertices.length * 4);
 		vertexByteBuffer.order(ByteOrder.nativeOrder());
 		
 		_vertexBuffer = vertexByteBuffer.asFloatBuffer();
-		_vertexBuffer.put(_vertices);
-		_vertexBuffer.position(0);
+		_vertexBuffer.put(_vertices).position(0);
 		
 		_indexBuffer = ByteBuffer.allocateDirect(_indices.length * 4);
-		_indexBuffer.put(_indices);
-		_indexBuffer.position(0);
+		_indexBuffer.put(_indices).position(0);
 		
 		ByteBuffer colorByteBuffer = ByteBuffer.allocateDirect(_colors.length * 4);
 		colorByteBuffer.order(ByteOrder.nativeOrder());
 		
 		_colorBuffer = colorByteBuffer.asFloatBuffer();
-		_colorBuffer.put(_colors);
-		_colorBuffer.position(0);
+		_colorBuffer.put(_colors).position(0);
+		
+		ByteBuffer normalByteBuffer = ByteBuffer.allocateDirect(_normals.length * 4);
+		normalByteBuffer.order(ByteOrder.nativeOrder());
+		
+		_normalBuffer = normalByteBuffer.asFloatBuffer();
+		_normalBuffer.put(_normals).position(0);
 	}
 	
 	public float[] getBackgroundColor()
@@ -81,6 +89,11 @@ public abstract class Model
 	public FloatBuffer getColorBuffer()
 	{
 		return _colorBuffer;
+	}
+	
+	public FloatBuffer getNormalBuffer()
+	{
+		return _normalBuffer;
 	}
 	
 	public int getVerticesAmount()
