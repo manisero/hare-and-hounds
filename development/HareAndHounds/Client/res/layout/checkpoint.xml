@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://www.gueei.com/android-binding/"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.fARmework.modules.SpaceGraphics.Android.SpaceGraphicsView
+	    android:id="@+id/directionArrow"
+	    android:layout_width="220dp"
+	    android:layout_height="220dp"
+	    android:background="#FFFFFF" />
+    
+</LinearLayout>

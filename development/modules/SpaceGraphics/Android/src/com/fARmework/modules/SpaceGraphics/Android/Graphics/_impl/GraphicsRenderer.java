@@ -1,10 +1,10 @@
-package com.fARmework.modules.SpaceGraphics.Graphics._impl;
+package com.fARmework.modules.SpaceGraphics.Android.Graphics._impl;
 
 import javax.microedition.khronos.egl.*;
 import javax.microedition.khronos.opengles.*;
 
-import com.fARmework.modules.SpaceGraphics.*;
-import com.fARmework.modules.SpaceGraphics.Graphics.*;
+import com.fARmework.modules.SpaceGraphics.Android.*;
+import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
 
 public class GraphicsRenderer implements IGraphicsRenderer
 {

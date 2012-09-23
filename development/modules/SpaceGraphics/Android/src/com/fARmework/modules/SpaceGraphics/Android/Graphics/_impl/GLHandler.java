@@ -1,6 +1,6 @@
-package com.fARmework.modules.SpaceGraphics.Graphics._impl;
+package com.fARmework.modules.SpaceGraphics.Android.Graphics._impl;
 
-import com.fARmework.modules.SpaceGraphics.Graphics.*;
+import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
 
 import android.opengl.*;
 
