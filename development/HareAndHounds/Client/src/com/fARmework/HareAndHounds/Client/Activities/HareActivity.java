@@ -5,5 +5,4 @@ import com.fARmework.utils.Android.*;
 
 public class HareActivity extends BoundActivity<HareViewModel>
 {
-
 }
