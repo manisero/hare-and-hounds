@@ -1,4 +1,4 @@
-package com.fARmework.modules.SpaceGraphics.Graphics;
+package com.fARmework.modules.SpaceGraphics.Android.Graphics;
 
 public interface IGLHandler
 {

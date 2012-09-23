@@ -1,6 +1,6 @@
-package com.fARmework.modules.SpaceGraphics.Graphics.Models;
+package com.fARmework.modules.SpaceGraphics.Android.Graphics.Models;
 
-import com.fARmework.modules.SpaceGraphics.Graphics.*;
+import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
 
 public class Arrow extends Model
 {
