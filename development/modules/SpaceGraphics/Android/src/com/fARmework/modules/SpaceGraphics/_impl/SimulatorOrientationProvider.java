@@ -38,7 +38,7 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 			public void onAccuracyChanged(Sensor sensor, int accuracy)
 			{
 			}
-		}, _sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManagerSimulator.SENSOR_DELAY_NORMAL);
+		}, _sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManagerSimulator.SENSOR_DELAY_GAME);
 		
 		_sensorManager.registerListener(new SensorEventListener()
 		{
@@ -53,7 +53,7 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 			public void onAccuracyChanged(Sensor sensor, int accuracy)
 			{
 			}
-		}, _sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManagerSimulator.SENSOR_DELAY_NORMAL);
+		}, _sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManagerSimulator.SENSOR_DELAY_GAME);
 	}
 	
 	@Override

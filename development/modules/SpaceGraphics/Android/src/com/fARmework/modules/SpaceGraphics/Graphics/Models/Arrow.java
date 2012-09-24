@@ -66,8 +66,8 @@ public class Arrow extends Model
 		float[] colors =
 		{
 			1.0f, 	0.0f, 	0.0f, 	1.0f,
-			1.0f, 	0.0f, 	0.0f, 	1.0f,
-			1.0f, 	0.0f, 	0.0f, 	1.0f,
+			0.63671875f, 	0.76953125f, 	0.22265625f, 	1.0f,
+			0.63671875f, 	0.76953125f, 	0.22265625f, 	1.0f,
 			0.63671875f, 	0.76953125f, 	0.22265625f, 	1.0f,
 			0.63671875f, 	0.76953125f, 	0.22265625f, 	1.0f,
 			0.63671875f, 	0.76953125f, 	0.22265625f, 	1.0f,
@@ -134,10 +134,5 @@ public class Arrow extends Model
 		}
 	
 		_normals = normals;
-		
-		for(int i = 0; i < vertices; ++i)
-		{
-			Log.d("NORMALS", "" + i + ": " + normals[i * 3] + ", " + normals[i * 3 + 1] + ", " + normals[i * 3 + 2]);
-		}
 	}
 }
