@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.fARmework.modules.SpaceGraphics.Android;
+package com.fARmework.modules.SpaceGraphics;
 
 public final class R {
     public static final class array {
@@ -18,33 +18,34 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int connectionProgress=0x7f080007;
-        public static final int createButton=0x7f080005;
-        public static final int directionArrow=0x7f080000;
-        public static final int disconnectButton=0x7f080008;
-        public static final int games=0x7f080002;
-        public static final int getGameListButton=0x7f080001;
-        public static final int hostingProgress=0x7f08000a;
-        public static final int joinButton=0x7f080006;
-        public static final int joiningProgress=0x7f080004;
-        public static final int optionsButton=0x7f080009;
-        public static final int saveButton=0x7f08000d;
-        public static final int serverAddress=0x7f08000b;
-        public static final int status=0x7f080003;
-        public static final int userName=0x7f08000c;
+        public static final int connectionProgress=0x7f090006;
+        public static final int createButton=0x7f090004;
+        public static final int disconnectButton=0x7f090007;
+        public static final int games=0x7f090001;
+        public static final int getGameListButton=0x7f090000;
+        public static final int hostingProgress=0x7f090009;
+        public static final int joinButton=0x7f090005;
+        public static final int joiningProgress=0x7f090003;
+        public static final int menu_settings=0x7f09000d;
+        public static final int optionsButton=0x7f090008;
+        public static final int saveButton=0x7f09000c;
+        public static final int serverAddress=0x7f09000a;
+        public static final int status=0x7f090002;
+        public static final int userName=0x7f09000b;
     }
     public static final class integer {
         public static final int port=0x7f070000;
     }
     public static final class layout {
-        public static final int checkpoint=0x7f030000;
+        public static final int activity_main=0x7f030000;
         public static final int game_list=0x7f030001;
         public static final int game_list_item=0x7f030002;
         public static final int game_mode=0x7f030003;
-        public static final int hare=0x7f030004;
-        public static final int hosting=0x7f030005;
-        public static final int hounds=0x7f030006;
-        public static final int options=0x7f030007;
+        public static final int hosting=0x7f030004;
+        public static final int options=0x7f030005;
+    }
+    public static final class menu {
+        public static final int activity_main=0x7f080000;
     }
     public static final class string {
         /**  "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) 

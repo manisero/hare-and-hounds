@@ -22,6 +22,12 @@ public class GraphicsRenderer implements IGraphicsRenderer
     }
     
     @Override
+	public void setDirectionProvider(IDirectionProvider directionProvider)
+	{
+		_directionProvider = directionProvider;
+	}
+    
+    @Override
 	public void setModel(Model model)
     {
     	_model = model;

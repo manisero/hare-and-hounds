@@ -28,7 +28,10 @@ public final class R {
         public static final int joinButton=0x7f080006;
         public static final int joiningProgress=0x7f080004;
         public static final int optionsButton=0x7f080009;
+        public static final int saveButton=0x7f08000d;
+        public static final int serverAddress=0x7f08000b;
         public static final int status=0x7f080003;
+        public static final int userName=0x7f08000c;
     }
     public static final class integer {
         public static final int port=0x7f070000;
