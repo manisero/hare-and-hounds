@@ -19,7 +19,7 @@ public class SpaceGraphicsView extends GLSurfaceView
 	
 	public SpaceGraphicsView(Context context, AttributeSet attrs)
 	{
-		super(context, attrs);
+		super(context); // Calling super(context, attrs) does not work (the view is not rendered)...
 		initialize(context);
 	}
 	
