@@ -11,7 +11,7 @@ import com.google.inject.*;
 
 public class HareViewModel extends ViewModel
 {
-	public static final String POSITION_UPDATE_INTERVAL_KEY = HareViewModel.class.getCanonicalName() + "OPPONENT_NAME";
+	public static final String POSITION_UPDATE_INTERVAL_KEY = HareViewModel.class.getCanonicalName() + "POSITION_UPDATE_INTERVAL";
 	
 	private IPositionService _positionSerivce;
 	

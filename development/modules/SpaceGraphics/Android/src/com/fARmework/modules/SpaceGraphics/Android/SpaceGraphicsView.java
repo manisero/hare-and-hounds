@@ -11,6 +11,8 @@ import android.util.*;
 
 public class SpaceGraphicsView extends GLSurfaceView 
 {
+	private IGraphicsRenderer _renderer;
+	
 	public SpaceGraphicsView(Context context) 
 	{
 		super(context);
@@ -25,12 +27,17 @@ public class SpaceGraphicsView extends GLSurfaceView
 	
 	private void initialize(Context context)
 	{
-		IGraphicsRenderer renderer = new GraphicsRenderer(new SensorOrientationProvider(context), new DefaultDirectionProvider(), new GLHandler());
-		renderer.setModel(new Arrow());
+		_renderer = new GraphicsRenderer(new SensorOrientationProvider(context), new DefaultDirectionProvider(), new GLHandler());
+		_renderer.setModel(new Arrow());
 		
 		setEGLContextClientVersion(2);
 		setEGLConfigChooser(true);
-		setRenderer(renderer);
+		setRenderer(_renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+	}
+	
+	public void setDirectionProvider(IDirectionProvider directionProvider)
+	{
+		_renderer.setDirectionProvider(directionProvider);
 	}
 }
