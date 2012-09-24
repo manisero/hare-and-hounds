@@ -1,6 +1,8 @@
 package com.fARmework.utils.Android;
 
 import android.os.Bundle;
+import android.view.*;
+
 import com.google.inject.Inject;
 
 public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActivity
@@ -9,7 +11,9 @@ public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActi
 	IContextManager ContextManager;
 	
 	@Inject
-	T viewModel;
+	T ViewModel;
+	
+	protected View View;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -19,23 +23,23 @@ public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActi
         
         if (savedInstanceState != null)
         {
-        	viewModel.setData(savedInstanceState);
+        	ViewModel.setData(savedInstanceState);
         }
         else
         {
         	Bundle extras = getIntent().getExtras();
         	
         	if (extras != null)
-        		viewModel.setData(extras);
+        		ViewModel.setData(extras);
         }
         
-        setAndBindRootView(ContextManager.getLayout(viewModel.getClass()), viewModel);
+        View = setAndBindRootView(ContextManager.getLayout(ViewModel.getClass()), ViewModel);
     }
 	
 	@Override
     public void onBackPressed()
     {
-    	viewModel.onLeaving();
+    	ViewModel.onLeaving();
     	super.onBackPressed();
     }
 }

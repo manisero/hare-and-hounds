@@ -62,13 +62,13 @@ public class GameManager implements IGameManager
 				{
 					PositionData nextPosition = _harePositions.getNextPosition(data, checkpointRange);
 					
-					if (nextPosition != null) // hounds have caught up the hare
-					{
-						// TODO: end game
-					}
-					else // hounds have reached a checkpoint
+					if (nextPosition != null) // hounds have reached a checkpoint
 					{
 						_connectionManager.send(new CheckpointData(_directionCalculator.calculateDirection(data, nextPosition)), _houndsID);
+					}
+					else // hounds have caught up the hare
+					{
+						// TODO: end game
 					}
 				}
 			}

@@ -1,4 +1,4 @@
-package com.fARmework.modules.SpaceGraphics;
+package com.fARmework.modules.SpaceGraphics.Android;
 
 public interface IOrientationProvider
 {

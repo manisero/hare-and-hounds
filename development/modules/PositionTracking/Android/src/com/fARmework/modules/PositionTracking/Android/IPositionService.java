@@ -11,6 +11,6 @@ public interface IPositionService
 	
 	void getSinglePosition(IPositionListener positionListener);
 	
-	void startGettingPosition(IPositionListener positionListener);
+	void startGettingPosition(int updateInterval, IPositionListener positionListener);
 	void stopGettingPosition(IPositionListener positionListener);
 }
