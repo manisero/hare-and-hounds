@@ -5,5 +5,7 @@
 	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.UtilsModule</item>
 	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.InfrastructureModule</item>
 	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.PositionTrackingModule</item>
+	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.SpaceGraphicsModule</item>
+	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.LogicModule</item>
 	</string-array>
 </resources>

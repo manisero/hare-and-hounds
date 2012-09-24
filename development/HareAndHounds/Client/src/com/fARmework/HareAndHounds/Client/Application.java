@@ -49,6 +49,10 @@ public class Application extends android.app.Application
 		contextManager.registerView(OptionsViewModel.class, OptionsActivity.class, R.layout.options);
 		contextManager.registerView(HostingViewModel.class, HostingActivity.class, R.layout.hosting);
 		contextManager.registerView(GameListViewModel.class, GameListActivity.class, R.layout.game_list);
+		
+		contextManager.registerView(HareViewModel.class, HareActivity.class, R.layout.hare);
+		contextManager.registerView(HoundsViewModel.class, HoundsActivity.class, R.layout.hounds);
+		contextManager.registerView(CheckpointViewModel.class, CheckpointActivity.class, R.layout.checkpoint);
 	}
 	
 	private void configurePositionTracking(Injector injector)

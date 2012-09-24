@@ -6,6 +6,7 @@ import gueei.binding.*;
 import gueei.binding.collections.*;
 import gueei.binding.observables.*;
 
+import android.os.*;
 import android.view.*;
 
 import com.fARmework.HareAndHounds.Client.R;
@@ -132,7 +133,6 @@ public class GameListViewModel extends ViewModel
 			}
 		});
 		
-		/*
 		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
 		{
 			@Override
@@ -141,11 +141,10 @@ public class GameListViewModel extends ViewModel
 				ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
 				
 				Bundle bundle = new Bundle();
-				bundle.putString(GameViewModel.OPPONENT_NAME_KEY, hostUserName.get());
-				ContextManager.navigateTo(GameViewModel.class, bundle);
+				bundle.putInt(HoundsViewModel.POSITION_UPDATE_INTERVAL_KEY, data.DemandedPositionUpdateInterval);
+				ContextManager.navigateTo(HoundsViewModel.class, bundle);
 			}
 		});
-		*/
 		
 		ConnectionManager.send(new JoinGameRequest(hostID, _settingsProvider.getUserName()));
 	}

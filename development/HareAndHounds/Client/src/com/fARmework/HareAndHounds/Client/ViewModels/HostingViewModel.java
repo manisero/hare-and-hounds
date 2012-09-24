@@ -2,6 +2,8 @@ package com.fARmework.HareAndHounds.Client.ViewModels;
 
 import gueei.binding.observables.*;
 
+import android.os.*;
+
 import com.fARmework.HareAndHounds.Client.R;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
 import com.fARmework.HareAndHounds.Data.*;
@@ -55,21 +57,19 @@ public class HostingViewModel extends ViewModel
 						{
 							Status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestName));
 							
-							/*
 							ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
 							{
 								@Override
-								public void handle(GameStartInfo info)
+								public void handle(GameStartInfo data)
 								{
 									ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
-									isWaiting.set(false);
+									IsWaiting.set(false);
 									
 									Bundle bundle = new Bundle();
-									bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.GuestUserName);
-									ContextManager.navigateTo(GameViewModel.class, bundle);
+									bundle.putInt(HareViewModel.POSITION_UPDATE_INTERVAL_KEY, data.DemandedPositionUpdateInterval);
+									ContextManager.navigateTo(HareViewModel.class, bundle);
 								}
 							});
-							*/
 							
 							ConnectionManager.send(new JoinGameResponse(JoinGameResponseType.Accept, data.GuestID));
 						}

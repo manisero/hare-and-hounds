@@ -2,7 +2,7 @@ package com.fARmework.HareAndHounds.Data;
 
 public class GameStartInfo
 {
-	int DemandedPositionUpdateInterval;
+	public int DemandedPositionUpdateInterval;
 	
 	public GameStartInfo(int demandedPositionUpdateInterval)
 	{
