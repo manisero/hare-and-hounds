@@ -50,24 +50,19 @@ public abstract class Model
 	private void initializeBuffers()
 	{
 		ByteBuffer vertexByteBuffer = ByteBuffer.allocateDirect(_vertices.length * 4);
-		vertexByteBuffer.order(ByteOrder.nativeOrder());
-		
-		_vertexBuffer = vertexByteBuffer.asFloatBuffer();
+		_vertexBuffer = vertexByteBuffer.order(ByteOrder.nativeOrder()).asFloatBuffer();
 		_vertexBuffer.put(_vertices).position(0);
 		
 		_indexBuffer = ByteBuffer.allocateDirect(_indices.length * 4);
+		_indexBuffer.order(ByteOrder.nativeOrder());
 		_indexBuffer.put(_indices).position(0);
 		
 		ByteBuffer colorByteBuffer = ByteBuffer.allocateDirect(_colors.length * 4);
-		colorByteBuffer.order(ByteOrder.nativeOrder());
-		
-		_colorBuffer = colorByteBuffer.asFloatBuffer();
+		_colorBuffer = colorByteBuffer.order(ByteOrder.nativeOrder()).asFloatBuffer();
 		_colorBuffer.put(_colors).position(0);
 		
 		ByteBuffer normalByteBuffer = ByteBuffer.allocateDirect(_normals.length * 4);
-		normalByteBuffer.order(ByteOrder.nativeOrder());
-		
-		_normalBuffer = normalByteBuffer.asFloatBuffer();
+		_normalBuffer = normalByteBuffer.order(ByteOrder.nativeOrder()).asFloatBuffer();
 		_normalBuffer.put(_normals).position(0);
 	}
 	
