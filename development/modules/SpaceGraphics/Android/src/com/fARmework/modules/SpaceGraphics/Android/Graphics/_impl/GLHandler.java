@@ -2,84 +2,46 @@ package com.fARmework.modules.SpaceGraphics.Android.Graphics._impl;
 
 import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
 
+import java.nio.*;
+
+import javax.microedition.khronos.opengles.*;
+
 import android.opengl.*;
 
 public class GLHandler implements IGLHandler 
 {
-	private final int COORDINATES_PER_VERTEX = 3;
-	
-	private final String VERTEX_SHADER_CODE =
-			"uniform mat4 u_MVPMatrix; " +
-			"attribute vec4 vPosition;" +
-			"void main() " +
-			"{" +
-			"	gl_Position = u_MVPMatrix * vPosition;" +
-			"}";
-	
-	private final String FRAGMENT_SHADER_CODE =
-			"precision mediump float;" +
-			"uniform vec4 vColor;" +
-			"void main()" +
-			"{" +
-			"	gl_FragColor = vColor;" +
-			"}";
-	
-	private int _vertexShader;
-	private int _fragmentShader;
-	
-	private int _program;
-	private int _positionHandle;
-	private int _colorHandle;
-	private int _MVPMatrixHandle;
-	
-	private float[] _projectionMatrix = new float[16];
-	private float[] _viewProjectionMatrix = new float[16];
-	
-	private float[] _rotationMatrix = new float[16];
+	private float[] _modelMatrix = new float[16];
 	private float _direction = 0.0f;
 	
 	@Override
-	public void initialize()
+	public void initialize(GL10 gl)
 	{
-		_program = GLES20.glCreateProgram();
-		
-		_vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTEX_SHADER_CODE);
-		_fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, FRAGMENT_SHADER_CODE);
-		
-		GLES20.glAttachShader(_program, _vertexShader);
-		GLES20.glAttachShader(_program, _fragmentShader);
-		GLES20.glLinkProgram(_program);
-		
-		GLES20.glUseProgram(_program);
-		
-		_positionHandle = GLES20.glGetAttribLocation(_program, "vPosition");
-		
-        _colorHandle = GLES20.glGetUniformLocation(_program, "vColor");
-        _MVPMatrixHandle = GLES20.glGetUniformLocation(_program, "u_MVPMatrix");
-	}
+		gl.glClearDepthf(1.0f);
+		gl.glEnable(GL10.GL_CULL_FACE);
+		gl.glCullFace(GL10.GL_BACK);
+		gl.glEnable(GL10.GL_DEPTH_TEST);
+		gl.glDepthFunc(GL10.GL_LEQUAL);
 	
-	private int loadShader(int type, String code)
-	{
-		int shader = GLES20.glCreateShader(type);
-		
-		GLES20.glShaderSource(shader, code);
-		GLES20.glCompileShader(shader);
-		
-		return shader;
+		gl.glShadeModel(GL10.GL_SMOOTH);
+		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST); 
 	}
 	
 	@Override
-	public void setViewport(int width, int height) 
+	public void setViewport(GL10 gl, int width, int height) 
 	{
-		GLES20.glViewport(0, 0, width, height);
+		gl.glViewport(0, 0, width, height);
 		
-		Matrix.setIdentityM(_projectionMatrix, 0);
+		float ratio = (float) width / height;
+		
+		gl.glMatrixMode(GL10.GL_PROJECTION);
+		gl.glLoadIdentity();
+		gl.glOrthof(-ratio, ratio, -1.0f, 1.0f, 1.0f, 10.0f);
 	}
 	
 	@Override
 	public void setRotationMatrix(float[] rotationMatrix)
 	{
-		_rotationMatrix = rotationMatrix;
+		_modelMatrix = rotationMatrix;
 	}
 	
 	@Override
@@ -89,28 +51,50 @@ public class GLHandler implements IGLHandler
 	}	
 	
 	@Override
-	public void draw(Model model) 
+	public void draw(GL10 gl, Model model) 
 	{
 		float[] backgroundColor = model.getBackgroundColor();
 		
-		GLES20.glClearColor(backgroundColor[0], 
-							backgroundColor[1],
-							backgroundColor[2],
-							backgroundColor[3]);
+		gl.glClearColor(backgroundColor[0], 
+						backgroundColor[1],
+						backgroundColor[2],
+						backgroundColor[3]);		
 		
-		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 		
-        GLES20.glVertexAttribPointer(_positionHandle, 
-        							 COORDINATES_PER_VERTEX,
-        							 GLES20.GL_FLOAT,
-        							 false,
-        							 COORDINATES_PER_VERTEX * 4, 
-        							 model.getVertexBuffer());
+		gl.glMatrixMode(GL10.GL_MODELVIEW);
+		gl.glLoadIdentity();
+		
+		GLU.gluLookAt(gl, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+		
+		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, allocateBuffer(model.getVertices()));
+		gl.glColorPointer(4, GL10.GL_FLOAT, 0, allocateBuffer(model.getColors()));
+		gl.glNormalPointer(GL10.GL_FLOAT, 0, allocateBuffer(model.getNormals()));
+		
+		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 
-		GLES20.glEnableVertexAttribArray(_positionHandle);
-        
-			GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getVerticesAmount());
+			gl.glPushMatrix();
+				gl.glMultMatrixf(_modelMatrix, 0);
+				gl.glDrawArrays(GL10.GL_TRIANGLES, 0, model.getVerticesAmount());
+			gl.glPopMatrix();
 
-        GLES20.glDisableVertexAttribArray(_positionHandle);
+		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
+		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);		
+	}
+	
+	public Buffer allocateBuffer(float[] array)
+	{
+		final int FLOAT_SIZE = 4;
+		
+		ByteBuffer byteBuffer = ByteBuffer.allocateDirect(array.length * FLOAT_SIZE);
+		
+		FloatBuffer floatBuffer = byteBuffer.order(ByteOrder.nativeOrder()).asFloatBuffer();
+		
+		floatBuffer.put(array).position(0);
+
+		return floatBuffer;
 	}
 }

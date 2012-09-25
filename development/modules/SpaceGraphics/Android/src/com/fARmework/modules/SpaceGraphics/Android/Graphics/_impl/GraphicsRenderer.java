@@ -34,13 +34,13 @@ public class GraphicsRenderer implements IGraphicsRenderer
     }
     
 	@Override
-    public void onSurfaceCreated(GL10 unused, EGLConfig config) 
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) 
     {
-		_glHandler.initialize();
+		_glHandler.initialize(gl);
     }
 	
 	@Override
-    public void onDrawFrame(GL10 unused)
+    public void onDrawFrame(GL10 gl)
     {
 		if (_model == null)
 			return;
@@ -48,12 +48,12 @@ public class GraphicsRenderer implements IGraphicsRenderer
 		_glHandler.setRotationMatrix(_orientationProvider.getRotationMatrix());
 		_glHandler.setDirection(_directionProvider.getDirection());
 		
-    	_glHandler.draw(_model);
+    	_glHandler.draw(gl, _model);
     }
 	
 	@Override
-    public void onSurfaceChanged(GL10 unused, int width, int height)
+    public void onSurfaceChanged(GL10 gl, int width, int height)
     {
-        _glHandler.setViewport(width, height);
+        _glHandler.setViewport(gl, width, height);
     }
 }

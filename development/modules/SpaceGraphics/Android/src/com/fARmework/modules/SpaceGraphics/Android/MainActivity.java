@@ -9,6 +9,6 @@ public class MainActivity extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(new SpaceGraphicsView(this));   
+        setContentView(new SpaceGraphicsView(this));
     }
 }

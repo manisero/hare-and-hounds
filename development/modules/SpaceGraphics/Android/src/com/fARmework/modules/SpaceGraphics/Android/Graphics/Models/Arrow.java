@@ -1,153 +1,274 @@
 package com.fARmework.modules.SpaceGraphics.Android.Graphics.Models;
 
+import android.util.*;
+
 import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
 
 public class Arrow extends Model
 {
 	public Arrow()
 	{
-		this(0.5f, 1.0f, 0.2f, null, null);
+		this(0.5f, 1.0f, 0.2f, null);
 	}
 		
-	public Arrow(float width, float length, float height, float[] color, float[] backgroundColor)
+	public Arrow(float width, float length, float height, float[] backgroundColor)
 	{
-		super(width, length, height, color, backgroundColor);
+		super(width, length, height, backgroundColor);
 	}
 	
 	@Override
 	protected void generateVertices()
-	{
-		// V0: 0.0f * _width, 0.5f * _length, 0.5f * _height,
-		// V1: -0.5f * _width, 0.1f * _length, 0.5f * _height,
-		// V2: -0.3f * _width, 0.1f * _length, 0.5f * _height,
-		// V3: -0.3f * _width, -0.5f * _length, 0.5f * _height,
-		// V4: 0.3f * _width, -0.5f * _length, 0.5f * _height,
-		// V5: 0.3f * _width, 0.1f * _length, 0.5f * _height,
-		// V6: 0.5f * _width, 0.1f * _length, 0.5f * _height,
-		// V7: 0.0f * _width, 0.5f * _length, -0.5f * _height,
-		// V8: 0.5f * _width, 0.1f * _length, -0.5f * _height,
-		// V9: 0.3f * _width, 0.1f * _length, -0.5f * _height,
-		// V10: 0.3f * _width, -0.5f * _length, -0.5f * _height,
-		// V11: -0.3f * _width, -0.5f * _length, -0.5f * _height,
-		// V12: -0.3f * _width, 0.1f * _length, -0.5f * _height,
-		// V13: -0.5f * _width, 0.1f * _length, -0.5f * _height,
-		
+	{		
 		float[] vertices =
 		{
-				// front arrow head
+			// front arrow head
 				
-				0.0f * _width, 0.5f * _length, 0.5f * _height,
-				-0.5f * _width, 0.1f * _length, 0.5f * _height,
-				0.5f * _width, 0.1f * _length, 0.5f * _height,
-				
-				// front arrow base
-				
-				-0.3f * _width, 0.1f * _length, 0.5f * _height,
-				-0.3f * _width, -0.5f * _length, 0.5f * _height,
-				0.3f * _width, -0.5f * _length, 0.5f * _height,
-				-0.3f * _width, 0.1f * _length, 0.5f * _height,
-				0.3f * _width, -0.5f * _length, 0.5f * _height,
-				0.3f * _width, 0.1f * _length, 0.5f * _height,
-				
-				// back arrow head
-				
-				0.0f * _width, 0.5f * _length, -0.5f * _height,				
-				-0.5f * _width, 0.1f * _length, -0.5f * _height,
-				0.5f * _width, 0.1f * _length, -0.5f * _height,
-				
-				// back arrow base
-				
-				-0.3f * _width, 0.1f * _length, -0.5f * _height,				
-				-0.3f * _width, -0.5f * _length, -0.5f * _height,
-				0.3f * _width, -0.5f * _length, -0.5f * _height,
-				-0.3f * _width, 0.1f * _length, -0.5f * _height,
-				0.3f * _width, -0.5f * _length, -0.5f * _height,
-				0.3f * _width, 0.1f * _length, -0.5f * _height,
-				
-				// left arrow slant
-				
-				0.0f * _width, 0.5f * _length, -0.5f * _height,
-				0.5f * _width, 0.1f * _length, -0.5f * _height,
-				-0.5f * _width, 0.1f * _length, 0.5f * _height,
-				0.0f * _width, 0.5f * _length, -0.5f * _height,
-				-0.5f * _width, 0.1f * _length, 0.5f * _height,
-				0.0f * _width, 0.5f * _length, 0.5f * _height,
-				
-				// right arrow slant 
-				
-				0.0f * _width, 0.5f * _length, 0.5f * _height,
-				0.5f * _width, 0.1f * _length, 0.5f * _height,
-				-0.5f * _width, 0.1f * _length, -0.5f * _height,
-				0.0f * _width, 0.5f * _length, 0.5f * _height,
-				-0.5f * _width, 0.1f * _length, -0.5f * _height,
-				0.0f * _width, 0.5f * _length, -0.5f * _height,
-				
-				// left-bottom arrow head
-				
-				-0.5f * _width, 0.1f * _length, 0.5f * _height,
-				0.5f * _width, 0.1f * _length, -0.5f * _height,
-				0.3f * _width, 0.1f * _length, -0.5f * _height,
-				-0.5f * _width, 0.1f * _length, 0.5f * _height,
-				0.3f * _width, 0.1f * _length, -0.5f * _height,
-				-0.3f * _width, 0.1f * _length, 0.5f * _height,
-				
-				// right-bottom arrow head
-				
-				0.3f * _width, 0.1f * _length, 0.5f * _height,				
-				-0.3f * _width, 0.1f * _length, -0.5f * _height,
-				-0.5f * _width, 0.1f * _length, -0.5f * _height,
-				0.3f * _width, 0.1f * _length, 0.5f * _height,
-				-0.5f * _width, 0.1f * _length, -0.5f * _height,
-				0.5f * _width, 0.1f * _length, 0.5f * _height,
-				
-				// bottom arrow base
-				
-				-0.3f * _width, -0.5f * _length, 0.5f * _height,
-				0.3f * _width, -0.5f * _length, -0.5f * _height,
-				-0.3f * _width, -0.5f * _length, -0.5f * _height,
-				-0.3f * _width, -0.5f * _length, 0.5f * _height,
-				-0.3f * _width, -0.5f * _length, -0.5f * _height,
-				0.3f * _width, -0.5f * _length, 0.5f * _height,
-				
-				// left arrow base
-				
-				0.3f * _width, 0.1f * _length, -0.5f * _height,
-				0.3f * _width, -0.5f * _length, -0.5f * _height,
-				-0.3f * _width, -0.5f * _length, 0.5f * _height,
-				0.3f * _width, 0.1f * _length, -0.5f * _height,
-				-0.3f * _width, -0.5f * _length, 0.5f * _height,
-				-0.3f * _width, 0.1f * _length, 0.5f * _height,
-				
-				// right arrow base
-				
-				0.3f * _width, 0.1f * _length, 0.5f * _height,		
-				0.3f * _width, -0.5f * _length, 0.5f * _height,
-				-0.3f * _width, -0.5f * _length, -0.5f * _height,
-				0.3f * _width, 0.1f * _length, 0.5f * _height,
-				-0.3f * _width, -0.5f * _length, -0.5f * _height,
-				-0.3f * _width, 0.1f * _length, -0.5f * _height,				
+			 0.0f * _width, 	 0.5f * _length, 	 0.5f * _height,	// V0
+			-0.5f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V1
+			 0.5f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V6
+			
+			// front arrow base
+			
+			-0.3f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V2
+			-0.3f * _width, 	-0.5f * _length, 	 0.5f * _height,	// V3
+			 0.3f * _width, 	-0.5f * _length, 	 0.5f * _height,	// V4
+			-0.3f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V2
+			 0.3f * _width, 	-0.5f * _length, 	 0.5f * _height,	// V4
+			 0.3f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V5
+			
+			// back arrow head
+			
+			 0.0f * _width, 	 0.5f * _length, 	-0.5f * _height,	// V7			
+			 0.5f * _width,  	 0.1f * _length, 	-0.5f * _height,	// V13
+			-0.5f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V8
+			
+			// back arrow base
+			
+			 0.3f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V12
+			 0.3f * _width, 	-0.5f * _length, 	-0.5f * _height,	// V11
+			-0.3f * _width, 	-0.5f * _length, 	-0.5f * _height,	// V10
+			 0.3f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V12
+			-0.3f * _width, 	-0.5f * _length, 	-0.5f * _height,	// V10 
+			-0.3f * _width,  	 0.1f * _length, 	-0.5f * _height,	// V9
+			
+			// left arrow slant
+			
+			-0.5f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V8
+			-0.5f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V1
+			 0.0f * _width, 	 0.5f * _length, 	 0.5f * _height,	// V0
+			-0.5f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V8
+			 0.0f * _width, 	 0.5f * _length, 	 0.5f * _height,	// V0
+			 0.0f * _width, 	 0.5f * _length, 	-0.5f * _height,	// V7
+			
+			// right arrow slant 
+			 0.0f * _width, 	 0.5f * _length, 	-0.5f * _height,	// V7
+			 0.0f * _width, 	 0.5f * _length, 	 0.5f * _height,	// V0
+			 0.5f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V6
+			 0.0f * _width, 	 0.5f * _length, 	-0.5f * _height,	// V7
+			 0.5f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V6
+			 0.5f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V13
+			
+			// left-bottom arrow head
+			
+			-0.5f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V1
+			-0.5f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V8
+			-0.3f * _width,  	 0.1f * _length, 	-0.5f * _height,	// V9
+			-0.5f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V1
+			-0.3f * _width,  	 0.1f * _length, 	-0.5f * _height,	// V9
+			-0.3f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V2
+			
+			// right-bottom arrow head
+			
+			 0.3f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V5
+			 0.3f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V12
+			 0.5f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V13
+			 0.3f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V5
+			 0.5f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V13
+			 0.5f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V6
+			
+			// bottom arrow base
+			
+			-0.3f * _width, 	-0.5f * _length, 	 0.5f * _height,	// V3
+			-0.3f * _width, 	-0.5f * _length, 	-0.5f * _height,	// V10
+			 0.3f * _width, 	-0.5f * _length, 	-0.5f * _height,	// V11
+			-0.3f * _width, 	-0.5f * _length, 	 0.5f * _height,	// V3
+			 0.3f * _width, 	-0.5f * _length, 	-0.5f * _height,	// V11
+			 0.3f * _width, 	-0.5f * _length, 	 0.5f * _height,	// V4 
+			
+			// left arrow base
+			
+			-0.3f * _width,  	 0.1f * _length, 	-0.5f * _height,	// V9
+			-0.3f * _width, 	-0.5f * _length, 	-0.5f * _height,	// V10
+			-0.3f * _width, 	-0.5f * _length, 	 0.5f * _height,	// V3
+			-0.3f * _width,  	 0.1f * _length, 	-0.5f * _height,	// V9
+			-0.3f * _width, 	-0.5f * _length, 	 0.5f * _height,	// V3
+			-0.3f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V2
+			
+			// right arrow base
+			
+			 0.3f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V5
+			 0.3f * _width, 	-0.5f * _length, 	 0.5f * _height,	// V4
+			 0.3f * _width, 	-0.5f * _length, 	-0.5f * _height,	// V11
+			 0.3f * _width, 	 0.1f * _length, 	 0.5f * _height,	// V5
+			 0.3f * _width, 	-0.5f * _length, 	-0.5f * _height,	// V11
+			 0.3f * _width, 	 0.1f * _length, 	-0.5f * _height,	// V12
 		};
 		
 		_vertices = vertices;
 	}
-	
+
 	@Override
-	protected void generateIndices()
+	protected void generateColors()
 	{
-		byte[] indices =
-			{
-				0,	1,	6,			2,	3,	5,
-				3,	4,	5,			7,	13,	8,
-				9,	12,	10,			12,	11,	10,
-				0,	7,	8, 			0,	8,	1,
-				1,	8,	9,			1,	9,	2,
-				2,	9,	10, 		2,	10,	3,
-				3,	10,	11, 		3,	11,	4,
-				4,	11,	12,			4,	12,	5,
-				5,	12,	13, 		5,	13,	6,
-				6,	13,	7, 			6,	7,	0    			
-			};
+		float[] colors =
+		{
+			// front arrow head
+			
+			1.0f, 0.0f, 0.0f, 1.0f,
+			1.0f, 0.0f, 0.0f, 1.0f,
+			1.0f, 0.0f, 0.0f, 1.0f,
+				
+			// front arrow base
+			
+			0.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 1.0f,
+				
+			// back arrow head
+			
+			0.0f, 0.0f, 1.0f, 1.0f,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			
+			// back arrow base
+			
+			1.0f, 1.0f, 0.0f, 1.0f,
+			1.0f, 1.0f, 0.0f, 1.0f,
+			1.0f, 1.0f, 0.0f, 1.0f,
+			1.0f, 1.0f, 0.0f, 1.0f,
+			1.0f, 1.0f, 0.0f, 1.0f,
+			1.0f, 1.0f, 0.0f, 1.0f,
+			
+			// left arrow slant
+			
+			1.0f, 0.0f, 1.0f, 1.0f,
+			1.0f, 0.0f, 1.0f, 1.0f,
+			1.0f, 0.0f, 1.0f, 1.0f,
+			1.0f, 0.0f, 1.0f, 1.0f,
+			1.0f, 0.0f, 1.0f, 1.0f,
+			1.0f, 0.0f, 1.0f, 1.0f,
+			
+			// right arrow slant 
+			
+			0.0f, 1.0f, 1.0f, 1.0f,
+			0.0f, 1.0f, 1.0f, 1.0f,
+			0.0f, 1.0f, 1.0f, 1.0f,
+			0.0f, 1.0f, 1.0f, 1.0f,
+			0.0f, 1.0f, 1.0f, 1.0f,
+			0.0f, 1.0f, 1.0f, 1.0f,
+			
+			// left-bottom arrow head
+			
+			1.0f, 0.6f, 0.2f, 1.0f,
+			1.0f, 0.6f, 0.2f, 1.0f,
+			1.0f, 0.6f, 0.2f, 1.0f,
+			1.0f, 0.6f, 0.2f, 1.0f,
+			1.0f, 0.6f, 0.2f, 1.0f,
+			1.0f, 0.6f, 0.2f, 1.0f,
+			
+			// right-bottom arrow head
+			
+			0.2f, 0.6f, 1.0f, 1.0f,
+			0.2f, 0.6f, 1.0f, 1.0f,
+			0.2f, 0.6f, 1.0f, 1.0f,
+			0.2f, 0.6f, 1.0f, 1.0f,
+			0.2f, 0.6f, 1.0f, 1.0f,
+			0.2f, 0.6f, 1.0f, 1.0f,
+			
+			// bottom arrow base
+			
+			0.5f, 1.0f, 0.8f, 1.0f,
+			0.5f, 1.0f, 0.8f, 1.0f,
+			0.5f, 1.0f, 0.8f, 1.0f,
+			0.5f, 1.0f, 0.8f, 1.0f,
+			0.5f, 1.0f, 0.8f, 1.0f,
+			0.5f, 1.0f, 0.8f, 1.0f,
+				
+			// left arrow base
+			
+			0.8f, 1.0f, 0.5f, 1.0f,
+			0.8f, 1.0f, 0.5f, 1.0f,
+			0.8f, 1.0f, 0.5f, 1.0f,
+			0.8f, 1.0f, 0.5f, 1.0f,
+			0.8f, 1.0f, 0.5f, 1.0f,
+			0.8f, 1.0f, 0.5f, 1.0f,
+				
+			// right arrow base
+				
+			0.2f, 0.5f, 0.4f, 1.0f,
+			0.2f, 0.5f, 0.4f, 1.0f,
+			0.2f, 0.5f, 0.4f, 1.0f,
+			0.2f, 0.5f, 0.4f, 1.0f,
+			0.2f, 0.5f, 0.4f, 1.0f,
+			0.2f, 0.5f, 0.4f, 1.0f,					
+		};
 		
-		_indices = indices;
+		_colors = colors;
+	}
+
+	@Override
+	protected void generateNormals()
+	{
+		float[] normals = new float[_vertices.length];
+		
+		int vertices = _vertices.length / 9;
+		
+		for(int i = 0; i < vertices; ++i)
+		{			
+			float firstPoint[]	= {	_vertices[i * 9 + 0], 
+									_vertices[i * 9 + 1], 
+									_vertices[i * 9 + 2]	};
+			
+			float secondPoint[]	= {	_vertices[i * 9 + 3],
+									_vertices[i * 9 + 4],
+									_vertices[i * 9 + 5]	};
+			
+			float thirdPoint[]	= {	_vertices[i * 9 + 6],
+									_vertices[i * 9 + 7], 
+									_vertices[i * 9 + 8]	};
+			
+			float U[]	=	{	secondPoint[0] - firstPoint[0],
+								secondPoint[1] - firstPoint[1],
+								secondPoint[2] - firstPoint[2]	};
+			
+			float V[]	=	{	thirdPoint[0] - firstPoint[0],
+								thirdPoint[1] - firstPoint[1],
+								thirdPoint[2] - firstPoint[2]	};
+			
+			float N[]	=	{	U[1] * V[2] - U[2] * V[1],
+								U[2] * V[0] - U[0] * V[2],
+								U[0] * V[1] - U[1] * V[0]	};
+
+			float length = FloatMath.sqrt((N[0] * N[0]) + (N[1] * N[1]) + (N[2] * N[2]));
+			
+			N[0] = N[0] / length;
+			N[1] = N[1] / length;
+			N[2] = N[2] / length;
+			
+			normals[i * 9 + 0] = N[0];
+			normals[i * 9 + 1] = N[1];
+			normals[i * 9 + 2] = N[2];
+			normals[i * 9 + 3] = N[0];
+			normals[i * 9 + 4] = N[1];
+			normals[i * 9 + 5] = N[2];
+			normals[i * 9 + 6] = N[0];
+			normals[i * 9 + 7] = N[1];
+			normals[i * 9 + 8] = N[2];
+		}
+	
+		_normals = normals;
 	}
 }
