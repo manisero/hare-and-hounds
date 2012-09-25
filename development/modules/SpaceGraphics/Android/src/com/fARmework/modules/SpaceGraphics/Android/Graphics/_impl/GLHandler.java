@@ -6,12 +6,15 @@ import java.nio.*;
 
 import javax.microedition.khronos.opengles.*;
 
+import android.graphics.*;
 import android.opengl.*;
 
 public class GLHandler implements IGLHandler 
 {
 	private float[] _modelMatrix = new float[16];
 	private float _direction = 0.0f;
+	
+	private float[] _light = { 1.0f, 1.0f, 1.0f, 1.0f };
 	
 	@Override
 	public void initialize(GL10 gl)
@@ -21,6 +24,9 @@ public class GLHandler implements IGLHandler
 		gl.glCullFace(GL10.GL_BACK);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL10.GL_LEQUAL);
+		gl.glEnable(GL10.GL_LIGHTING);
+		gl.glEnable(GL10.GL_LIGHT0);
+		gl.glEnable(GL10.GL_COLOR_MATERIAL);
 	
 		gl.glShadeModel(GL10.GL_SMOOTH);
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST); 
@@ -61,6 +67,8 @@ public class GLHandler implements IGLHandler
 						backgroundColor[3]);		
 		
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+		
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, _light, 0);
 		
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
