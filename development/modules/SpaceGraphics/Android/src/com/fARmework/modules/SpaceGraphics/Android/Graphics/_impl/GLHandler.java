@@ -73,9 +73,6 @@ public class GLHandler implements IGLHandler
 	{
 		GLES20.glViewport(0, 0, width, height);
 		
-		/*float ratio = (float) width / height;
-		Matrix.frustumM(_projectionMatrix, 0, -ratio, ratio, -1, 1, 1, 7);*/
-		
 		Matrix.setIdentityM(_projectionMatrix, 0);
 	}
 	
@@ -112,14 +109,7 @@ public class GLHandler implements IGLHandler
 
 		GLES20.glEnableVertexAttribArray(_positionHandle);
         
-        	GLES20.glUniform4fv(_colorHandle, 1, model.getColor(), 0);
-	    
-        	Matrix.multiplyMM(_viewProjectionMatrix, 0, _projectionMatrix, 0, _rotationMatrix, 0);
-        	Matrix.rotateM(_viewProjectionMatrix, 0, _direction, 0.0f, 0.0f, 1.0f);
-        	
-        	GLES20.glUniformMatrix4fv(_MVPMatrixHandle, 1, false, _viewProjectionMatrix, 0);        
-	        
-        	GLES20.glDrawElements(GLES20.GL_TRIANGLES, model.getVerticesAmount(), GLES20.GL_UNSIGNED_BYTE, model.getIndexBuffer());
+			GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getVerticesAmount());
 
         GLES20.glDisableVertexAttribArray(_positionHandle);
 	}

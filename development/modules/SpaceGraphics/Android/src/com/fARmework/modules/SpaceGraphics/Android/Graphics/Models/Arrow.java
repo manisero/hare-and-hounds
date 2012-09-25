@@ -17,22 +17,115 @@ public class Arrow extends Model
 	@Override
 	protected void generateVertices()
 	{
+		// V0: 0.0f * _width, 0.5f * _length, 0.5f * _height,
+		// V1: -0.5f * _width, 0.1f * _length, 0.5f * _height,
+		// V2: -0.3f * _width, 0.1f * _length, 0.5f * _height,
+		// V3: -0.3f * _width, -0.5f * _length, 0.5f * _height,
+		// V4: 0.3f * _width, -0.5f * _length, 0.5f * _height,
+		// V5: 0.3f * _width, 0.1f * _length, 0.5f * _height,
+		// V6: 0.5f * _width, 0.1f * _length, 0.5f * _height,
+		// V7: 0.0f * _width, 0.5f * _length, -0.5f * _height,
+		// V8: 0.5f * _width, 0.1f * _length, -0.5f * _height,
+		// V9: 0.3f * _width, 0.1f * _length, -0.5f * _height,
+		// V10: 0.3f * _width, -0.5f * _length, -0.5f * _height,
+		// V11: -0.3f * _width, -0.5f * _length, -0.5f * _height,
+		// V12: -0.3f * _width, 0.1f * _length, -0.5f * _height,
+		// V13: -0.5f * _width, 0.1f * _length, -0.5f * _height,
+		
 		float[] vertices =
 		{
-			 0.00f * _width,	 0.50f * _length,	 0.50f * _height,	 
-			 0.50f * _width,	 0.10f * _length,	 0.50f * _height,	 
-			 0.30f * _width,	 0.10f * _length,	 0.50f * _height,	 
-			 0.30f * _width,	-0.50f * _length,	 0.50f * _height,	 
-			-0.30f * _width,	-0.50f * _length,	 0.50f * _height,	
-			-0.30f * _width,	 0.10f * _length,	 0.50f * _height,	
-			-0.50f * _width,	 0.10f * _length,	 0.50f * _height,	
-			 0.00f * _width,	 0.50f * _length,	-0.50f * _height,	 
-			 0.50f * _width,	 0.10f * _length,	-0.50f * _height,	 
-			 0.30f * _width,	 0.10f * _length,	-0.50f * _height,	 
-			 0.30f * _width,	-0.50f * _length,	-0.50f * _height,	 
-			 -0.30f * _width,	-0.50f * _length,	-0.50f * _height,	
-			 -0.30f * _width,	 0.10f * _length,	-0.50f * _height,	
-			 -0.50f * _width,	 0.10f * _length,	-0.50f * _height				
+				// front arrow head
+				
+				0.0f * _width, 0.5f * _length, 0.5f * _height,
+				-0.5f * _width, 0.1f * _length, 0.5f * _height,
+				0.5f * _width, 0.1f * _length, 0.5f * _height,
+				
+				// front arrow base
+				
+				-0.3f * _width, 0.1f * _length, 0.5f * _height,
+				-0.3f * _width, -0.5f * _length, 0.5f * _height,
+				0.3f * _width, -0.5f * _length, 0.5f * _height,
+				-0.3f * _width, 0.1f * _length, 0.5f * _height,
+				0.3f * _width, -0.5f * _length, 0.5f * _height,
+				0.3f * _width, 0.1f * _length, 0.5f * _height,
+				
+				// back arrow head
+				
+				0.0f * _width, 0.5f * _length, -0.5f * _height,				
+				-0.5f * _width, 0.1f * _length, -0.5f * _height,
+				0.5f * _width, 0.1f * _length, -0.5f * _height,
+				
+				// back arrow base
+				
+				-0.3f * _width, 0.1f * _length, -0.5f * _height,				
+				-0.3f * _width, -0.5f * _length, -0.5f * _height,
+				0.3f * _width, -0.5f * _length, -0.5f * _height,
+				-0.3f * _width, 0.1f * _length, -0.5f * _height,
+				0.3f * _width, -0.5f * _length, -0.5f * _height,
+				0.3f * _width, 0.1f * _length, -0.5f * _height,
+				
+				// left arrow slant
+				
+				0.0f * _width, 0.5f * _length, -0.5f * _height,
+				0.5f * _width, 0.1f * _length, -0.5f * _height,
+				-0.5f * _width, 0.1f * _length, 0.5f * _height,
+				0.0f * _width, 0.5f * _length, -0.5f * _height,
+				-0.5f * _width, 0.1f * _length, 0.5f * _height,
+				0.0f * _width, 0.5f * _length, 0.5f * _height,
+				
+				// right arrow slant 
+				
+				0.0f * _width, 0.5f * _length, 0.5f * _height,
+				0.5f * _width, 0.1f * _length, 0.5f * _height,
+				-0.5f * _width, 0.1f * _length, -0.5f * _height,
+				0.0f * _width, 0.5f * _length, 0.5f * _height,
+				-0.5f * _width, 0.1f * _length, -0.5f * _height,
+				0.0f * _width, 0.5f * _length, -0.5f * _height,
+				
+				// left-bottom arrow head
+				
+				-0.5f * _width, 0.1f * _length, 0.5f * _height,
+				0.5f * _width, 0.1f * _length, -0.5f * _height,
+				0.3f * _width, 0.1f * _length, -0.5f * _height,
+				-0.5f * _width, 0.1f * _length, 0.5f * _height,
+				0.3f * _width, 0.1f * _length, -0.5f * _height,
+				-0.3f * _width, 0.1f * _length, 0.5f * _height,
+				
+				// right-bottom arrow head
+				
+				0.3f * _width, 0.1f * _length, 0.5f * _height,				
+				-0.3f * _width, 0.1f * _length, -0.5f * _height,
+				-0.5f * _width, 0.1f * _length, -0.5f * _height,
+				0.3f * _width, 0.1f * _length, 0.5f * _height,
+				-0.5f * _width, 0.1f * _length, -0.5f * _height,
+				0.5f * _width, 0.1f * _length, 0.5f * _height,
+				
+				// bottom arrow base
+				
+				-0.3f * _width, -0.5f * _length, 0.5f * _height,
+				0.3f * _width, -0.5f * _length, -0.5f * _height,
+				-0.3f * _width, -0.5f * _length, -0.5f * _height,
+				-0.3f * _width, -0.5f * _length, 0.5f * _height,
+				-0.3f * _width, -0.5f * _length, -0.5f * _height,
+				0.3f * _width, -0.5f * _length, 0.5f * _height,
+				
+				// left arrow base
+				
+				0.3f * _width, 0.1f * _length, -0.5f * _height,
+				0.3f * _width, -0.5f * _length, -0.5f * _height,
+				-0.3f * _width, -0.5f * _length, 0.5f * _height,
+				0.3f * _width, 0.1f * _length, -0.5f * _height,
+				-0.3f * _width, -0.5f * _length, 0.5f * _height,
+				-0.3f * _width, 0.1f * _length, 0.5f * _height,
+				
+				// right arrow base
+				
+				0.3f * _width, 0.1f * _length, 0.5f * _height,		
+				0.3f * _width, -0.5f * _length, 0.5f * _height,
+				-0.3f * _width, -0.5f * _length, -0.5f * _height,
+				0.3f * _width, 0.1f * _length, 0.5f * _height,
+				-0.3f * _width, -0.5f * _length, -0.5f * _height,
+				-0.3f * _width, 0.1f * _length, -0.5f * _height,				
 		};
 		
 		_vertices = vertices;
