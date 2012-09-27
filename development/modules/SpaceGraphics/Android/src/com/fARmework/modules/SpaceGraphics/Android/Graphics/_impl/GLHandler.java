@@ -1,13 +1,12 @@
 package com.fARmework.modules.SpaceGraphics.Android.Graphics._impl;
 
-import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
-
 import java.nio.*;
 
 import javax.microedition.khronos.opengles.*;
 
-import android.graphics.*;
 import android.opengl.*;
+
+import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
 
 public class GLHandler implements IGLHandler 
 {
@@ -54,7 +53,7 @@ public class GLHandler implements IGLHandler
 	public void setDirection(float direction)
 	{
 		_direction = direction;
-	}	
+	}
 	
 	@Override
 	public void draw(GL10 gl, Model model) 
