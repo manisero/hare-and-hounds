@@ -19,6 +19,6 @@ public class CheckpointActivity extends BoundActivity<CheckpointViewModel>
         super.onCreate(savedInstanceState);
         
         // Set SpaceGraphicsView's DirectionProvider
-        ((SpaceGraphicsView)((ViewGroup)View).getChildAt(0)).setDirectionProvider(DirectionProvider); // TODO: Find the view by id once SpaceGraphicsView's constructor is fixed
+        //((SpaceGraphicsView)((ViewGroup)View).getChildAt(0)).setDirectionProvider(DirectionProvider); // TODO: Find the view by id once SpaceGraphicsView's constructor is fixed
     }
 }
