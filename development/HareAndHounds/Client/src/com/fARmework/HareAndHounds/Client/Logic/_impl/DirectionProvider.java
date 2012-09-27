@@ -17,5 +17,4 @@ public class DirectionProvider implements IDirectionProvider
 	{
 		_direction = direction;
 	}
-	
 }

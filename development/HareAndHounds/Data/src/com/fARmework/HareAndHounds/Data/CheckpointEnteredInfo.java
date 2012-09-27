@@ -1,10 +1,10 @@
 package com.fARmework.HareAndHounds.Data;
 
-public class CheckpointData
+public class CheckpointEnteredInfo
 {
 	public double NextCheckpointDirection;
 	
-	public CheckpointData(double nextCheckpointDirection)
+	public CheckpointEnteredInfo(double nextCheckpointDirection)
 	{
 		NextCheckpointDirection = nextCheckpointDirection;
 	}

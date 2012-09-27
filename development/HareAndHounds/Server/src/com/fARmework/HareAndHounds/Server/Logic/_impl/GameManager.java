@@ -16,6 +16,7 @@ public class GameManager implements IGameManager
 	private int _hareID;
 	private int _houndsID;
 	private PositionDataList _harePositions;
+	private boolean _houndsInCheckPoint;
 	
 	public GameManager(IConnectionManager connectionManager, ISettingsProvider settingsProvider, IDirectionCalculator directionCalculator,
 					   IDistanceCalculator distanceCalculator, int hareID, int houndsID)
@@ -64,12 +65,17 @@ public class GameManager implements IGameManager
 					
 					if (nextPosition != null) // hounds have reached a checkpoint
 					{
-						_connectionManager.send(new CheckpointData(_directionCalculator.calculateDirection(data, nextPosition)), _houndsID);
+						_houndsInCheckPoint = true;
+						_connectionManager.send(new CheckpointEnteredInfo(_directionCalculator.calculateDirection(data, nextPosition)), _houndsID);
 					}
 					else // hounds have caught up the hare
 					{
 						// TODO: end game
 					}
+				}
+				else if (_houndsInCheckPoint) // hounds have left a checkpoint
+				{
+					_connectionManager.send(new CheckpointLeftInfo(), _houndsID);
 				}
 			}
 		});
