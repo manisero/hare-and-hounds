@@ -17,6 +17,8 @@ public class DataRegistrar
 		dataRegistry.register(JoinGameResponse.class);
 		
 		dataRegistry.register(GameStartInfo.class);
-		dataRegistry.register(CheckpointData.class);
+		
+		dataRegistry.register(CheckpointEnteredInfo.class);
+		dataRegistry.register(CheckpointLeftInfo.class);
 	}
 }

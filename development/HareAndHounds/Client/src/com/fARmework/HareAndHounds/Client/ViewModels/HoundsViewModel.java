@@ -23,12 +23,12 @@ public class HoundsViewModel extends ViewModel
 		
 		_positionSerivce = positionService;
 		
-		ConnectionManager.registerDataHandler(CheckpointData.class, new IDataHandler<CheckpointData>()
+		ConnectionManager.registerDataHandler(CheckpointEnteredInfo.class, new IDataHandler<CheckpointEnteredInfo>()
 		{
 			@Override
-			public void handle(CheckpointData data)
+			public void handle(CheckpointEnteredInfo data)
 			{
-				ConnectionManager.unregisterDataHandlers(CheckpointData.class);
+				ConnectionManager.unregisterDataHandlers(CheckpointEnteredInfo.class);
 				ContextManager.navigateTo(CheckpointViewModel.class);
 			}
 		});

@@ -13,13 +13,13 @@ public class SettingsProvider implements ISettingsProvider
 	@Override
 	public int getGameRange()
 	{
-		return 1000;
+		return 10000;
 	}
 
 	@Override
 	public int getCheckpointRange()
 	{
-		return 20;
+		return 2000;
 	}
 	
 	@Override

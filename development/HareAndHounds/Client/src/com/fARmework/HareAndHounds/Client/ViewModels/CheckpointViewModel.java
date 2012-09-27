@@ -21,12 +21,21 @@ public class CheckpointViewModel extends ViewModel
 		
 		_directionProvider = directionProvider;
 		
-		ConnectionManager.registerDataHandler(CheckpointData.class, new IDataHandler<CheckpointData>()
+		ConnectionManager.registerDataHandler(CheckpointEnteredInfo.class, new IDataHandler<CheckpointEnteredInfo>()
 		{
 			@Override
-			public void handle(CheckpointData data)
+			public void handle(CheckpointEnteredInfo data)
 			{
 				_directionProvider.setDirection((float)data.NextCheckpointDirection);
+			}
+		});
+		
+		ConnectionManager.registerDataHandler(CheckpointLeftInfo.class, new IDataHandler<CheckpointLeftInfo>()
+		{
+			@Override
+			public void handle(CheckpointLeftInfo data)
+			{
+				ContextManager.navigateTo(HoundsViewModel.class);
 			}
 		});
 	}
