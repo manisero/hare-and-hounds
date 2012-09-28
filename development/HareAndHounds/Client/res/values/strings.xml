@@ -9,6 +9,7 @@
     <string name="dialog_no">No</string>
     
     <string name="serverAddress">Server address</string>
+    <string name="port">Port</string>
     <string name="userName">User name</string>
     
     <string name="connection_connect">Connect</string>

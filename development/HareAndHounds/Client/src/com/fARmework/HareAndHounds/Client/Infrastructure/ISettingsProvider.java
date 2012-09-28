@@ -7,6 +7,7 @@ public interface ISettingsProvider extends com.fARmework.core.client.Infrastruct
 	void setContext(Context context);
 	
 	void setServerAddress(String serverAddress);
+	void setPort(int port);
 	
 	String getUserName();
 	void setUserName(String userName);
