@@ -7,19 +7,19 @@ import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
 
 public class SettingsReader implements ISettingsReader 
 {
-	private static final String SETTINGS_FILE = "settings.xml";
-
-	@Override
-	public String getSettingsFileName() 
-	{
-		return SETTINGS_FILE;
-	}	
+	private String _settingsFileName;
 	
 	@Override
-	public String getProperty(String propertyID) 
+	public void setSettingsFileName(String settingsFileName)
+	{
+		_settingsFileName = settingsFileName;
+	}
+	
+	@Override
+	public String get(String settingKey) 
 	{
 		XMLConfiguration configuration = new XMLConfiguration();
-		configuration.setFileName(SETTINGS_FILE);
+		configuration.setFileName(_settingsFileName);
 		configuration.setValidating(false);
 		configuration.setExpressionEngine(new XPathExpressionEngine());
 		
@@ -32,6 +32,6 @@ public class SettingsReader implements ISettingsReader
 			exception.printStackTrace();
 		}
 				
-		return (String) configuration.getProperty("setting[@key='" + propertyID + "']");
+		return (String) configuration.getProperty("setting[@key='" + settingKey + "']");
 	}
 }

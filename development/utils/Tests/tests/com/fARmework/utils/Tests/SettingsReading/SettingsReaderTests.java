@@ -18,16 +18,18 @@ import org.junit.runners.Suite.*;
 @RunWith(Suite.class)
 @SuiteClasses(
 		{
-			SettingsReaderTests.TheGetPropertyMethod.class
+			SettingsReaderTests.TheGetMethod.class
 		})
 public class SettingsReaderTests 
 {
-	public static class TheGetPropertyMethod
+	public static class TheGetMethod
 	{		
 		@Test
 		public void ReadsExistingSettings() 
 		{
 			ISettingsReader settingsReader = new SettingsReader();
+			
+			String settingsFileName = "settings.xml";
 			
 			String settings =
 					"<settings>												\n" +
@@ -38,7 +40,7 @@ public class SettingsReaderTests
 			
 			try 
 			{
-				FileWriter fileWriter = new FileWriter(settingsReader.getSettingsFileName());
+				FileWriter fileWriter = new FileWriter(settingsFileName);
 				
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 				
@@ -52,11 +54,13 @@ public class SettingsReaderTests
 				exception.printStackTrace();
 			}
 			
-			assertEquals("127.0.0.1", settingsReader.getProperty("ipAddress"));
-			assertEquals("8080", settingsReader.getProperty("port"));
-			assertEquals("testServer", settingsReader.getProperty("hostname"));
+			settingsReader.setSettingsFileName(settingsFileName);
 			
-			File file = new File(settingsReader.getSettingsFileName());
+			assertEquals("127.0.0.1", settingsReader.get("ipAddress"));
+			assertEquals("8080", settingsReader.get("port"));
+			assertEquals("testServer", settingsReader.get("hostname"));
+			
+			File file = new File(settingsFileName);
 			
 			file.delete();
 		}
@@ -66,6 +70,8 @@ public class SettingsReaderTests
 		{
 			ISettingsReader settingsReader = new SettingsReader();
 			
+			String settingsFileName = "settings.xml";
+			
 			String settings =
 					"<settings>												\n" +
 					"	<setting key=\"ipAddress\">127.0.0.1</setting>		\n" +
@@ -75,7 +81,7 @@ public class SettingsReaderTests
 			
 			try 
 			{
-				FileWriter fileWriter = new FileWriter(settingsReader.getSettingsFileName());
+				FileWriter fileWriter = new FileWriter(settingsFileName);
 				
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 				
@@ -89,10 +95,12 @@ public class SettingsReaderTests
 				exception.printStackTrace();
 			}
 			
-			assertNull(settingsReader.getProperty("macAddress"));
-			assertNull(settingsReader.getProperty("defaultGateway"));
+			settingsReader.setSettingsFileName(settingsFileName);
 			
-			File file = new File(settingsReader.getSettingsFileName());
+			assertNull(settingsReader.get("macAddress"));
+			assertNull(settingsReader.get("defaultGateway"));
+			
+			File file = new File(settingsFileName);
 			
 			file.delete();			
 		}

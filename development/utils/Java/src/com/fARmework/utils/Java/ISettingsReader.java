@@ -2,6 +2,7 @@ package com.fARmework.utils.Java;
 
 public interface ISettingsReader 
 {
-	String getSettingsFileName();
-	String getProperty(String propertyID);
+	void setSettingsFileName(String settingsFileName);
+	
+	String get(String settingKey);
 }
