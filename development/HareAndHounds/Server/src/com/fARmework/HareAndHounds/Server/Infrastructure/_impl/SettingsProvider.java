@@ -20,42 +20,47 @@ public class SettingsProvider implements ISettingsProvider
 	@Override
 	public int getPort()
 	{
-		return Integer.valueOf(_settingsReader.get("Port"));
+		return getInt("Port");
 	}
 
 	@Override
 	public int getGameRange()
 	{
-		return 1000;
+		return getInt("GameRange");
 	}
 
 	@Override
 	public int getCheckpointRange()
 	{
-		return 20;
+		return getInt("CheckpointRange");
 	}
 	
 	@Override
 	public int getHareDemandedPositionUpdateInterval()
 	{
-		return 20;
+		return getInt("HareDemandedPositionUpdateInterval");
 	}
 
 	@Override
 	public int getHoundsDemandedPositionUpdateInterval()
 	{
-		return 10;
+		return getInt("HoundsDemandedPositionUpdateInterval");
 	}
 
 	@Override
 	public int getRequiredInitialHarePositions()
 	{
-		return 3;
+		return getInt("RequiredInitialHarePositions");
 	}
 
 	@Override
 	public int getVictoriousHarePositions()
 	{
-		return 30;
+		return getInt("VictoriousHarePositions");
+	}
+	
+	private int getInt(String key)
+	{
+		return Integer.valueOf(_settingsReader.get(key));		
 	}
 }
