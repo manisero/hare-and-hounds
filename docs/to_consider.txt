@@ -6,7 +6,7 @@
    No, it's not. Android SKD requires the libraries to be located in "[project name]/libs"
    folder.
 
-2. Mapping points to grid:
+2. Screen gestures - mapping points to grid:
    Consider using margin while mapping the points, so that the top left point is placed in the middle
    (instead of in the top left corner) of the top left grid cell. Compare:
    gesture: "o  o   o  o"
@@ -14,4 +14,5 @@
    grid with margin: "|  o  |o   o|  o  |"
    plain gesture without margin: "101"
    plain gesture with margin: "111"
-   
+
+3. Indicating how close to actual checkpoint you are. The arrow could get the more red / green the closer you are to the actual checkpoint.

@@ -1,3 +1,5 @@
 PositionData: Latitude and Longitude are displayed in wrong order (co clue why...)
 
 SpaceGraphicsView does now work when defined in xml layout
+
+HareAndHounds: Hounds reports their location too often (at least on real device)
