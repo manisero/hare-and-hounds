@@ -16,6 +16,16 @@
         binding:enabled="NOT(IsConnected)">
     </EditText>
     
+    <EditText android:id="@+id/port"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="@string/port"
+        binding:text="Port"
+        binding:enabled="NOT(IsConnected)">
+    </EditText>
+    
     <EditText android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
