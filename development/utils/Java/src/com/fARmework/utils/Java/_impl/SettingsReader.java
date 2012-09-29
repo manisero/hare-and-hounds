@@ -5,7 +5,7 @@ import com.fARmework.utils.Java.*;
 import org.apache.commons.configuration.*;
 import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
 
-public class DefaultSettingsReader implements ISettingsReader 
+public class SettingsReader implements ISettingsReader 
 {
 	private static final String SETTINGS_FILE = "settings.xml";
 

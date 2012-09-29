@@ -18,16 +18,16 @@ import org.junit.runners.Suite.*;
 @RunWith(Suite.class)
 @SuiteClasses(
 		{
-			DefaultSettingsReaderTests.TheGetPropertyMethod.class
+			SettingsReaderTests.TheGetPropertyMethod.class
 		})
-public class DefaultSettingsReaderTests 
+public class SettingsReaderTests 
 {
 	public static class TheGetPropertyMethod
 	{		
 		@Test
 		public void ReadsExistingSettings() 
 		{
-			ISettingsReader settingsReader = new DefaultSettingsReader();
+			ISettingsReader settingsReader = new SettingsReader();
 			
 			String settings =
 					"<settings>												\n" +
@@ -64,7 +64,7 @@ public class DefaultSettingsReaderTests
 		@Test
 		public void ReturnsNullOnNotExistingSettings()
 		{
-			ISettingsReader settingsReader = new DefaultSettingsReader();
+			ISettingsReader settingsReader = new SettingsReader();
 			
 			String settings =
 					"<settings>												\n" +

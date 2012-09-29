@@ -8,7 +8,7 @@ import org.junit.runners.Suite.*;
 @RunWith(Suite.class)
 @SuiteClasses(
 		{
-			DefaultSettingsReaderTests.class
+			SettingsReaderTests.class
 		})
 public class UtilsTests 
 {

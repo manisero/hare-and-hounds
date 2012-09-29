@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="libs/javax.inject.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PositionTracking.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PositionTracking.Java"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Utils.Java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
