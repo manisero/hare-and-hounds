@@ -54,7 +54,7 @@ public class SettingsReaderTests
 				exception.printStackTrace();
 			}
 			
-			settingsReader.setSettingsFileName(settingsFileName);
+			settingsReader.loadSettings(settingsFileName);
 			
 			assertEquals("127.0.0.1", settingsReader.get("ipAddress"));
 			assertEquals("8080", settingsReader.get("port"));
@@ -95,7 +95,7 @@ public class SettingsReaderTests
 				exception.printStackTrace();
 			}
 			
-			settingsReader.setSettingsFileName(settingsFileName);
+			settingsReader.loadSettings(settingsFileName);
 			
 			assertNull(settingsReader.get("macAddress"));
 			assertNull(settingsReader.get("defaultGateway"));

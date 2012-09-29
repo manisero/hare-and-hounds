@@ -14,7 +14,7 @@ public class SettingsProvider implements ISettingsProvider
 	public SettingsProvider(ISettingsReader settingsReader)
 	{
 		_settingsReader = settingsReader;
-		_settingsReader.setSettingsFileName(SETTINGS_FILE_NAME);
+		_settingsReader.loadSettings(SETTINGS_FILE_NAME);
 	}
 	
 	@Override
