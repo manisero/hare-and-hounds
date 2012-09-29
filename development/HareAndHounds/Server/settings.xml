@@ -1,5 +1,5 @@
 <settings>
-	<setting key="Port">6969</setting>
+	<setting key="Port">27015</setting>
 	
 	<setting key="GameRange">1000</setting>
 	<setting key="CheckpointRange">20</setting>

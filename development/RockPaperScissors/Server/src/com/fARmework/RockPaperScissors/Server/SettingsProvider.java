@@ -9,6 +9,6 @@ public class SettingsProvider implements ISettingsProvider
 	@Override
 	public int getPort()
 	{
-		return 6969;
+		return 27015;
 	}
 }
