@@ -6,18 +6,21 @@ import com.google.inject.*;
 
 public class SettingsProvider implements ISettingsProvider
 {
+	private static final String SETTINGS_FILE_NAME = "settings.xml";
+	
 	ISettingsReader _settingsReader;
 	
 	@Inject
 	public SettingsProvider(ISettingsReader settingsReader)
 	{
 		_settingsReader = settingsReader;
+		_settingsReader.setSettingsFileName(SETTINGS_FILE_NAME);
 	}
 	
 	@Override
 	public int getPort()
 	{
-		return Integer.valueOf(_settingsReader.getProperty("Port"));
+		return Integer.valueOf(_settingsReader.get("Port"));
 	}
 
 	@Override
