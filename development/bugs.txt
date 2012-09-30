@@ -1,0 +1,3 @@
+SpaceGraphicsView does now work when defined in xml layout (hot-fixed - the constructor still needs investigation)
+
+HareAndHounds: Hounds reports their location too often (at least on real device)
