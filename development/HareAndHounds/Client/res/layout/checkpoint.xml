@@ -6,7 +6,6 @@
     android:gravity="center">
 
     <com.fARmework.modules.SpaceGraphics.Android.SpaceGraphicsView
-	    android:id="@+id/directionArrow"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent" />
     
