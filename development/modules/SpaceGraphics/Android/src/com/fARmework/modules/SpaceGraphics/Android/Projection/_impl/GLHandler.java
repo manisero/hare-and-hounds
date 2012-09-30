@@ -1,4 +1,4 @@
-package com.fARmework.modules.SpaceGraphics.Android.Graphics._impl;
+package com.fARmework.modules.SpaceGraphics.Android.Projection._impl;
 
 import java.nio.*;
 
@@ -6,7 +6,8 @@ import javax.microedition.khronos.opengles.*;
 
 import android.opengl.*;
 
-import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
+import com.fARmework.modules.SpaceGraphics.Android.Models.*;
+import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
 
 public class GLHandler implements IGLHandler 
 {

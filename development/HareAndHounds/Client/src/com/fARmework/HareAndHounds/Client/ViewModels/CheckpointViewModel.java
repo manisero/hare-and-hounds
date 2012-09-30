@@ -5,6 +5,7 @@ import android.os.*;
 import com.fARmework.HareAndHounds.Client.Logic.*;
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.core.client.Connection.*;
+import com.fARmework.modules.SpaceGraphics.Android.Models.*;
 import com.fARmework.utils.Android.*;
 import com.google.inject.*;
 
@@ -14,6 +15,8 @@ public class CheckpointViewModel extends ViewModel
 	
 	private IDirectionProvider _directionProvider;
 	
+	private Arrow _arrowModel = new Arrow();
+	
 	@Inject
 	public CheckpointViewModel(IDirectionProvider directionProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
@@ -21,12 +24,13 @@ public class CheckpointViewModel extends ViewModel
 		
 		_directionProvider = directionProvider;
 		
-		ConnectionManager.registerDataHandler(CheckpointEnteredInfo.class, new IDataHandler<CheckpointEnteredInfo>()
+		ConnectionManager.registerDataHandler(CheckpointUpdateInfo.class, new IDataHandler<CheckpointUpdateInfo>()
 		{
 			@Override
-			public void handle(CheckpointEnteredInfo data)
+			public void handle(CheckpointUpdateInfo data)
 			{
 				_directionProvider.setDirection((float)data.NextCheckpointDirection);
+				_arrowModel.setColorRate((float)data.Accuracy);
 			}
 		});
 		
@@ -44,5 +48,15 @@ public class CheckpointViewModel extends ViewModel
 	public void setData(Bundle data)
 	{
 		_directionProvider.setDirection(data.getInt(INITIAL_DIRECTION_KEY));
+	}
+	
+	public Model getArrowModel()
+	{
+		return _arrowModel;
+	}
+	
+	public IDirectionProvider getDirectionProvider()
+	{
+		return _directionProvider;
 	}
 }
