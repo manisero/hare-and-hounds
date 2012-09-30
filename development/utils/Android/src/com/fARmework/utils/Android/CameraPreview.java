@@ -9,23 +9,26 @@ import android.view.*;
 
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 {
+	private Display _display;
 	private SurfaceHolder _holder;
 	private Camera _camera;
 	
 	public CameraPreview(Context context)
 	{
 		super(context);
-		initialize();
+		initialize(context);
 	}
 	
 	public CameraPreview(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
-		initialize();
+		initialize(context);
 	}
 	
-	private void initialize()
+	private void initialize(Context context)
 	{
+		_display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		
 		_holder = getHolder();
 		_holder.addCallback(this);
 		_holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -36,9 +39,28 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 	{
 		_camera = Camera.open();
 		
+		int rotation;
+		
+		switch (_display.getRotation())
+		{
+			case Surface.ROTATION_90:
+				rotation = 0;
+				break;
+			case Surface.ROTATION_180:
+				rotation = 270;
+				break;
+			case Surface.ROTATION_270:
+				rotation = 180;
+				break;
+			default:
+				rotation = 90;
+				break;
+		}
+		
 		try
 		{
 			_camera.setPreviewDisplay(_holder);
+			_camera.setDisplayOrientation(rotation);
 			_camera.startPreview();
 		}
 		catch (IOException e)
