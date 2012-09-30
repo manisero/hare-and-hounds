@@ -1,4 +1,6 @@
-package com.fARmework.modules.SpaceGraphics.Android.Graphics;
+package com.fARmework.modules.SpaceGraphics.Android.Projection;
+
+import com.fARmework.modules.SpaceGraphics.Android.Models.*;
 
 import javax.microedition.khronos.opengles.*;
 

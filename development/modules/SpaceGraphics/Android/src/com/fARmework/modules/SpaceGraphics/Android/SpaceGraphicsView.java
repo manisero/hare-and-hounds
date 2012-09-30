@@ -1,8 +1,8 @@
 package com.fARmework.modules.SpaceGraphics.Android;
 
-import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
-import com.fARmework.modules.SpaceGraphics.Android.Graphics.Models.*;
-import com.fARmework.modules.SpaceGraphics.Android.Graphics._impl.*;
+import com.fARmework.modules.SpaceGraphics.Android.Models._impl.*;
+import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
+import com.fARmework.modules.SpaceGraphics.Android.Projection._impl.*;
 import com.fARmework.modules.SpaceGraphics.Android._impl.*;
 
 import android.content.*;
