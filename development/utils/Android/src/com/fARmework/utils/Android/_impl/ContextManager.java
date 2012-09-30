@@ -42,6 +42,12 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
+	public void finishCurrentActivity()
+	{
+		_currentActivity.finish();
+	}
+	
+	@Override
 	public <T extends ViewModel> void navigateTo(Class<T> viewModelClass)
 	{
 		if (_activities.containsKey(viewModelClass))

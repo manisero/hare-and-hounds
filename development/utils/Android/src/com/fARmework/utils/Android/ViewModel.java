@@ -18,6 +18,11 @@ public abstract class ViewModel
 	{
 	}
 	
+	public void leave()
+	{
+		ContextManager.finishCurrentActivity();
+	}
+	
 	public void onLeaving()
 	{
 	}

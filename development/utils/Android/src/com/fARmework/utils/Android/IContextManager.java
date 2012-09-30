@@ -15,6 +15,7 @@ public interface IContextManager
 	int getLayout(Class<? extends ViewModel> viewModelClass);
 	
 	void setCurrentActivity(BoundActivity activity);
+	void finishCurrentActivity();
 	
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass);
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass, Bundle data);
