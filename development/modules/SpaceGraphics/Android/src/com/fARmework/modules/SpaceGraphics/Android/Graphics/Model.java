@@ -20,7 +20,7 @@ public abstract class Model
 		
 		if(backgroundColor == null)
 		{
-			float[] backgroundColorArray = { 1.0f, 1.0f, 1.0f, 1.0f };
+			float[] backgroundColorArray = { 0.0f, 0.0f, 0.0f, 0.0f };
 			_backgroundColor = backgroundColorArray;
 		}
 		

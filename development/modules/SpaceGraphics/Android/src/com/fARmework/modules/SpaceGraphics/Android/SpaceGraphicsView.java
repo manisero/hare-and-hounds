@@ -6,6 +6,7 @@ import com.fARmework.modules.SpaceGraphics.Android.Graphics._impl.*;
 import com.fARmework.modules.SpaceGraphics.Android._impl.*;
 
 import android.content.*;
+import android.graphics.*;
 import android.opengl.*;
 import android.util.*;
 
@@ -31,7 +32,9 @@ public class SpaceGraphicsView extends GLSurfaceView
 		_renderer.setModel(new Arrow());
 		
 		setEGLContextClientVersion(1);
-		setEGLConfigChooser(true);
+		setEGLConfigChooser(8, 8, 8, 8, 8, 0 );
+		getHolder().setFormat(PixelFormat.TRANSLUCENT);
+		
 		setRenderer(_renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 	}

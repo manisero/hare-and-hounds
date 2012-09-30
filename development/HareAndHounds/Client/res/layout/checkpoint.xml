@@ -5,12 +5,12 @@
     android:layout_height="fill_parent"
     android:gravity="center">
 
-    <com.fARmework.utils.Android.CameraPreview
+    <com.fARmework.modules.SpaceGraphics.Android.SpaceGraphicsView
+	    android:id="@+id/directionArrow"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent" />
     
-    <com.fARmework.modules.SpaceGraphics.Android.SpaceGraphicsView
-	    android:id="@+id/directionArrow"
+    <com.fARmework.utils.Android.CameraPreview
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent" />
     
