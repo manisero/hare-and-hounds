@@ -14,5 +14,3 @@
    grid with margin: "|  o  |o   o|  o  |"
    plain gesture without margin: "101"
    plain gesture with margin: "111"
-
-3. Indicating how close to actual checkpoint you are. The arrow could get the more red / green the closer you are to the actual checkpoint.
