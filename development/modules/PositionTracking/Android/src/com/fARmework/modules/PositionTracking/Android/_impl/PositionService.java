@@ -13,7 +13,7 @@ import com.google.inject.Inject;
 
 public class PositionService implements IPositionService
 {
-	private ILocationManagerResolver _locationManagerResolver;
+	private final ILocationManagerResolver _locationManagerResolver;
 	
 	@Inject
 	public PositionService(ILocationManagerResolver locationManagerResolver)
