@@ -10,4 +10,8 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent" />
     
+    <com.fARmework.utils.Android.CameraPreview
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent" />
+    
 </FrameLayout>
