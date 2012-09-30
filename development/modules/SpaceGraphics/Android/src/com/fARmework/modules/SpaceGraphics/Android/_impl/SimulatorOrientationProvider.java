@@ -11,8 +11,8 @@ import com.fARmework.modules.SpaceGraphics.Android.*;
 
 public class SimulatorOrientationProvider implements IOrientationProvider
 {
-	private SensorManagerSimulator _sensorManager;
-	private Display _display;
+	private final SensorManagerSimulator _sensorManager;
+	private final Display _display;
 	
 	private float[] _gravity = new float[3];
 	private float[] _geomagnetic = new float[3];
