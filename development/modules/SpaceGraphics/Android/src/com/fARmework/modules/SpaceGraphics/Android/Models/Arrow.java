@@ -1,10 +1,8 @@
-package com.fARmework.modules.SpaceGraphics.Android.Graphics.Models;
+package com.fARmework.modules.SpaceGraphics.Android.Models;
 
 import android.util.*;
 
-import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
-
-public class Arrow extends Model
+public class Arrow extends PhasingModel
 {
 	public Arrow()
 	{
@@ -120,100 +118,102 @@ public class Arrow extends Model
 	@Override
 	protected void generateColors()
 	{
+		float _restRate = 1.0f - _rate;
+		
 		float[] colors =
 		{
 			// front arrow head
 			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 				
 			// front arrow base
 			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 			
 			// back arrow head
 			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 			
 			// back arrow base
-			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 			
 			// left arrow slant
 			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 			
 			// right arrow slant 
 			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 			
 			// left-bottom arrow head
 			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 			
 			// right-bottom arrow head
 			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 			
 			// bottom arrow base
 			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 				
 			// left arrow base
 			
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
 				
 			// right arrow base
 				
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,
-			0.63671875f, 0.76953125f, 0.22265625f, 1.0f,			
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,		
 		};
 		
 		_colors = colors;

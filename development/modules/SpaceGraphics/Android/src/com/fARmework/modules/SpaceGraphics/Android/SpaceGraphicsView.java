@@ -1,8 +1,8 @@
 package com.fARmework.modules.SpaceGraphics.Android;
 
-import com.fARmework.modules.SpaceGraphics.Android.Graphics.*;
-import com.fARmework.modules.SpaceGraphics.Android.Graphics.Models.*;
-import com.fARmework.modules.SpaceGraphics.Android.Graphics._impl.*;
+import com.fARmework.modules.SpaceGraphics.Android.Models.*;
+import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
+import com.fARmework.modules.SpaceGraphics.Android.Projection._impl.*;
 import com.fARmework.modules.SpaceGraphics.Android._impl.*;
 
 import android.content.*;
@@ -29,7 +29,6 @@ public class SpaceGraphicsView extends GLSurfaceView
 	private void initialize(Context context)
 	{
 		_renderer = new GraphicsRenderer(new SensorOrientationProvider(context), new DefaultDirectionProvider(), new GLHandler());
-		_renderer.setModel(new Arrow());
 		
 		setEGLContextClientVersion(1);
 		setEGLConfigChooser(8, 8, 8, 8, 8, 0 );
@@ -37,6 +36,11 @@ public class SpaceGraphicsView extends GLSurfaceView
 		
 		setRenderer(_renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+	}
+	
+	public void setModel(Model model)
+	{
+		_renderer.setModel(model);
 	}
 	
 	public void setDirectionProvider(IDirectionProvider directionProvider)
