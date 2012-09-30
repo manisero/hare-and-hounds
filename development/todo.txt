@@ -1,0 +1,7 @@
+- ContextManager should keep Activities stack - this will allow to finish the application programatically (invoking Finish method on every activity)
+
+- ViewModel should be able to finish the activity
+
+- HAH: Checkpoint view - camera preview should be displayed in background
+
+- PositionTracking: PositionDataList should ignore position addition if the position being added is near the last position on the list
