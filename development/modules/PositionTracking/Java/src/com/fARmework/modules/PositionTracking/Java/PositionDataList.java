@@ -8,7 +8,7 @@ public class PositionDataList extends ArrayList<PositionData>
 {
 	private static final long serialVersionUID = 1L;
 	
-	private IDistanceCalculator _distanceCalculator;
+	private final IDistanceCalculator _distanceCalculator;
 	
 	public PositionDataList(IDistanceCalculator distanceCalculator)
 	{
