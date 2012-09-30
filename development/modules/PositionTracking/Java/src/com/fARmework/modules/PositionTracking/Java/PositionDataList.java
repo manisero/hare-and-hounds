@@ -19,7 +19,7 @@ public class PositionDataList extends ArrayList<PositionData>
 	{	
 		for (PositionData data : this)
 		{
-			if(_distanceCalculator.calculateDistance(data, position) <= maxRadius)
+			if (_distanceCalculator.calculateDistance(data, position) <= maxRadius)
 			{
 				return true;
 			}
@@ -56,5 +56,22 @@ public class PositionDataList extends ArrayList<PositionData>
 		}
 		
 		return _distanceCalculator.calculateDistance(position, get(size() - 1)) <= maxRadius;
+	}
+	
+	public boolean add(PositionData position, double maxRadius)
+	{
+		if (size() > 0)
+		{
+			PositionData last = get(size() - 1);
+			
+			if (_distanceCalculator.calculateDistance(last, position) <= maxRadius)
+			{
+				return false;
+			}
+		}
+		
+		add(position);
+		
+		return true;
 	}
 }
