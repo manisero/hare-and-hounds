@@ -1,4 +1,4 @@
-package com.fARmework.modules.SpaceGraphics.Android.Graphics;
+package com.fARmework.modules.SpaceGraphics.Android.Models;
 
 public abstract class Model
 {	
