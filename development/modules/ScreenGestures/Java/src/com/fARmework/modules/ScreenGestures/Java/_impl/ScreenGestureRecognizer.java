@@ -11,14 +11,12 @@ import java.util.*;
 
 public class ScreenGestureRecognizer implements IScreenGestureRecognizer
 {
-	private IScreenGestureRegistry _gestureRegistry;
-	private IScreenGestureProcessorFactory _processorFactory;
-	private IScreenPatternMatcherFactory _matcherFactory;
+	private final IScreenGestureRegistry _gestureRegistry;
+	private final IScreenGestureProcessorFactory _processorFactory;
+	private final IScreenPatternMatcherFactory _matcherFactory;
 	
 	@Inject
-	public ScreenGestureRecognizer(IScreenGestureRegistry gestureRegistry,
-			IScreenGestureProcessorFactory processorFactory,
-			IScreenPatternMatcherFactory matcherFactory)
+	public ScreenGestureRecognizer(IScreenGestureRegistry gestureRegistry, IScreenGestureProcessorFactory processorFactory, IScreenPatternMatcherFactory matcherFactory)
 	{
 		_gestureRegistry = gestureRegistry;
 		_processorFactory = processorFactory;
