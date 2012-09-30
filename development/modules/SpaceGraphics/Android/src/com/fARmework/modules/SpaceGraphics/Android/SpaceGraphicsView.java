@@ -28,7 +28,7 @@ public class SpaceGraphicsView extends GLSurfaceView
 	
 	private void initialize(Context context)
 	{
-		_renderer = new GraphicsRenderer(new SensorOrientationProvider(context), new DefaultDirectionProvider(), new GLHandler());
+		_renderer = new GraphicsRenderer(new GLHandler(), new SensorOrientationProvider(context), new DefaultDirectionProvider());
 		
 		setEGLContextClientVersion(1);
 		setEGLConfigChooser(8, 8, 8, 8, 8, 0 );

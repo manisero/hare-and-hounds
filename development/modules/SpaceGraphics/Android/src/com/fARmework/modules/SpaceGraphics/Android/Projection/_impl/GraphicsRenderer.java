@@ -9,17 +9,17 @@ import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
 
 public class GraphicsRenderer implements IGraphicsRenderer
 {
-	private IOrientationProvider _orientationProvider;
+	private final IGLHandler _glHandler;
+	private final IOrientationProvider _orientationProvider;
 	private IDirectionProvider _directionProvider;
-	private IGLHandler _glHandler;
 	
     private Model _model;
     
-    public GraphicsRenderer(IOrientationProvider orientationProvider, IDirectionProvider directionProvider, IGLHandler glHandler)
+    public GraphicsRenderer(IGLHandler glHandler, IOrientationProvider orientationProvider, IDirectionProvider directionProvider)
     {
+    	_glHandler = glHandler;
 		_orientationProvider = orientationProvider;
 		_directionProvider = directionProvider;
-		_glHandler = glHandler;
     }
     
     @Override
