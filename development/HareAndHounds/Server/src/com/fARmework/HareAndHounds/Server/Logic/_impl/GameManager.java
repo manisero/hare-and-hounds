@@ -77,7 +77,7 @@ public class GameManager implements IGameManager
 						else // hounds are still in checkpoint
 						{
 							double direction = _directionCalculator.calculateDirection(data, nextCheckpoint);
-							double accuracy = (checkpointRange - _distanceCalculator.calculateDistance(data, nextCheckpoint)) / checkpointRange;
+							double accuracy = (checkpointRange - _distanceCalculator.calculateDistance(data, _harePositions.getNearPosition(data, checkpointRange))) / checkpointRange;
 							_connectionManager.send(new CheckpointUpdateInfo(direction, accuracy), _houndsID);
 						}
 					}
