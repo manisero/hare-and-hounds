@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 
 public class DataService implements IDataService
 {
-	private IDataRegistry _dataRegistry;
+	private final IDataRegistry _dataRegistry;
 	
 	@Inject
 	public DataService(IDataRegistry dataRegistry)

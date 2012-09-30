@@ -9,7 +9,7 @@ public class SettingsReader implements ISettingsReader
 {
 	private static final String SETTING_TEMPLATE = "setting[@key='%s']";
 	
-	private XMLConfiguration _configuration;
+	private final XMLConfiguration _configuration;
 	
 	public SettingsReader()
 	{
