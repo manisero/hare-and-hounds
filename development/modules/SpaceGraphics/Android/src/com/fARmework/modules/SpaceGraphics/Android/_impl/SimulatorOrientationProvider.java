@@ -17,8 +17,6 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 	private float[] _gravity = new float[3];
 	private float[] _geomagnetic = new float[3];
 	
-	private float[] _lastRotationMatrix = new float[16];	
-	
 	public SimulatorOrientationProvider(Context context)
 	{
 		_sensorManager = (SensorManagerSimulator)SensorManagerSimulator.getSystemService(context, Context.SENSOR_SERVICE);
@@ -65,9 +63,9 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 		float[] rotation = new float[16];
 		
 		SensorManager.getRotationMatrix(rotation, null, _gravity, _geomagnetic);
-		
-		int xAxis = SensorManager.AXIS_X;
-		int yAxis = SensorManager.AXIS_Y;
+
+		int xAxis;
+		int yAxis;
 		
 		switch(_display.getRotation())
 		{
@@ -90,11 +88,18 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 				xAxis = SensorManager.AXIS_MINUS_Y;
 				yAxis = SensorManager.AXIS_X;
 				
-				break;				
+				break;
+				
+			default:
+				
+				xAxis = SensorManager.AXIS_X;
+				yAxis = SensorManager.AXIS_Y;
 		}
 		
-		SensorManager.remapCoordinateSystem(rotation, xAxis, yAxis, _lastRotationMatrix);
+		float[] remappedRotation = new float[16];
 		
-		return _lastRotationMatrix;
+		SensorManager.remapCoordinateSystem(rotation, xAxis, yAxis, remappedRotation);
+		
+		return remappedRotation;
 	}
 }
