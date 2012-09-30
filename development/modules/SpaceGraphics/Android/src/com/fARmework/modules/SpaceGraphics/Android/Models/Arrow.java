@@ -1,8 +1,6 @@
-package com.fARmework.modules.SpaceGraphics.Android.Models._impl;
+package com.fARmework.modules.SpaceGraphics.Android.Models;
 
 import android.util.*;
-
-import com.fARmework.modules.SpaceGraphics.Android.Models.*;
 
 public class Arrow extends PhasingModel
 {

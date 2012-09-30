@@ -30,6 +30,16 @@ public class CheckpointViewModel extends ViewModel
 			}
 		});
 		
+		ConnectionManager.registerDataHandler(CheckpointUpdateInfo.class, new IDataHandler<CheckpointUpdateInfo>()
+		{
+			@Override
+			public void handle(CheckpointUpdateInfo data)
+			{
+				_directionProvider.setDirection((float)data.NextCheckpointDirection);
+				// TODO: update Arrow model
+			}
+		});
+		
 		ConnectionManager.registerDataHandler(CheckpointLeftInfo.class, new IDataHandler<CheckpointLeftInfo>()
 		{
 			@Override
