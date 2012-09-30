@@ -5,21 +5,26 @@ import org.openintents.sensorsimulator.hardware.*;
 import android.content.*;
 import android.hardware.SensorManager;
 import android.os.*;
+import android.view.*;
 
 import com.fARmework.modules.SpaceGraphics.Android.*;
 
 public class SimulatorOrientationProvider implements IOrientationProvider
 {
 	private SensorManagerSimulator _sensorManager;
+	private Display _display;
 	
 	private float[] _gravity = new float[3];
 	private float[] _geomagnetic = new float[3];
 	
-	private float[] _rotationMatrix = new float[16];	
+	private float[] _lastRotationMatrix = new float[16];	
 	
 	public SimulatorOrientationProvider(Context context)
 	{
 		_sensorManager = (SensorManagerSimulator)SensorManagerSimulator.getSystemService(context, Context.SENSOR_SERVICE);
+		
+		WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE); 
+		_display = windowManager.getDefaultDisplay();
 		
 		StrictMode.ThreadPolicy newPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(newPolicy);
@@ -31,7 +36,6 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 			public void onSensorChanged(final SensorEvent event)
 			{
 				_gravity = event.values.clone();
-				SensorManager.getRotationMatrix(_rotationMatrix, null, _gravity, _geomagnetic);
 			}
 			
 			@Override
@@ -46,7 +50,6 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 			public void onSensorChanged(final SensorEvent event)
 			{
 				_geomagnetic = event.values.clone();
-				SensorManager.getRotationMatrix(_rotationMatrix, null, _gravity, _geomagnetic);
 			}
 			
 			@Override
@@ -59,6 +62,39 @@ public class SimulatorOrientationProvider implements IOrientationProvider
 	@Override
 	public float[] getRotationMatrix()
 	{
-		return _rotationMatrix;
+		float[] rotation = new float[16];
+		
+		SensorManager.getRotationMatrix(rotation, null, _gravity, _geomagnetic);
+		
+		int xAxis = SensorManager.AXIS_X;
+		int yAxis = SensorManager.AXIS_Y;
+		
+		switch(_display.getRotation())
+		{
+			case Surface.ROTATION_90:
+				
+				xAxis = SensorManager.AXIS_Y;
+				yAxis = SensorManager.AXIS_MINUS_X;
+				
+				break;
+				
+			case Surface.ROTATION_180:
+				
+				xAxis = SensorManager.AXIS_MINUS_X;
+				yAxis = SensorManager.AXIS_MINUS_Y;
+				
+				break;
+				
+			case Surface.ROTATION_270:
+				
+				xAxis = SensorManager.AXIS_MINUS_Y;
+				yAxis = SensorManager.AXIS_X;
+				
+				break;				
+		}
+		
+		SensorManager.remapCoordinateSystem(rotation, xAxis, yAxis, _lastRotationMatrix);
+		
+		return _lastRotationMatrix;
 	}
 }
