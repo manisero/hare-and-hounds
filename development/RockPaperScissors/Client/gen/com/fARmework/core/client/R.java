@@ -18,31 +18,6 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
         public static final int icon=0x7f020002;
     }
-    public static final class id {
-        public static final int connectionProgress=0x7f080010;
-        public static final int createButton=0x7f08000e;
-        public static final int disconnectButton=0x7f080011;
-        public static final int gameProgress=0x7f080005;
-        public static final int games=0x7f08000c;
-        public static final int getGameListButton=0x7f08000b;
-        public static final int hostingProgress=0x7f080013;
-        public static final int joinButton=0x7f08000f;
-        public static final int joiningProgress=0x7f08000d;
-        public static final int opponentName=0x7f080002;
-        public static final int opponentScore=0x7f080003;
-        public static final int optionsButton=0x7f080012;
-        public static final int paperButton=0x7f080007;
-        public static final int playerName=0x7f080000;
-        public static final int playerScore=0x7f080001;
-        public static final int rockButton=0x7f080006;
-        public static final int saveButton=0x7f080016;
-        public static final int scissorsButton=0x7f080008;
-        public static final int screenGesturePicker=0x7f080009;
-        public static final int serverAddress=0x7f080014;
-        public static final int spaceGesturePicker=0x7f08000a;
-        public static final int status=0x7f080004;
-        public static final int userName=0x7f080015;
-    }
     public static final class integer {
         public static final int port=0x7f070000;
     }
