@@ -8,10 +8,10 @@ import com.google.inject.*;
 
 public class GameManagerFactory implements IGameManagerFactory
 {
-	private IConnectionManager _connectionManager;
-	private ISettingsProvider _settingsProvider;
-	private IDirectionCalculator _directionCalculator;
-	private IDistanceCalculator _distanceCalculator;
+	private final IConnectionManager _connectionManager;
+	private final ISettingsProvider _settingsProvider;
+	private final IDirectionCalculator _directionCalculator;
+	private final IDistanceCalculator _distanceCalculator;
 	
 	@Inject
 	public GameManagerFactory(IConnectionManager connectionManager, ISettingsProvider settingsProvider, IDirectionCalculator directionCalculator, IDistanceCalculator distanceCalculator)

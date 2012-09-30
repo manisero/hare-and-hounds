@@ -13,7 +13,7 @@ public class HareViewModel extends ViewModel
 {
 	public static final String POSITION_UPDATE_INTERVAL_KEY = HareViewModel.class.getCanonicalName() + "POSITION_UPDATE_INTERVAL";
 	
-	private IPositionService _positionSerivce;
+	private final IPositionService _positionSerivce;
 	
 	@Inject
 	public HareViewModel(IPositionService positionService, IConnectionManager connectionManager, IContextManager contextManager)

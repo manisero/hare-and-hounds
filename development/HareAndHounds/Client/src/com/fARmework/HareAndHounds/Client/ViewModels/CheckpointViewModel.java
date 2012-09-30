@@ -13,7 +13,7 @@ public class CheckpointViewModel extends ViewModel
 {
 	public static final String INITIAL_DIRECTION_KEY = CheckpointViewModel.class.getCanonicalName() + "INITIAL_DIRECTION";
 	
-	private IDirectionProvider _directionProvider;
+	private final IDirectionProvider _directionProvider;
 	
 	private Arrow _arrowModel = new Arrow();
 	

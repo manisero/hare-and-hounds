@@ -12,7 +12,7 @@ import gueei.binding.observables.*;
 
 public class OptionsViewModel extends ViewModel
 {
-	private ISettingsProvider _settingsProvider;
+	private final ISettingsProvider _settingsProvider;
 	
 	public StringObservable ServerAddress = new StringObservable();
 	public StringObservable Port = new StringObservable();

@@ -43,8 +43,8 @@ public class GameListViewModel extends ViewModel
 		}
 	}
 	
-	private IPositionService _positionService;
-	private ISettingsProvider _settingsProvider;
+	private final IPositionService _positionService;
+	private final ISettingsProvider _settingsProvider;
 	
 	public ArrayListObservable<GameListItem> Games = new ArrayListObservable<GameListItem>(GameListItem.class);
 	public StringObservable Status = new StringObservable();

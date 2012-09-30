@@ -14,7 +14,7 @@ public class HoundsViewModel extends ViewModel
 {
 	public static final String POSITION_UPDATE_INTERVAL_KEY = HoundsViewModel.class.getCanonicalName() + "POSITION_UPDATE_INTERVAL";
 	
-	private IPositionService _positionSerivce;
+	private final IPositionService _positionSerivce;
 	
 	@Inject
 	public HoundsViewModel(IPositionService positionService, IConnectionManager connectionManager, IContextManager contextManager)

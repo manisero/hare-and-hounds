@@ -13,7 +13,7 @@ import gueei.binding.observables.*;
 
 public class GameModeViewModel extends ViewModel
 {
-	private ISettingsProvider _settingsProvider;
+	private final ISettingsProvider _settingsProvider;
 	
 	public StringObservable Status = new StringObservable();
 	public BooleanObservable IsWaiting = new BooleanObservable(false);

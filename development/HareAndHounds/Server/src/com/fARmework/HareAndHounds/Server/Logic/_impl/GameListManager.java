@@ -29,10 +29,10 @@ public class GameListManager implements IGameListManager
 		}
 	}
 	
-	private IConnectionManager _connectionManager;
-	private IDistanceCalculator _distanceCalculator;
-	private IGameManagerFactory _gameManagerFactory;
-	private ISettingsProvider _settingsProvider;
+	private final IConnectionManager _connectionManager;
+	private final IDistanceCalculator _distanceCalculator;
+	private final IGameManagerFactory _gameManagerFactory;
+	private final ISettingsProvider _settingsProvider;
 	
 	private Map<Integer, GameListItem> _games = new LinkedHashMap<Integer, GameListItem>();
 	

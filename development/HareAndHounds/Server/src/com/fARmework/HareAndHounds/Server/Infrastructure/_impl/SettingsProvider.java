@@ -8,7 +8,7 @@ public class SettingsProvider implements ISettingsProvider
 {
 	private static final String SETTINGS_FILE_NAME = "settings.xml";
 	
-	ISettingsReader _settingsReader;
+	private final ISettingsReader _settingsReader;
 	
 	@Inject
 	public SettingsProvider(ISettingsReader settingsReader)
