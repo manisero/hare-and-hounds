@@ -11,7 +11,8 @@ import gueei.binding.*;
 
 public class SpaceGesturePicker extends View implements IBindableView<SpaceGesturePicker>
 {
-	private ISpaceGestureRecorder _spaceGestureRecorder = new SpaceGestureRecorder();
+	private final ISpaceGestureRecorder _spaceGestureRecorder = new SpaceGestureRecorder();
+	
 	private OnSpaceGestureListener _gestureListener;
 	
 	// onGesture attribute (Android-Binding support)

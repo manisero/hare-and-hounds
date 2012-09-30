@@ -8,8 +8,8 @@ import java.util.*;
 
 public class SpaceGestureRecognizer implements ISpaceGestureRecognizer
 {
-	private ISpaceGestureRegistry _gestureRegistry;
-	private ISpacePatternMatcherFactory _matcherFactory;
+	private final ISpaceGestureRegistry _gestureRegistry;
+	private final ISpacePatternMatcherFactory _matcherFactory;
 	
 	@Inject
 	public SpaceGestureRecognizer(ISpaceGestureRegistry gestureRegistry, ISpacePatternMatcherFactory matcherFactory)
