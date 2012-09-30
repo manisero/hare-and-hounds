@@ -2,6 +2,8 @@
 
 - ViewModel should be able to finish the activity
 
-- HAH: Checkpoint view - camera preview should be displayed in background
-
 - PositionTracking: PositionDataList should ignore position addition if the position being added is near the last position on the list
+
+- SpaceGraphics view should work in landscape mode
+
+- CameraPreview should work in portrait mode
