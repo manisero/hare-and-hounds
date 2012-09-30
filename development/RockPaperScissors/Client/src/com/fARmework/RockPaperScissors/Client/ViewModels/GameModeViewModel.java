@@ -13,6 +13,8 @@ import com.google.inject.Inject;
 
 public class GameModeViewModel extends ViewModel
 {
+	private final ISettingsProvider _settingsProvider;
+	
 	public StringObservable status = new StringObservable();
 	public BooleanObservable isWaiting = new BooleanObservable(false);
 	public BooleanObservable isConnected = new BooleanObservable(false);
@@ -90,8 +92,6 @@ public class GameModeViewModel extends ViewModel
 			ContextManager.navigateTo(OptionsViewModel.class);
 		}
 	};
-	
-	private ISettingsProvider _settingsProvider;
 	
 	@Inject
 	public GameModeViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)

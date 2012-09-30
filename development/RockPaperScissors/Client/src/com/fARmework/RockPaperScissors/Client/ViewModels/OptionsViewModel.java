@@ -11,6 +11,8 @@ import com.google.inject.Inject;
 
 public class OptionsViewModel extends ViewModel
 {
+	private final ISettingsProvider _settingsProvider;
+	
 	public StringObservable serverAddress = new StringObservable();
 	public StringObservable userName = new StringObservable();
 	
@@ -23,8 +25,6 @@ public class OptionsViewModel extends ViewModel
 			_settingsProvider.setUserName(userName.get());
 		}
 	};
-	
-	private ISettingsProvider _settingsProvider;
 	
 	@Inject
 	public OptionsViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)

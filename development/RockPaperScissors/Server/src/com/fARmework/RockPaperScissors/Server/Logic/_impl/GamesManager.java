@@ -13,8 +13,8 @@ import com.google.inject.Inject;
 
 public class GamesManager implements IGamesManager
 {
-	private IConnectionManager _connectionManager;
-	private ISingleGameManagerFactory _gameManagerFactory;
+	private final IConnectionManager _connectionManager;
+	private final ISingleGameManagerFactory _gameManagerFactory;
 	
 	private Map<Integer, Game> _games = new LinkedHashMap<Integer, Game>();
 	
