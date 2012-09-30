@@ -8,10 +8,10 @@ import com.google.inject.Inject;
 public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActivity
 {
 	@Inject
-	IContextManager ContextManager;
+	public IContextManager ContextManager;
 	
 	@Inject
-	T ViewModel;
+	public T ViewModel;
 	
 	protected View View;
 	

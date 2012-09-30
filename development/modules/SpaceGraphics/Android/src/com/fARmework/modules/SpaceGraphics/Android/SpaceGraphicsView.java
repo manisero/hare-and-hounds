@@ -29,7 +29,6 @@ public class SpaceGraphicsView extends GLSurfaceView
 	private void initialize(Context context)
 	{
 		_renderer = new GraphicsRenderer(new SensorOrientationProvider(context), new DefaultDirectionProvider(), new GLHandler());
-		_renderer.setModel(new Arrow());
 		
 		setEGLContextClientVersion(1);
 		setEGLConfigChooser(8, 8, 8, 8, 8, 0 );
@@ -37,6 +36,11 @@ public class SpaceGraphicsView extends GLSurfaceView
 		
 		setRenderer(_renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+	}
+	
+	public void setModel(Model model)
+	{
+		_renderer.setModel(model);
 	}
 	
 	public void setDirectionProvider(IDirectionProvider directionProvider)
