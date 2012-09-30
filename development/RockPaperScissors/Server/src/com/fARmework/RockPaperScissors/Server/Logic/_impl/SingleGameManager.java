@@ -16,9 +16,9 @@ import com.fARmework.modules.SpaceGestures.Java.ISpaceGestureRecognizer;
 
 public class SingleGameManager implements ISingleGameManager
 {
-	private IConnectionManager _connectionManager;
-	private IScreenGestureRecognizer _screenGestureRecognizer;
-	private ISpaceGestureRecognizer _spaceGestureRecognizer;
+	private final IConnectionManager _connectionManager;
+	private final IScreenGestureRecognizer _screenGestureRecognizer;
+	private final ISpaceGestureRecognizer _spaceGestureRecognizer;
 	
 	private Game _game;
 	

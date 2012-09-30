@@ -75,6 +75,8 @@ public class GameListViewModel extends ViewModel
 		}
 	}
 	
+	private final ISettingsProvider _settingsProvider;
+	
 	public ArrayListObservable<Game> games = new ArrayListObservable<Game>(Game.class);
 	public StringObservable status = new StringObservable();
 	public BooleanObservable isWaiting = new BooleanObservable(false);
@@ -87,8 +89,6 @@ public class GameListViewModel extends ViewModel
 			ConnectionManager.send(new GameListRequest());
 		}
 	};
-	
-	private ISettingsProvider _settingsProvider;
 	
 	@Inject
 	public GameListViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)

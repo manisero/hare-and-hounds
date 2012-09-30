@@ -10,9 +10,9 @@ import com.google.inject.Inject;
 
 public class SingleGameManagerFactory implements ISingleGameManagerFactory
 {
-	private IConnectionManager _connectionManager;
-	private IScreenGestureRecognizer _gestureRecognizer;
-	private ISpaceGestureRecognizer _spaceGestureRecognizer;
+	private final IConnectionManager _connectionManager;
+	private final IScreenGestureRecognizer _gestureRecognizer;
+	private final ISpaceGestureRecognizer _spaceGestureRecognizer;
 	
 	@Inject
 	public SingleGameManagerFactory(IConnectionManager connectionManager, IScreenGestureRecognizer gestureRecognizer, ISpaceGestureRecognizer spaceGestureRecognizer)
