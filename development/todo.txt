@@ -5,7 +5,3 @@
 - register Context in DI container this will allow to resolve some Context-dependent objects per request (instead of as eager singletons)
 
 - HareAndHounds: allow the server to take Hare name and positions from xml file (so that only one device / emulator is needed to play)
-
-- mark all dependencies as final
-
-- remove unused android:id attributes form lauouts
