@@ -28,6 +28,23 @@ public class PositionDataList extends ArrayList<PositionData>
 		return false;
 	}
 	
+	public PositionData getNearPosition(PositionData position, double maxRadius)
+	{
+		Iterator<PositionData> iterator = iterator();
+		
+		while (iterator.hasNext())
+		{
+			PositionData data = iterator.next();
+			
+			if (_distanceCalculator.calculateDistance(data, position) <= maxRadius)
+			{
+				return data;
+			}
+		}
+		
+		return null;
+	}
+	
 	public PositionData getNextPosition(PositionData position, double maxRadius)
 	{
 		Iterator<PositionData> iterator = iterator();
