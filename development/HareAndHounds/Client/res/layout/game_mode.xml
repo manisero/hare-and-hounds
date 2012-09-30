@@ -6,31 +6,31 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
     
-	<Button android:id="@+id/createButton"
+	<Button
 		android:layout_width="160dp"
 		android:layout_height="80dp"
 		android:text="@string/mode_create"
 		binding:onClick="NewGame"
 		binding:enabled="NOT(IsWaiting)" />
     
-	<Button android:id="@+id/joinButton"
+	<Button
 		android:layout_width="160dp"
 		android:layout_height="80dp"
 		android:text="@string/mode_join"
 		binding:onClick="JoinGame"
 		binding:enabled="NOT(IsWaiting)" />
 
-	<LinearLayout android:orientation="horizontal"
+	<LinearLayout
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:gravity="center_horizontal">
         
-	    <TextView android:id="@+id/status"
+	    <TextView
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    binding:text="Status" />
 	    
-	    <ProgressBar android:id="@+id/connectionProgress"
+	    <ProgressBar
 		    style="?android:attr/progressBarStyleSmall"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
@@ -38,14 +38,14 @@
 	    
 	</LinearLayout>
 	
-	<Button android:id="@+id/disconnectButton"
+	<Button
 		android:layout_width="160dp"
 		android:layout_height="80dp"
 		android:text="@string/connection_disconnect"
 		binding:onClick="Disconnect"
 		binding:visibility="IsConnected" />
 	
-	<Button android:id="@+id/optionsButton"
+	<Button
 		android:layout_width="130dp"
 		android:layout_height="65dp"
 		android:text="@string/options"

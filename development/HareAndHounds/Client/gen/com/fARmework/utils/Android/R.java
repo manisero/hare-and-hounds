@@ -17,23 +17,6 @@ public final class R {
         public static final int ic_action_search=0x7f020000;
         public static final int ic_launcher=0x7f020001;
     }
-    public static final class id {
-        public static final int connectionProgress=0x7f080007;
-        public static final int createButton=0x7f080005;
-        public static final int directionArrow=0x7f080000;
-        public static final int disconnectButton=0x7f080008;
-        public static final int games=0x7f080002;
-        public static final int getGameListButton=0x7f080001;
-        public static final int hostingProgress=0x7f08000a;
-        public static final int joinButton=0x7f080006;
-        public static final int joiningProgress=0x7f080004;
-        public static final int optionsButton=0x7f080009;
-        public static final int port=0x7f08000c;
-        public static final int saveButton=0x7f08000e;
-        public static final int serverAddress=0x7f08000b;
-        public static final int status=0x7f080003;
-        public static final int userName=0x7f08000d;
-    }
     public static final class integer {
         public static final int defaultPort=0x7f070000;
     }
