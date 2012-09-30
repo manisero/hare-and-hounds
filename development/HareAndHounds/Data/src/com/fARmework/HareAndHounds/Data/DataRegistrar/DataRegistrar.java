@@ -19,6 +19,7 @@ public class DataRegistrar
 		dataRegistry.register(GameStartInfo.class);
 		
 		dataRegistry.register(CheckpointEnteredInfo.class);
+		dataRegistry.register(CheckpointUpdateInfo.class);
 		dataRegistry.register(CheckpointLeftInfo.class);
 	}
 }

@@ -12,6 +12,7 @@ public class GameManager implements IGameManager
 	private IConnectionManager _connectionManager;
 	private ISettingsProvider _settingsProvider;
 	private IDirectionCalculator _directionCalculator;
+	private IDistanceCalculator _distanceCalculator;
 	
 	private int _hareID;
 	private int _houndsID;
@@ -24,10 +25,11 @@ public class GameManager implements IGameManager
 		_connectionManager = connectionManager;
 		_settingsProvider = settingsProvider;
 		_directionCalculator = directionCalculator;
+		_distanceCalculator = distanceCalculator;
 		
 		_hareID = hareID;
 		_houndsID = houndsID;
-		_harePositions = new PositionDataList(distanceCalculator);
+		_harePositions = new PositionDataList(_distanceCalculator);
 	}
 	
 	@Override
@@ -61,12 +63,23 @@ public class GameManager implements IGameManager
 				
 				if (_harePositions.isNearAnyPosition(data, checkpointRange))
 				{
-					PositionData nextPosition = _harePositions.getNextPosition(data, checkpointRange);
+					PositionData nextCheckpoint = _harePositions.getNextPosition(data, checkpointRange);
 					
-					if (nextPosition != null) // hounds have reached a checkpoint
+					if (nextCheckpoint != null)
 					{
-						_houndsInCheckpoint = true;
-						_connectionManager.send(new CheckpointEnteredInfo(_directionCalculator.calculateDirection(data, nextPosition)), _houndsID);
+						if (!_houndsInCheckpoint) // hounds have reached a checkpoint
+						{
+							_houndsInCheckpoint = true;
+							
+							double direction = _directionCalculator.calculateDirection(data, nextCheckpoint);
+							_connectionManager.send(new CheckpointEnteredInfo(direction), _houndsID);
+						}
+						else // hounds are still in checkpoint
+						{
+							double direction = _directionCalculator.calculateDirection(data, nextCheckpoint);
+							double accuracy = (checkpointRange - _distanceCalculator.calculateDistance(data, nextCheckpoint)) / checkpointRange;
+							_connectionManager.send(new CheckpointUpdateInfo(direction, accuracy), _houndsID);
+						}
 					}
 					else // hounds have caught up the hare
 					{
