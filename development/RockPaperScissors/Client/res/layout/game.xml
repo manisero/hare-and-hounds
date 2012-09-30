@@ -18,13 +18,13 @@
 			android:layout_weight="1"
 			android:gravity="center_horizontal">
             
-            <TextView android:id="@+id/playerName"
+            <TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:text="@string/game_player"
 			    binding:text="playerName" />
             
-            <TextView android:id="@+id/playerScore"
+            <TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_marginTop="5dp"
@@ -39,13 +39,13 @@
 			android:layout_weight="1"
 			android:gravity="center_horizontal">
         
-            <TextView android:id="@+id/opponentName"
+            <TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:text="@string/game_opponent"
 			    binding:text="opponentName" />
 	        
-	        <TextView android:id="@+id/opponentScore"
+	        <TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_marginTop="5dp"
@@ -61,12 +61,12 @@
 		android:layout_height="wrap_content"
 		android:gravity="center_horizontal">
     
-	    <TextView android:id="@+id/status"
+	    <TextVie
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    binding:text="status" />
 
-	    <ProgressBar android:id="@+id/gameProgress"
+	    <ProgressBar
 	        style="?android:attr/progressBarStyleSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -79,21 +79,21 @@
 		android:layout_height="wrap_content"
 		android:gravity="center_horizontal">
         
-        <Button android:id="@+id/rockButton"
+        <Button
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_rock"
 			binding:onClick="sendRock"
 			binding:enabled="NOT(isWaiting)" />
 	    
-		<Button android:id="@+id/paperButton"
+		<Button
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_paper"
 			binding:onClick="sendPaper"
 			binding:enabled="NOT(isWaiting)" />
 	    
-		<Button android:id="@+id/scissorsButton"
+		<Button
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_scissors"
@@ -103,7 +103,6 @@
     </LinearLayout>
 	
 	<com.fARmework.modules.ScreenGestures.Android.ScreenGesturePicker
-	    android:id="@+id/screenGesturePicker"
 	    android:layout_width="220dp"
 	    android:layout_height="220dp"
 	    android:background="#FFFFFF"
@@ -115,7 +114,6 @@
 		android:gravity="center_horizontal">
 	
 		<com.fARmework.modules.SpaceGestures.Android.SpaceGesturePicker
-		    android:id="@+id/spaceGesturePicker"
 		    android:layout_width="50dp"
 		    android:layout_height="50dp"
 		    android:layout_marginTop="15dp"
