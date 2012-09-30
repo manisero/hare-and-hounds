@@ -63,8 +63,8 @@ public class NettyConnectionTask extends AsyncTask<SocketAddress, Object, Channe
 		}
 	}
 
-	private IConnectionListener _connectionListener;
-	private IDataService _dataService;
+	private final IConnectionListener _connectionListener;
+	private final IDataService _dataService;
 	
 	public NettyConnectionTask(IConnectionListener connectionListener, IDataService dataService)
 	{

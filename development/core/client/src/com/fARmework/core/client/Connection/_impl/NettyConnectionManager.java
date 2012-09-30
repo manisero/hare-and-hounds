@@ -14,8 +14,8 @@ import com.google.inject.Inject;
 
 public class NettyConnectionManager implements IConnectionManager, IConnectionListener
 {
-	private ISettingsProvider _settingsProvider;
-	private IDataService _dataService;
+	private final ISettingsProvider _settingsProvider;
+	private final IDataService _dataService;
 	
 	@SuppressWarnings("rawtypes")
 	private Map<Class<?>, IDataHandler> _dataHandlers = new LinkedHashMap<Class<?>, IDataHandler>();

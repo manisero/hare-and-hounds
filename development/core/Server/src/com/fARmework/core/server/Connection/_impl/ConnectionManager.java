@@ -50,8 +50,8 @@ public class ConnectionManager implements IConnectionManager
 		}
 	}
 	
-	private ISettingsProvider _settingsProvider;
-	private IDataService _dataService;
+	private final ISettingsProvider _settingsProvider;
+	private final IDataService _dataService;
 	
 	private DataHandlersCollection _dataHandlers = new DataHandlersCollection();
 	private Map<Integer, Channel> _channels = new LinkedHashMap<Integer, Channel>();
