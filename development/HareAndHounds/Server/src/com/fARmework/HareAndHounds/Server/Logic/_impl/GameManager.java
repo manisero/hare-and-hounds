@@ -38,7 +38,7 @@ public class GameManager implements IGameManager
 			@Override
 			public void handle(int clientID, PositionData data)
 			{
-				_harePositions.add(data);
+				_harePositions.add(data, _settingsProvider.getCheckpointRange());
 				
 				if (_harePositions.size() >= _settingsProvider.getVictoriousHarePositions()) // hare has ran away
 				{
