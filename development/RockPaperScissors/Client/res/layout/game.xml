@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://www.gueei.com/android-binding/"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+    
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:baselineAligned="false">
+		
+        <LinearLayout android:orientation="vertical"
+	        android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_horizontal">
+            
+            <TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/game_player"
+			    binding:text="playerName" />
+            
+            <TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="5dp"
+			    android:textSize="30dip"
+			    binding:text="playerScore" />
+            
+        </LinearLayout>
+        
+        <LinearLayout android:orientation="vertical"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center_horizontal">
+        
+            <TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/game_opponent"
+			    binding:text="opponentName" />
+	        
+	        <TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="5dp"
+			    android:textSize="30dip"
+			    binding:text="opponentScore" />
+	      
+		</LinearLayout>
+        
+    </LinearLayout>
+    
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
+    
+	    <TextVie
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    binding:text="status" />
+
+	    <ProgressBar
+	        style="?android:attr/progressBarStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        binding:visibility="isWaiting" />
+    
+    </LinearLayout>
+    
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
+        
+        <Button
+			android:layout_width="100dp"
+			android:layout_height="50dp"
+			android:text="@string/gestures_rock"
+			binding:onClick="sendRock"
+			binding:enabled="NOT(isWaiting)" />
+	    
+		<Button
+			android:layout_width="100dp"
+			android:layout_height="50dp"
+			android:text="@string/gestures_paper"
+			binding:onClick="sendPaper"
+			binding:enabled="NOT(isWaiting)" />
+	    
+		<Button
+			android:layout_width="100dp"
+			android:layout_height="50dp"
+			android:text="@string/gestures_scissors"
+			binding:onClick="sendScissors"
+			binding:enabled="NOT(isWaiting)" />
+	
+    </LinearLayout>
+	
+	<com.fARmework.modules.ScreenGestures.Android.ScreenGesturePicker
+	    android:layout_width="220dp"
+	    android:layout_height="220dp"
+	    android:background="#FFFFFF"
+	    binding:onGesture="sendScreenGesture" />
+	
+	<LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
+	
+		<com.fARmework.modules.SpaceGestures.Android.SpaceGesturePicker
+		    android:layout_width="50dp"
+		    android:layout_height="50dp"
+		    android:layout_marginTop="15dp"
+		    android:background="#FFFFFF"
+		    binding:onGesture="sendSpaceGesture" />
+	
+	</LinearLayout>
+	
+</LinearLayout>
