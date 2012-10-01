@@ -10,4 +10,6 @@ public interface ISettingsProvider extends com.fARmework.core.server.Infrastruct
 	
 	int getRequiredInitialHarePositions();
 	int getVictoriousHarePositions();
+	
+	int getServerMode();
 }

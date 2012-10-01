@@ -17,6 +17,11 @@ public class GameListFactory implements IGameListFactory
 	@Override
 	public IGameList create()
 	{
+		if (_settingsProvider.getServerMode() == ServerModes.SIMULATE_HARE_MODE)
+		{
+			return null;
+		}
+		
 		return new GameList();
 	}
 }
