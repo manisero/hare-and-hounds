@@ -7,42 +7,25 @@ import com.fARmework.HareAndHounds.Server.Logic.*;
 import com.fARmework.HareAndHounds.Server.Logic.IGameManager.IGameEndHandler;
 import com.fARmework.core.server.Connection.*;
 import com.fARmework.core.server.Data.*;
-import com.fARmework.modules.PositionTracking.Data.*;
 import com.fARmework.modules.PositionTracking.Java.*;
 import com.google.inject.*;
-import java.util.*;
 
 public class GameListManager implements IGameListManager
-{
-	private class GameListItem
-	{
-		public int HostID;
-		public String HostName;
-		public PositionData HostPosition;
-		public boolean IsAvailable = true;
-		
-		public GameListItem(int hostID, String hostName, PositionData hostPosition)
-		{
-			HostID = hostID;
-			HostName = hostName;
-			HostPosition = hostPosition;
-		}
-	}
-	
+{	
 	private final IConnectionManager _connectionManager;
 	private final IDistanceCalculator _distanceCalculator;
 	private final IGameManagerFactory _gameManagerFactory;
 	private final ISettingsProvider _settingsProvider;
-	
-	private Map<Integer, GameListItem> _games = new LinkedHashMap<Integer, GameListItem>();
+	private final IGameList _gameList;
 	
 	@Inject
-	public GameListManager(IConnectionManager connectionManager, IDistanceCalculator distanceCalculator, IGameManagerFactory gameManagerFactory, ISettingsProvider settingsProvider)
+	public GameListManager(IConnectionManager connectionManager, IDistanceCalculator distanceCalculator, IGameManagerFactory gameManagerFactory, ISettingsProvider settingsProvider, IGameList gameList)
 	{
 		_connectionManager = connectionManager;
 		_distanceCalculator = distanceCalculator;
 		_gameManagerFactory = gameManagerFactory;
 		_settingsProvider = settingsProvider;
+		_gameList = gameList;
 	}
 	
 	@Override
@@ -53,13 +36,13 @@ public class GameListManager implements IGameListManager
 			@Override
 			public void handle(int clientID, NewGameRequest data)
 			{
-				if (!_games.containsKey(clientID))
+				if (!_gameList.containsKey(clientID))
 				{
-					_games.put(clientID, new GameListItem(clientID, data.HostName, data.Position));
+					_gameList.put(clientID, new GameListItem(clientID, data.HostName, data.Position));
 				}
 				else
 				{
-					_games.get(clientID).HostPosition = data.Position;
+					_gameList.get(clientID).HostPosition = data.Position;
 				}
 				
 				_connectionManager.send(new NewGameResponse(), clientID);
@@ -73,7 +56,7 @@ public class GameListManager implements IGameListManager
 			{
 				GameListResponse response = new GameListResponse();
 				
-				for (GameListItem item : _games.values())
+				for (GameListItem item : _gameList.values())
 				{
 					if (item.IsAvailable && _distanceCalculator.calculateDistance(item.HostPosition, data.Position) <= _settingsProvider.getGameRange())
 					{
@@ -90,7 +73,7 @@ public class GameListManager implements IGameListManager
 			@Override
 			public void handle(int clientID, JoinGameRequest data)
 			{
-				if (!_games.containsKey(data.HostID) || !_games.get(data.HostID).IsAvailable)
+				if (!_gameList.containsKey(data.HostID) || !_gameList.get(data.HostID).IsAvailable)
 				{
 					_connectionManager.send(new JoinGameResponse(JoinGameResponseType.Unavailable), clientID);
 				}
@@ -109,7 +92,7 @@ public class GameListManager implements IGameListManager
 			{
 				if (data.Response == JoinGameResponseType.Accept)
 				{
-					GameListItem item = _games.get(clientID);
+					GameListItem item = _gameList.get(clientID);
 					item.IsAvailable = false;
 					
 					_gameManagerFactory
@@ -119,7 +102,7 @@ public class GameListManager implements IGameListManager
 							@Override
 							public void onGameEnd(int hostID, int guestID)
 							{
-								_games.remove(hostID);
+								_gameList.remove(hostID);
 							}
 						});
 				}
@@ -133,9 +116,9 @@ public class GameListManager implements IGameListManager
 			@Override
 			public void handle(int clientID, ClientDisconnectedInfo data)
 			{
-				if (_games.containsKey(clientID))
+				if (_gameList.containsKey(clientID))
 				{
-					_games.remove(clientID);
+					_gameList.remove(clientID);
 				}
 			}
 		});

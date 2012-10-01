@@ -9,6 +9,7 @@ public class LogicModule extends AbstractModule
 	@Override
 	protected void configure() 
 	{
+		bind(IGameList.class).to(GameList.class);
 		bind(IGameListManager.class).to(GameListManager.class);
 		bind(IGameManagerFactory.class).to(GameManagerFactory.class);
 	}
