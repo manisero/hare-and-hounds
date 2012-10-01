@@ -1,0 +1,7 @@
+<settings>
+	<setting key="HareID">0</setting>
+	<setting key="HareHostname">Simulator</setting>	
+	
+	<setting key="InitialHareLatitude">0.0</setting>
+	<setting key="InitialHareLongitude">0.0</setting>
+</settings>

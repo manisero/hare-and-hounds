@@ -27,7 +27,7 @@ public class GameList implements IGameList
 	}
 
 	@Override
-	public Set<java.util.Map.Entry<Integer, GameListItem>> entrySet()
+	public Set<Map.Entry<Integer, GameListItem>> entrySet()
 	{
 		return _games.entrySet();
 	}

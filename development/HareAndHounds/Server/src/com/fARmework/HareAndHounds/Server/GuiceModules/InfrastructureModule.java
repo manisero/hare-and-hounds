@@ -10,5 +10,6 @@ public class InfrastructureModule extends AbstractModule
 	protected void configure()
 	{
 		bind(ISettingsProvider.class).to(SettingsProvider.class).asEagerSingleton();
+		bind(ISimulatorDataProvider.class).to(SimulatorDataProvider.class).asEagerSingleton();
 	}
 }
