@@ -2,7 +2,6 @@ package com.fARmework.HareAndHounds.Server.Logic._impl;
 
 import com.fARmework.HareAndHounds.Server.Infrastructure.*;
 import com.fARmework.HareAndHounds.Server.Logic.*;
-import com.google.inject.*;
 
 import java.util.*;
 
@@ -10,7 +9,6 @@ public class SimulatorGameList implements IGameList
 {
 	private ISimulatorDataProvider _dataProvider;
 	
-	@Inject
 	public SimulatorGameList(ISimulatorDataProvider dataProvider)
 	{
 		_dataProvider = dataProvider;

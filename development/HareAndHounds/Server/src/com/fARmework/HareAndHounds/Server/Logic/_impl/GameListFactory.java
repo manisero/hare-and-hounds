@@ -7,11 +7,13 @@ import com.google.inject.*;
 public class GameListFactory implements IGameListFactory
 {
 	private ISettingsProvider _settingsProvider;
+	private ISimulatorDataProvider _simulatorDataProvider;
 	
 	@Inject
-	public GameListFactory(ISettingsProvider settingsProvider)
+	public GameListFactory(ISettingsProvider settingsProvider, ISimulatorDataProvider simulatorDataProvider)
 	{
 		_settingsProvider = settingsProvider;
+		_simulatorDataProvider = simulatorDataProvider;
 	}
 
 	@Override
@@ -19,7 +21,7 @@ public class GameListFactory implements IGameListFactory
 	{
 		if (_settingsProvider.getServerMode() == ServerModes.SIMULATE_HARE_MODE)
 		{
-			return null;
+			return new SimulatorGameList(_simulatorDataProvider);
 		}
 		
 		return new GameList();

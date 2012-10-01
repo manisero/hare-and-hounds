@@ -27,7 +27,7 @@ public class GameManagerFactory implements IGameManagerFactory
 	{
 		if (_settingsProvider.getServerMode() == ServerModes.SIMULATE_HARE_MODE)
 		{
-			return null;
+			return new SimulatorGameManager(_connectionManager, _settingsProvider, _directionCalculator, _distanceCalculator, houndsID);
 		}
 		
 		return new GameManager(_connectionManager, _settingsProvider, _directionCalculator, _distanceCalculator, hareID, houndsID);
