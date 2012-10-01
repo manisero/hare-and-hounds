@@ -1,4 +1,4 @@
-package com.fARmework.modules.SpaceGraphics.Android._impl;
+package com.fARmework.modules.SpaceGraphics.Android.Simulation;
 
 import org.openintents.sensorsimulator.hardware.*;
 
