@@ -25,6 +25,11 @@ public class GameManagerFactory implements IGameManagerFactory
 	@Override
 	public IGameManager create(int hareID, int houndsID)
 	{
+		if (_settingsProvider.getServerMode() == ServerModes.SIMULATE_HARE_MODE)
+		{
+			return null;
+		}
+		
 		return new GameManager(_connectionManager, _settingsProvider, _directionCalculator, _distanceCalculator, hareID, houndsID);
 	}
 }

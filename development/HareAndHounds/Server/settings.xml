@@ -9,4 +9,6 @@
 	
 	<setting key="RequiredInitialHarePositions">3</setting>
 	<setting key="VictoriousHarePositions">30</setting>
+	
+	<setting key="ServerMode">0</setting>
 </settings>

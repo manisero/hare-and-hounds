@@ -59,6 +59,12 @@ public class SettingsProvider implements ISettingsProvider
 		return getInt("VictoriousHarePositions");
 	}
 	
+	@Override
+	public int getServerMode()
+	{
+		return getInt("ServerMode");
+	}
+	
 	private int getInt(String key)
 	{
 		return Integer.valueOf(_settingsReader.get(key));		
