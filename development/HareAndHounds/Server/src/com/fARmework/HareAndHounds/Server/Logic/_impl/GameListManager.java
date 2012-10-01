@@ -15,34 +15,36 @@ public class GameListManager implements IGameListManager
 	private final IConnectionManager _connectionManager;
 	private final IDistanceCalculator _distanceCalculator;
 	private final IGameManagerFactory _gameManagerFactory;
+	private final IGameListFactory _gameListFactory;
 	private final ISettingsProvider _settingsProvider;
-	private final IGameList _gameList;
 	
 	@Inject
-	public GameListManager(IConnectionManager connectionManager, IDistanceCalculator distanceCalculator, IGameManagerFactory gameManagerFactory, ISettingsProvider settingsProvider, IGameList gameList)
+	public GameListManager(IConnectionManager connectionManager, IDistanceCalculator distanceCalculator, IGameManagerFactory gameManagerFactory, IGameListFactory gameListFactory, ISettingsProvider settingsProvider)
 	{
 		_connectionManager = connectionManager;
 		_distanceCalculator = distanceCalculator;
 		_gameManagerFactory = gameManagerFactory;
+		_gameListFactory = gameListFactory;
 		_settingsProvider = settingsProvider;
-		_gameList = gameList;
 	}
 	
 	@Override
 	public void run()
 	{
+		final IGameList gameList = _gameListFactory.create();
+		
 		_connectionManager.registerDataHandler(NewGameRequest.class, new IDataHandler<NewGameRequest>()
 		{
 			@Override
 			public void handle(int clientID, NewGameRequest data)
 			{
-				if (!_gameList.containsKey(clientID))
+				if (!gameList.containsKey(clientID))
 				{
-					_gameList.put(clientID, new GameListItem(clientID, data.HostName, data.Position));
+					gameList.put(clientID, new GameListItem(clientID, data.HostName, data.Position));
 				}
 				else
 				{
-					_gameList.get(clientID).HostPosition = data.Position;
+					gameList.get(clientID).HostPosition = data.Position;
 				}
 				
 				_connectionManager.send(new NewGameResponse(), clientID);
@@ -56,7 +58,7 @@ public class GameListManager implements IGameListManager
 			{
 				GameListResponse response = new GameListResponse();
 				
-				for (GameListItem item : _gameList.values())
+				for (GameListItem item : gameList.values())
 				{
 					if (item.IsAvailable && _distanceCalculator.calculateDistance(item.HostPosition, data.Position) <= _settingsProvider.getGameRange())
 					{
@@ -73,7 +75,7 @@ public class GameListManager implements IGameListManager
 			@Override
 			public void handle(int clientID, JoinGameRequest data)
 			{
-				if (!_gameList.containsKey(data.HostID) || !_gameList.get(data.HostID).IsAvailable)
+				if (!gameList.containsKey(data.HostID) || !gameList.get(data.HostID).IsAvailable)
 				{
 					_connectionManager.send(new JoinGameResponse(JoinGameResponseType.Unavailable), clientID);
 				}
@@ -92,7 +94,7 @@ public class GameListManager implements IGameListManager
 			{
 				if (data.Response == JoinGameResponseType.Accept)
 				{
-					GameListItem item = _gameList.get(clientID);
+					GameListItem item = gameList.get(clientID);
 					item.IsAvailable = false;
 					
 					_gameManagerFactory
@@ -102,7 +104,7 @@ public class GameListManager implements IGameListManager
 							@Override
 							public void onGameEnd(int hostID, int guestID)
 							{
-								_gameList.remove(hostID);
+								gameList.remove(hostID);
 							}
 						});
 				}
@@ -116,9 +118,9 @@ public class GameListManager implements IGameListManager
 			@Override
 			public void handle(int clientID, ClientDisconnectedInfo data)
 			{
-				if (_gameList.containsKey(clientID))
+				if (gameList.containsKey(clientID))
 				{
-					_gameList.remove(clientID);
+					gameList.remove(clientID);
 				}
 			}
 		});
