@@ -9,5 +9,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Utils.Java"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Core.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Core.Client"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/HareAndHounds.Data"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

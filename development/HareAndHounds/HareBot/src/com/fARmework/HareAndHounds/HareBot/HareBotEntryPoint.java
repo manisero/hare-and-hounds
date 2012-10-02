@@ -28,12 +28,14 @@ public class HareBotEntryPoint
 		modules.add(new CoreModule());	
 		modules.add(new InfrastructureModule());
 		modules.add(new LogicModule());
+		modules.add(new UtilsModule());
 		
 		return modules;
 	}	
 
 	private static void registerData(IDataRegistry dataRegistry)
-	{
+	{		
+		new com.fARmework.HareAndHounds.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 		new com.fARmework.modules.PositionTracking.Data.DataRegistrar.DataRegistrar().registerData(dataRegistry);
 	}
 }

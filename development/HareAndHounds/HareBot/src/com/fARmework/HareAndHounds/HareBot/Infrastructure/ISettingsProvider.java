@@ -8,6 +8,8 @@ public interface ISettingsProvider extends com.fARmework.core.client.Infrastruct
 {
 	public String getUserName();
 	
+	public int getSendPositionInterval();
+	
 	public PositionData getInitialPosition();
 	public List<PositionData> getPositions();
 }

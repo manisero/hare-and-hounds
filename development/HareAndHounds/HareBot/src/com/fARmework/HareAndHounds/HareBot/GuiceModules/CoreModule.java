@@ -1,7 +1,7 @@
 package com.fARmework.HareAndHounds.HareBot.GuiceModules;
 
+import com.fARmework.HareAndHounds.HareBot.Connection._impl.*;
 import com.fARmework.core.client.Connection.*;
-import com.fARmework.core.client.Connection._impl.*;
 import com.fARmework.core.client.Infrastructure.*;
 import com.fARmework.core.data.*;
 import com.fARmework.core.data._impl.*;
@@ -20,6 +20,6 @@ public class CoreModule extends AbstractModule
 		bind(ISettingsProvider.class).to(com.fARmework.HareAndHounds.HareBot.Infrastructure.ISettingsProvider.class);
 		
 		// core.Client.Connection
-		bind(IConnectionManager.class).to(NettyConnectionManager.class).asEagerSingleton();
+		bind(IConnectionManager.class).to(ConnectionManager.class).asEagerSingleton();
 	}
 }
