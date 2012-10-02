@@ -37,28 +37,25 @@ public class ContextManager implements IContextManager
 	@Override
 	public void setCurrentActivity(BoundActivity activity)
 	{
-		return;
-		
-		/*
-		if (_activitiesStack.size() != 0 && activity == _activitiesStack.peek())
-		{
+		if (!_activitiesStack.empty() && activity == _activitiesStack.peek())
 			return;
-		}
 		
 		_activitiesStack.push(activity);
-		*/
 	}
 	
 	@Override
 	public void finishCurrentActivity()
 	{
-		_activitiesStack.pop().finish();
+		if (!_activitiesStack.empty())
+		{
+			_activitiesStack.pop().finish();
+		}
 	}
 	
 	@Override
 	public void finishApplication()
 	{
-		while (_activitiesStack.size() != 0)
+		while (!_activitiesStack.empty())
 		{
 			_activitiesStack.pop().finish();
 		}
@@ -67,6 +64,9 @@ public class ContextManager implements IContextManager
 	@Override
 	public <T extends ViewModel> void navigateTo(Class<T> viewModelClass)
 	{
+		if (_activitiesStack.empty())
+			return;
+		
 		if (_activities.containsKey(viewModelClass))
 		{
 			BoundActivity currentActivity = _activitiesStack.peek();
@@ -78,6 +78,9 @@ public class ContextManager implements IContextManager
 	@Override
 	public <T extends ViewModel> void navigateTo(Class<T> viewModelClass, Bundle data)
 	{
+		if (_activitiesStack.empty())
+			return;
+		
 		if (_activities.containsKey(viewModelClass))
 		{
 			BoundActivity currentActivity = _activitiesStack.peek();
@@ -91,18 +94,27 @@ public class ContextManager implements IContextManager
 	@Override
 	public void showShortNotification(String notification)
 	{
+		if (_activitiesStack.empty())
+			return;
+		
 		Toast.makeText(_activitiesStack.peek(), notification, Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
 	public void showLongNotification(String notification)
 	{
+		if (_activitiesStack.empty())
+			return;
+		
 		Toast.makeText(_activitiesStack.peek(), notification, Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
 	public void showDialogNotification(String notification, String confirmLabel, final IDialogListener confirmListener)
 	{
+		if (_activitiesStack.empty())
+			return;
+		
 		new AlertDialog.Builder(_activitiesStack.peek())
 			.setMessage(notification)
 			.setCancelable(false)
@@ -123,6 +135,9 @@ public class ContextManager implements IContextManager
 	@Override
 	public void showYesNoDialog(String message, String yesLabel, String noLabel, final IDialogListener yesListener, final IDialogListener noListener)
 	{
+		if (_activitiesStack.empty())
+			return;
+		
 		new AlertDialog.Builder(_activitiesStack.peek())
 			.setMessage(message)
 			.setCancelable(false)
