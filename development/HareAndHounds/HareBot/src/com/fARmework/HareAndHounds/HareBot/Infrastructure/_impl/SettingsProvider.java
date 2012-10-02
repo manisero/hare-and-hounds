@@ -37,7 +37,13 @@ public class SettingsProvider implements ISettingsProvider
 	{
 		return _settingsReader.get("UserName");
 	}	
-
+	
+	@Override
+	public int getSendPositionInterval()
+	{
+		return getInt("SendPositionInterval");
+	}	
+	
 	@Override
 	public PositionData getInitialPosition()
 	{
