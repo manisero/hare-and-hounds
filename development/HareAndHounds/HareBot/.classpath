@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/aopalliance.jar"/>
+	<classpathentry kind="lib" path="libs/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/javax.inject.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PositionTracking.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Utils.Java"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Core.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Core.Client"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/HareAndHounds.Data"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
