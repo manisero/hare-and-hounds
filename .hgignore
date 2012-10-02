@@ -34,4 +34,6 @@ development/RockPaperScissors/Data/bin/*
 development/RockPaperScissors/Server/bin/*
 development/HareAndHounds/Client/bin/*
 development/HareAndHounds/Data/bin/*
+development/HareAndHounds/HareBot/bin/*
 development/HareAndHounds/Server/bin/*
+
