@@ -36,7 +36,7 @@ public class Application extends android.app.Application
 		registerViews(injector.getInstance(IContextManager.class));
 		
 		// Register connection error handler
-		registerConnectionExceptionHandler(injector.getInstance(IConnectionManager.class));
+		registerConnectionExceptionHandler(injector.getInstance(IConnectionManager.class), injector.getInstance(IContextManager.class));
     }
 	
 	private void registerData(IDataRegistry dataRegistry)
@@ -55,24 +55,23 @@ public class Application extends android.app.Application
 		contextManager.registerView(GameViewModel.class, GameActivity.class, R.layout.game);
 	}
 	
-	private void registerConnectionExceptionHandler(IConnectionManager connectionManager)
+	private void registerConnectionExceptionHandler(IConnectionManager connectionManager, final IContextManager contextManager)
 	{
 		connectionManager.registerDataHandler(ConnectionExceptionInfo.class, new IDataHandler<ConnectionExceptionInfo>()
 		{
 			@Override
 			public void handle(ConnectionExceptionInfo data)
 			{
-				RoboGuice.getInjector(Application.this).getInstance(IContextManager.class)
-					.showDialogNotification(ResourcesProvider.getString(R.string.connection_exception),
-											ResourcesProvider.getString(R.string.dialog_confirm),
-											new IDialogListener()
-											{
-												@Override
-												public void onDialogResult()
-												{
-													throw new RuntimeException();
-												}
-											});
+				contextManager.showDialogNotification(ResourcesProvider.getString(R.string.connection_exception),
+													  ResourcesProvider.getString(R.string.dialog_confirm),
+													  new IDialogListener()
+													  {
+														  @Override
+														  public void onDialogResult()
+														  {
+															  contextManager.finishApplication();
+														  }
+													  });
 			}
 		});
 	}
