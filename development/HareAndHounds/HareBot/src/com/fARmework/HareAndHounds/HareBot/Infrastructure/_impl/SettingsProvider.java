@@ -3,6 +3,7 @@ package com.fARmework.HareAndHounds.HareBot.Infrastructure._impl;
 import com.fARmework.HareAndHounds.HareBot.Infrastructure.*;
 import com.fARmework.modules.PositionTracking.Data.*;
 import com.fARmework.utils.Java.*;
+import com.google.inject.*;
 
 import java.util.*;
 
@@ -12,6 +13,7 @@ public class SettingsProvider implements ISettingsProvider
 	
 	private ISettingsReader _settingsReader;
 	
+	@Inject
 	public SettingsProvider(ISettingsReader settingsReader)
 	{
 		_settingsReader = settingsReader;

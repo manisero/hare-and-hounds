@@ -4,10 +4,8 @@ import com.fARmework.modules.PositionTracking.Data.*;
 
 import java.util.*;
 
-public interface ISettingsProvider
+public interface ISettingsProvider extends com.fARmework.core.client.Infrastructure.ISettingsProvider
 {
-	public String getServerAddress();
-	public int getPort();
 	public String getUserName();
 	
 	public PositionData getInitialPosition();
