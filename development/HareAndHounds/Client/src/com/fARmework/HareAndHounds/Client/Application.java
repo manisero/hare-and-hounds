@@ -73,17 +73,16 @@ public class Application extends android.app.Application
 			@Override
 			public void handle(ConnectionExceptionInfo data)
 			{
-				RoboGuice.getInjector(Application.this).getInstance(IContextManager.class)
-					.showDialogNotification(ResourcesProvider.getString(R.string.connection_exception),
-											ResourcesProvider.getString(R.string.dialog_confirm),
-											new IDialogListener()
-											{
-												@Override
-												public void onDialogResult()
-												{
-													contextManager.finishApplication();
-												}
-											});
+				contextManager.showDialogNotification(ResourcesProvider.getString(R.string.connection_exception),
+													  ResourcesProvider.getString(R.string.dialog_confirm),
+													  new IDialogListener()
+													  {
+														  @Override
+														  public void onDialogResult()
+														  {
+															  contextManager.finishApplication();
+														  }
+													  });
 			}
 		});
 	}
