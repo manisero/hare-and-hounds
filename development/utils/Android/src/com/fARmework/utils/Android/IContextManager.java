@@ -16,6 +16,7 @@ public interface IContextManager
 	
 	void setCurrentActivity(BoundActivity activity);
 	void finishCurrentActivity();
+	void finishApplication();
 	
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass);
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass, Bundle data);

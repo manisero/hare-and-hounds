@@ -3,9 +3,12 @@ package com.fARmework.HareAndHounds.Client;
 import com.fARmework.HareAndHounds.Client.Activities.*;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
 import com.fARmework.HareAndHounds.Client.ViewModels.*;
+import com.fARmework.core.client.Connection.*;
+import com.fARmework.core.client.Data.*;
 import com.fARmework.core.data.*;
 import com.fARmework.modules.PositionTracking.Android.*;
 import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.IContextManager.*;
 import com.google.inject.*;
 
 import roboguice.*;
@@ -35,6 +38,9 @@ public class Application extends android.app.Application
 		
 		// Configure modules
 		configurePositionTracking(injector);
+		
+		// Register connection error handler
+		registerConnectionExceptionHandler(injector.getInstance(IConnectionManager.class), injector.getInstance(IContextManager.class));
     }
 	
 	private void registerData(IDataRegistry dataRegistry)
@@ -58,5 +64,27 @@ public class Application extends android.app.Application
 	private void configurePositionTracking(Injector injector)
 	{
 		injector.getInstance(ILocationManagerResolver.class).setContext(this);
+	}
+	
+	private void registerConnectionExceptionHandler(IConnectionManager connectionManager, final IContextManager contextManager)
+	{
+		connectionManager.registerDataHandler(ConnectionExceptionInfo.class, new IDataHandler<ConnectionExceptionInfo>()
+		{
+			@Override
+			public void handle(ConnectionExceptionInfo data)
+			{
+				RoboGuice.getInjector(Application.this).getInstance(IContextManager.class)
+					.showDialogNotification(ResourcesProvider.getString(R.string.connection_exception),
+											ResourcesProvider.getString(R.string.dialog_confirm),
+											new IDialogListener()
+											{
+												@Override
+												public void onDialogResult()
+												{
+													contextManager.finishApplication();
+												}
+											});
+			}
+		});
 	}
 }
