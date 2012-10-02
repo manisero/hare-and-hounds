@@ -1,0 +1,9 @@
+<settings>
+    <setting key="ServerAddress"></setting>
+	<setting key="Port">27015</setting>
+	<setting key="UserName">HareBot</setting>
+	
+	<setting key="InitialPosition">52.0 21.0</setting>
+	
+	<setting key="Position">52.0 21.5</setting>
+</settings>
