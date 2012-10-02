@@ -1,7 +1,6 @@
 package com.fARmework.utils.Android._impl;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,7 +19,7 @@ public class ContextManager implements IContextManager
 	private Map<Class<? extends ViewModel>, Class<? extends BoundActivity>> _activities = new LinkedHashMap<Class<? extends ViewModel>, Class<? extends BoundActivity>>();
 	private Map<Class<? extends ViewModel>, Integer> _layouts = new LinkedHashMap<Class<? extends ViewModel>, Integer>();
 	
-	private BoundActivity _currentActivity;
+	private Stack<BoundActivity> _activitiesStack = new Stack<BoundActivity>();
 	
 	@Override
 	public void registerView(Class<? extends ViewModel> viewModelClass, Class<? extends BoundActivity> activityClass, Integer layoutId)
@@ -38,13 +37,31 @@ public class ContextManager implements IContextManager
 	@Override
 	public void setCurrentActivity(BoundActivity activity)
 	{
-		_currentActivity = activity;
+		return;
+		
+		/*
+		if (_activitiesStack.size() != 0 && activity == _activitiesStack.peek())
+		{
+			return;
+		}
+		
+		_activitiesStack.push(activity);
+		*/
 	}
 	
 	@Override
 	public void finishCurrentActivity()
 	{
-		_currentActivity.finish();
+		_activitiesStack.pop().finish();
+	}
+	
+	@Override
+	public void finishApplication()
+	{
+		while (_activitiesStack.size() != 0)
+		{
+			_activitiesStack.pop().finish();
+		}
 	}
 	
 	@Override
@@ -52,7 +69,9 @@ public class ContextManager implements IContextManager
 	{
 		if (_activities.containsKey(viewModelClass))
 		{
-			_currentActivity.startActivity(new Intent(_currentActivity, _activities.get(viewModelClass)));
+			BoundActivity currentActivity = _activitiesStack.peek();
+			
+			currentActivity.startActivity(new Intent(currentActivity, _activities.get(viewModelClass)));
 		}
 	}
 	
@@ -61,28 +80,30 @@ public class ContextManager implements IContextManager
 	{
 		if (_activities.containsKey(viewModelClass))
 		{
-			Intent intent = new Intent(_currentActivity, _activities.get(viewModelClass));
+			BoundActivity currentActivity = _activitiesStack.peek();
+			
+			Intent intent = new Intent(currentActivity, _activities.get(viewModelClass));
 			intent.putExtras(data);
-			_currentActivity.startActivity(intent);
+			currentActivity.startActivity(intent);
 		}
 	}
 	
 	@Override
 	public void showShortNotification(String notification)
 	{
-		Toast.makeText(_currentActivity, notification, Toast.LENGTH_SHORT).show();
+		Toast.makeText(_activitiesStack.peek(), notification, Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
 	public void showLongNotification(String notification)
 	{
-		Toast.makeText(_currentActivity, notification, Toast.LENGTH_LONG).show();
+		Toast.makeText(_activitiesStack.peek(), notification, Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
 	public void showDialogNotification(String notification, String confirmLabel, final IDialogListener confirmListener)
 	{
-		new AlertDialog.Builder(_currentActivity)
+		new AlertDialog.Builder(_activitiesStack.peek())
 			.setMessage(notification)
 			.setCancelable(false)
 			.setPositiveButton(confirmLabel,
@@ -102,7 +123,7 @@ public class ContextManager implements IContextManager
 	@Override
 	public void showYesNoDialog(String message, String yesLabel, String noLabel, final IDialogListener yesListener, final IDialogListener noListener)
 	{
-		new AlertDialog.Builder(_currentActivity)
+		new AlertDialog.Builder(_activitiesStack.peek())
 			.setMessage(message)
 			.setCancelable(false)
 			.setPositiveButton(yesLabel,
