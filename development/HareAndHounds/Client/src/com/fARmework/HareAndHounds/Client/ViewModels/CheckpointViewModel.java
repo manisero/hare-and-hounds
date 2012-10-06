@@ -39,7 +39,7 @@ public class CheckpointViewModel extends ViewModel
 			@Override
 			public void handle(CheckpointLeftInfo data)
 			{
-				leave();
+				ContextManager.navigateTo(HoundsViewModel.class);
 			}
 		});
 	}

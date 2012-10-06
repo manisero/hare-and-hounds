@@ -85,7 +85,7 @@ public class GLHandler implements IGLHandler
 
 			gl.glPushMatrix();
 				gl.glMultMatrixf(_modelMatrix, 0);
-				gl.glRotatef(_direction, 0.0f, 0.0f, 1.0f);
+				gl.glRotatef(-1.0f * _direction, 0.0f, 0.0f, 1.0f);
 				gl.glDrawArrays(GL10.GL_TRIANGLES, 0, model.getVerticesAmount());
 			gl.glPopMatrix();
 

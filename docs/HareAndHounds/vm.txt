@@ -1,0 +1,14 @@
+IP: 79.133.208.204
+Username : root
+Password : hare-and-hounds
+
+HyperVM:
+Address: http://91.204.161.44:8888
+Username: jturek.vm
+Password: hare-and-hounds
+
+to run server:
+> ssh root@79.133.208.204
+> hare-and-hounds
+> cd ~/jars/HahServer
+> java -jar HahServer.jar & > log.txt
