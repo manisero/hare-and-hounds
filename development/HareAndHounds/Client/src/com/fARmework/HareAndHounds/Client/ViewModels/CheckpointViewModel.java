@@ -45,7 +45,7 @@ public class CheckpointViewModel extends ViewModel
 	}
 	
 	@Override
-	public void setData(Bundle data)
+	public void initialize(Bundle data)
 	{
 		_directionProvider.setDirection(data.getInt(INITIAL_DIRECTION_KEY));
 	}

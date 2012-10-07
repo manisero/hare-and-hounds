@@ -35,7 +35,7 @@ public class HoundsViewModel extends ViewModel
 	}
 
 	@Override
-	public void setData(Bundle data)
+	public void initialize(Bundle data)
 	{
 		int positionUpdateInterval = data.getInt(POSITION_UPDATE_INTERVAL_KEY);
 		

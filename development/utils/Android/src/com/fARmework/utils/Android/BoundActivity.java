@@ -23,23 +23,44 @@ public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActi
         
         if (savedInstanceState != null)
         {
-        	ViewModel.setData(savedInstanceState);
+        	ViewModel.initialize(savedInstanceState);
         }
         else
         {
         	Bundle extras = getIntent().getExtras();
         	
         	if (extras != null)
-        		ViewModel.setData(extras);
+        		ViewModel.initialize(extras);
         }
         
         View = setAndBindRootView(ContextManager.getLayout(ViewModel.getClass()), ViewModel);
     }
 	
 	@Override
-    public void onBackPressed()
-    {
-    	ViewModel.onLeaving();
-    	super.onBackPressed();
-    }
+	public void onStart()
+	{
+    	super.onStart();
+    	ViewModel.onEntering();
+	}
+	
+	@Override
+	public void onStop()
+	{
+		ViewModel.onLeaving();
+    	super.onStop();
+	}
+	
+	@Override
+	public void onBackPressed()
+	{
+		ViewModel.dispose();
+		super.onBackPressed();
+	}
+	
+	@Override
+	public void onDestroy()
+	{
+		ViewModel.dispose();
+		super.onDestroy();
+	}
 }
