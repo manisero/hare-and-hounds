@@ -158,7 +158,7 @@ public class GameViewModel extends ViewModel
 	}
 	
 	@Override
-	public void setData(Bundle data)
+	public void initialize(Bundle data)
 	{
 		opponentName.set(data.getString(OPPONENT_NAME_KEY));
 	}

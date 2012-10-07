@@ -14,16 +14,24 @@ public abstract class ViewModel
 		ContextManager = contextManager;
 	}
 	
-	public void setData(Bundle data)
+	public void initialize(Bundle data)
 	{
 	}
 	
-	public void leave()
+	public void onEntering()
+	{
+	}
+	
+	public void onLeaving()
+	{
+	}
+	
+	protected void leave()
 	{
 		ContextManager.finishCurrentActivity();
 	}
 	
-	public void onLeaving()
+	public void dispose()
 	{
 	}
 }

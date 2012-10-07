@@ -131,7 +131,7 @@ public class GameModeViewModel extends ViewModel
 	}
 	
 	@Override
-	public void onLeaving()
+	public void dispose()
 	{
 		disconnect();
 	}
