@@ -16,30 +16,36 @@ public class HoundsViewModel extends ViewModel
 	
 	private final IPositionService _positionSerivce;
 	
+	private int _positionUpdateInterval;
+	
 	@Inject
 	public HoundsViewModel(IPositionService positionService, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
 		_positionSerivce = positionService;
-		
+	}
+
+	@Override
+	public void initialize(Bundle data)
+	{
+		_positionUpdateInterval = data.getInt(POSITION_UPDATE_INTERVAL_KEY);
+	}
+	
+	@Override
+	public void onEntering()
+	{
 		ConnectionManager.registerDataHandler(CheckpointEnteredInfo.class, new IDataHandler<CheckpointEnteredInfo>()
 		{
 			@Override
 			public void handle(CheckpointEnteredInfo data)
 			{
-				ConnectionManager.unregisterDataHandlers(CheckpointEnteredInfo.class);
-				ContextManager.navigateTo(CheckpointViewModel.class);
+				Bundle bundle = new Bundle();
+				bundle.putDouble(CheckpointViewModel.INITIAL_DIRECTION_KEY, data.NextCheckpointDirection);
+				ContextManager.navigateTo(CheckpointViewModel.class, bundle);
 			}
 		});
-	}
-
-	@Override
-	public void setData(Bundle data)
-	{
-		int positionUpdateInterval = data.getInt(POSITION_UPDATE_INTERVAL_KEY);
 		
-		_positionSerivce.startGettingPosition(positionUpdateInterval, new IPositionListener()
+		_positionSerivce.startGettingPosition(_positionUpdateInterval, new IPositionListener()
 		{
 			@Override
 			public void onPosition(PositionData position)
@@ -47,5 +53,12 @@ public class HoundsViewModel extends ViewModel
 				ConnectionManager.send(position);
 			}
 		});
+	}
+	
+	@Override
+	public void onLeaving()
+	{
+		ConnectionManager.unregisterDataHandlers(CheckpointEnteredInfo.class);
+		// _positionSerivce.stopGettingPosition(...) // TODO: implement
 	}
 }

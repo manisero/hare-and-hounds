@@ -28,10 +28,13 @@ public class HostingViewModel extends ViewModel
 	public HostingViewModel(IPositionService positionService, ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
 		_positionService = positionService;
 		_settingsProvider = settingsProvider;
-		
+	}
+	
+	@Override
+	public void onEntering()
+	{
 		ConnectionManager.registerDataHandler(NewGameResponse.class, new IDataHandler<NewGameResponse>()
 		{
 			@Override
@@ -40,7 +43,7 @@ public class HostingViewModel extends ViewModel
 				Status.set(ResourcesProvider.getString(R.string.hosting_waiting));
 			}
 		});
-		
+				
 		ConnectionManager.registerDataHandler(JoinGameRequest.class, new IDataHandler<JoinGameRequest>()
 		{
 			@Override
@@ -62,7 +65,6 @@ public class HostingViewModel extends ViewModel
 								@Override
 								public void handle(GameStartInfo data)
 								{
-									ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
 									IsWaiting.set(false);
 									
 									Bundle bundle = new Bundle();
@@ -102,5 +104,13 @@ public class HostingViewModel extends ViewModel
 				}
 			}
 		});
+	}
+	
+	@Override
+	public void onLeaving()
+	{
+		ConnectionManager.unregisterDataHandlers(NewGameResponse.class);
+		ConnectionManager.unregisterDataHandlers(JoinGameRequest.class);
+		ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
 	}
 }
