@@ -97,9 +97,12 @@ public class GameModeViewModel extends ViewModel
 	public GameModeViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
 		_settingsProvider = settingsProvider;
-		
+	}
+	
+	@Override
+	public void onEntering()
+	{
 		ConnectionManager.registerDataHandler(ConnectionFaultInfo.class, new IDataHandler<ConnectionFaultInfo>()
 		{
 			@Override
@@ -109,6 +112,19 @@ public class GameModeViewModel extends ViewModel
 				IsWaiting.set(false);
 			}
 		});
+	}
+	
+	@Override
+	public void onLeaving()
+	{
+		ConnectionManager.unregisterDataHandlers(ConnectionFaultInfo.class);
+		ConnectionManager.unregisterDataHandlers(ConnectionSuccessInfo.class);
+	}
+	
+	@Override
+	public void dispose()
+	{
+		disconnect();
 	}
 	
 	private void connect()
@@ -128,11 +144,5 @@ public class GameModeViewModel extends ViewModel
 			IsConnected.set(false);
 			Status.set(ResourcesProvider.getString(R.string.connection_disconnected));
 		}
-	}
-	
-	@Override
-	public void dispose()
-	{
-		disconnect();
 	}
 }
