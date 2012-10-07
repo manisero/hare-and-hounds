@@ -28,7 +28,6 @@ public class HostingViewModel extends ViewModel
 	public HostingViewModel(IPositionService positionService, ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
 		_positionService = positionService;
 		_settingsProvider = settingsProvider;
 	}
@@ -66,7 +65,6 @@ public class HostingViewModel extends ViewModel
 								@Override
 								public void handle(GameStartInfo data)
 								{
-									ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
 									IsWaiting.set(false);
 									
 									Bundle bundle = new Bundle();

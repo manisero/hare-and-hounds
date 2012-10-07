@@ -15,20 +15,25 @@ public class HareViewModel extends ViewModel
 	
 	private final IPositionService _positionSerivce;
 	
+	private int _positionUpdateInterval;
+	
 	@Inject
 	public HareViewModel(IPositionService positionService, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
 		_positionSerivce = positionService;
 	}
 	
 	@Override
 	public void initialize(Bundle data)
 	{
-		int positionUpdateInterval = data.getInt(POSITION_UPDATE_INTERVAL_KEY);
-		
-		_positionSerivce.startGettingPosition(positionUpdateInterval, new IPositionListener()
+		_positionUpdateInterval = data.getInt(POSITION_UPDATE_INTERVAL_KEY);
+	}
+	
+	@Override
+	public void onEntering()
+	{
+		_positionSerivce.startGettingPosition(_positionUpdateInterval, new IPositionListener()
 		{
 			@Override
 			public void onPosition(PositionData position)
@@ -36,5 +41,11 @@ public class HareViewModel extends ViewModel
 				ConnectionManager.send(position);
 			}
 		});
+	}
+	
+	@Override
+	public void onLeaving()
+	{
+		// _positionSerivce.stopGettingPosition(...) // TODO: implement
 	}
 }

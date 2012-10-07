@@ -21,9 +21,18 @@ public class CheckpointViewModel extends ViewModel
 	public CheckpointViewModel(IDirectionProvider directionProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
 		_directionProvider = directionProvider;
-		
+	}
+	
+	@Override
+	public void initialize(Bundle data)
+	{
+		_directionProvider.setDirection((float)data.getDouble(INITIAL_DIRECTION_KEY));
+	}
+	
+	@Override
+	public void onEntering()
+	{
 		ConnectionManager.registerDataHandler(CheckpointUpdateInfo.class, new IDataHandler<CheckpointUpdateInfo>()
 		{
 			@Override
@@ -39,15 +48,17 @@ public class CheckpointViewModel extends ViewModel
 			@Override
 			public void handle(CheckpointLeftInfo data)
 			{
-				ContextManager.navigateTo(HoundsViewModel.class);
+				// leave(); // TODO: uncomment once leave method is fixed
+				ContextManager.navigateTo(HoundsViewModel.class); // TODO: remove once leave method is fixed
 			}
 		});
 	}
 	
 	@Override
-	public void initialize(Bundle data)
+	public void onLeaving()
 	{
-		_directionProvider.setDirection(data.getInt(INITIAL_DIRECTION_KEY));
+		ConnectionManager.unregisterDataHandlers(CheckpointUpdateInfo.class);
+		ConnectionManager.unregisterDataHandlers(CheckpointLeftInfo.class);
 	}
 	
 	public Model getArrowModel()

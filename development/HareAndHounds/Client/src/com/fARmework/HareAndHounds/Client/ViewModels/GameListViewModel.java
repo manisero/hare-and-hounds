@@ -63,10 +63,13 @@ public class GameListViewModel extends ViewModel
 	public GameListViewModel(IPositionService positionService, ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
 		_positionService = positionService;
 		_settingsProvider = settingsProvider;
-		
+	}
+	
+	@Override
+	public void onEntering()
+	{
 		ConnectionManager.registerDataHandler(GameListResponse.class, new IDataHandler<GameListResponse>()
 		{
 			@Override
@@ -86,6 +89,14 @@ public class GameListViewModel extends ViewModel
 		});
 		
 		getGames();
+	}
+	
+	@Override
+	public void onLeaving()
+	{
+		ConnectionManager.unregisterDataHandlers(GameListResponse.class);
+		ConnectionManager.unregisterDataHandlers(JoinGameResponse.class);
+		ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
 	}
 	
 	private void getGames()
@@ -130,6 +141,8 @@ public class GameListViewModel extends ViewModel
 				{
 					ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_unavailable), hostName));
 				}
+				
+				ConnectionManager.unregisterDataHandlers(JoinGameResponse.class); // the date handler is registered once per join attempt
 			}
 		});
 		
@@ -138,8 +151,6 @@ public class GameListViewModel extends ViewModel
 			@Override
 			public void handle(GameStartInfo data)
 			{
-				ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
-				
 				Bundle bundle = new Bundle();
 				bundle.putInt(HoundsViewModel.POSITION_UPDATE_INTERVAL_KEY, data.DemandedPositionUpdateInterval);
 				ContextManager.navigateTo(HoundsViewModel.class, bundle);
