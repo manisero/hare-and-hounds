@@ -16,9 +16,10 @@ public interface IContextManager
 	void registerView(Class<? extends ViewModel> viewModelClass, Class<? extends BoundActivity> activityClass, Integer layoutId);
 	
 	int getLayout(Class<? extends ViewModel> viewModelClass);
+	void onViewStart(BoundActivity activity);
+	void onViewStop(BoundActivity activity);
 	
-	void setCurrentActivity(BoundActivity activity);
-	void finishCurrentActivity();
+	void finishCurrentView();
 	void finishApplication();
 	
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass);

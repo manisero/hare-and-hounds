@@ -44,7 +44,7 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
-	public void setCurrentActivity(BoundActivity activity)
+	public void onViewStart(BoundActivity activity)
 	{
 		if (!_activitiesStack.empty() && activity == _activitiesStack.peek())
 			return;
@@ -53,11 +53,20 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
-	public void finishCurrentActivity()
+	public void onViewStop(BoundActivity activity)
+	{
+		if (_activitiesStack.empty() || activity != _activitiesStack.peek())
+			return;
+		
+		_activitiesStack.pop();
+	}
+	
+	@Override
+	public void finishCurrentView()
 	{
 		if (!_activitiesStack.empty())
 		{
-			_activitiesStack.pop().finish();
+			_activitiesStack.peek().finish();
 		}
 	}
 	

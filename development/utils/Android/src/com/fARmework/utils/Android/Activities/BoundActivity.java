@@ -21,7 +21,6 @@ public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActi
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        ContextManager.setCurrentActivity(this);
         
         if (savedInstanceState != null)
         {
@@ -42,6 +41,7 @@ public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActi
 	public void onStart()
 	{
     	super.onStart();
+    	ContextManager.onViewStart(this);
     	ViewModel.onEntering();
 	}
 	
@@ -49,6 +49,7 @@ public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActi
 	public void onStop()
 	{
 		ViewModel.onLeaving();
+		ContextManager.onViewStop(this);
     	super.onStop();
 	}
 	

@@ -49,8 +49,7 @@ public class CheckpointViewModel extends ViewModel
 			@Override
 			public void handle(CheckpointLeftInfo data)
 			{
-				// leave(); // TODO: uncomment once leave method is fixed
-				ContextManager.navigateTo(HoundsViewModel.class); // TODO: remove once leave method is fixed
+				ContextManager.finishCurrentView();
 			}
 		});
 	}

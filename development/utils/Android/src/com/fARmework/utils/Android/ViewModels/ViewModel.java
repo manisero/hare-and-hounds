@@ -27,11 +27,6 @@ public abstract class ViewModel
 	{
 	}
 	
-	protected void leave()
-	{
-		ContextManager.finishCurrentActivity();
-	}
-	
 	public void dispose()
 	{
 	}
