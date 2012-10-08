@@ -6,7 +6,7 @@ import com.fARmework.HareAndHounds.Client.ViewModels.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Data.*;
 import com.fARmework.core.data.*;
-import com.fARmework.modules.PositionTracking.Android.*;
+import com.fARmework.modules.PositionTracking.Android.Logic.*;
 import com.fARmework.utils.Android.*;
 import com.fARmework.utils.Android.IContextManager.*;
 import com.google.inject.*;

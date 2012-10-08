@@ -19,6 +19,7 @@ public final class R {
     }
     public static final class integer {
         public static final int defaultPort=0x7f070000;
+        public static final int singlePositionUpdateDelay=0x7f070001;
     }
     public static final class layout {
         public static final int checkpoint=0x7f030000;

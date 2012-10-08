@@ -1,4 +1,4 @@
-package com.fARmework.modules.PositionTracking.Android;
+package com.fARmework.modules.PositionTracking.Android.Logic;
 
 import com.fARmework.modules.PositionTracking.Data.PositionData;
 

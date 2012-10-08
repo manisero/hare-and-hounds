@@ -1,9 +1,8 @@
 package com.fARmework.HareAndHounds.Client.RoboGuiceModules;
 
-import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
-import com.fARmework.modules.PositionTracking.Android.IPositionProvider;
-import com.fARmework.modules.PositionTracking.Android._impl.LocationManagerResolver;
-import com.fARmework.modules.PositionTracking.Android._impl.PositionProvider;
+import com.fARmework.modules.PositionTracking.Android.Infrastructure.*;
+import com.fARmework.modules.PositionTracking.Android.Logic.*;
+import com.fARmework.modules.PositionTracking.Android.Logic._impl.*;
 import com.google.inject.AbstractModule;
 
 public class PositionTrackingModule extends AbstractModule
@@ -11,6 +10,8 @@ public class PositionTrackingModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
+		bind(ISettingsProvider.class).to(com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider.class);
+		
 		bind(ILocationManagerResolver.class).to(LocationManagerResolver.class).asEagerSingleton();
 		bind(IPositionProvider.class).to(PositionProvider.class);
 	}

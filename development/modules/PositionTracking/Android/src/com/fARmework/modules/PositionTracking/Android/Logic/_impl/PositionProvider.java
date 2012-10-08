@@ -1,4 +1,4 @@
-package com.fARmework.modules.PositionTracking.Android._impl;
+package com.fARmework.modules.PositionTracking.Android.Logic._impl;
 
 import java.util.*;
 
@@ -8,22 +8,24 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
-import com.fARmework.modules.PositionTracking.Android.IPositionProvider;
+import com.fARmework.modules.PositionTracking.Android.Infrastructure.*;
+import com.fARmework.modules.PositionTracking.Android.Logic.*;
 import com.fARmework.modules.PositionTracking.Data.PositionData;
 import com.google.inject.Inject;
 
 public class PositionProvider implements IPositionProvider
 {
 	private final ILocationManagerResolver _locationManagerResolver;
+	private final ISettingsProvider _settingsProvider;
 	
 	private LocationManager _locationManager;
 	private Map<IPositionListener, LocationListener> _listeners = new LinkedHashMap<IPositionListener, LocationListener>();
 	
 	@Inject
-	public PositionProvider(ILocationManagerResolver locationManagerResolver)
+	public PositionProvider(ILocationManagerResolver locationManagerResolver, ISettingsProvider settingsProvider)
 	{
 		_locationManagerResolver = locationManagerResolver;
+		_settingsProvider = settingsProvider;
 	}
 	
 	private LocationManager getLocationManager()
@@ -47,7 +49,7 @@ public class PositionProvider implements IPositionProvider
 			return;
 		}
 		
-		getLocationManager().requestLocationUpdates(provider, 5000, 0, new LocationListener()
+		getLocationManager().requestLocationUpdates(provider, _settingsProvider.getSinglePositionUpdateDelay() * 1000, 0, new LocationListener()
 		{
 			boolean _receivedFirstLocation = false; // first location update is ignored since it's always inaccurate
 			
