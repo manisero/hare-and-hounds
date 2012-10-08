@@ -20,6 +20,63 @@ public class DirectionCalculatorTests
 {
 	public static class TheCalculateDirectionMethod
 	{
+		/*
+		 * 	Test data for cities taken from:
+		 * 		http://www.timeanddate.com/worldclock/distance.html
+		 */
+		
+		@Test
+		public void MatchesMiamiToTokyoInitialBearing()
+		{
+			PositionData miami = new PositionData(25.783, -80.217);
+			PositionData tokyo = new PositionData(35.683, 139.7);
+			
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
+			
+			double direction = directionCalculator.calculateDirection(miami, tokyo);
+			
+			assertEquals(326.8, direction, 0.1);
+		}
+		
+		@Test
+		public void MatchesRomeToJerusalemInitialBearing()
+		{
+			PositionData rome = new PositionData(41.9, 12.483);
+			PositionData jerusalem = new PositionData(31.783, 35.217);
+			
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
+			
+			double direction = directionCalculator.calculateDirection(rome, jerusalem);
+			
+			assertEquals(111.8, direction, 0.1);
+		}
+		
+		@Test
+		public void MatchesTashkentToLusakaInitialBearing()
+		{
+			PositionData tashkent = new PositionData(41.267, 69.217);
+			PositionData lusaka = new PositionData(-15.333, 28.233);
+			
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
+			
+			double direction = directionCalculator.calculateDirection(tashkent, lusaka);
+			
+			assertEquals(223.0, direction, 0.1);			
+		}
+		
+		@Test
+		public void MatchesStockholmToBelfastInitialBearing()
+		{
+			PositionData stockholm = new PositionData(59.333, 18.067);
+			PositionData belfast = new PositionData(54.6, -5.933);
+			
+			IDirectionCalculator directionCalculator = new DirectionCalculator();
+			
+			double direction = directionCalculator.calculateDirection(stockholm, belfast);
+			
+			assertEquals(260.5, direction, 0.1);
+		}
+		
 		@Test
 		public void MatchesNorthDirection()
 		{
@@ -30,7 +87,7 @@ public class DirectionCalculatorTests
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, northFromCurrent);
 			
-			assertEquals(0.0, direction, 0.0);
+			assertEquals(0.0, direction, 1.0);
 		}
 		
 		@Test
@@ -43,7 +100,7 @@ public class DirectionCalculatorTests
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, southFromCurrent);
 			
-			assertEquals(180.0, direction, 0.0);
+			assertEquals(180.0, direction, 1.0);
 		}
 		
 		@Test
@@ -56,7 +113,7 @@ public class DirectionCalculatorTests
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, eastFromCurrent);
 			
-			assertEquals(90.0, direction, 0.0);
+			assertEquals(90.0, direction, 1.0);
 		}
 		
 		@Test
@@ -69,59 +126,7 @@ public class DirectionCalculatorTests
 			
 			double direction = directionCalculator.calculateDirection(currentPosition, westFromCurrent);
 			
-			assertEquals(270.0, direction, 0.0);
-		}
-		
-		@Test
-		public void MatchesNorthEastDirection()
-		{
-			PositionData currentPosition = new PositionData(52.0, 21.0);
-			PositionData northEastFromCurrent = new PositionData(53.0, 22.0);
-			
-			IDirectionCalculator directionCalculator = new DirectionCalculator();
-			
-			double direction = directionCalculator.calculateDirection(currentPosition, northEastFromCurrent);
-			
-			assertEquals(45.0, direction, 0.0);
-		}
-		
-		@Test
-		public void MatchesNorthWestDirection()
-		{
-			PositionData currentPosition = new PositionData(52.0, 21.0);
-			PositionData northWestFromCurrent = new PositionData(53.0, 20.0);
-			
-			IDirectionCalculator directionCalculator = new DirectionCalculator();
-			
-			double direction = directionCalculator.calculateDirection(currentPosition, northWestFromCurrent);
-			
-			assertEquals(315.0, direction, 0.0);
-		}
-		
-		@Test
-		public void MatchesSouthEastDirection()
-		{
-			PositionData currentPosition = new PositionData(52.0, 21.0);
-			PositionData southEastFromCurrent = new PositionData(51.0, 22.0);
-			
-			IDirectionCalculator directionCalculator = new DirectionCalculator();
-			
-			double direction = directionCalculator.calculateDirection(currentPosition, southEastFromCurrent);
-			
-			assertEquals(135.0, direction, 0.0);
-		}
-		
-		@Test 
-		public void MatchesSouthWestDirection()
-		{
-			PositionData currentPosition = new PositionData(52.0, 21.0);
-			PositionData southWestFromCurrent = new PositionData(51.0, 20.0);
-			
-			IDirectionCalculator directionCalculator = new DirectionCalculator();
-			
-			double direction = directionCalculator.calculateDirection(currentPosition, southWestFromCurrent);
-			
-			assertEquals(225.0, direction, 0.0);
+			assertEquals(270.0, direction, 1.0);
 		}
 	}
 }
