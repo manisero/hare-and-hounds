@@ -1,5 +1,7 @@
 package com.fARmework.modules.PositionTracking.Android._impl;
 
+import java.util.*;
+
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,17 +17,29 @@ public class PositionProvider implements IPositionProvider
 {
 	private final ILocationManagerResolver _locationManagerResolver;
 	
+	private LocationManager _locationManager;
+	private Map<IPositionListener, LocationListener> _listeners = new LinkedHashMap<IPositionListener, LocationListener>();
+	
 	@Inject
 	public PositionProvider(ILocationManagerResolver locationManagerResolver)
 	{
 		_locationManagerResolver = locationManagerResolver;
 	}
 	
+	private LocationManager getLocationManager()
+	{
+		if (_locationManager == null)
+		{
+			_locationManager = _locationManagerResolver.resolve();
+		}
+		
+		return _locationManager;
+	}
+	
 	@Override
 	public void getSinglePosition(final IPositionListener positionListener)
 	{
-		final LocationManager manager = _locationManagerResolver.resolve();
-		String provider = manager.getBestProvider(new Criteria(), true);
+		String provider = getLocationManager().getBestProvider(new Criteria(), true);
 		
 		if (provider == null)
 		{
@@ -33,7 +47,7 @@ public class PositionProvider implements IPositionProvider
 			return;
 		}
 		
-		manager.requestLocationUpdates(provider, 5000, 0, new LocationListener()
+		getLocationManager().requestLocationUpdates(provider, 5000, 0, new LocationListener()
 		{
 			boolean _receivedFirstLocation = false; // first location update is ignored since it's always inaccurate
 			
@@ -43,7 +57,7 @@ public class PositionProvider implements IPositionProvider
 				if (_receivedFirstLocation)
 				{
 					positionListener.onPosition(new PositionData(location.getLatitude(), location.getLongitude()));
-					manager.removeUpdates(this);
+					getLocationManager().removeUpdates(this);
 				}
 				
 				_receivedFirstLocation = true;
@@ -53,7 +67,7 @@ public class PositionProvider implements IPositionProvider
 			public void onProviderDisabled(String provider)
 			{
 				positionListener.onPosition(null);
-				manager.removeUpdates(this);
+				getLocationManager().removeUpdates(this);
 			}
 			
 			@Override
@@ -71,8 +85,7 @@ public class PositionProvider implements IPositionProvider
 	@Override
 	public void startGettingPosition(int updateInterval, final IPositionListener positionListener)
 	{
-		final LocationManager manager = _locationManagerResolver.resolve();
-		String provider = manager.getBestProvider(new Criteria(), true);
+		String provider = getLocationManager().getBestProvider(new Criteria(), true);
 		
 		if (provider == null)
 		{
@@ -80,12 +93,18 @@ public class PositionProvider implements IPositionProvider
 			return;
 		}
 		
-		manager.requestLocationUpdates(provider, updateInterval * 1000, 0, new LocationListener()
+		LocationListener locationListener = new LocationListener()
 		{
 			@Override
 			public void onLocationChanged(Location location)
 			{
 				positionListener.onPosition(new PositionData(location.getLatitude(), location.getLongitude()));
+			}
+			
+			@Override
+			public void onProviderDisabled(String provider)
+			{
+				getLocationManager().removeUpdates(this);
 			}
 			
 			@Override
@@ -97,19 +116,21 @@ public class PositionProvider implements IPositionProvider
 			public void onProviderEnabled(String provider)
 			{
 			}
-			
-			@Override
-			public void onProviderDisabled(String provider)
-			{
-				positionListener.onPosition(null);
-				manager.removeUpdates(this);
-			}
-		}, null);
+		};
+		
+		_listeners.put(positionListener, locationListener);
+		
+		getLocationManager().requestLocationUpdates(provider, updateInterval * 1000, 0, locationListener, null);
 	}
 
 	@Override
 	public void stopGettingPosition(IPositionListener positionListener)
 	{
-		// TODO: implement (maybe introduce state - Dictionary<IPositionListener, LocationListener>)
+		if (!_listeners.containsKey(positionListener))
+		{
+			return;
+		}
+		
+		getLocationManager().removeUpdates(_listeners.get(positionListener));
 	}
 }
