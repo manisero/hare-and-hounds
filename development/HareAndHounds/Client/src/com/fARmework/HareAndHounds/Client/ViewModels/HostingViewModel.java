@@ -6,14 +6,16 @@ import android.os.*;
 
 import com.fARmework.HareAndHounds.Client.R;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
+import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.HareAndHounds.Data.JoinGameResponse.JoinGameResponseType;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.modules.PositionTracking.Android.Logic.*;
 import com.fARmework.modules.PositionTracking.Android.Logic.IPositionProvider.*;
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.utils.Android.*;
-import com.fARmework.utils.Android.IContextManager.IDialogListener;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.Infrastructure.IContextManager.*;
+import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.*;
 
 public class HostingViewModel extends ViewModel

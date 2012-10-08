@@ -1,4 +1,4 @@
-package com.fARmework.utils.Android;
+package com.fARmework.utils.Android.Activities;
 
 import com.google.inject.Inject;
 

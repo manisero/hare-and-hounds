@@ -1,4 +1,7 @@
-package com.fARmework.utils.Android;
+package com.fARmework.utils.Android.Infrastructure;
+
+import com.fARmework.utils.Android.Activities.*;
+import com.fARmework.utils.Android.ViewModels.*;
 
 import android.os.Bundle;
 
@@ -21,8 +24,7 @@ public interface IContextManager
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass);
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass, Bundle data);
 	
-	void showShortNotification(String notification);
-	void showLongNotification(String notification);
+	void showNotification(String notification);
 	void showDialogNotification(String notification, String confirmLabel, IDialogListener confirmListener);
 	void showYesNoDialog(String message, String yesLabel, String noLabel, IDialogListener yesListener, IDialogListener noListener);
 }

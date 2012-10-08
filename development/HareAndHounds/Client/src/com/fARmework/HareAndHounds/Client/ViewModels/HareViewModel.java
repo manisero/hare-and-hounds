@@ -6,7 +6,8 @@ import com.fARmework.core.client.Connection.*;
 import com.fARmework.modules.PositionTracking.Android.Logic.*;
 import com.fARmework.modules.PositionTracking.Android.Logic.IPositionProvider.*;
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.*;
 
 public class HareViewModel extends ViewModel
