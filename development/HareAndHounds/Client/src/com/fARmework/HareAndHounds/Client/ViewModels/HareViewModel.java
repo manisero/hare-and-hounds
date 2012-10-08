@@ -15,6 +15,7 @@ public class HareViewModel extends ViewModel
 	
 	private final IPositionProvider _positionProvider;
 	
+	private IPositionListener _positionListener;
 	private int _positionUpdateInterval;
 	
 	@Inject
@@ -22,6 +23,15 @@ public class HareViewModel extends ViewModel
 	{
 		super(connectionManager, contextManager);
 		_positionProvider = positionProvider;
+		
+		_positionListener = new IPositionListener()
+		{
+			@Override
+			public void onPosition(PositionData position)
+			{
+				ConnectionManager.send(position);
+			}
+		};
 	}
 	
 	@Override
@@ -33,19 +43,12 @@ public class HareViewModel extends ViewModel
 	@Override
 	public void onEntering()
 	{
-		_positionProvider.startGettingPosition(_positionUpdateInterval, new IPositionListener()
-		{
-			@Override
-			public void onPosition(PositionData position)
-			{
-				ConnectionManager.send(position);
-			}
-		});
+		_positionProvider.startGettingPosition(_positionUpdateInterval, _positionListener);
 	}
 	
 	@Override
-	public void onLeaving()
+	public void dispose()
 	{
-		// _positionSerivce.stopGettingPosition(...) // TODO: implement
+		_positionProvider.stopGettingPosition(_positionListener);
 	}
 }

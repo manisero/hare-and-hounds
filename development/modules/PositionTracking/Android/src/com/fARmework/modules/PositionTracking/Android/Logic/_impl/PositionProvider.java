@@ -87,6 +87,11 @@ public class PositionProvider implements IPositionProvider
 	@Override
 	public void startGettingPosition(int updateInterval, final IPositionListener positionListener)
 	{
+		if (_listeners.containsKey(positionListener))
+		{
+			return;
+		}
+		
 		String provider = getLocationManager().getBestProvider(new Criteria(), true);
 		
 		if (provider == null)
@@ -134,5 +139,7 @@ public class PositionProvider implements IPositionProvider
 		}
 		
 		getLocationManager().removeUpdates(_listeners.get(positionListener));
+		
+		_listeners.remove(positionListener);
 	}
 }
