@@ -6,11 +6,16 @@ import com.fARmework.modules.PositionTracking.Java.*;
 public class DirectionCalculator implements IDirectionCalculator 
 {
 	public double calculateDirection(PositionData current, PositionData target)
-	{
-		double x = target.Longitude - current.Longitude;
-		double y = target.Latitude - current.Latitude;
+	{				
+		double longitudeDifference = Math.toRadians(target.Longitude - current.Longitude);
+		double targetLatitude = Math.toRadians(target.Latitude);
+		double currentLatitude = Math.toRadians(current.Latitude);
 		
-		double direction = 0.5 * Math.PI - Math.atan2(y, x);
+		double y = Math.sin(longitudeDifference) * Math.cos(targetLatitude);
+		double x = Math.cos(currentLatitude) * Math.sin(targetLatitude);
+		x -= Math.sin(currentLatitude) * Math.cos(targetLatitude) * Math.cos(longitudeDifference);
+		
+		double direction = Math.atan2(y, x);
 		
 		if(direction < 0)
 		{
@@ -21,6 +26,6 @@ public class DirectionCalculator implements IDirectionCalculator
 			direction -= 2 * Math.PI;
 		}
 		
-		return direction * 180 / Math.PI;
+		return Math.toDegrees(direction);
 	}
 }
