@@ -41,4 +41,10 @@ public class SettingsProvider extends SettingsProviderBase implements ISettingsP
 	{
 		setString("user_name", userName);
 	}
+
+	@Override
+	public int getSinglePositionUpdateDelay()
+	{
+		return ResourcesProvider.getInteger(R.integer.singlePositionUpdateDelay);
+	}
 }

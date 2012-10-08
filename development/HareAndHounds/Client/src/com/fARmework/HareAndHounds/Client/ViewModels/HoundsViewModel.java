@@ -4,8 +4,8 @@ import android.os.*;
 
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.core.client.Connection.*;
-import com.fARmework.modules.PositionTracking.Android.*;
-import com.fARmework.modules.PositionTracking.Android.IPositionProvider.*;
+import com.fARmework.modules.PositionTracking.Android.Logic.*;
+import com.fARmework.modules.PositionTracking.Android.Logic.IPositionProvider.*;
 import com.fARmework.modules.PositionTracking.Data.*;
 import com.fARmework.utils.Android.*;
 import com.google.inject.*;

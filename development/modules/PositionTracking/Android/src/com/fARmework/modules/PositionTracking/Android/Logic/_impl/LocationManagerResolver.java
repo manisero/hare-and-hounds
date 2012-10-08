@@ -1,6 +1,6 @@
-package com.fARmework.modules.PositionTracking.Android._impl;
+package com.fARmework.modules.PositionTracking.Android.Logic._impl;
 
-import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
+import com.fARmework.modules.PositionTracking.Android.Logic.*;
 
 import android.content.Context;
 import android.location.LocationManager;
