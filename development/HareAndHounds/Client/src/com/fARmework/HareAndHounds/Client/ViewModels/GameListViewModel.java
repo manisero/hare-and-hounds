@@ -135,11 +135,11 @@ public class GameListViewModel extends ViewModel
 				
 				if (data.Response == JoinGameResponseType.Reject)
 				{
-					ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRejected), hostName));
+					ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRejected), hostName));
 				}
 				else if (data.Response == JoinGameResponseType.Unavailable)
 				{
-					ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_unavailable), hostName));
+					ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_unavailable), hostName));
 				}
 				
 				ConnectionManager.unregisterDataHandlers(JoinGameResponse.class); // the date handler is registered once per join attempt

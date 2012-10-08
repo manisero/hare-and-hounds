@@ -42,11 +42,11 @@ public class GameListViewModel extends ViewModel
 						
 						if (data.Response == GameJoinResponseType.Deny)
 						{
-							ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()));
+							ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()));
 						}
 						else if (data.Response == GameJoinResponseType.NotAvailable)
 						{
-							ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_notAvailable), hostUserName.get()));
+							ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_notAvailable), hostUserName.get()));
 						}
 					}
 				});
