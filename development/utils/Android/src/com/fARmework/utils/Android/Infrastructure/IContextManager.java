@@ -1,4 +1,7 @@
-package com.fARmework.utils.Android;
+package com.fARmework.utils.Android.Infrastructure;
+
+import com.fARmework.utils.Android.Activities.*;
+import com.fARmework.utils.Android.ViewModels.*;
 
 import android.os.Bundle;
 

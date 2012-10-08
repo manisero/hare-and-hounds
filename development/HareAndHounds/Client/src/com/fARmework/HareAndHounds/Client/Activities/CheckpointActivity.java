@@ -5,7 +5,7 @@ import android.view.*;
 
 import com.fARmework.HareAndHounds.Client.ViewModels.*;
 import com.fARmework.modules.SpaceGraphics.Android.*;
-import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.Activities.*;
 
 public class CheckpointActivity extends BoundActivity<CheckpointViewModel>
 {

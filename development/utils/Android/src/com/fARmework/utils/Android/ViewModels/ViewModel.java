@@ -1,7 +1,8 @@
-package com.fARmework.utils.Android;
+package com.fARmework.utils.Android.ViewModels;
 
 import android.os.Bundle;
 import com.fARmework.core.client.Connection.IConnectionManager;
+import com.fARmework.utils.Android.Infrastructure.*;
 
 public abstract class ViewModel
 {
