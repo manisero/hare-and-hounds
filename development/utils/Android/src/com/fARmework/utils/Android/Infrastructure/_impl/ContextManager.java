@@ -1,4 +1,4 @@
-package com.fARmework.utils.Android._impl;
+package com.fARmework.utils.Android.Infrastructure._impl;
 
 import java.util.*;
 
@@ -9,8 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.Activities.*;
 import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.*;
 
 @SuppressWarnings("rawtypes")

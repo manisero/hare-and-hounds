@@ -1,8 +1,10 @@
-package com.fARmework.utils.Android;
+package com.fARmework.utils.Android.Activities;
 
 import android.os.Bundle;
 import android.view.*;
 
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.Inject;
 
 public abstract class BoundActivity<T extends ViewModel> extends RoboBindingActivity

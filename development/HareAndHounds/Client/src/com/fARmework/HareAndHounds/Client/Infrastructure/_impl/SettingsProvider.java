@@ -2,7 +2,8 @@ package com.fARmework.HareAndHounds.Client.Infrastructure._impl;
 
 import com.fARmework.HareAndHounds.Client.R;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
-import com.fARmework.utils.Android.SettingsProviderBase;
+import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
+import com.fARmework.utils.Android.Infrastructure.*;
 
 public class SettingsProvider extends SettingsProviderBase implements ISettingsProvider
 {
@@ -46,5 +47,11 @@ public class SettingsProvider extends SettingsProviderBase implements ISettingsP
 	public int getSinglePositionUpdateDelay()
 	{
 		return ResourcesProvider.getInteger(R.integer.singlePositionUpdateDelay);
+	}
+
+	@Override
+	public int getShortNotificationMaxLength()
+	{
+		return ResourcesProvider.getInteger(R.integer.shortNotificationMaxLength);
 	}
 }

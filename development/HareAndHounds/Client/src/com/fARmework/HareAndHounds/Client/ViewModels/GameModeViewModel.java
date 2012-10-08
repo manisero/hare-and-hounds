@@ -2,9 +2,11 @@ package com.fARmework.HareAndHounds.Client.ViewModels;
 
 import com.fARmework.HareAndHounds.Client.R;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
+import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Data.*;
-import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.*;
 
 import android.view.*;

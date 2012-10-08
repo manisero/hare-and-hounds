@@ -11,11 +11,13 @@ import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
 import com.fARmework.RockPaperScissors.Data.GameListData.GameInfo;
 import com.fARmework.core.client.Connection.*;
-import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.Inject;
 
 public class GameListViewModel extends ViewModel
