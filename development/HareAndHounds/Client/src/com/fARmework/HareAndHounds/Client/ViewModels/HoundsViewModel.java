@@ -16,6 +16,7 @@ public class HoundsViewModel extends ViewModel
 	
 	private final IPositionProvider _positionProvider;
 	
+	private IPositionListener _positionListener;
 	private int _positionUpdateInterval;
 	
 	@Inject
@@ -23,6 +24,15 @@ public class HoundsViewModel extends ViewModel
 	{
 		super(connectionManager, contextManager);
 		_positionProvider = positionProvider;
+		
+		_positionListener = new IPositionListener()
+		{
+			@Override
+			public void onPosition(PositionData position)
+			{
+				ConnectionManager.send(position);
+			}
+		};
 	}
 
 	@Override
@@ -45,20 +55,18 @@ public class HoundsViewModel extends ViewModel
 			}
 		});
 		
-		_positionProvider.startGettingPosition(_positionUpdateInterval, new IPositionListener()
-		{
-			@Override
-			public void onPosition(PositionData position)
-			{
-				ConnectionManager.send(position);
-			}
-		});
+		_positionProvider.startGettingPosition(_positionUpdateInterval, _positionListener);
 	}
 	
 	@Override
 	public void onLeaving()
 	{
 		ConnectionManager.unregisterDataHandlers(CheckpointEnteredInfo.class);
-		// _positionSerivce.stopGettingPosition(...) // TODO: implement
+	}
+	
+	@Override
+	public void dispose()
+	{
+		_positionProvider.stopGettingPosition(_positionListener);
 	}
 }
