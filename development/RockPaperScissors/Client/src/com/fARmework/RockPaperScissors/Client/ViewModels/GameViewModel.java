@@ -93,7 +93,7 @@ public class GameViewModel extends ViewModel
 				}
 				else
 				{
-					ContextManager.showShortNotification(ResourcesProvider.getString(R.string.game_gestureNotRecognized));
+					ContextManager.showNotification(ResourcesProvider.getString(R.string.game_gestureNotRecognized));
 				}
 			}
 		});
