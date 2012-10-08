@@ -7,16 +7,16 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
-import com.fARmework.modules.PositionTracking.Android.IPositionService;
+import com.fARmework.modules.PositionTracking.Android.IPositionProvider;
 import com.fARmework.modules.PositionTracking.Data.PositionData;
 import com.google.inject.Inject;
 
-public class PositionService implements IPositionService
+public class PositionProvider implements IPositionProvider
 {
 	private final ILocationManagerResolver _locationManagerResolver;
 	
 	@Inject
-	public PositionService(ILocationManagerResolver locationManagerResolver)
+	public PositionProvider(ILocationManagerResolver locationManagerResolver)
 	{
 		_locationManagerResolver = locationManagerResolver;
 	}

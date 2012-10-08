@@ -10,7 +10,7 @@ import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.HareAndHounds.Data.JoinGameResponse.JoinGameResponseType;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.modules.PositionTracking.Android.*;
-import com.fARmework.modules.PositionTracking.Android.IPositionService.IPositionListener;
+import com.fARmework.modules.PositionTracking.Android.IPositionProvider.IPositionListener;
 import com.fARmework.modules.PositionTracking.Data.*;
 import com.fARmework.utils.Android.*;
 import com.fARmework.utils.Android.IContextManager.IDialogListener;
@@ -18,17 +18,17 @@ import com.google.inject.*;
 
 public class HostingViewModel extends ViewModel
 {
-	private final IPositionService _positionService;
+	private final IPositionProvider _positionProvider;
 	private final ISettingsProvider _settingsProvider;
 	
 	public StringObservable Status = new StringObservable();
 	public BooleanObservable IsWaiting = new BooleanObservable(true);
 	
 	@Inject
-	public HostingViewModel(IPositionService positionService, ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
+	public HostingViewModel(IPositionProvider positionProvider, ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		_positionService = positionService;
+		_positionProvider = positionProvider;
 		_settingsProvider = settingsProvider;
 	}
 	
@@ -89,7 +89,7 @@ public class HostingViewModel extends ViewModel
 		
 		Status.set(ResourcesProvider.getString(R.string.hosting_creating));
 		
-		_positionService.getSinglePosition(new IPositionListener()
+		_positionProvider.getSinglePosition(new IPositionListener()
 		{
 			@Override
 			public void onPosition(PositionData position)

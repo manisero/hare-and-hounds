@@ -5,7 +5,7 @@ import android.os.*;
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.modules.PositionTracking.Android.*;
-import com.fARmework.modules.PositionTracking.Android.IPositionService.*;
+import com.fARmework.modules.PositionTracking.Android.IPositionProvider.*;
 import com.fARmework.modules.PositionTracking.Data.*;
 import com.fARmework.utils.Android.*;
 import com.google.inject.*;
@@ -14,15 +14,15 @@ public class HoundsViewModel extends ViewModel
 {
 	public static final String POSITION_UPDATE_INTERVAL_KEY = HoundsViewModel.class.getCanonicalName() + "POSITION_UPDATE_INTERVAL";
 	
-	private final IPositionService _positionSerivce;
+	private final IPositionProvider _positionProvider;
 	
 	private int _positionUpdateInterval;
 	
 	@Inject
-	public HoundsViewModel(IPositionService positionService, IConnectionManager connectionManager, IContextManager contextManager)
+	public HoundsViewModel(IPositionProvider positionProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		_positionSerivce = positionService;
+		_positionProvider = positionProvider;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class HoundsViewModel extends ViewModel
 			}
 		});
 		
-		_positionSerivce.startGettingPosition(_positionUpdateInterval, new IPositionListener()
+		_positionProvider.startGettingPosition(_positionUpdateInterval, new IPositionListener()
 		{
 			@Override
 			public void onPosition(PositionData position)

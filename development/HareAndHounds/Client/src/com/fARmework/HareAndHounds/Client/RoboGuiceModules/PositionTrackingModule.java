@@ -1,9 +1,9 @@
 package com.fARmework.HareAndHounds.Client.RoboGuiceModules;
 
 import com.fARmework.modules.PositionTracking.Android.ILocationManagerResolver;
-import com.fARmework.modules.PositionTracking.Android.IPositionService;
+import com.fARmework.modules.PositionTracking.Android.IPositionProvider;
 import com.fARmework.modules.PositionTracking.Android._impl.LocationManagerResolver;
-import com.fARmework.modules.PositionTracking.Android._impl.PositionService;
+import com.fARmework.modules.PositionTracking.Android._impl.PositionProvider;
 import com.google.inject.AbstractModule;
 
 public class PositionTrackingModule extends AbstractModule
@@ -12,6 +12,6 @@ public class PositionTrackingModule extends AbstractModule
 	protected void configure()
 	{
 		bind(ILocationManagerResolver.class).to(LocationManagerResolver.class).asEagerSingleton();
-		bind(IPositionService.class).to(PositionService.class);
+		bind(IPositionProvider.class).to(PositionProvider.class);
 	}
 }
