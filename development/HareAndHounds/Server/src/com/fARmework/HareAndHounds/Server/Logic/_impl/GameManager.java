@@ -1,6 +1,7 @@
 package com.fARmework.HareAndHounds.Server.Logic._impl;
 
 import com.fARmework.HareAndHounds.Data.*;
+import com.fARmework.HareAndHounds.Data.GameEndInfo.GameResult;
 import com.fARmework.HareAndHounds.Server.Infrastructure.*;
 import com.fARmework.HareAndHounds.Server.Logic.*;
 import com.fARmework.core.server.Connection.*;
@@ -44,8 +45,7 @@ public class GameManager implements IGameManager
 				
 				if (_harePositions.size() >= _settingsProvider.getVictoriousHarePositions()) // hare has ran away
 				{
-					// TODO: end game
-					gameEndHandler.onGameEnd(_hareID, _houndsID);
+					handleGameEnd(_hareID, _houndsID, gameEndHandler);
 				}
 			}
 		});
@@ -84,8 +84,7 @@ public class GameManager implements IGameManager
 					}
 					else // hounds have caught up the hare
 					{
-						// TODO: end game
-						gameEndHandler.onGameEnd(_hareID, _houndsID);
+						handleGameEnd(_houndsID, _hareID, gameEndHandler);
 					}
 				}
 				else if (_houndsInCheckpoint) // hounds have left a checkpoint
@@ -98,5 +97,16 @@ public class GameManager implements IGameManager
 		
 		_connectionManager.send(new GameStartInfo(_settingsProvider.getHareDemandedPositionUpdateInterval()), _hareID);
 		_connectionManager.send(new GameStartInfo(_settingsProvider.getHoundsDemandedPositionUpdateInterval()), _houndsID);
+	}
+	
+	private void handleGameEnd(int winnerID, int loserID, IGameEndHandler gameEndHandler)
+	{
+		gameEndHandler.onGameEnd(_hareID, _houndsID);
+		
+		_connectionManager.unregisterDataHandlers(PositionData.class, _hareID);
+		_connectionManager.unregisterDataHandlers(PositionData.class, _houndsID);
+		
+		_connectionManager.send(new GameEndInfo(GameResult.Defeat), winnerID);
+		_connectionManager.send(new GameEndInfo(GameResult.Victory), loserID);
 	}
 }
