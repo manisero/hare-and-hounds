@@ -33,7 +33,7 @@ public class GameManager implements IGameManager
 	}
 	
 	@Override
-	public void startGame(IGameEndHandler gameEndHandler)
+	public void startGame(final IGameEndHandler gameEndHandler)
 	{
 		_connectionManager.registerDataHandler(PositionData.class, _hareID, new IDataHandler<PositionData>()
 		{
@@ -45,6 +45,7 @@ public class GameManager implements IGameManager
 				if (_harePositions.size() >= _settingsProvider.getVictoriousHarePositions()) // hare has ran away
 				{
 					// TODO: end game
+					gameEndHandler.onGameEnd(_hareID, _houndsID);
 				}
 			}
 		});
@@ -84,6 +85,7 @@ public class GameManager implements IGameManager
 					else // hounds have caught up the hare
 					{
 						// TODO: end game
+						gameEndHandler.onGameEnd(_hareID, _houndsID);
 					}
 				}
 				else if (_houndsInCheckpoint) // hounds have left a checkpoint
