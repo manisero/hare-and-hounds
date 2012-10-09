@@ -1,4 +1,4 @@
-package com.fARmework.modules.ScreenGestures.Java.EntryPoint;
+package com.fARmework.modules.ScreenGestures.Java.GesturesReader;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 import com.fARmework.modules.ScreenGestures.Java.*;
@@ -10,7 +10,6 @@ import com.fARmework.modules.ScreenGestures.Java.Processing.IScreenGestureProces
 import com.fARmework.modules.ScreenGestures.Java.Processing.IScreenGestureProcessorFactory;
 import com.fARmework.modules.ScreenGestures.Java.Processing.GestureProcessors.*;
 import com.fARmework.modules.ScreenGestures.Java.Processing._impl.*;
-import com.fARmework.modules.ScreenGestures.Java.Utilities.*;
 import com.fARmework.modules.ScreenGestures.Java._impl.*;
 
 import java.awt.image.*;
