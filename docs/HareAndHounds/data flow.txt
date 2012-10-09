@@ -1,0 +1,19 @@
+HOST (hare):			SERVER:						GUEST (hounds):
+
+NewGameRequest
+- HostName
+- PositionData
+						<- NewGameResponse
+													GameListRequest
+													- PositionData
+						GameListResponse ->
+						- list[HostID, HostName]
+													JoinGameRequest
+													- HostID
+													- GuestName
+						<- JoinGameRequest
+						- GuestName
+JoinGameResponse
+- JoinGameResult
+						JoinGameResponse ->
+						- JoinGameResult
