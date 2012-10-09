@@ -54,12 +54,16 @@ public final class R {
         public static final int gameList_refresh=0x7f04001e;
         public static final int gameList_unavailable=0x7f040022;
         public static final int gameList_waiting=0x7f04001f;
+        public static final int hare_defeat=0x7f040024;
+        public static final int hare_victory=0x7f040023;
         public static final int hello_world=0x7f040001;
         public static final int hosting_created=0x7f04001a;
         public static final int hosting_creating=0x7f040019;
         public static final int hosting_guestConnected=0x7f04001c;
         public static final int hosting_guestJoined=0x7f04001d;
         public static final int hosting_waiting=0x7f04001b;
+        public static final int hounds_defeat=0x7f040026;
+        public static final int hounds_victory=0x7f040025;
         public static final int menu_settings=0x7f040002;
         public static final int mode_create=0x7f040015;
         public static final int mode_join=0x7f040016;
