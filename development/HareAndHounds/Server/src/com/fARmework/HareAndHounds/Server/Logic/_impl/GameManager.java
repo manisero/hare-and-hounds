@@ -106,7 +106,7 @@ public class GameManager implements IGameManager
 		_connectionManager.unregisterDataHandlers(PositionData.class, _hareID);
 		_connectionManager.unregisterDataHandlers(PositionData.class, _houndsID);
 		
-		_connectionManager.send(new GameEndInfo(GameResult.Defeat), winnerID);
-		_connectionManager.send(new GameEndInfo(GameResult.Victory), loserID);
+		_connectionManager.send(new GameEndInfo(GameResult.Victory), winnerID);
+		_connectionManager.send(new GameEndInfo(GameResult.Defeat), loserID);
 	}
 }
