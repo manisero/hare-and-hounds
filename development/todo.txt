@@ -1,0 +1,5 @@
+- ContextManager should keep Activities stack - this will allow to finish the application programatically (invoking Finish method on every activity)
+
+- register Context in DI container this will allow to resolve some Context-dependent objects per request (instead of as eager singletons)
+
+- HareAndHounds: allow the server to take Hare name and positions from xml file (so that only one device / emulator is needed to play)
