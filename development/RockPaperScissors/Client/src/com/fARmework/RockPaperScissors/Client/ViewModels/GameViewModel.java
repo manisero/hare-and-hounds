@@ -8,12 +8,14 @@ import android.view.View;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.R.string;
 import com.fARmework.RockPaperScissors.Data.*;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
 import com.fARmework.core.client.Connection.*;
-import com.fARmework.utils.Android.*;
-import com.fARmework.utils.Android.IContextManager.IDialogListener;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.Infrastructure.IContextManager.*;
+import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.Inject;
 
 public class GameViewModel extends ViewModel
@@ -93,7 +95,7 @@ public class GameViewModel extends ViewModel
 				}
 				else
 				{
-					ContextManager.showShortNotification(ResourcesProvider.getString(R.string.game_gestureNotRecognized));
+					ContextManager.showNotification(ResourcesProvider.getString(R.string.game_gestureNotRecognized));
 				}
 			}
 		});

@@ -2,13 +2,14 @@ package com.fARmework.HareAndHounds.Client;
 
 import com.fARmework.HareAndHounds.Client.Activities.*;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
+import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.HareAndHounds.Client.ViewModels.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Data.*;
 import com.fARmework.core.data.*;
 import com.fARmework.modules.PositionTracking.Android.Logic.*;
-import com.fARmework.utils.Android.*;
-import com.fARmework.utils.Android.IContextManager.*;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.Infrastructure.IContextManager.*;
 import com.google.inject.*;
 
 import roboguice.*;

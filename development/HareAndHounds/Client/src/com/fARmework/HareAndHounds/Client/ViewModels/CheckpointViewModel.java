@@ -6,7 +6,8 @@ import com.fARmework.HareAndHounds.Client.Logic.*;
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.modules.SpaceGraphics.Android.Models.*;
-import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.*;
 
 public class CheckpointViewModel extends ViewModel
@@ -48,8 +49,7 @@ public class CheckpointViewModel extends ViewModel
 			@Override
 			public void handle(CheckpointLeftInfo data)
 			{
-				// leave(); // TODO: uncomment once leave method is fixed
-				ContextManager.navigateTo(HoundsViewModel.class); // TODO: remove once leave method is fixed
+				ContextManager.finishCurrentView();
 			}
 		});
 	}

@@ -1,4 +1,4 @@
-package com.fARmework.utils.Android._impl;
+package com.fARmework.utils.Android.Infrastructure._impl;
 
 import java.util.*;
 
@@ -9,17 +9,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.fARmework.utils.Android.BoundActivity;
-import com.fARmework.utils.Android.IContextManager;
-import com.fARmework.utils.Android.ViewModel;
+import com.fARmework.utils.Android.Activities.*;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.ViewModels.*;
+import com.google.inject.*;
 
 @SuppressWarnings("rawtypes")
 public class ContextManager implements IContextManager
 {
+	private final ISettingsProvider _settingsProvider;
+	
 	private Map<Class<? extends ViewModel>, Class<? extends BoundActivity>> _activities = new LinkedHashMap<Class<? extends ViewModel>, Class<? extends BoundActivity>>();
 	private Map<Class<? extends ViewModel>, Integer> _layouts = new LinkedHashMap<Class<? extends ViewModel>, Integer>();
 	
 	private Stack<BoundActivity> _activitiesStack = new Stack<BoundActivity>();
+	
+	@Inject
+	public ContextManager(ISettingsProvider settingsProvider)
+	{
+		_settingsProvider = settingsProvider;
+	}
 	
 	@Override
 	public void registerView(Class<? extends ViewModel> viewModelClass, Class<? extends BoundActivity> activityClass, Integer layoutId)
@@ -35,7 +44,7 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
-	public void setCurrentActivity(BoundActivity activity)
+	public void onViewStart(BoundActivity activity)
 	{
 		if (!_activitiesStack.empty() && activity == _activitiesStack.peek())
 			return;
@@ -44,11 +53,20 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
-	public void finishCurrentActivity()
+	public void onViewStop(BoundActivity activity)
+	{
+		if (_activitiesStack.empty() || activity != _activitiesStack.peek())
+			return;
+		
+		_activitiesStack.pop();
+	}
+	
+	@Override
+	public void finishCurrentView()
 	{
 		if (!_activitiesStack.empty())
 		{
-			_activitiesStack.pop().finish();
+			_activitiesStack.peek().finish();
 		}
 	}
 	
@@ -92,21 +110,14 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
-	public void showShortNotification(String notification)
+	public void showNotification(String notification)
 	{
 		if (_activitiesStack.empty())
 			return;
 		
-		Toast.makeText(_activitiesStack.peek(), notification, Toast.LENGTH_SHORT).show();
-	}
-	
-	@Override
-	public void showLongNotification(String notification)
-	{
-		if (_activitiesStack.empty())
-			return;
+		int duration = (notification.length() <= _settingsProvider.getShortNotificationMaxLength()) ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
 		
-		Toast.makeText(_activitiesStack.peek(), notification, Toast.LENGTH_LONG).show();
+		Toast.makeText(_activitiesStack.peek(), notification, duration).show();
 	}
 	
 	@Override

@@ -2,12 +2,13 @@ package com.fARmework.RockPaperScissors.Client;
 
 import com.fARmework.RockPaperScissors.Client.Activities.*;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.RockPaperScissors.Client.ViewModels.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Data.*;
 import com.fARmework.core.data.*;
-import com.fARmework.utils.Android.IContextManager;
-import com.fARmework.utils.Android.IContextManager.IDialogListener;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.Infrastructure.IContextManager.*;
 import com.google.inject.Injector;
 
 import gueei.binding.Binder;
