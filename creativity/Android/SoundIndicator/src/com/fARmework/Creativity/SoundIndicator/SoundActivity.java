@@ -1,14 +1,16 @@
 package com.fARmework.Creativity.SoundIndicator;
 
+import com.fARmework.Creativity.SoundIndicator._impl.*;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.*;
 
-public class SoundActivity extends Activity {
-
-	private SoundIndicator _soundIndicator;
+public class SoundActivity extends Activity 
+{
+	private ISoundPlayer _soundPlayer;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -16,7 +18,7 @@ public class SoundActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound);
         
-        _soundIndicator = new SoundIndicator(this);
+        _soundPlayer = new SoundPlayer(this, 2000);
         
         Button playButton = (Button) findViewById(R.id.playButton);
         
@@ -25,7 +27,18 @@ public class SoundActivity extends Activity {
 			@Override
 			public void onClick(View arg0)
 			{
-		        _soundIndicator.play();	
+		        _soundPlayer.play();	
+			}
+		});
+        
+        Button stopButton = (Button) findViewById(R.id.stopButton);
+        
+        stopButton.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				_soundPlayer.stop();
 			}
 		});
     }

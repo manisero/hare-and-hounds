@@ -5,5 +5,6 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_sound">SoundActivity</string>
     <string name="play_button_caption">Play!</string>
+    <string name="stop_button_caption">Stop!</string>
 
 </resources>

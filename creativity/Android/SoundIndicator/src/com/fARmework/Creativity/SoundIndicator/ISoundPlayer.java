@@ -1,8 +1,9 @@
 package com.fARmework.Creativity.SoundIndicator;
 
-public interface ILoopPlayer
+public interface ISoundPlayer
 {
 	void play();
 	void stop();
-	void setRate(double rate);
+	
+	void setLoopDelay(int msDelay);
 }
