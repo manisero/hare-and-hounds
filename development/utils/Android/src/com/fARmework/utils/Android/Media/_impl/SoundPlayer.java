@@ -15,16 +15,23 @@ public class SoundPlayer implements ISoundPlayer
 	
 	private AudioManager _audioManager;
 	private SoundPool _soundPool;
-	private int _id;
+	
+	private int _soundID;
 	
 	private Timer _timer;
 	private TimerTask _playTask;
 	
 	private boolean _ready = false;
+	private boolean _playing = false;
 	
 	@Override
-	public void loadSound(Context context, int soundID)
+	public void loadSound(Context context, int soundID, int period)
 	{
+		if (_playing)
+		{
+			stop();
+		}
+		
 		_audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 		
 		_soundPool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, SOURCE_QUALITY);
@@ -37,21 +44,13 @@ public class SoundPlayer implements ISoundPlayer
 			}
 		});
 		
-		_id = soundID;
+		_soundID = soundID;
 	}
 	
 	@Override
-	public void play(Context context, int soundID, int initialDelay)
+	public void play(int period)
 	{
-		loadSound(context, soundID);
-		
-		play(initialDelay);
-	}	
-
-	@Override
-	public void play(int initialDelay)
-	{
-		if (!_ready)
+		if (!_ready || _playing)
 		{
 			return;
 		}
@@ -68,23 +67,25 @@ public class SoundPlayer implements ISoundPlayer
 				
 				float volumeRatio = currentVolume / maxVolume;
 				
-				_soundPool.play(_id, volumeRatio, volumeRatio, 1, 0, 1.0f);
+				_soundPool.play(_soundID, volumeRatio, volumeRatio, 1, 0, 1.0f);
+				_playing = true;
 			}
 		};
 		
-		_timer.scheduleAtFixedRate(_playTask, 0, initialDelay);
+		_timer.scheduleAtFixedRate(_playTask, 0, period);
 	}
 
 	@Override
 	public void stop()
 	{
 		_playTask.cancel();
+		_playing = false;
 	}
 
 	@Override
-	public void setLoopDelay(int delay)
+	public void setLoopPeriod(int period)
 	{		
 		stop();
-		play(delay);
+		play(period);
 	}
 }
