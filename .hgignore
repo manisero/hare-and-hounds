@@ -2,9 +2,11 @@ syntax: regexp
 creativity/Android/Accelerometer/bin/*
 creativity/Android/Binding/bin/*
 creativity/Android/Compass/bin/*
+creativity/Android/CustomAttributes/bin/*
 creativity/Android/GPS/bin/*
 creativity/Android/JSON/bin/*
 creativity/Android/GestureWriter/bin/*
+creativity/Android/SoundIndicator/bin/*
 creativity/Java/Client/bin/*
 creativity/Java/DI/bin/*
 creativity/Java/NettyClient/bin/*
@@ -36,4 +38,3 @@ development/HareAndHounds/Client/bin/*
 development/HareAndHounds/Data/bin/*
 development/HareAndHounds/HareBot/bin/*
 development/HareAndHounds/Server/bin/*
-
