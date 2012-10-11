@@ -2,7 +2,8 @@ package com.fARmework.RockPaperScissors.Client.Infrastructure._impl;
 
 import com.fARmework.RockPaperScissors.Client.R;
 import com.fARmework.RockPaperScissors.Client.Infrastructure.*;
-import com.fARmework.utils.Android.SettingsProviderBase;
+import com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider;
+import com.fARmework.utils.Android.Infrastructure.*;
 
 public class SettingsProvider extends SettingsProviderBase implements ISettingsProvider
 {
@@ -34,5 +35,11 @@ public class SettingsProvider extends SettingsProviderBase implements ISettingsP
 	public void setUserName(String userName)
 	{
 		setString("user_name", userName);
+	}
+
+	@Override
+	public int getShortNotificationMaxLength()
+	{
+		return ResourcesProvider.getInteger(R.integer.shortNotificationMaxLength);
 	}
 }

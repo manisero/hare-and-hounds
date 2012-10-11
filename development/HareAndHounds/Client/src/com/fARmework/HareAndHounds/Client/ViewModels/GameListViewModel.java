@@ -11,13 +11,15 @@ import android.view.*;
 
 import com.fARmework.HareAndHounds.Client.R;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
+import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.HareAndHounds.Data.JoinGameResponse.JoinGameResponseType;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.modules.PositionTracking.Android.Logic.*;
 import com.fARmework.modules.PositionTracking.Android.Logic.IPositionProvider.*;
 import com.fARmework.modules.PositionTracking.Data.*;
-import com.fARmework.utils.Android.*;
+import com.fARmework.utils.Android.Infrastructure.*;
+import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.*;
 
 public class GameListViewModel extends ViewModel
@@ -135,11 +137,11 @@ public class GameListViewModel extends ViewModel
 				
 				if (data.Response == JoinGameResponseType.Reject)
 				{
-					ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRejected), hostName));
+					ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRejected), hostName));
 				}
 				else if (data.Response == JoinGameResponseType.Unavailable)
 				{
-					ContextManager.showShortNotification(String.format(ResourcesProvider.getString(R.string.gameList_unavailable), hostName));
+					ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_unavailable), hostName));
 				}
 				
 				ConnectionManager.unregisterDataHandlers(JoinGameResponse.class); // the date handler is registered once per join attempt

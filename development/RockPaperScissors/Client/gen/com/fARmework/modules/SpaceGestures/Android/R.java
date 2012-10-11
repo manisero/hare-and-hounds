@@ -20,6 +20,7 @@ public final class R {
     }
     public static final class integer {
         public static final int port=0x7f070000;
+        public static final int shortNotificationMaxLength=0x7f070001;
     }
     public static final class layout {
         public static final int game=0x7f030000;

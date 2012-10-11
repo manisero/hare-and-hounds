@@ -1,4 +1,4 @@
-package com.fARmework.modules.ScreenGestures.Java.Utilities;
+package com.fARmework.modules.ScreenGestures.Java.GesturesReader;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 import java.io.*;

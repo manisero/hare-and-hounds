@@ -4,5 +4,7 @@
     <integer name="defaultPort">27015</integer>
     <string name="defaultUserName">User</string>
     
+    <integer name="shortNotificationMaxLength">30</integer>
+    
     <integer name="singlePositionUpdateDelay">3</integer>
 </resources>
