@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:farmework="http://farmework.com/"
     xmlns:binding="http://www.gueei.com/android-binding/"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -61,7 +62,7 @@
 		android:layout_height="wrap_content"
 		android:gravity="center_horizontal">
     
-	    <TextVie
+	    <TextView
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    binding:text="status" />
@@ -106,6 +107,8 @@
 	    android:layout_width="220dp"
 	    android:layout_height="220dp"
 	    android:background="#FFFFFF"
+	    farmework:gesture_delay="1000"
+	    farmework:line_thickness="3.0"
 	    binding:onGesture="sendScreenGesture" />
 	
 	<LinearLayout android:orientation="horizontal"

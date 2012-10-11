@@ -14,6 +14,9 @@ import android.view.View;
 
 public class ScreenGesturePicker extends View implements IBindableView<ScreenGesturePicker>
 {
+	private static final int DEFAULT_GESTURE_DELAY = 1000;
+	private static final float DEFAULT_LINE_THICKNESS = 3.0f;
+	
 	private ScreenGestureData _gesture = new ScreenGestureData();
 	private OnScreenGestureListener _gestureListener;
 	
@@ -26,9 +29,8 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	
 	private CountDownTimer _timer;
 	
-	// TODO: inject with ISettingsProvider 
-	private static final Integer DELAY = 2000;
-	private static final Float LINE_THICKNESS = 3.0f;
+	private int _gestureDelay = DEFAULT_GESTURE_DELAY;
+	private float _lineThickness = DEFAULT_LINE_THICKNESS;
 	
 	// onGesture attribute (Android-Binding support)
 	private ViewAttribute<ScreenGesturePicker, Command> _onGestureAttribute =
@@ -63,6 +65,21 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	public ScreenGesturePicker(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
+
+		String gestureDelay = attrs.getAttributeValue("http://farmework.com/", "gesture_delay");
+		
+		if (gestureDelay != null)
+		{
+			_gestureDelay = Integer.valueOf(gestureDelay);
+		}
+		
+		String lineThicness = attrs.getAttributeValue("http://farmework.com/", "line_thickness");
+		
+		if (lineThicness != null)
+		{
+			_lineThickness = Float.valueOf(lineThicness);
+		}
+		
 		initialize();
 	}
 
@@ -122,7 +139,27 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 		_gestureListener = listener;
 	}
 	
-	public void drawLine(float x, float y)
+	public int getGestureDelay()
+	{
+		return _gestureDelay;
+	}
+	
+	public void setGestureDealy(int gestureDelay)
+	{
+		_gestureDelay = gestureDelay;
+	}
+	
+	public float getLineThickness()
+	{
+		return _lineThickness;
+	}
+	
+	public void setLineThickness(float lineThickness)
+	{
+		_lineThickness = lineThickness;
+	}
+	
+	private void drawLine(float x, float y)
 	{		
 		if (_bitmap != null && _previousX != null && _previousY != null)
 		{
@@ -131,15 +168,15 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 			float minY = y < _previousY ? y : _previousY;
 			float maxY = y > _previousY ? y : _previousY;
 			
-			minX -= LINE_THICKNESS;
-			maxX += LINE_THICKNESS;
-			minY -= LINE_THICKNESS;
-			maxY += LINE_THICKNESS;
+			minX -= _lineThickness;
+			maxX += _lineThickness;
+			minY -= _lineThickness;
+			maxY += _lineThickness;
 			
 			Rect rectangle = new Rect((int) minX, (int) minY, (int) maxX, (int) maxY);
 			
 			_paint.setARGB(255, 0, 0, 0);
-			_paint.setStrokeWidth(LINE_THICKNESS);
+			_paint.setStrokeWidth(_lineThickness);
 			_canvas.drawLine(_previousX, _previousY, x, y, _paint);
 			
 			invalidate(rectangle);
@@ -150,8 +187,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	}
 	
 	@Override
-	protected void onSizeChanged(int newWidth, int newHeight,
-			int previousWidth, int previousHeight)
+	protected void onSizeChanged(int newWidth, int newHeight, int previousWidth, int previousHeight)
 	{
 		int currentWidth = 0;
 		int currentHeight = 0;
@@ -177,10 +213,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 			currentHeight = newHeight;
 		}
 		
-		Bitmap bitmap = Bitmap.createBitmap(
-				currentWidth,
-				currentHeight,
-				Bitmap.Config.RGB_565);
+		Bitmap bitmap = Bitmap.createBitmap(currentWidth, currentHeight, Bitmap.Config.RGB_565);
 		
 		Canvas canvas = new Canvas();
 		canvas.setBitmap(bitmap);
@@ -222,7 +255,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	{
 		if (_timer == null)
 		{
-			_timer = new CountDownTimer(DELAY, DELAY) 
+			_timer = new CountDownTimer(_gestureDelay, _gestureDelay) 
 			{	
 				@Override
 				public void onTick(long millisUntilFinished) 
