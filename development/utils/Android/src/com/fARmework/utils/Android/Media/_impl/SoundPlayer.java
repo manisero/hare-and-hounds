@@ -10,7 +10,8 @@ import java.util.*;
 
 public class SoundPlayer implements ISoundPlayer
 {
-	private int _delay;
+	private final static int MAX_STREAMS = 10;
+	private final static int SOURCE_QUALITY = 0;
 	
 	private AudioManager _audioManager;
 	private SoundPool _soundPool;
@@ -21,11 +22,12 @@ public class SoundPlayer implements ISoundPlayer
 	
 	private boolean _ready = false;
 	
-	public SoundPlayer(Context context, int resourceID, int initialDelay)
+	@Override
+	public void loadSound(Context context, int soundID)
 	{
-		_delay = initialDelay;
+		_audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 		
-		_soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+		_soundPool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, SOURCE_QUALITY);
 		_soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener()
 		{
 			@Override
@@ -35,13 +37,19 @@ public class SoundPlayer implements ISoundPlayer
 			}
 		});
 		
-		_id = _soundPool.load(context, resourceID, 1);
-		
-		_audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+		_id = soundID;
 	}
+	
+	@Override
+	public void play(Context context, int soundID, int initialDelay)
+	{
+		loadSound(context, soundID);
+		
+		play(initialDelay);
+	}	
 
 	@Override
-	public void play()
+	public void play(int initialDelay)
 	{
 		if (!_ready)
 		{
@@ -64,7 +72,7 @@ public class SoundPlayer implements ISoundPlayer
 			}
 		};
 		
-		_timer.scheduleAtFixedRate(_playTask, 0, _delay);
+		_timer.scheduleAtFixedRate(_playTask, 0, initialDelay);
 	}
 
 	@Override
@@ -74,11 +82,9 @@ public class SoundPlayer implements ISoundPlayer
 	}
 
 	@Override
-	public void setLoopDelay(int msDelay)
-	{
-		_delay = msDelay;
-		
+	public void setLoopDelay(int delay)
+	{		
 		stop();
-		play();
+		play(delay);
 	}
 }
