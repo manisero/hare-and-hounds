@@ -1,39 +1,63 @@
 package com.accelerometer;
 
-import android.app.Activity;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
+import java.io.*;
+import java.util.*;
+
+import android.annotation.*;
+import android.app.*;
+import android.content.*;
+import android.hardware.*;
+import android.os.*;
+import android.util.*;
 
 public class AccelerometerActivity extends Activity implements SensorEventListener
 {
-	private enum Direction
+	private class Data
 	{
-		Up, Down,
-		Left, Right,
-		Forward, Backward
+		public float X;
+		public float Y;
+		public float Z;
+		
+		public Data(float x, float y, float z)
+		{
+			X = x;
+			Y = y;
+			Z = z;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return "" + X + "\t" + Y + "\t" + Z;
+		}
 	}
 	
-	private static final double THRESHOLD = 3;
+	private enum Direction
+	{
+		Up,
+		Down,
+		Left,
+		Right
+	}
+	
+	private static final float THRESHOLD = 5;
+	private static final int FILTER_SAMPLES = 5;
 	
 	private SensorManager _sensorManager;
 	private Sensor _accelerometer;
 	
-	private TextView _xValue;
-	private TextView _yValue;
-	private TextView _zValue;
-	private TextView _test;
-	private Button _clear;
+	private List<Data> _data = new LinkedList<Data>();
+	private List<String> _gestures = new LinkedList<String>();
+	private LinkedList<Data> _samples = new LinkedList<Data>();
 	
-	private Direction _currentDirection;
-	private Direction _detectedDirection;
+	private float _lastX;
+	private float _lastY;
+	private float _lastZ;
+	
+	private Direction _currentX;
+	private Direction _currentY;
+	private Direction _detectedX;
+	private Direction _detectedY;
 	
     /** Called when the activity is first created. */
     @Override
@@ -44,23 +68,6 @@ public class AccelerometerActivity extends Activity implements SensorEventListen
         
         _sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         _accelerometer = _sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
-        
-        _xValue = (TextView)findViewById(R.id.xValue);
-        _yValue = (TextView)findViewById(R.id.yValue);
-        _zValue = (TextView)findViewById(R.id.zValue);
-        _test = (TextView)findViewById(R.id.test);
-        _clear = (Button)findViewById(R.id.clearButton);
-        
-        _clear.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				_test.setText("");
-				_currentDirection = null;
-				_detectedDirection = null;
-			}
-		});
     }
     
     protected void onPause()
@@ -84,119 +91,154 @@ public class AccelerometerActivity extends Activity implements SensorEventListen
 	@Override
 	public void onSensorChanged(SensorEvent event)
 	{
-		_xValue.setText(String.valueOf(event.values[0]));
-		_yValue.setText(String.valueOf(event.values[1]));
-		_zValue.setText(String.valueOf(event.values[2]));
-		
-		if (event.values[0] < THRESHOLD && event.values[0] > -1.0 * THRESHOLD &&
-			event.values[1] < THRESHOLD && event.values[1] > -1.0 * THRESHOLD &&
-			event.values[2] < THRESHOLD && event.values[2] > -1.0 * THRESHOLD)
-		{
-			return;
-		}
-		
-		if (Math.abs(event.values[0]) > Math.abs(event.values[1]) &&
-			Math.abs(event.values[0]) > Math.abs(event.values[2]))
-		{
-			if (event.values[0] > 0.0)
-			{
-				if (_currentDirection == null)
-				{
-					_currentDirection = Direction.Right;
-				}
-				else if (_currentDirection == Direction.Left)
-				{
-					_detectedDirection = Direction.Left;
-				}
-			}
-			else
-			{
-				if (_currentDirection == null)
-				{
-					_currentDirection = Direction.Left;
-				}
-				else if (_currentDirection == Direction.Right)
-				{
-					_detectedDirection = Direction.Right;
-				}
-			}
-		}
-		else if (Math.abs(event.values[1]) > Math.abs(event.values[0]) &&
-				 Math.abs(event.values[1]) > Math.abs(event.values[2]))
-		{
-			if (event.values[1] > 0.0)
-			{
-				if (_currentDirection == null)
-				{
-					_currentDirection = Direction.Up;
-				}
-				else if (_currentDirection == Direction.Down)
-				{
-					_detectedDirection = Direction.Down;
-				}
-			}
-			else
-			{
-				if (_currentDirection == null)
-				{
-					_currentDirection = Direction.Down;
-				}
-				else if (_currentDirection == Direction.Up)
-				{
-					_detectedDirection = Direction.Up;
-				}
-			}
-		}
-		else if (Math.abs(event.values[2]) > Math.abs(event.values[0]) &&
-				 Math.abs(event.values[2]) > Math.abs(event.values[1]))
-		{
-			if (event.values[2] > 0.0)
-			{
-				if (_currentDirection == null)
-				{
-					_currentDirection = Direction.Forward;
-				}
-				else if (_currentDirection == Direction.Backward)
-				{
-					_detectedDirection = Direction.Backward;
-				}
-			}
-			else
-			{
-				if (_currentDirection == null)
-				{
-					_currentDirection = Direction.Backward;
-				}
-				else if (_currentDirection == Direction.Forward)
-				{
-					_detectedDirection = Direction.Forward;
-				}
-			}
-		}
-		
-		if (_detectedDirection != null)
-		{
-			_sensorManager.unregisterListener(this);
-			
-			new CountDownTimer(200, 200)
-			{
-				@Override
-				public void onTick(long millisUntilFinished)
-				{
-				}
+		float x = event.values[0];
+		float y = event.values[1];
+		float z = event.values[2];
 				
-				@Override
-				public void onFinish()
-				{
-					_currentDirection = null;
-					_detectedDirection = null;
-					_sensorManager.registerListener(AccelerometerActivity.this, _accelerometer, SensorManager.SENSOR_DELAY_UI);
-				}
-			}.start();
-			
-			_test.setText(_test.getText() + _detectedDirection.toString() + ", ");
-			_currentDirection = null;
-			_detectedDirection = null;
+		Data delta = new Data(x - _lastX, y - _lastY, z - _lastZ);
+		
+		float filteredX = 0.0f;
+		float filteredY = 0.0f;
+		float filteredZ = 0.0f;
+		
+		for (Data sample : _samples)
+		{
+			filteredX += sample.X;
+			filteredY += sample.Y;
+			filteredZ += sample.Z;
 		}
+		
+		filteredX += delta.X;
+		filteredY += delta.Y;
+		filteredZ += delta.Z;
+		
+		delta.X = filteredX / (_samples.size() + 1);
+		delta.Y = filteredY / (_samples.size() + 1);
+		delta.Z = filteredZ / (_samples.size() + 1);
+		
+		_data.add(delta);
+		
+		_samples.addFirst(delta);
+		
+		if (_samples.size() >= FILTER_SAMPLES)
+		{
+			_samples.removeLast();
+		}
+		
+		/*if (Math.abs(delta.X) >= THRESHOLD)
+		{		
+			if (delta.X > 0)
+			{
+				if (_currentX == null)
+				{
+					_currentX = Direction.Right;
+				}
+				else if (_currentX == Direction.Left)
+				{
+					_detectedX = Direction.Right;
+				}
+			}
+			else
+			{
+				if (_currentX == null)
+				{
+					_currentX = Direction.Left;
+				}
+				else if (_currentX == Direction.Right)
+				{
+					_detectedX = Direction.Left;
+				}
+			}
+		}
+		
+		if (Math.abs(delta.Y) >= THRESHOLD)
+		{
+			if (delta.Y > 0)
+			{
+				if (_currentY == null)
+				{
+					_currentY = Direction.Up;
+				}
+				else if (_currentY == Direction.Down)
+				{
+					_detectedY = Direction.Up;
+				}
+			}
+			else
+			{
+				if (_currentY == null)
+				{
+					_currentY = Direction.Down;
+				}
+				else if (_currentY == Direction.Up)
+				{
+					_detectedY = Direction.Down;
+				}
+			}
+		}
+		
+		if (_detectedX != null)
+		{
+			_gestures.add(_detectedX.toString());
+			
+			_detectedX = null;
+			_currentX = null;
+		}
+		
+		if (_detectedY != null)
+		{
+			_gestures.add(_detectedY.toString());
+			
+			_detectedY = null;
+			_currentY = null;
+		}*/
+				
+		_lastX = x;
+		_lastY = y;
+		_lastZ = z;
+	}
+	
+	@SuppressLint("WorldWriteableFiles")
+	@Override
+	public void onBackPressed()
+	{
+		BufferedWriter writer = null;
+		
+		try
+		{
+			writer = new BufferedWriter(new OutputStreamWriter(openFileOutput("acc.txt", Context.MODE_WORLD_WRITEABLE)));
+			
+			for (Data data : _data)
+			{
+				writer.write(data.toString() + "\n");
+			}
+			
+			/*writer.write("\n\n");
+			
+			for (String gesture : _gestures)
+			{
+				writer.write(gesture + " ");
+			}*/
+		}
+		catch(Exception e)
+		{
+			Log.d("Exception", e.getMessage());
+		}
+		finally 
+		{
+			if(writer != null)
+			{
+				try
+				{
+					writer.close();
+				}
+				catch(IOException e)
+				{
+					Log.d("Exception", e.getMessage());
+				}
+			}
+		}
+		
+		super.onBackPressed();
 	}
 }
