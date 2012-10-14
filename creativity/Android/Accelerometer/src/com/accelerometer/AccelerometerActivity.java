@@ -1,17 +1,22 @@
 package com.accelerometer;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
-import android.annotation.*;
-import android.app.*;
-import android.content.*;
-import android.hardware.*;
-import android.os.*;
-import android.text.format.Time;
-import android.util.*;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.util.Log;
 
 public class AccelerometerActivity extends Activity implements SensorEventListener
 {
@@ -84,14 +89,11 @@ public class AccelerometerActivity extends Activity implements SensorEventListen
 	@Override
 	public void onSensorChanged(SensorEvent event)
 	{
-		Time time = new Time();
-		time.setToNow();
-		
 		float x = event.values[0];
 		float y = event.values[1];
 		float z = event.values[2];
 				
-		Data data = new Data(time.toMillis(false), x, y, z);
+		Data data = new Data(System.currentTimeMillis(), x, y, z);
 		
 		_data.add(data);
 	}
@@ -103,11 +105,8 @@ public class AccelerometerActivity extends Activity implements SensorEventListen
 		BufferedWriter writer = null;
 		
 		try
-		{
-			Time time = new Time();
-			time.setToNow();
-			
-			String filename = "acc.txt" + time.format2445() + ".csv";
+		{	
+			String filename = "acc_" + System.currentTimeMillis() + ".csv";
 			
 			writer = new BufferedWriter(new OutputStreamWriter(openFileOutput(filename, Context.MODE_WORLD_WRITEABLE)));
 			
