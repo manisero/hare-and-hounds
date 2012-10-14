@@ -3,9 +3,8 @@ package com.fARmework.utils.Android.Infrastructure._impl;
 import java.util.*;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.*;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -110,6 +109,12 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
+	public Context getCurrentContext()
+	{
+		return !_activitiesStack.empty() ? _activitiesStack.peek() : null;
+	}
+	
+	@Override
 	public void showNotification(String notification)
 	{
 		if (_activitiesStack.empty())
@@ -117,7 +122,7 @@ public class ContextManager implements IContextManager
 		
 		int duration = (notification.length() <= _settingsProvider.getShortNotificationMaxLength()) ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
 		
-		Toast.makeText(_activitiesStack.peek(), notification, duration).show();
+		Toast.makeText(getCurrentContext(), notification, duration).show();
 	}
 	
 	@Override
@@ -126,7 +131,7 @@ public class ContextManager implements IContextManager
 		if (_activitiesStack.empty())
 			return;
 		
-		new AlertDialog.Builder(_activitiesStack.peek())
+		new AlertDialog.Builder(getCurrentContext())
 			.setMessage(notification)
 			.setCancelable(false)
 			.setPositiveButton(confirmLabel,
@@ -149,7 +154,7 @@ public class ContextManager implements IContextManager
 		if (_activitiesStack.empty())
 			return;
 		
-		new AlertDialog.Builder(_activitiesStack.peek())
+		new AlertDialog.Builder(getCurrentContext())
 			.setMessage(message)
 			.setCancelable(false)
 			.setPositiveButton(yesLabel,
