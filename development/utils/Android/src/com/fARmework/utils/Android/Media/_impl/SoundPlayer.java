@@ -15,47 +15,74 @@ public class SoundPlayer implements ISoundPlayer
 	
 	private AudioManager _audioManager;
 	private SoundPool _soundPool;
-	
-	private int _soundID;
-	
-	private Timer _timer;
 	private TimerTask _playTask;
 	
-	private boolean _ready = false;
-	private boolean _playing = false;
+	private int _soundID;
+	private boolean _loaded = false;
+	private boolean _isPlaying = false;
 	
 	@Override
-	public void loadSound(Context context, int soundID, int period)
+	public boolean isPlaying()
 	{
-		if (_playing)
+		return _isPlaying;
+	}
+	
+	@Override
+	public void setPeriod(int period)
+	{
+		if (!_loaded || !_isPlaying)
+		{
+			return;
+		}
+		
+		stop();
+		play(period);
+	}
+	
+	@Override
+	public void load(Context context, int soundID)
+	{
+		load(context, soundID, null);
+	}
+	
+	@Override
+	public void load(Context context, int soundID, final ILoadListener loadListener)
+	{
+		if (_isPlaying)
 		{
 			stop();
 		}
 		
-		_audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+		_audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 		
 		_soundPool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, SOURCE_QUALITY);
+		
 		_soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener()
 		{
 			@Override
 			public void onLoadComplete(SoundPool soundPool, int sampleId, int status)
 			{
-				_ready = true;
+				_loaded = true;
+				
+				if (loadListener != null)
+				{
+					loadListener.onLoaded();
+				}
 			}
 		});
 		
-		_soundID = soundID;
+		_soundID = _soundPool.load(context, soundID, 1);
 	}
 	
 	@Override
 	public void play(int period)
 	{
-		if (!_ready || _playing)
+		if (!_loaded || _isPlaying)
 		{
 			return;
 		}
 		
-		_timer = new Timer(true);
+		Timer timer = new Timer(true);
 		
 		_playTask = new TimerTask()
 		{
@@ -68,24 +95,24 @@ public class SoundPlayer implements ISoundPlayer
 				float volumeRatio = currentVolume / maxVolume;
 				
 				_soundPool.play(_soundID, volumeRatio, volumeRatio, 1, 0, 1.0f);
-				_playing = true;
 			}
 		};
 		
-		_timer.scheduleAtFixedRate(_playTask, 0, period);
+		timer.scheduleAtFixedRate(_playTask, 0, period);
+		_isPlaying = true;
 	}
 
 	@Override
 	public void stop()
 	{
+		if (!_isPlaying)
+		{
+			return;
+		}
+		
 		_playTask.cancel();
-		_playing = false;
-	}
-
-	@Override
-	public void setLoopPeriod(int period)
-	{		
-		stop();
-		play(period);
+		_playTask = null;
+		
+		_isPlaying = false;
 	}
 }

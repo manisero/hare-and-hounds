@@ -4,10 +4,17 @@ import android.content.*;
 
 public interface ISoundPlayer
 {
-	void loadSound(Context context, int soundID, int period);
+	public interface ILoadListener
+	{
+		void onLoaded();
+	}
+	
+	boolean isPlaying();
+	void setPeriod(int period);
+	
+	void load(Context context, int soundID);
+	void load(Context context, int soundID, ILoadListener loadListener);
 	
 	void play(int period);
 	void stop();
-	
-	void setLoopPeriod(int period);
 }
