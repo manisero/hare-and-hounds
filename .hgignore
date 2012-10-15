@@ -10,6 +10,7 @@ creativity/Android/SoundIndicator/bin/*
 creativity/Java/Client/bin/*
 creativity/Java/DI/bin/*
 creativity/Java/NettyClient/bin/*
+creativity/Java/SpikeDetector/bin/*
 development/core/client/bin/*
 development/core/Client/bin/*
 development/core/Data/bin/*
