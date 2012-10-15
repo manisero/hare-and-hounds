@@ -1,6 +1,6 @@
 package com.fARmework.Creativity.SpikeDetector;
 
-import java.util.List;
+import java.util.*;
 
 public class AccelerometerDataUtilities 
 {

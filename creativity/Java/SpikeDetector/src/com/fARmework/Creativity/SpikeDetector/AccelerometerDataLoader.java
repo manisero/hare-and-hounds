@@ -1,13 +1,7 @@
 package com.fARmework.Creativity.SpikeDetector;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class AccelerometerDataLoader 
 {
@@ -33,9 +27,9 @@ public class AccelerometerDataLoader
 				
 				int init = hasTime ? 1 : 0;
 				
-				accelerometerData[0] = Float.valueOf(splitLine[init++]);
-				accelerometerData[1] = Float.valueOf(splitLine[init++]);
-				accelerometerData[2] = Float.valueOf(splitLine[init]);
+				accelerometerData[0] = Float.valueOf(splitLine[init++].replace(',', '.'));
+				accelerometerData[1] = Float.valueOf(splitLine[init++].replace(',', '.'));
+				accelerometerData[2] = Float.valueOf(splitLine[init].replace(',', '.'));
 				
 				data.add(new AccelerometerData(accelerometerData));
 			}
