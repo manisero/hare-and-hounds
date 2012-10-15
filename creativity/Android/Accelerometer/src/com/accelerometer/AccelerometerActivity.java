@@ -1,25 +1,45 @@
 package com.accelerometer;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.LinkedList;
+import java.util.List;
 
-import android.annotation.*;
-import android.app.*;
-import android.content.*;
-import android.hardware.*;
-import android.os.*;
-import android.util.*;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.util.Log;
 
 public class AccelerometerActivity extends Activity implements SensorEventListener
 {
+	private DecimalFormat format = new DecimalFormat();
+	
+	public AccelerometerActivity()
+	{
+		DecimalFormatSymbols symbols = format.getDecimalFormatSymbols();
+		symbols.setDecimalSeparator(',');
+		format.setDecimalFormatSymbols(symbols);
+		format.setGroupingUsed(false);
+	}
+	
 	private class Data
 	{
+		public long TimeStamp;
 		public float X;
 		public float Y;
 		public float Z;
 		
-		public Data(float x, float y, float z)
+		public Data(long timeStamp, float x, float y, float z)
 		{
+			TimeStamp = timeStamp;
 			X = x;
 			Y = y;
 			Z = z;
@@ -28,36 +48,14 @@ public class AccelerometerActivity extends Activity implements SensorEventListen
 		@Override
 		public String toString()
 		{
-			return "" + X + "\t" + Y + "\t" + Z;
+			return "" + TimeStamp + ";" + format.format(X) + ";" + format.format(Y) + ";" + format.format(Z);
 		}
 	}
-	
-	private enum Direction
-	{
-		Up,
-		Down,
-		Left,
-		Right
-	}
-	
-	private static final float THRESHOLD = 5;
-	private static final int FILTER_SAMPLES = 5;
 	
 	private SensorManager _sensorManager;
 	private Sensor _accelerometer;
 	
 	private List<Data> _data = new LinkedList<Data>();
-	private List<String> _gestures = new LinkedList<String>();
-	private LinkedList<Data> _samples = new LinkedList<Data>();
-	
-	private float _lastX;
-	private float _lastY;
-	private float _lastZ;
-	
-	private Direction _currentX;
-	private Direction _currentY;
-	private Direction _detectedX;
-	private Direction _detectedY;
 	
     /** Called when the activity is first created. */
     @Override
@@ -95,107 +93,9 @@ public class AccelerometerActivity extends Activity implements SensorEventListen
 		float y = event.values[1];
 		float z = event.values[2];
 				
-		Data delta = new Data(x - _lastX, y - _lastY, z - _lastZ);
+		Data data = new Data(System.currentTimeMillis(), x, y, z);
 		
-		float filteredX = 0.0f;
-		float filteredY = 0.0f;
-		float filteredZ = 0.0f;
-		
-		for (Data sample : _samples)
-		{
-			filteredX += sample.X;
-			filteredY += sample.Y;
-			filteredZ += sample.Z;
-		}
-		
-		filteredX += delta.X;
-		filteredY += delta.Y;
-		filteredZ += delta.Z;
-		
-		delta.X = filteredX / (_samples.size() + 1);
-		delta.Y = filteredY / (_samples.size() + 1);
-		delta.Z = filteredZ / (_samples.size() + 1);
-		
-		_data.add(delta);
-		
-		_samples.addFirst(delta);
-		
-		if (_samples.size() >= FILTER_SAMPLES)
-		{
-			_samples.removeLast();
-		}
-		
-		/*if (Math.abs(delta.X) >= THRESHOLD)
-		{		
-			if (delta.X > 0)
-			{
-				if (_currentX == null)
-				{
-					_currentX = Direction.Right;
-				}
-				else if (_currentX == Direction.Left)
-				{
-					_detectedX = Direction.Right;
-				}
-			}
-			else
-			{
-				if (_currentX == null)
-				{
-					_currentX = Direction.Left;
-				}
-				else if (_currentX == Direction.Right)
-				{
-					_detectedX = Direction.Left;
-				}
-			}
-		}
-		
-		if (Math.abs(delta.Y) >= THRESHOLD)
-		{
-			if (delta.Y > 0)
-			{
-				if (_currentY == null)
-				{
-					_currentY = Direction.Up;
-				}
-				else if (_currentY == Direction.Down)
-				{
-					_detectedY = Direction.Up;
-				}
-			}
-			else
-			{
-				if (_currentY == null)
-				{
-					_currentY = Direction.Down;
-				}
-				else if (_currentY == Direction.Up)
-				{
-					_detectedY = Direction.Down;
-				}
-			}
-		}
-		
-		if (_detectedX != null)
-		{
-			_gestures.add(_detectedX.toString());
-			
-			_detectedX = null;
-			_currentX = null;
-		}
-		
-		if (_detectedY != null)
-		{
-			_gestures.add(_detectedY.toString());
-			
-			_detectedY = null;
-			_currentY = null;
-		}*/
-				
-		_lastX = x;
-		_lastY = y;
-		_lastZ = z;
+		_data.add(data);
 	}
 	
 	@SuppressLint("WorldWriteableFiles")
@@ -205,20 +105,15 @@ public class AccelerometerActivity extends Activity implements SensorEventListen
 		BufferedWriter writer = null;
 		
 		try
-		{
-			writer = new BufferedWriter(new OutputStreamWriter(openFileOutput("acc.txt", Context.MODE_WORLD_WRITEABLE)));
+		{	
+			String filename = "acc_" + System.currentTimeMillis() + ".csv";
+			
+			writer = new BufferedWriter(new OutputStreamWriter(openFileOutput(filename, Context.MODE_WORLD_WRITEABLE)));
 			
 			for (Data data : _data)
 			{
 				writer.write(data.toString() + "\n");
 			}
-			
-			/*writer.write("\n\n");
-			
-			for (String gesture : _gestures)
-			{
-				writer.write(gesture + " ");
-			}*/
 		}
 		catch(Exception e)
 		{
