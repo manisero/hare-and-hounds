@@ -44,14 +44,26 @@ public class SettingsProvider extends SettingsProviderBase implements ISettingsP
 	}
 
 	@Override
-	public int getSinglePositionUpdateDelay()
+	public int getCheckpointSoundMinPeriod()
 	{
-		return ResourcesProvider.getInteger(R.integer.singlePositionUpdateDelay);
+		return ResourcesProvider.getInteger(R.integer.checkpointSoundMinPeriod);
 	}
 
+	@Override
+	public int getCheckpointSoundMaxPeriod()
+	{
+		return ResourcesProvider.getInteger(R.integer.checkpointSoundMaxPeriod);
+	}
+	
 	@Override
 	public int getShortNotificationMaxLength()
 	{
 		return ResourcesProvider.getInteger(R.integer.shortNotificationMaxLength);
+	}
+	
+	@Override
+	public int getSinglePositionUpdateDelay()
+	{
+		return ResourcesProvider.getInteger(R.integer.singlePositionUpdateDelay);
 	}
 }

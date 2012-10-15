@@ -10,5 +10,6 @@ public class LogicModule extends AbstractModule
 	protected void configure()
 	{
 		bind(IDirectionProvider.class).to(DirectionProvider.class).asEagerSingleton();
+		bind(ICheckpointSoundPeriodCalculator.class).to(CheckpointSoundPeriodCalculator.class);
 	}
 }
