@@ -12,4 +12,10 @@ public class AccelerometerData
 		AccelerationY = accelerometerData[1];
 		AccelerationZ = accelerometerData[2];
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "x: " + AccelerationX + " y: " + AccelerationY + " z: " + AccelerationZ;
+	}
 }

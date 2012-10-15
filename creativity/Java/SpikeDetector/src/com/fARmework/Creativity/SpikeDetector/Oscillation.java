@@ -1,14 +1,15 @@
 package com.fARmework.Creativity.SpikeDetector;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Oscillation 
 {
 	private SpikeState _state = SpikeState.Rising;
+	
 	private SingleSpike _spike;
-	private int _lastIndex = 0;
+	
 	private float _lastLength = 0;
+	private int _lastIndex = 0;
 	
 	public List<OscillationRange> getOscillations(float[] accelerationValues)
 	{
@@ -20,12 +21,8 @@ public class Oscillation
 		
 		for (int index = 0; index < accelerationValues.length; ++index)
 		{
-			System.out.println("Analysing point[" + (index + 1) + "] " + accelerationValues[index]);
-			
 			if (index == accelerationValues.length - 1)
 			{
-				System.out.println("Last point!");
-				
 				if (_state == SpikeState.Falling)
 				{
 					oscillations.add(new OscillationRange(initialIndex, index));
@@ -36,10 +33,6 @@ public class Oscillation
 			
 			if (!_spike.addNextPoint(accelerationValues[index + 1]))
 			{
-				System.out.println("End of spike");
-				System.out.println("Last length: " + _lastLength);
-				System.out.println("Spike length: " + _spike.getRiseLength());
-				
 				if (_lastLength < _spike.getRiseLength())
 				{
 					if (_state == SpikeState.Falling)
@@ -48,29 +41,21 @@ public class Oscillation
 						initialIndex = _lastIndex;
 						
 						_state = SpikeState.Rising;
-						
-						System.out.println("End of oscillation");
 					}
 				}
 				else 
 				{
 					if(_state == SpikeState.Rising)
 					{
-						System.out.println("State change");
 						_state = SpikeState.Falling;
 					}					
 				}
 				
 				_lastLength = _spike.getRiseLength();
+				_lastIndex = index;
 				
-				System.out.println("New spike with initial: " + (index + 1) + " (length: " + accelerationValues[index] + ")");
 				_spike = new SingleSpike(accelerationValues[index]);
 				_spike.addNextPoint(accelerationValues[index + 1]);
-				_lastIndex = index;
-			}
-			else
-			{
-				System.out.println("Rise length: " + _spike.getRiseLength());
 			}
 		}
 		
