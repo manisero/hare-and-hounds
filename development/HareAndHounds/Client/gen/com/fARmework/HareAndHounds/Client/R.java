@@ -18,9 +18,11 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class integer {
+        public static final int checkpointSoundMaxPeriod=0x7f080002;
+        public static final int checkpointSoundMinPeriod=0x7f080001;
         public static final int defaultPort=0x7f080000;
-        public static final int shortNotificationMaxLength=0x7f080001;
-        public static final int singlePositionUpdateDelay=0x7f080002;
+        public static final int shortNotificationMaxLength=0x7f080003;
+        public static final int singlePositionUpdateDelay=0x7f080004;
     }
     public static final class layout {
         public static final int checkpoint=0x7f030000;
@@ -33,7 +35,7 @@ public final class R {
         public static final int options=0x7f030007;
     }
     public static final class raw {
-        public static final int beep=0x7f040000;
+        public static final int checkpoint_sound=0x7f040000;
     }
     public static final class string {
         /**  "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) 

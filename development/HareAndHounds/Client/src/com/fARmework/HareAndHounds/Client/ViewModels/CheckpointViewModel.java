@@ -19,15 +19,18 @@ public class CheckpointViewModel extends ViewModel
 	
 	private final IDirectionProvider _directionProvider;
 	private final ISoundPlayer _soundPlayer;
+	private final ICheckpointSoundPeriodCalculator _soundPeriodCalculator;
 	
 	private Arrow _arrowModel = new Arrow();
 	
 	@Inject
-	public CheckpointViewModel(IDirectionProvider directionProvider, ISoundPlayer soundPlayer, IConnectionManager connectionManager, IContextManager contextManager)
+	public CheckpointViewModel(IDirectionProvider directionProvider, ISoundPlayer soundPlayer, ICheckpointSoundPeriodCalculator soundPeriodCalculator,
+							   IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
 		_directionProvider = directionProvider;
 		_soundPlayer = soundPlayer;
+		_soundPeriodCalculator = soundPeriodCalculator;
 	}
 	
 	@Override
@@ -46,6 +49,7 @@ public class CheckpointViewModel extends ViewModel
 			{
 				_directionProvider.setDirection((float)data.NextCheckpointDirection);
 				_arrowModel.setColorRate((float)data.Accuracy);
+				_soundPlayer.setPeriod(_soundPeriodCalculator.calculatePeriod(data.Accuracy));
 			}
 		});
 		
@@ -58,12 +62,12 @@ public class CheckpointViewModel extends ViewModel
 			}
 		});
 		
-		_soundPlayer.load(ContextManager.getCurrentContext(), R.raw.beep, new ILoadListener()
+		_soundPlayer.load(ContextManager.getCurrentContext(), R.raw.checkpoint_sound, new ILoadListener()
 		{
 			@Override
 			public void onLoaded()
 			{
-				_soundPlayer.play(1000);
+				_soundPlayer.play(_soundPeriodCalculator.calculatePeriod(0.0));
 			}
 		});
 	}
