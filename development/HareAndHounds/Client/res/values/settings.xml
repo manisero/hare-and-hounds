@@ -4,6 +4,9 @@
     <integer name="defaultPort">27015</integer>
     <string name="defaultUserName">User</string>
     
+    <integer name="checkpointSoundMinPeriod">500</integer>
+    <integer name="checkpointSoundMaxPeriod">2500</integer>
+    
     <integer name="shortNotificationMaxLength">30</integer>
     
     <integer name="singlePositionUpdateDelay">3</integer>
