@@ -3,7 +3,6 @@ package com.fARmework.utils.Android.Infrastructure;
 import com.fARmework.utils.Android.Activities.*;
 import com.fARmework.utils.Android.ViewModels.*;
 
-import android.content.*;
 import android.os.Bundle;
 
 @SuppressWarnings("rawtypes")
@@ -25,8 +24,6 @@ public interface IContextManager
 	
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass);
 	<T extends ViewModel> void navigateTo(Class<T> viewModelClass, Bundle data);
-	
-	Context getCurrentContext();
 	
 	void showNotification(String notification);
 	void showDialogNotification(String notification, String confirmLabel, IDialogListener confirmListener);

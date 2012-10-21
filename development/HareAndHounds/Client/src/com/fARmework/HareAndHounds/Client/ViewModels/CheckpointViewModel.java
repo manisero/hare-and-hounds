@@ -9,7 +9,7 @@ import com.fARmework.core.client.Connection.*;
 import com.fARmework.modules.SpaceGraphics.Android.Models.*;
 import com.fARmework.utils.Android.Infrastructure.*;
 import com.fARmework.utils.Android.Media.*;
-import com.fARmework.utils.Android.Media.ISoundPlayer.ILoadListener;
+import com.fARmework.utils.Android.Media.ISoundPoolManager.ISoundLoadListener;
 import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.*;
 
@@ -62,7 +62,7 @@ public class CheckpointViewModel extends ViewModel
 			}
 		});
 		
-		_soundPlayer.load(ContextManager.getCurrentContext(), R.raw.checkpoint_sound, new ILoadListener()
+		_soundPlayer.load(R.raw.checkpoint_sound, new ISoundLoadListener()
 		{
 			@Override
 			public void onLoaded()

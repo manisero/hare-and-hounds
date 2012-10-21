@@ -109,12 +109,6 @@ public class ContextManager implements IContextManager
 	}
 	
 	@Override
-	public Context getCurrentContext()
-	{
-		return !_activitiesStack.empty() ? _activitiesStack.peek() : null;
-	}
-	
-	@Override
 	public void showNotification(String notification)
 	{
 		if (_activitiesStack.empty())
@@ -122,7 +116,7 @@ public class ContextManager implements IContextManager
 		
 		int duration = (notification.length() <= _settingsProvider.getShortNotificationMaxLength()) ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
 		
-		Toast.makeText(getCurrentContext(), notification, duration).show();
+		Toast.makeText(_activitiesStack.peek(), notification, duration).show();
 	}
 	
 	@Override
@@ -131,7 +125,7 @@ public class ContextManager implements IContextManager
 		if (_activitiesStack.empty())
 			return;
 		
-		new AlertDialog.Builder(getCurrentContext())
+		new AlertDialog.Builder(_activitiesStack.peek())
 			.setMessage(notification)
 			.setCancelable(false)
 			.setPositiveButton(confirmLabel,
@@ -154,7 +148,7 @@ public class ContextManager implements IContextManager
 		if (_activitiesStack.empty())
 			return;
 		
-		new AlertDialog.Builder(getCurrentContext())
+		new AlertDialog.Builder(_activitiesStack.peek())
 			.setMessage(message)
 			.setCancelable(false)
 			.setPositiveButton(yesLabel,
