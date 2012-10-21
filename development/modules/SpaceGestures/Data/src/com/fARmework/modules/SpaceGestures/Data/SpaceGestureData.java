@@ -36,8 +36,8 @@ public class SpaceGestureData
 		Readings = readings;
 	}
 	
-	public void addDirection(AccelerometerData data)
+	public void addReading(float x, float y, float z)
 	{
-		Readings.add(data);
+		Readings.add(new AccelerometerData(x, y, z));
 	}
 }
