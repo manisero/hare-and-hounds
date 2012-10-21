@@ -10,6 +10,7 @@ import com.fARmework.core.data.*;
 import com.fARmework.modules.PositionTracking.Android.Logic.*;
 import com.fARmework.utils.Android.Infrastructure.*;
 import com.fARmework.utils.Android.Infrastructure.IContextManager.*;
+import com.fARmework.utils.Android.Media.*;
 import com.google.inject.*;
 
 import roboguice.*;
@@ -37,6 +38,9 @@ public class Application extends android.app.Application
 		// Register views
 		registerViews(injector.getInstance(IContextManager.class));
 		
+		// Configure utilities
+		configureUtils(injector);
+		
 		// Configure modules
 		configurePositionTracking(injector);
 		
@@ -60,6 +64,11 @@ public class Application extends android.app.Application
 		contextManager.registerView(HareViewModel.class, HareActivity.class, R.layout.hare);
 		contextManager.registerView(HoundsViewModel.class, HoundsActivity.class, R.layout.hounds);
 		contextManager.registerView(CheckpointViewModel.class, CheckpointActivity.class, R.layout.checkpoint);
+	}
+	
+	private void configureUtils(Injector injector)
+	{
+		injector.getInstance(ISoundPoolManager.class).setContext(this);
 	}
 	
 	private void configurePositionTracking(Injector injector)

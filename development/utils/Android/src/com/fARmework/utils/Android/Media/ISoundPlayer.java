@@ -1,19 +1,14 @@
 package com.fARmework.utils.Android.Media;
 
-import android.content.*;
+import com.fARmework.utils.Android.Media.ISoundPoolManager.ISoundLoadListener;
 
 public interface ISoundPlayer
 {
-	public interface ILoadListener
-	{
-		void onLoaded();
-	}
-	
 	boolean isPlaying();
 	void setPeriod(int period);
 	
-	void load(Context context, int soundID);
-	void load(Context context, int soundID, ILoadListener loadListener);
+	void load(int soundResourceID);
+	void load(int soundResourceID, ISoundLoadListener soundLoadListener);
 	
 	void play(int period);
 	void stop();
