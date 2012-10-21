@@ -42,6 +42,7 @@ public class RpsEntryPoint
 		modules.add(new ScreenGesturesModule());
 		modules.add(new SpaceGesturesModule());
 		modules.add(new LogicModule());
+		modules.add(new UtilsModule());
 		
 		return modules;
 	}

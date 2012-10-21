@@ -12,5 +12,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/ScreenGestures.Java"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Data"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Java"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Utils.Java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
