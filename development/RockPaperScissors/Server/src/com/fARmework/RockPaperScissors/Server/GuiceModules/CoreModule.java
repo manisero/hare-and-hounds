@@ -1,6 +1,6 @@
 package com.fARmework.RockPaperScissors.Server.GuiceModules;
 
-import com.fARmework.RockPaperScissors.Server.SettingsProvider;
+import com.fARmework.RockPaperScissors.Server.Infrastructure.*;
 import com.fARmework.core.data.IDataRegistry;
 import com.fARmework.core.data.IDataService;
 import com.fARmework.core.data._impl.DataRegistry;
