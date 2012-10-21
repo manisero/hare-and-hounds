@@ -16,6 +16,7 @@ public class UtilsModule extends AbstractModule
 		bind(IContextManager.class).to(ContextManager.class).asEagerSingleton();
 		
 		// Media
+		bind(ISoundPoolManager.class).to(SoundPoolManager.class).asEagerSingleton();
 		bind(ISoundPlayer.class).to(SoundPlayer.class);
 	}
 }

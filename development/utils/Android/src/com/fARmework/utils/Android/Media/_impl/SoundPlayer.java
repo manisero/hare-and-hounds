@@ -1,25 +1,26 @@
 package com.fARmework.utils.Android.Media._impl;
 
-import android.content.*;
-import android.media.*;
-import android.media.SoundPool.OnLoadCompleteListener;
+import java.util.*;
 
 import com.fARmework.utils.Android.Media.*;
-
-import java.util.*;
+import com.fARmework.utils.Android.Media.ISoundPoolManager.ISoundLoadListener;
+import com.google.inject.*;
 
 public class SoundPlayer implements ISoundPlayer
 {
-	private final static int MAX_STREAMS = 10;
-	private final static int SOURCE_QUALITY = 0;
-	
-	private AudioManager _audioManager;
-	private SoundPool _soundPool;
-	private TimerTask _playTask;
+	private final ISoundPoolManager _soundPoolManager;
 	
 	private int _soundID;
+	private TimerTask _playTask;
+	
 	private boolean _loaded = false;
 	private boolean _isPlaying = false;
+	
+	@Inject
+	public SoundPlayer(ISoundPoolManager soundPoolManager)
+	{
+		_soundPoolManager = soundPoolManager;
+	}
 	
 	@Override
 	public boolean isPlaying()
@@ -40,38 +41,32 @@ public class SoundPlayer implements ISoundPlayer
 	}
 	
 	@Override
-	public void load(Context context, int soundID)
+	public void load(int soundResourceID)
 	{
-		load(context, soundID, null);
+		load(soundResourceID, null);
 	}
 	
 	@Override
-	public void load(Context context, int soundID, final ILoadListener loadListener)
+	public void load(int soundResourceID, final ISoundLoadListener soundLoadListener)
 	{
 		if (_isPlaying)
 		{
 			stop();
 		}
 		
-		_audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-		
-		_soundPool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, SOURCE_QUALITY);
-		
-		_soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener()
+		_soundID = _soundPoolManager.loadSound(soundResourceID, new ISoundLoadListener()
 		{
 			@Override
-			public void onLoadComplete(SoundPool soundPool, int sampleId, int status)
+			public void onLoaded()
 			{
 				_loaded = true;
 				
-				if (loadListener != null)
+				if (soundLoadListener != null)
 				{
-					loadListener.onLoaded();
+					soundLoadListener.onLoaded();
 				}
 			}
 		});
-		
-		_soundID = _soundPool.load(context, soundID, 1);
 	}
 	
 	@Override
@@ -88,13 +83,8 @@ public class SoundPlayer implements ISoundPlayer
 		{
 			@Override
 			public void run()
-			{				
-				float currentVolume = _audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-				float maxVolume = _audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-				
-				float volumeRatio = currentVolume / maxVolume;
-				
-				_soundPool.play(_soundID, volumeRatio, volumeRatio, 1, 0, 1.0f);
+			{
+				_soundPoolManager.play(_soundID);
 			}
 		};
 		
