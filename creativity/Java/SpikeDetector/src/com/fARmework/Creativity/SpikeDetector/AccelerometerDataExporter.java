@@ -5,7 +5,7 @@ import java.util.*;
 
 public class AccelerometerDataExporter 
 {
-	public void export(String filename, float[] data, List<OscillationRange> ranges)
+	public void export(String filename, float[] data, List<SegmentRange> ranges)
 	{
 		try
 		{
@@ -14,7 +14,7 @@ public class AccelerometerDataExporter
 			
 			int indent = 0;
 			
-			for (OscillationRange range : ranges)
+			for (SegmentRange range : ranges)
 			{					
 				for (int i = range.OscillationBegin; i <= range.OscillationEnd; ++i)
 				{					

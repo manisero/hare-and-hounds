@@ -24,9 +24,9 @@ public class EntryPoint
 			
 			float[] product = dataUtilities.getAccelerationProduct(data);
 			
-			Oscillation oscillation = new Oscillation();
+			Segmenter oscillation = new Segmenter();
 			
-			List<OscillationRange> oscillationRanges = oscillation.getOscillations(product);
+			List<SegmentRange> oscillationRanges = oscillation.getSegments(product);
 			
 			dataExporter.export("ranges_" + csv, product, oscillationRanges);
 		}

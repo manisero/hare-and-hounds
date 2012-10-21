@@ -2,7 +2,7 @@ package com.fARmework.Creativity.SpikeDetector;
 
 import java.util.*;
 
-public class Oscillation 
+public class Segmenter 
 {
 	private SpikeState _state = SpikeState.Rising;
 	
@@ -11,9 +11,9 @@ public class Oscillation
 	private float _lastLength = 0;
 	private int _lastIndex = 0;
 	
-	public List<OscillationRange> getOscillations(float[] accelerationValues)
+	public List<SegmentRange> getSegments(float[] accelerationValues)
 	{
-		List<OscillationRange> oscillations = new LinkedList<OscillationRange>();
+		List<SegmentRange> oscillations = new LinkedList<SegmentRange>();
 		
 		_spike = new SingleSpike(accelerationValues[0]);
 		
@@ -25,7 +25,7 @@ public class Oscillation
 			{
 				if (_state == SpikeState.Falling)
 				{
-					oscillations.add(new OscillationRange(initialIndex, index));
+					oscillations.add(new SegmentRange(initialIndex, index));
 				}
 				
 				break;
@@ -37,7 +37,7 @@ public class Oscillation
 				{
 					if (_state == SpikeState.Falling)
 					{
-						oscillations.add(new OscillationRange(initialIndex, _lastIndex));
+						oscillations.add(new SegmentRange(initialIndex, _lastIndex));
 						initialIndex = _lastIndex;
 						
 						_state = SpikeState.Rising;

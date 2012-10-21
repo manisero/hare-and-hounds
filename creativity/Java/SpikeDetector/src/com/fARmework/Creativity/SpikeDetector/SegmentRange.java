@@ -1,11 +1,11 @@
 package com.fARmework.Creativity.SpikeDetector;
 
-public class OscillationRange 
+public class SegmentRange 
 {
 	public int OscillationBegin;
 	public int OscillationEnd;
 	
-	public OscillationRange(int oscillationBegin, int oscillationEnd)
+	public SegmentRange(int oscillationBegin, int oscillationEnd)
 	{
 		OscillationBegin = oscillationBegin;
 		OscillationEnd = oscillationEnd;
