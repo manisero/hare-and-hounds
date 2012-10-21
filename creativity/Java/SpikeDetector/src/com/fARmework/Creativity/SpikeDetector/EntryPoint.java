@@ -29,6 +29,27 @@ public class EntryPoint
 			List<SegmentRange> oscillationRanges = oscillation.getSegments(product);
 			
 			dataExporter.export("ranges_" + csv, product, oscillationRanges);
+			
+			Thresholder thresholder = new Thresholder();
+			
+			List<SegmentRange> filteredRanges = thresholder.getFilteredSegments(oscillationRanges, product);
+			
+			Recognizer recognizer = new Recognizer();
+			
+			AccelerometerData[] accelerometerData = new AccelerometerData[data.size()];
+			
+			data.toArray(accelerometerData);
+			
+			List<MoveDirection> moves = recognizer.getMoves(filteredRanges, accelerometerData);
+			
+			System.out.println("Moves for file: " + csv);
+			
+			for (MoveDirection move : moves)
+			{
+				System.out.print(move.toString() + "; ");
+			}
+			
+			System.out.println();
 		}
 	}
 }
