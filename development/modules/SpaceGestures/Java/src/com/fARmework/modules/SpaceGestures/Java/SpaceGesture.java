@@ -1,7 +1,5 @@
 package com.fARmework.modules.SpaceGestures.Java;
 
-import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData.*;
-
 public class SpaceGesture
 {
 	private Direction[] _pattern;

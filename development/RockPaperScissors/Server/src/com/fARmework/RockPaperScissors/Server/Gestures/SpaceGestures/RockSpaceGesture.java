@@ -1,7 +1,6 @@
 package com.fARmework.RockPaperScissors.Server.Gestures.SpaceGestures;
 
-import com.fARmework.RockPaperScissors.Server.Gestures.GesturesData;
-import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData.*;
+import com.fARmework.RockPaperScissors.Server.Gestures.*;
 import com.fARmework.modules.SpaceGestures.Java.*;
 
 public class RockSpaceGesture extends SpaceGesture

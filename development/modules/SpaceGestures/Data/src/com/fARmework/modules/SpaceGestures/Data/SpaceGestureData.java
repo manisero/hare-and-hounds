@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class SpaceGestureData
 {
-	public class AccelerometerData
+	public static class AccelerometerData
 	{
 		public float X;
 		public float Y;

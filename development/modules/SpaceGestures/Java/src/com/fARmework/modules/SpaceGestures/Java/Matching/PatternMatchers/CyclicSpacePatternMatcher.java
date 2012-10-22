@@ -1,6 +1,6 @@
 package com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers;
 
-import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData.*;
+import com.fARmework.modules.SpaceGestures.Java.*;
 import com.fARmework.modules.SpaceGestures.Java.Matching.*;
 
 public class CyclicSpacePatternMatcher implements ISpacePatternMatcher
