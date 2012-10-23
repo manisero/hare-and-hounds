@@ -11,8 +11,6 @@ import com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers.*;
 import com.fARmework.modules.ScreenGestures.Java.Processing.*;
 import com.fARmework.modules.ScreenGestures.Java.Processing.GestureProcessors.*;
 import com.fARmework.modules.SpaceGestures.Java.*;
-import com.fARmework.modules.SpaceGestures.Java.Matching.*;
-import com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers.*;
 import com.google.inject.*;
 import java.util.*;
 
@@ -76,8 +74,5 @@ public class RpsEntryPoint
 	{
 		ISpaceGestureRegistry gestureRegistry = injector.getInstance(ISpaceGestureRegistry.class);
 		gestureRegistry.register(new RockSpaceGesture());
-		
-		ISpacePatternMatcherFactory matcherFactory = injector.getInstance(ISpacePatternMatcherFactory.class);
-		matcherFactory.register(RockSpaceGesture.class, new PlainSpacePatternMatcher());
 	}
 }
