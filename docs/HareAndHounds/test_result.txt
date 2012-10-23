@@ -1,0 +1,511 @@
+GameStartInfo sent to 796139933
+
+DemandedPositionUpdateInterval: 20
+
+ 
+
+GameStartInfo sent to 92361528
+
+DemandedPositionUpdateInterval: 10
+
+ 
+
+JoinGameResponse sent to 92361528
+
+Response: Accept
+
+GuestID: 92361528
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13132164
+
+Longitude: 21.07076514
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.13102
+
+Longitude: 21.070337
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13132432
+
+Longitude: 21.07076454
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.130539
+
+Longitude: 21.070675
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13133532
+
+Longitude: 21.07082838
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.130246
+
+Longitude: 21.070391
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13133112
+
+Longitude: 21.07082494
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.130732
+
+Longitude: 21.069843
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13116717
+
+Longitude: 21.07063461
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.131142
+
+Longitude: 21.069527
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13113166
+
+Longitude: 21.0704387
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.131078
+
+Longitude: 21.0684
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13106747
+
+Longitude: 21.07036405
+
+ 
+
+Current position: 52.13106747, 21.07036405
+
+Near position: 52.13102, 21.070337
+
+Next position: 52.130539, 21.070675
+
+Direction: 149.52758536110355
+
+CheckpointEnteredInfo sent to 92361528
+
+NextCheckpointDirection: 149.52758536110355
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.13099
+
+Longitude: 21.067379
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13103692
+
+Longitude: 21.07030389
+
+ 
+
+Current position: 52.13103692, 21.07030389
+
+Near position: 52.13102, 21.070337
+
+Next position: 52.130539, 21.070675
+
+Direction: 143.30208088613668
+
+CheckpointUpdateInfo sent to 92361528
+
+NextCheckpointDirection: 143.30208088613668
+
+Accuracy: 0.7259723625467713
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.130768
+
+Longitude: 21.06678
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13096198
+
+Longitude: 21.07035134
+
+ 
+
+Current position: 52.13096198, 21.07035134
+
+Near position: 52.13102, 21.070337
+
+Next position: 52.130539, 21.070675
+
+Direction: 142.57715037783802
+
+CheckpointUpdateInfo sent to 92361528
+
+NextCheckpointDirection: 142.57715037783802
+
+Accuracy: 0.5706611348102385
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.130434
+
+Longitude: 21.0671
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13088379
+
+Longitude: 21.07036776
+
+ 
+
+CheckpointLeftInfo sent to 92361528
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.130083
+
+Longitude: 21.067427
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13078333
+
+Longitude: 21.07046885
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.129734
+
+Longitude: 21.06751
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13065625
+
+Longitude: 21.07057418
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.129276
+
+Longitude: 21.067826
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13057614
+
+Longitude: 21.07063286
+
+ 
+
+Current position: 52.13057614, 21.07063286
+
+Near position: 52.130539, 21.070675
+
+Next position: 52.130246, 21.070391
+
+Direction: 216.22644135253233
+
+CheckpointEnteredInfo sent to 92361528
+
+NextCheckpointDirection: 216.22644135253233
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.128858
+
+Longitude: 21.068215
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13046472
+
+Longitude: 21.07068194
+
+ 
+
+Current position: 52.13046472, 21.07068194
+
+Near position: 52.130539, 21.070675
+
+Next position: 52.130246, 21.070391
+
+Direction: 233.0652482642045
+
+CheckpointUpdateInfo sent to 92361528
+
+NextCheckpointDirection: 233.0652482642045
+
+Accuracy: 0.4650088476664878
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.128753
+
+Longitude: 21.068328
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.1304349
+
+Longitude: 21.07075761
+
+ 
+
+Current position: 52.1304349, 21.07075761
+
+Near position: 52.130539, 21.070675
+
+Next position: 52.130246, 21.070391
+
+Direction: 242.73969407972223
+
+CheckpointUpdateInfo sent to 92361528
+
+NextCheckpointDirection: 242.73969407972223
+
+Accuracy: 0.03418575476310484
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.128558
+
+Longitude: 21.068505
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13038696
+
+Longitude: 21.07067536
+
+ 
+
+CheckpointLeftInfo sent to 92361528
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.128435
+
+Longitude: 21.068658
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13032011
+
+Longitude: 21.07056796
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.128549
+
+Longitude: 21.068918
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13030447
+
+Longitude: 21.07050553
+
+ 
+
+Current position: 52.13030447, 21.07050553
+
+Near position: 52.130246, 21.070391
+
+Next position: 52.130732, 21.069843
+
+Direction: 302.83411595671123
+
+CheckpointEnteredInfo sent to 92361528
+
+NextCheckpointDirection: 302.83411595671123
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.128502
+
+Longitude: 21.069264
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13027103
+
+Longitude: 21.07036018
+
+ 
+
+Current position: 52.13027103, 21.07036018
+
+Near position: 52.130246, 21.070391
+
+Next position: 52.130732, 21.069843
+
+Direction: 311.711079433514
+
+CheckpointUpdateInfo sent to 92361528
+
+NextCheckpointDirection: 311.711079433514
+
+Accuracy: 0.7092891054000063
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.128415
+
+Longitude: 21.069444
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.13026869
+
+Longitude: 21.07034433
+
+ 
+
+Current position: 52.13026869, 21.07034433
+
+Near position: 52.130246, 21.070391
+
+Next position: 52.130732, 21.069843
+
+Direction: 312.742931464224
+
+CheckpointUpdateInfo sent to 92361528
+
+NextCheckpointDirection: 312.742931464224
+
+Accuracy: 0.6173528145486178
+
+ 
+
+PositionData received from 796139933
+
+Latitude: 52.128297
+
+Longitude: 21.069742
+
+ 
+
+PositionData received from 92361528
+
+Latitude: 52.1302891
+
+Longitude: 21.07045416
+
+ 
+
+Current position: 52.1302891, 21.07045416
+
+Near position: 52.130246, 21.070391
+
+Next position: 52.130732, 21.069843
+
+Direction: 305.9303732316357
+
+CheckpointUpdateInfo sent to 92361528
+
+NextCheckpointDirection: 305.9303732316357
+
+Accuracy: 0.4385948130616863
+
+ 
+
+ClientDisconnectedInfo received from 92361528
