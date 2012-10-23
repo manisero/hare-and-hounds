@@ -9,16 +9,16 @@ import com.google.inject.*;
 
 public class SpaceGestureProcessor implements ISpaceGestureProcessor
 {
-	private ISpaceGestureDirectionRecognizer _directionRecognizer;
-	private ISpaceGestureFilter _filter;
 	private ISpaceGestureSegmentator _segmentator;
+	private ISpaceGestureFilter _filter;
+	private ISpaceGestureDirectionRecognizer _directionRecognizer;
 	
 	@Inject
-	public SpaceGestureProcessor(ISpaceGestureDirectionRecognizer directionRecognizer, ISpaceGestureFilter filter, ISpaceGestureSegmentator segmentator)
+	public SpaceGestureProcessor(ISpaceGestureSegmentator segmentator, ISpaceGestureFilter filter, ISpaceGestureDirectionRecognizer directionRecognizer)
 	{
-		_directionRecognizer = directionRecognizer;
-		_filter = filter;
 		_segmentator = segmentator;
+		_filter = filter;
+		_directionRecognizer = directionRecognizer;
 	}
 	
 	@Override

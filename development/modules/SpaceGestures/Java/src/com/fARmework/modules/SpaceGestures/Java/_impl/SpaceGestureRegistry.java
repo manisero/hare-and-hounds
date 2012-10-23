@@ -3,16 +3,11 @@ package com.fARmework.modules.SpaceGestures.Java._impl;
 import java.util.*;
 
 import com.fARmework.modules.SpaceGestures.Java.ISpaceGestureRegistry;
-import com.fARmework.modules.SpaceGestures.Java.SpaceGesture;
+import com.fARmework.modules.SpaceGestures.Java.Gestures.*;
 
 public class SpaceGestureRegistry implements ISpaceGestureRegistry
 {
-	private List<SpaceGesture> _gestures;
-	
-	public SpaceGestureRegistry()
-	{
-		_gestures = new LinkedList<SpaceGesture>();
-	}
+	private List<SpaceGesture> _gestures = new LinkedList<SpaceGesture>();
 	
 	@Override
 	public List<SpaceGesture> getGestures()
@@ -31,7 +26,7 @@ public class SpaceGestureRegistry implements ISpaceGestureRegistry
 	@Override
 	public boolean unregister(SpaceGesture gesture)
 	{
-		if(!_gestures.contains(gesture))
+		if (!_gestures.contains(gesture))
 		{
 			return false;
 		}
