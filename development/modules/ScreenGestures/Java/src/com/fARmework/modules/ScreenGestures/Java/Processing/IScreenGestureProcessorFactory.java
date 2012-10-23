@@ -4,8 +4,8 @@ import com.fARmework.modules.ScreenGestures.Java.Gestures.ScreenGesture;
 
 public interface IScreenGestureProcessorFactory 
 {
-	<T> boolean register(Class<? extends ScreenGesture<T>> gesture, IScreenGestureProcessor<T> processor);
-	boolean unregister(Class<? extends ScreenGesture<?>> gesture);
+	<T> boolean register(Class<? extends ScreenGesture<T>> gestureClass, IScreenGestureProcessor<T> processor);
+	boolean unregister(Class<? extends ScreenGesture<?>> gestureClass);
 	
-	<T> IScreenGestureProcessor<T> get(Class<? extends ScreenGesture<T>> gesture);
+	<T> IScreenGestureProcessor<T> get(Class<? extends ScreenGesture<T>> gestureClass);
 }

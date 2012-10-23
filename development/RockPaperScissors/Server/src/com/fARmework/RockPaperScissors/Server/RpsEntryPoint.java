@@ -1,20 +1,17 @@
 package com.fARmework.RockPaperScissors.Server;
 
+import java.util.*;
+
 import com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures.*;
 import com.fARmework.RockPaperScissors.Server.Gestures.SpaceGestures.*;
 import com.fARmework.RockPaperScissors.Server.GuiceModules.*;
 import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.core.data.*;
 import com.fARmework.modules.ScreenGestures.Java.*;
-import com.fARmework.modules.ScreenGestures.Java.Matching.*;
-import com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers.*;
-import com.fARmework.modules.ScreenGestures.Java.Processing.*;
-import com.fARmework.modules.ScreenGestures.Java.Processing.GestureProcessors.*;
 import com.fARmework.modules.SpaceGestures.Java.*;
 import com.fARmework.modules.SpaceGestures.Java.Matching.*;
 import com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers.*;
 import com.google.inject.*;
-import java.util.*;
 
 public class RpsEntryPoint
 {
@@ -60,16 +57,6 @@ public class RpsEntryPoint
 		gestureRegistry.register(new PaperScreenGesture());
 		gestureRegistry.register(new ScissorsScreenGesture());
 		gestureRegistry.register(new RockScreenGesture());
-		
-		IScreenGestureProcessorFactory processorFactory = injector.getInstance(IScreenGestureProcessorFactory.class);
-		processorFactory.register(PaperScreenGesture.class, new PlainScreenGestureProcessor());
-		processorFactory.register(ScissorsScreenGesture.class, new DiffusedScreenGestureProcessor());
-		processorFactory.register(RockScreenGesture.class, new GroupedScreenGestureProcessor());
-		
-		IScreenPatternMatcherFactory matcherFactory = injector.getInstance(IScreenPatternMatcherFactory.class);
-		matcherFactory.register(PaperScreenGesture.class, new PlainScreenPatternMatcher());
-		matcherFactory.register(ScissorsScreenGesture.class, new DiffusedScreenPatternMatcher());
-		matcherFactory.register(RockScreenGesture.class, new GroupedScreenPatternMatcher());
 	}
 	
 	private static void configureSpaceGestures(Injector injector)
