@@ -9,21 +9,52 @@ import com.google.inject.*;
 
 public class SpaceGestureProcessor implements ISpaceGestureProcessor
 {
+	private class Builder
+	{
+		private final SpaceGestureData _gesture;
+		private List<GestureRange> _segments;
+		
+		public Builder(SpaceGestureData gesture)
+		{
+			_gesture = gesture;
+		}
+		
+		public Builder segment(ISpaceGestureSegmentator segmentator)
+		{
+			_segments = segmentator.getGestureSegments(_gesture);
+			return this;
+		}
+		
+		public Builder filter(ISpaceGestureFilter filter)
+		{
+			_segments = filter.getFilteredSegments(_gesture, _segments);
+			return this;
+		}
+		
+		public List<Direction> recognize(ISpaceGestureDirectionRecognizer recognizer)
+		{
+			return recognizer.getMoveDirections(_gesture, _segments);
+		}
+	}
+	
 	private ISpaceGestureSegmentator _segmentator;
 	private ISpaceGestureFilter _filter;
-	private ISpaceGestureDirectionRecognizer _directionRecognizer;
+	private ISpaceGestureDirectionRecognizer _recognizer;
 	
 	@Inject
-	public SpaceGestureProcessor(ISpaceGestureSegmentator segmentator, ISpaceGestureFilter filter, ISpaceGestureDirectionRecognizer directionRecognizer)
+	public SpaceGestureProcessor(ISpaceGestureSegmentator segmentator, ISpaceGestureFilter filter, ISpaceGestureDirectionRecognizer recognizer)
 	{
 		_segmentator = segmentator;
 		_filter = filter;
-		_directionRecognizer = directionRecognizer;
+		_recognizer = recognizer;
 	}
 	
 	@Override
 	public List<Direction> process(SpaceGestureData gesture)
 	{
-		return _directionRecognizer.getMoveDirections(gesture, _filter.getFilteredSegments(gesture, _segmentator.getGestureSegments(gesture)));
+		return new Builder(gesture)
+				.segment(_segmentator)
+					.filter(_filter)
+						.recognize(_recognizer);
 	}
 }
