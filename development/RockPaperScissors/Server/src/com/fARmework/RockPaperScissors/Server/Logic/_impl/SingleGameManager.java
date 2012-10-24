@@ -11,7 +11,7 @@ import com.fARmework.core.server.Connection.IDataHandler;
 import com.fARmework.core.server.Data.ClientDisconnectedInfo;
 import com.fARmework.modules.ScreenGestures.Data.ScreenGestureData;
 import com.fARmework.modules.ScreenGestures.Java.IScreenGestureRecognizer;
-import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData;
+import com.fARmework.modules.SpaceGestures.Data.*;
 import com.fARmework.modules.SpaceGestures.Java.ISpaceGestureRecognizer;
 
 public class SingleGameManager implements ISingleGameManager

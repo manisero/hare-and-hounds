@@ -42,7 +42,7 @@ public class EmptySpacePatternMatcherFactory implements ISpacePatternMatcherFact
 		{
 			if (_matchers.containsKey(key))
 			{
-				return _matchers.get(gestureClass);
+				return _matchers.get(key);
 			}
 		}
 		
