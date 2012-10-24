@@ -1,10 +1,10 @@
 package com.fARmework.RockPaperScissors.Server.Gestures.SpaceGestures;
 
-import com.fARmework.RockPaperScissors.Server.Gestures.GesturesData;
-import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData.*;
+import com.fARmework.RockPaperScissors.Server.Gestures.*;
 import com.fARmework.modules.SpaceGestures.Java.*;
+import com.fARmework.modules.SpaceGestures.Java.Gestures.*;
 
-public class RockSpaceGesture extends SpaceGesture
+public class RockSpaceGesture extends PlainSpaceGesture
 {
 	private static final Direction[] PATTERN = { Direction.Left, Direction.Up, Direction.Right, Direction.Down };
 	

@@ -1,6 +1,6 @@
 package com.fARmework.modules.SpaceGestures.Java.Matching;
 
-import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData.Direction;
+import com.fARmework.modules.SpaceGestures.Java.*;
 
 public interface ISpacePatternMatcher
 {

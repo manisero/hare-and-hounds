@@ -1,12 +1,14 @@
 package com.fARmework.modules.SpaceGestures.Test.Matching.PatternMatchers;
 
-import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData.*;
-import com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers.*;
 import static org.junit.Assert.*;
+
 import org.junit.*;
 import org.junit.runner.*;
 import org.junit.runners.*;
-import org.junit.runners.Suite.*;
+import org.junit.runners.Suite.SuiteClasses;
+
+import com.fARmework.modules.SpaceGestures.Java.*;
+import com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers.*;
 
 @RunWith(Suite.class)
 @SuiteClasses(
