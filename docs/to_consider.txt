@@ -14,3 +14,6 @@
    grid with margin: "|  o  |o   o|  o  |"
    plain gesture without margin: "101"
    plain gesture with margin: "111"
+
+3. Space gestures - differentials could potentially fix the algorithm flaw presented in csv:
+   /docs/RockPaperScissors/SpaceGestures/algorithm_flaw.csv
