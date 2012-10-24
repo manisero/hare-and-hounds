@@ -9,8 +9,6 @@ import com.fARmework.RockPaperScissors.Server.Logic.*;
 import com.fARmework.core.data.*;
 import com.fARmework.modules.ScreenGestures.Java.*;
 import com.fARmework.modules.SpaceGestures.Java.*;
-import com.fARmework.modules.SpaceGestures.Java.Matching.*;
-import com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers.*;
 import com.google.inject.*;
 
 public class RpsEntryPoint
@@ -63,8 +61,5 @@ public class RpsEntryPoint
 	{
 		ISpaceGestureRegistry gestureRegistry = injector.getInstance(ISpaceGestureRegistry.class);
 		gestureRegistry.register(new RockSpaceGesture());
-		
-		ISpacePatternMatcherFactory matcherFactory = injector.getInstance(ISpacePatternMatcherFactory.class);
-		matcherFactory.register(RockSpaceGesture.class, new PlainSpacePatternMatcher());
 	}
 }

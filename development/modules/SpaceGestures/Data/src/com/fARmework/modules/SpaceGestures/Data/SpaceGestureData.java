@@ -4,27 +4,40 @@ import java.util.LinkedList;
 
 public class SpaceGestureData
 {
-	public enum Direction
+	public static class AccelerometerData
 	{
-		Up, Down,
-		Left, Right,
-		Forward, Backward
+		public float X;
+		public float Y;
+		public float Z;
+		
+		public AccelerometerData(float x, float y, float z)
+		{
+			X = x;
+			Y = y;
+			Z = z;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return "x: " + X + " y: " + Y + " z: " + Z;
+		}
 	}
 	
-	public LinkedList<Direction> Directions;
+	public LinkedList<AccelerometerData> Readings;
 	
 	public SpaceGestureData()
 	{
-		Directions = new LinkedList<Direction>();
+		Readings = new LinkedList<AccelerometerData>();
 	}
 	
-	public SpaceGestureData(LinkedList<Direction> directions)
+	public SpaceGestureData(LinkedList<AccelerometerData> readings)
 	{
-		Directions = directions;
+		Readings = readings;
 	}
 	
-	public void addDirection(Direction direction)
+	public void addReading(float x, float y, float z)
 	{
-		Directions.add(direction);
+		Readings.add(new AccelerometerData(x, y, z));
 	}
 }

@@ -1,11 +1,11 @@
 package com.fARmework.modules.SpaceGestures.Java.Matching;
 
-import com.fARmework.modules.SpaceGestures.Java.*;
+import com.fARmework.modules.SpaceGestures.Java.Gestures.*;
 
 public interface ISpacePatternMatcherFactory
 {
-	ISpacePatternMatcher get(Class<? extends SpaceGesture> gesture);
+	boolean register(Class<? extends SpaceGesture> gestureClass, ISpacePatternMatcher matcher);
+	boolean unregister(Class<? extends SpaceGesture> gestureClass);
 	
-	boolean register(Class<? extends SpaceGesture> gesture, ISpacePatternMatcher matcher);
-	boolean unregister(Class<? extends SpaceGesture> gesture);
+	ISpacePatternMatcher get(Class<? extends SpaceGesture> gestureClass);
 }
