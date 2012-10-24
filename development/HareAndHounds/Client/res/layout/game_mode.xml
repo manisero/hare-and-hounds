@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://www.gueei.com/android-binding/"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    
+	<Button
+		android:layout_width="160dp"
+		android:layout_height="80dp"
+		android:text="@string/mode_create"
+		binding:onClick="NewGame"
+		binding:enabled="NOT(IsWaiting)" />
+    
+	<Button
+		android:layout_width="160dp"
+		android:layout_height="80dp"
+		android:text="@string/mode_join"
+		binding:onClick="JoinGame"
+		binding:enabled="NOT(IsWaiting)" />
+
+	<LinearLayout android:orientation="horizontal"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal">
+        
+	    <TextView
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    binding:text="Status" />
+	    
+	    <ProgressBar
+		    style="?android:attr/progressBarStyleSmall"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    binding:visibility="IsWaiting" />
+	    
+	</LinearLayout>
+	
+	<Button
+		android:layout_width="160dp"
+		android:layout_height="80dp"
+		android:text="@string/connection_disconnect"
+		binding:onClick="Disconnect"
+		binding:visibility="IsConnected" />
+	
+	<Button
+		android:layout_width="130dp"
+		android:layout_height="65dp"
+		android:text="@string/options"
+		binding:onClick="Options" />
+	
+</LinearLayout>
