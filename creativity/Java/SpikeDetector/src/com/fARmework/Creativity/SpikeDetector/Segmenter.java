@@ -23,10 +23,7 @@ public class Segmenter
 		{
 			if (index == accelerationValues.length - 1)
 			{
-				if (_state == SpikeState.Falling)
-				{
-					oscillations.add(new SegmentRange(initialIndex, index));
-				}
+				oscillations.add(new SegmentRange(initialIndex, index));
 				
 				break;
 			}

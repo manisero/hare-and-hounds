@@ -89,10 +89,7 @@ public class SpaceGestureSegmentator implements ISpaceGestureSegmentator
 		{
 			if (index == netAcceleration.length - 1)
 			{
-				if (_state == State.Falling)
-				{
-					segments.add(new GestureRange(initialIndex, index));
-				}
+				segments.add(new GestureRange(initialIndex, index));
 				
 				break;
 			}
