@@ -4,12 +4,12 @@ import com.fARmework.RockPaperScissors.Server.Gestures.*;
 import com.fARmework.modules.SpaceGestures.Java.*;
 import com.fARmework.modules.SpaceGestures.Java.Gestures.*;
 
-public class RockSpaceGesture extends PlainSpaceGesture
+public class ScissorsSpaceGesture extends PlainSpaceGesture
 {
-	private static final Direction[] PATTERN = { Direction.Right, Direction.Up, Direction.Left };
+	private static final Direction[] PATTERN = { Direction.Down, Direction.Right, Direction.Up, Direction.Right };
 	
-	public RockSpaceGesture()
+	public ScissorsSpaceGesture()
 	{
-		super(GesturesData.ROCK_NAME, PATTERN);
+		super(GesturesData.SCISSORS_NAME, PATTERN);
 	}
 }

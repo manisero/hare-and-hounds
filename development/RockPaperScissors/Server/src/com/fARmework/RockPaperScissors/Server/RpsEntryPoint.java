@@ -52,14 +52,16 @@ public class RpsEntryPoint
 	private static void configureScreenGestures(Injector injector)
 	{
 		IScreenGestureRegistry gestureRegistry = injector.getInstance(IScreenGestureRegistry.class);
+		gestureRegistry.register(new RockScreenGesture());
 		gestureRegistry.register(new PaperScreenGesture());
 		gestureRegistry.register(new ScissorsScreenGesture());
-		gestureRegistry.register(new RockScreenGesture());
 	}
 	
 	private static void configureSpaceGestures(Injector injector)
 	{
 		ISpaceGestureRegistry gestureRegistry = injector.getInstance(ISpaceGestureRegistry.class);
 		gestureRegistry.register(new RockSpaceGesture());
+		gestureRegistry.register(new PaperSpaceGesture());
+		gestureRegistry.register(new ScissorsSpaceGesture());
 	}
 }
