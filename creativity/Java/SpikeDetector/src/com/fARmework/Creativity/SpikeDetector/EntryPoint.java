@@ -4,7 +4,7 @@ import java.util.*;
 
 public class EntryPoint 
 {	
-	private static final boolean HAS_TIME = false;
+	private static final boolean HAS_TIME = true;
 	
 	public static void main(String[] args)
 	{

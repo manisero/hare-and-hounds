@@ -4,6 +4,8 @@ import java.util.*;
 
 public class Recognizer
 {
+	private static float THRESHOLD = 0.65f;
+	
 	public List<MoveDirection> getMoves(List<SegmentRange> ranges, AccelerometerData[] accelerationValues)
 	{
 		List<MoveDirection> moves = new LinkedList<MoveDirection>();
@@ -15,40 +17,55 @@ public class Recognizer
 			float x = Math.abs(maxAccelerations.AccelerationX);
 			float y = Math.abs(maxAccelerations.AccelerationY);
 			float z = Math.abs(maxAccelerations.AccelerationZ);
+						
+			boolean hasX = false;
+			boolean hasY = false;
+			boolean hasZ = false;
 			
 			if (x >= y && x >= z)
 			{
-				if (maxAccelerations.AccelerationX >= 0)
+				hasX = true;
+				
+				if (y >= x * THRESHOLD)
 				{
-					moves.add(MoveDirection.Left);
+					hasY = true;
 				}
-				else
+				
+				if(z >= x * THRESHOLD)
 				{
-					moves.add(MoveDirection.Right);
+					hasZ = true;
 				}
 			}
 			else if (y >= x && y >= z)
 			{
-				if (maxAccelerations.AccelerationY >= 0)
+				hasY = true;
+				
+				if (x >= y * THRESHOLD)
 				{
-					moves.add(MoveDirection.Down);
+					hasX = true;
 				}
-				else
+				
+				if (z >= y * THRESHOLD)
 				{
-					moves.add(MoveDirection.Up);
+					hasZ = true;
 				}
 			}
 			else if (z >= x && z >= y)
 			{
-				if (maxAccelerations.AccelerationZ >= 0)
+				hasZ = true;
+				
+				if (x >= z * THRESHOLD)
 				{
-					moves.add(MoveDirection.Forward);
+					hasX = true;
 				}
-				else
+				
+				if (y >= z * THRESHOLD)
 				{
-					moves.add(MoveDirection.Backward);
+					hasY = true;
 				}
 			}
+			
+			moves.add(getMoveDirection(maxAccelerations, hasX, hasY, hasZ));
 		}
 		
 		return moves;
@@ -77,5 +94,172 @@ public class Recognizer
 		}
 		
 		return maxAccelerations;
+	}
+	
+	private MoveDirection getMoveDirection(AccelerometerData maxAccelerations, boolean hasX, boolean hasY, boolean hasZ)
+	{
+		if (hasX && hasY && hasZ)
+		{
+			if (maxAccelerations.AccelerationX >= 0)
+			{
+				if (maxAccelerations.AccelerationY >= 0)
+				{
+					if (maxAccelerations.AccelerationZ >= 0)
+					{
+						return MoveDirection.LeftDownForward;
+					}
+					else
+					{
+						return MoveDirection.LeftDownBackward;
+					}
+				}
+				else
+				{
+					if (maxAccelerations.AccelerationZ >= 0)
+					{
+						return MoveDirection.LeftUpForward;
+					}
+					else
+					{
+						return MoveDirection.LeftUpBackward;
+					}					
+				}
+			}
+			else
+			{
+				if (maxAccelerations.AccelerationY >= 0)
+				{
+					if (maxAccelerations.AccelerationZ >= 0)
+					{
+						return MoveDirection.RightDownForward;
+					}
+					else
+					{
+						return MoveDirection.RightDownBackward;
+					}
+				}
+				else
+				{
+					if (maxAccelerations.AccelerationZ >= 0)
+					{
+						return MoveDirection.RightUpForward;
+					}
+					else
+					{
+						return MoveDirection.RightUpBackward;
+					}					
+				}				
+			}
+		}
+		else if (hasX && hasY)
+		{
+			if (maxAccelerations.AccelerationX >= 0)
+			{
+				if (maxAccelerations.AccelerationY >= 0)
+				{
+					return MoveDirection.LeftDown;
+				}
+				else
+				{
+					return MoveDirection.LeftUp;
+				}
+			}
+			else
+			{
+				if (maxAccelerations.AccelerationY >= 0)
+				{
+					return MoveDirection.RightDown;
+				}
+				else
+				{
+					return MoveDirection.RightUp;
+				}				
+			}
+		}
+		else if (hasX && hasZ)
+		{
+			if (maxAccelerations.AccelerationX >= 0)
+			{
+				if (maxAccelerations.AccelerationZ >= 0)
+				{
+					return MoveDirection.LeftForward;
+				}
+				else
+				{
+					return MoveDirection.LeftBackward;
+				}
+			}
+			else
+			{
+				if (maxAccelerations.AccelerationZ >= 0)
+				{
+					return MoveDirection.RightForward;
+				}
+				else
+				{
+					return MoveDirection.RightBackward;
+				}				
+			}			
+		}
+		else if (hasY && hasZ)
+		{
+			if (maxAccelerations.AccelerationY >= 0)
+			{
+				if (maxAccelerations.AccelerationZ >= 0)
+				{
+					return MoveDirection.DownForward;
+				}
+				else
+				{
+					return MoveDirection.DownBackward;
+				}
+			}
+			else
+			{
+				if (maxAccelerations.AccelerationZ >= 0)
+				{
+					return MoveDirection.UpForward;
+				}
+				else
+				{
+					return MoveDirection.UpBackward;
+				}				
+			}			
+		}
+		else if (hasX)
+		{
+			if (maxAccelerations.AccelerationX >= 0)
+			{
+				return MoveDirection.Left;
+			}
+			else
+			{
+				return MoveDirection.Right;
+			}
+		}
+		else if (hasY)
+		{
+			if (maxAccelerations.AccelerationY >= 0)
+			{
+				return MoveDirection.Down;
+			}
+			else
+			{
+				return MoveDirection.Up;
+			}			
+		}
+		else if (hasZ)
+		{
+			if (maxAccelerations.AccelerationZ >= 0)
+			{
+				return MoveDirection.Forward;
+			}
+			else
+			{
+				return MoveDirection.Backward;
+			}			
+		}
+		
+		return MoveDirection.Unknown;
 	}
 }
