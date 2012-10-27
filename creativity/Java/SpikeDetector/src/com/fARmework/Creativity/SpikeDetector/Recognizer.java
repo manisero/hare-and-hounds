@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Recognizer
 {
-	private static float THRESHOLD = 0.65f;
+	private static float THRESHOLD = 0.7f;
 	
 	public List<MoveDirection> getMoves(List<SegmentRange> ranges, AccelerometerData[] accelerationValues)
 	{
@@ -13,10 +13,11 @@ public class Recognizer
 		for (SegmentRange range : ranges)
 		{
 			AccelerometerData maxAccelerations = getMaxAccelerations(range, accelerationValues);
+			AccelerometerData meanAccelerations = getMeanAccelerations(range, accelerationValues);
 			
-			float x = Math.abs(maxAccelerations.AccelerationX);
-			float y = Math.abs(maxAccelerations.AccelerationY);
-			float z = Math.abs(maxAccelerations.AccelerationZ);
+			float x = Math.abs(meanAccelerations.AccelerationX);
+			float y = Math.abs(meanAccelerations.AccelerationY);
+			float z = Math.abs(meanAccelerations.AccelerationZ);
 						
 			boolean hasX = false;
 			boolean hasY = false;
@@ -69,6 +70,26 @@ public class Recognizer
 		}
 		
 		return moves;
+	}
+	
+	public AccelerometerData getMeanAccelerations(SegmentRange range, AccelerometerData[] accelerationValues)
+	{
+		AccelerometerData meanAccelerations = new AccelerometerData(new float[] { 0.0f, 0.0f, 0.0f });
+		
+		int amount = (range.OscillationEnd + 1) - range.OscillationBegin;
+		
+		for (int i = range.OscillationBegin; i <= range.OscillationEnd; ++i)
+		{
+			meanAccelerations.AccelerationX += Math.abs(accelerationValues[i].AccelerationX);
+			meanAccelerations.AccelerationY += Math.abs(accelerationValues[i].AccelerationY);
+			meanAccelerations.AccelerationZ += Math.abs(accelerationValues[i].AccelerationZ);
+		}
+		
+		meanAccelerations.AccelerationX /= amount;
+		meanAccelerations.AccelerationY /= amount;
+		meanAccelerations.AccelerationZ /= amount;
+		
+		return meanAccelerations;
 	}
 	
 	public AccelerometerData getMaxAccelerations(SegmentRange range, AccelerometerData[] accelerationValues)
