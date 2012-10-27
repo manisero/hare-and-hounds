@@ -1,8 +1,12 @@
 package com.fARmework.modules.ScreenGestures.Java.GesturesReader;
 
-import com.fARmework.modules.ScreenGestures.Data.*;
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.Locale;
+import java.util.Scanner;
+
+import com.fARmework.modules.ScreenGestures.Data.ScreenGestureData;
 
 public class GestureFileReader
 {
@@ -48,6 +52,8 @@ public class GestureFileReader
 				
 				_gestures.add(gestureData);
 			}
+			
+			scanner.close();
 		} 
 		catch (FileNotFoundException e) 
 		{

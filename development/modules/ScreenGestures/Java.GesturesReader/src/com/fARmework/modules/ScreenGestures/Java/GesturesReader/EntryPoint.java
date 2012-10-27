@@ -125,8 +125,8 @@ public class EntryPoint extends JFrame
 		GroupedScreenGestureProcessor groupedProcessor = new GroupedScreenGestureProcessor();
 		GroupedScreenPatternMatcher groupedMatcher = new GroupedScreenPatternMatcher();
 		
-		_processorFactory = new ScreenGestureProcessorFactory();
-		_matcherFactory = new ScreenPatternMatcherFactory();
+		_processorFactory = new EmptyScreenGestureProcessorFactory();
+		_matcherFactory = new EmptyScreenPatternMatcherFactory();
 		
 		_processorFactory.register(PlainScreenGesture.class, plainProcessor);
 		_processorFactory.register(DirectionalScreenGesture.class, processor);
