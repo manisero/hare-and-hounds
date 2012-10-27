@@ -2,6 +2,8 @@ package com.fARmework.modules.SpaceGestures.Java;
 
 public enum Direction
 {
+	Unknown,
+	
 	Left,
 	Right,
 	Up,
