@@ -25,6 +25,7 @@ development/modules/PositionTracking/Tests/bin/*
 development/modules/ScreenGestures/Android/bin/*
 development/modules/ScreenGestures/Data/bin/*
 development/modules/ScreenGestures/Java/bin/*
+development/modules/ScreenGestures/Java.GesturesReader/bin/*
 development/modules/ScreenGestures/Tests/bin/*
 development/modules/SpaceGestures/Android/bin/*
 development/modules/SpaceGestures/Data/bin/*
