@@ -1,6 +1,8 @@
-package com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Utilities;
+package com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Utilities._impl;
 
-public class FileUtilities
+import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Utilities.IFileUtilities;
+
+public class FileUtilities implements IFileUtilities
 {
 	public String getExtension(String filename)
 	{

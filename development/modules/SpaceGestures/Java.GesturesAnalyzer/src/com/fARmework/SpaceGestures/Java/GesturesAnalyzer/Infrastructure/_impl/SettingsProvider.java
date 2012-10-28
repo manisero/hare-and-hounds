@@ -2,6 +2,7 @@ package com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Infrastructure._impl;
 
 import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Infrastructure.ISettingsProvider;
 import com.fARmework.utils.Java.ISettingsReader;
+import com.google.inject.Inject;
 
 public class SettingsProvider implements ISettingsProvider
 {
@@ -9,6 +10,7 @@ public class SettingsProvider implements ISettingsProvider
 	
 	private ISettingsReader _settingsReader;
 	
+	@Inject
 	public SettingsProvider(ISettingsReader settingsReader)
 	{
 		_settingsReader = settingsReader;
