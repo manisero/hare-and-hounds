@@ -1,13 +1,17 @@
-package com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Utilities;
+package com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Utilities._impl;
 
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FileIndexer
+import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Utilities.IFileIndexer;
+import com.google.inject.Inject;
+
+public class FileIndexer implements IFileIndexer
 {
 	private FileUtilities _fileUtilities;
 	
+	@Inject
 	public FileIndexer(FileUtilities fileUtilities)
 	{
 		_fileUtilities = fileUtilities;

@@ -1,22 +1,28 @@
-package com.fARmework.SpaceGestures.Java.GesturesAnalyzer.FileHandlers;
+package com.fARmework.SpaceGestures.Java.GesturesAnalyzer.FileHandlers._impl;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.FileHandlers.IDataExporter;
 import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData;
 import com.fARmework.modules.SpaceGestures.Java.Processing.GestureRange;
 import com.fARmework.modules.SpaceGestures.Java.Utilities.INetAccelerationForceCalculator;
+import com.google.inject.Inject;
 
-public class DataExporter
+public class DataExporter implements IDataExporter
 {
 	private INetAccelerationForceCalculator _netForceCalculator;
 	
-	public void export(INetAccelerationForceCalculator netForceCalculator, String filename, SpaceGestureData gesture, List<GestureRange> ranges)
+	@Inject
+	public DataExporter(INetAccelerationForceCalculator netForceCalculator)
 	{
 		_netForceCalculator = netForceCalculator;
-		
+	}
+	
+	public void export(String filename, SpaceGestureData gesture, List<GestureRange> ranges)
+	{
 		float[] data = _netForceCalculator.getNetAccelerationForce(gesture);
 		
 		try

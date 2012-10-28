@@ -1,4 +1,4 @@
-package com.fARmework.SpaceGestures.Java.GesturesAnalyzer.FileHandlers;
+package com.fARmework.SpaceGestures.Java.GesturesAnalyzer.FileHandlers._impl;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -8,9 +8,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 
+import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.FileHandlers.IDataLoader;
 import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData.AccelerometerData;
 
-public class DataLoader
+public class DataLoader implements IDataLoader
 {
 	public LinkedList<AccelerometerData> loadData(String filename, boolean hasTime)
 	{
