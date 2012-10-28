@@ -33,6 +33,8 @@ public class AccelerometerDataLoader
 				
 				data.add(new AccelerometerData(accelerometerData));
 			}
+			
+			reader.close();
 		} 
 		catch (FileNotFoundException e) 
 		{
