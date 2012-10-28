@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Java"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/SpaceGestures.Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Utils.Java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

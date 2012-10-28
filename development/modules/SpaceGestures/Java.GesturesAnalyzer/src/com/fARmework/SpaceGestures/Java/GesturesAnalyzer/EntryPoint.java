@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.FileHandlers.DataExporter;
 import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.FileHandlers.DataLoader;
+import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Infrastructure.ISettingsProvider;
+import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Infrastructure._impl.SettingsProvider;
 import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Utilities.FileIndexer;
 import com.fARmework.SpaceGestures.Java.GesturesAnalyzer.Utilities.FileUtilities;
 import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData;
@@ -19,27 +21,35 @@ import com.fARmework.modules.SpaceGestures.Java.Processing._impl.SpaceGestureFil
 import com.fARmework.modules.SpaceGestures.Java.Processing._impl.SpaceGestureSegmentator;
 import com.fARmework.modules.SpaceGestures.Java.Utilities.INetAccelerationForceCalculator;
 import com.fARmework.modules.SpaceGestures.Java.Utilities._impl.NetAccelerationForceCalculator;
+import com.fARmework.utils.Java.ISettingsReader;
+import com.fARmework.utils.Java._impl.SettingsReader;
 
 public class EntryPoint
 {
-	private static final boolean HAS_TIME = true;
-	private static final String CSV_EXTENSION = ".csv";
-	
 	public static void main(String[] args)
 	{
+		ISettingsReader settingsReader = new SettingsReader();
+		ISettingsProvider settingsProvider = new SettingsProvider(settingsReader);
+		
+		boolean hasTimestamps = settingsProvider.getHasTimestamps();
+		String extension = settingsProvider.getFileExtension();
+		String relativePath = settingsProvider.getRelativePath();
+		
 		String workingDirectory = System.getProperty("user.dir");
+		
+		workingDirectory = workingDirectory + relativePath; 
 		
 		FileUtilities fileUtilities = new FileUtilities();
 		FileIndexer indexer = new FileIndexer(fileUtilities);
 		
-		List<String> csvs = indexer.getFilenames(workingDirectory, CSV_EXTENSION);
+		List<String> csvs = indexer.getFilenames(workingDirectory, extension);
 		
 		DataLoader dataLoader = new DataLoader();
 		DataExporter dataExporter = new DataExporter();
 		
 		for (String csv : csvs)
 		{			
-			LinkedList<AccelerometerData> data = dataLoader.loadData(csv, HAS_TIME);
+			LinkedList<AccelerometerData> data = dataLoader.loadData(workingDirectory + "/" + csv, hasTimestamps);
 			
 			SpaceGestureData gestureData = new SpaceGestureData(data);
 			
@@ -49,7 +59,7 @@ public class EntryPoint
 			
 			List<GestureRange> gestureRanges = segmentator.getGestureSegments(gestureData);
 			
-			dataExporter.export(netForceCalculator, "ranges_" + csv, gestureData, gestureRanges);
+			dataExporter.export(netForceCalculator, workingDirectory + "/" + "ranges_" + csv, gestureData, gestureRanges);
 			
 			ISpaceGestureFilter filter = new SpaceGestureFilter(netForceCalculator);
 			
