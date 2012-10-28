@@ -22,7 +22,7 @@ public class NetAccelerationForceCalculator implements INetAccelerationForceCalc
 			
 			netForce[i] = (float) Math.sqrt(squareX + squareY + squareZ);
 		}
-				
+		
 		return netForce;
 	}
 }

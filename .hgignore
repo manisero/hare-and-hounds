@@ -30,6 +30,7 @@ development/modules/ScreenGestures/Tests/bin/*
 development/modules/SpaceGestures/Android/bin/*
 development/modules/SpaceGestures/Data/bin/*
 development/modules/SpaceGestures/Java/bin/*
+development/modules/SpaceGestures/Java.GesturesAnalyzer/bin/*
 development/modules/SpaceGestures/Tests/bin/*
 development/modules/SpaceGraphics/Android/bin/*
 development/modules/SpaceGraphics/Android.Simulation/bin/*

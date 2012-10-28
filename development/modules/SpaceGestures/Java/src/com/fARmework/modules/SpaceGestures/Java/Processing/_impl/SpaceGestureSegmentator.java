@@ -80,8 +80,12 @@ public class SpaceGestureSegmentator implements ISpaceGestureSegmentator
 		List<GestureRange> segments = new LinkedList<GestureRange>();
 		
 		float[] netAcceleration = _netForceCalculator.getNetAccelerationForce(gesture);
+	
+		_lastLength = 0;
+		_lastIndex = 0;
 		
 		_spike = new Spike(netAcceleration[0]);
+		_state = State.Rising;
 		
 		int initialIndex = 0;
 		
