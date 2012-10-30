@@ -6,7 +6,7 @@ import com.fARmework.modules.SpaceGestures.Java.Gestures.*;
 
 public class ScissorsSpaceGesture extends PlainSpaceGesture
 {
-	private static final Direction[] PATTERN = { Direction.Down, Direction.Right, Direction.Up, Direction.Right };
+	private static final Direction[] PATTERN = { Direction.LeftDownBackward, Direction.Right, Direction.LeftUpForward };
 	
 	public ScissorsSpaceGesture()
 	{

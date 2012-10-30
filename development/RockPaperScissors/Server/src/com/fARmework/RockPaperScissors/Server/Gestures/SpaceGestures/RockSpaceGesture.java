@@ -6,7 +6,7 @@ import com.fARmework.modules.SpaceGestures.Java.Gestures.*;
 
 public class RockSpaceGesture extends PlainSpaceGesture
 {
-	private static final Direction[] PATTERN = { Direction.Right, Direction.Up, Direction.Left };
+	private static final Direction[] PATTERN = { Direction.Left, Direction.RightForward, Direction.RightBackward };
 	
 	public RockSpaceGesture()
 	{
