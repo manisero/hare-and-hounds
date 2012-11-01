@@ -22,7 +22,13 @@ public class SettingsProvider extends SettingsProviderBase implements ISettingsP
 	@Override
 	public int getPort()
 	{
-		return ResourcesProvider.getInteger(R.integer.port);
+		return getInt("port", ResourcesProvider.getInteger(R.integer.defaultPort));
+	}
+	
+	@Override
+	public void setPort(int port)
+	{
+		setInt("port", port);
 	}
 	
 	@Override

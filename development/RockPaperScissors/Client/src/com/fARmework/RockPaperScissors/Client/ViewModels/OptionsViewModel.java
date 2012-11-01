@@ -15,6 +15,7 @@ public class OptionsViewModel extends ViewModel
 	private final ISettingsProvider _settingsProvider;
 	
 	public StringObservable ServerAddress = new StringObservable();
+	public StringObservable Port = new StringObservable();
 	public StringObservable UserName = new StringObservable();
 	
 	public Command Save = new Command()
@@ -23,6 +24,7 @@ public class OptionsViewModel extends ViewModel
 		public void Invoke(View arg0, Object... arg1)
 		{
 			_settingsProvider.setServerAddress(ServerAddress.get());
+			_settingsProvider.setPort(Integer.valueOf(Port.get()));
 			_settingsProvider.setUserName(UserName.get());
 		}
 	};
@@ -35,6 +37,7 @@ public class OptionsViewModel extends ViewModel
 		_settingsProvider = settingsProvider;
 		
 		ServerAddress.set(_settingsProvider.getServerAddress());
+		Port.set(String.valueOf(_settingsProvider.getPort()));
 		UserName.set(_settingsProvider.getUserName());
 	}
 }
