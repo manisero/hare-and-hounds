@@ -1,0 +1,31 @@
+Zadania dzielimy na:
+~~~~~~~~~~~~~~~~~~~~
+	* weryfikowane przez serwer,
+	* weryfikowane przez zlecaj¹cego.
+	
+Strona kliencka:
+~~~~~~~~~~~~~~~~
+	* ekran podsumowuj¹cy wszystkie zadania,
+	* ekran wykonywania zadania (?),
+	* ekran definiowania nowego zadania.
+	
+Strona serwera:
+~~~~~~~~~~~~~~~
+	* lista zadañ.
+	
+Przyk³adowe typy zadañ weryfikowanych przez zlecaj¹cego:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	* wykonaj fotografiê czerwonego samochodu,
+	* zbierz piêæ szyszek.
+	
+Przyk³adowe typy zadañ weryfikowanych przez serwer:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	* narysuj kwadrat na ekranie telefonu,
+	* zrób zdjêcie nieba (?).
+	
+Za³o¿enia do gry:
+~~~~~~~~~~~~~~~~~
+	* w miejscu zdefiniowania nowego zadania kolejny checkpoint (jeœli ostatni checkpoint jest niedaleko, to jest nadpisywany),
+	* goni¹cy, w momencie dotarcia do checkpointa z zadaniem, najpierw widz¹ ekran wykonywania zadania, a dopiero potem wskaŸnik na kolejny checkpoint,
+	* zadania nieweryfikowalne przez serwer mog¹ zostaæ zweryfikowane dopiero po zakoñczeniu gry,
+	* do momentu wykonania zadania weryfikowalnego przez serwer, wskaŸnik na kolejny checkpoint nie jest wyœwietlany.

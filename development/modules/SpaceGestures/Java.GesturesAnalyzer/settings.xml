@@ -1,0 +1,5 @@
+<settings>
+	<setting key="HasTimestamps">true</setting>
+	<setting key="FileExtension">.csv</setting>
+	<setting key="RelativePath">/csv</setting>
+</settings>
