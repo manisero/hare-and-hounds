@@ -5,5 +5,5 @@
     android:layout_height="wrap_content"
     android:textSize="30dip"
     android:layout_margin="15dp"
-    binding:text="hostUserName"
-    binding:onClick="joinGame" />
+    binding:text="HostUserName"
+    binding:onClick="JoinGame" />

@@ -23,14 +23,14 @@
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:text="@string/game_player"
-			    binding:text="playerName" />
+			    binding:text="PlayerName" />
             
             <TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_marginTop="5dp"
 			    android:textSize="30dip"
-			    binding:text="playerScore" />
+			    binding:text="PlayerScore" />
             
         </LinearLayout>
         
@@ -44,14 +44,14 @@
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:text="@string/game_opponent"
-			    binding:text="opponentName" />
+			    binding:text="OpponentName" />
 	        
 	        <TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_marginTop="5dp"
 			    android:textSize="30dip"
-			    binding:text="opponentScore" />
+			    binding:text="OpponentScore" />
 	      
 		</LinearLayout>
         
@@ -65,13 +65,13 @@
 	    <TextView
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    binding:text="status" />
+		    binding:text="Status" />
 
 	    <ProgressBar
 	        style="?android:attr/progressBarStyleSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        binding:visibility="isWaiting" />
+	        binding:visibility="IsWaiting" />
     
     </LinearLayout>
     
@@ -84,22 +84,22 @@
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_rock"
-			binding:onClick="sendRock"
-			binding:enabled="NOT(isWaiting)" />
+			binding:onClick="SendRock"
+			binding:enabled="NOT(IsWaiting)" />
 	    
 		<Button
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_paper"
-			binding:onClick="sendPaper"
-			binding:enabled="NOT(isWaiting)" />
+			binding:onClick="SendPaper"
+			binding:enabled="NOT(IsWaiting)" />
 	    
 		<Button
 			android:layout_width="100dp"
 			android:layout_height="50dp"
 			android:text="@string/gestures_scissors"
-			binding:onClick="sendScissors"
-			binding:enabled="NOT(isWaiting)" />
+			binding:onClick="SendScissors"
+			binding:enabled="NOT(IsWaiting)" />
 	
     </LinearLayout>
 	
@@ -109,7 +109,7 @@
 	    android:background="#FFFFFF"
 	    farmework:gesture_delay="1000"
 	    farmework:line_thickness="3.0"
-	    binding:onGesture="sendScreenGesture" />
+	    binding:onGesture="SendScreenGesture" />
 	
 	<LinearLayout android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
 		    android:layout_height="50dp"
 		    android:layout_marginTop="15dp"
 		    android:background="#FFFFFF"
-		    binding:onGesture="sendSpaceGesture" />
+		    binding:onGesture="SendSpaceGesture" />
 	
 	</LinearLayout>
 	

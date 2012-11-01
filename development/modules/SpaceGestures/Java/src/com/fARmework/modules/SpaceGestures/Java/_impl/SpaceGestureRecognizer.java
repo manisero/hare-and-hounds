@@ -28,6 +28,8 @@ public class SpaceGestureRecognizer implements ISpaceGestureRecognizer
 		List<SpaceGesture> gestures = _gestureRegistry.getGestures();
 		List<Direction> moves = _processor.process(data);
 		
+		logDetectedDirections(moves);
+		
 		for (SpaceGesture gesture : gestures)
 		{
 			ISpacePatternMatcher matcher = _matcherFactory.get(gesture.getClass());
@@ -39,5 +41,18 @@ public class SpaceGestureRecognizer implements ISpaceGestureRecognizer
 		}
 		
 		return null;
+	}
+	
+	private void logDetectedDirections(List<Direction> directions)
+	{
+		System.out.println("Detected directions:");
+		
+		for  (Direction direction : directions)
+		{
+			System.out.print(direction);
+			System.out.print(" ");
+		}
+		
+		System.out.print("\n");
 	}
 }

@@ -42,7 +42,7 @@ public class SoundPoolManager implements ISoundPoolManager
 	{
 		_context = context;
 	}
-	
+
 	@Override
 	public int loadSound(int soundResourceID, final ISoundLoadListener soundLoadListener)
 	{

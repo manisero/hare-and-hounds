@@ -10,26 +10,26 @@
 		android:layout_width="160dp"
 		android:layout_height="80dp"
 		android:text="@string/gameList_refresh"
-		binding:onClick="getGames"
-		binding:enabled="NOT(isWaiting)" />
+		binding:onClick="GetGames"
+		binding:enabled="NOT(IsWaiting)" />
     
     <ListView
         android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    binding:itemSource="games"
 	    binding:itemTemplate="@layout/game_list_item"
-	    binding:visibility="NOT(isWaiting)" />
+	    binding:visibility="NOT(IsWaiting)" />
     
     <TextView
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    binding:text="status"
-	    binding:visibility="isWaiting" />
+	    binding:visibility="IsWaiting" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        binding:visibility="isWaiting" />
+        binding:visibility="IsWaiting" />
 
 </LinearLayout>

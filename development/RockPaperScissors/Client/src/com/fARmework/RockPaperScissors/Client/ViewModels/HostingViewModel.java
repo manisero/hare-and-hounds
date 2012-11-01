@@ -17,8 +17,8 @@ import com.google.inject.Inject;
 
 public class HostingViewModel extends ViewModel
 {
-	public StringObservable status = new StringObservable();
-	public BooleanObservable isWaiting = new BooleanObservable(true);
+	public StringObservable Status = new StringObservable();
+	public BooleanObservable IsWaiting = new BooleanObservable(true);
 	
 	@Inject
 	public HostingViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
@@ -30,7 +30,7 @@ public class HostingViewModel extends ViewModel
 			@Override
 			public void handle(GameCreationResponse data)
 			{
-				status.set(ResourcesProvider.getString(R.string.hosting_waiting));
+				Status.set(ResourcesProvider.getString(R.string.hosting_waiting));
 			}
 		});
 		
@@ -48,7 +48,7 @@ public class HostingViewModel extends ViewModel
 						@Override
 						public void onDialogResult()
 						{
-							status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestUserName));
+							Status.set(String.format(ResourcesProvider.getString(R.string.hosting_guestJoined), data.GuestUserName));
 							
 							ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
 							{
@@ -56,7 +56,7 @@ public class HostingViewModel extends ViewModel
 								public void handle(GameStartInfo info)
 								{
 									ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
-									isWaiting.set(false);
+									IsWaiting.set(false);
 									
 									Bundle bundle = new Bundle();
 									bundle.putString(GameViewModel.OPPONENT_NAME_KEY, data.GuestUserName);
@@ -78,7 +78,7 @@ public class HostingViewModel extends ViewModel
 			}
 		});
 		
-		status.set(ResourcesProvider.getString(R.string.hosting_creating));
+		Status.set(ResourcesProvider.getString(R.string.hosting_creating));
 		ConnectionManager.send(new GameCreationRequest(settingsProvider.getUserName()));
 	}
 }

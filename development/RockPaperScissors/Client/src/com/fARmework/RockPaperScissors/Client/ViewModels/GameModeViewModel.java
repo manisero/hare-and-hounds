@@ -17,25 +17,25 @@ public class GameModeViewModel extends ViewModel
 {
 	private final ISettingsProvider _settingsProvider;
 	
-	public StringObservable status = new StringObservable();
-	public BooleanObservable isWaiting = new BooleanObservable(false);
-	public BooleanObservable isConnected = new BooleanObservable(false);
+	public StringObservable Status = new StringObservable();
+	public BooleanObservable IsWaiting = new BooleanObservable(false);
+	public BooleanObservable IsConnected = new BooleanObservable(false);
 	
-	public Command create = new Command()
+	public Command Create = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			if (!isConnected.get())
+			if (!IsConnected.get())
 			{
 				ConnectionManager.registerDataHandler(ConnectionSuccessInfo.class, new IDataHandler<ConnectionSuccessInfo>()
 				{
 					@Override
 					public void handle(ConnectionSuccessInfo data)
 					{
-						isConnected.set(true);
-						status.set(ResourcesProvider.getString(R.string.connection_success));
-						isWaiting.set(false);
+						IsConnected.set(true);
+						Status.set(ResourcesProvider.getString(R.string.connection_success));
+						IsWaiting.set(false);
 						ContextManager.navigateTo(HostingViewModel.class);
 					}
 				});
@@ -49,21 +49,21 @@ public class GameModeViewModel extends ViewModel
 		}
 	};
 	
-	public Command join = new Command()
+	public Command Join = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
 		{
-			if (!isConnected.get())
+			if (!IsConnected.get())
 			{
 				ConnectionManager.registerDataHandler(ConnectionSuccessInfo.class, new IDataHandler<ConnectionSuccessInfo>()
 				{
 					@Override
 					public void handle(ConnectionSuccessInfo data)
 					{
-						isConnected.set(true);
-						status.set(ResourcesProvider.getString(R.string.connection_success));
-						isWaiting.set(false);
+						IsConnected.set(true);
+						Status.set(ResourcesProvider.getString(R.string.connection_success));
+						IsWaiting.set(false);
 						ContextManager.navigateTo(GameListViewModel.class);
 					}
 				});
@@ -77,7 +77,7 @@ public class GameModeViewModel extends ViewModel
 		}
 	};
 	
-	public Command disconnect = new Command()
+	public Command Disconnect = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
@@ -86,7 +86,7 @@ public class GameModeViewModel extends ViewModel
 		}
 	};
 	
-	public Command options = new Command()
+	public Command Options = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
@@ -107,28 +107,28 @@ public class GameModeViewModel extends ViewModel
 			@Override
 			public void handle(ConnectionFaultInfo data)
 			{
-				status.set(ResourcesProvider.getString(R.string.connection_fault));
-				isWaiting.set(false);
+				Status.set(ResourcesProvider.getString(R.string.connection_fault));
+				IsWaiting.set(false);
 			}
 		});
 	}
 	
 	private void connect()
 	{
-		status.set(ResourcesProvider.getString(R.string.connection_connecting));
-		isWaiting.set(true);
+		Status.set(ResourcesProvider.getString(R.string.connection_connecting));
+		IsWaiting.set(true);
 		ConnectionManager.connect(_settingsProvider.getServerAddress());
 	}
 	
 	public void disconnect()
 	{
 		ConnectionManager.disconnect();
-		isWaiting.set(false);
+		IsWaiting.set(false);
 		
-		if (isConnected.get())
+		if (IsConnected.get())
 		{
-			isConnected.set(false);
-			status.set(ResourcesProvider.getString(R.string.connection_disconnected));
+			IsConnected.set(false);
+			Status.set(ResourcesProvider.getString(R.string.connection_disconnected));
 		}
 	}
 	

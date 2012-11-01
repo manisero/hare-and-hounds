@@ -22,14 +22,14 @@ public class GameViewModel extends ViewModel
 {
 	public static final String OPPONENT_NAME_KEY = GameViewModel.class.getCanonicalName() + "OPPONENT_NAME";
 	
-	public StringObservable playerName = new StringObservable();
-	public StringObservable opponentName = new StringObservable();
-	public IntegerObservable playerScore = new IntegerObservable(0);
-	public IntegerObservable opponentScore = new IntegerObservable(0);
-	public StringObservable status = new StringObservable();
-	public BooleanObservable isWaiting = new BooleanObservable(false);
+	public StringObservable PlayerName = new StringObservable();
+	public StringObservable OpponentName = new StringObservable();
+	public IntegerObservable PlayerScore = new IntegerObservable(0);
+	public IntegerObservable OpponentScore = new IntegerObservable(0);
+	public StringObservable Status = new StringObservable();
+	public BooleanObservable IsWaiting = new BooleanObservable(false);
 	
-	public Command sendRock = new Command()
+	public Command SendRock = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
@@ -38,7 +38,7 @@ public class GameViewModel extends ViewModel
 		}
 	};
 	
-	public Command sendPaper = new Command()
+	public Command SendPaper = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
@@ -47,7 +47,7 @@ public class GameViewModel extends ViewModel
 		}
 	};
 	
-	public Command sendScissors = new Command()
+	public Command SendScissors = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
@@ -56,7 +56,7 @@ public class GameViewModel extends ViewModel
 		}
 	};
 	
-	public Command sendScreenGesture = new Command()
+	public Command SendScreenGesture = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
@@ -65,7 +65,7 @@ public class GameViewModel extends ViewModel
 		}
 	};
 	
-	public Command sendSpaceGesture = new Command()
+	public Command SendSpaceGesture = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
@@ -79,9 +79,9 @@ public class GameViewModel extends ViewModel
 	{
 		super(connectionManager, contextManager);
 		
-		playerName.set(settingsProvider.getUserName());
-		opponentName.set(settingsProvider.getServerAddress());
-		status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
+		PlayerName.set(settingsProvider.getUserName());
+		OpponentName.set(settingsProvider.getServerAddress());
+		Status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
 		
 		ConnectionManager.registerDataHandler(GestureInfo.class, new IDataHandler<GestureInfo>()
 		{
@@ -90,8 +90,8 @@ public class GameViewModel extends ViewModel
 			{
 				if (data.GestureType != GestureType.Unknown)
 				{
-					isWaiting.set(true);
-					status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
+					IsWaiting.set(true);
+					Status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), OpponentName.get()));
 				}
 				else
 				{
@@ -105,13 +105,13 @@ public class GameViewModel extends ViewModel
 			@Override
 			public void handle(GameResultInfo data)
 			{
-				isWaiting.set(false);
+				IsWaiting.set(false);
 				
-				playerScore.set(data.PlayerScore);
-				opponentScore.set(data.OpponentScore);
+				PlayerScore.set(data.PlayerScore);
+				OpponentScore.set(data.OpponentScore);
 				
 				ContextManager.showYesNoDialog(
-					String.format(ResourcesProvider.getString(R.string.game_result_pattern), ResourcesProvider.getGameResultString(data.GameResult), ResourcesProvider.getGestureString(data.PlayerGesture), opponentName.get(), ResourcesProvider.getGestureString(data.OpponentGesture)),
+					String.format(ResourcesProvider.getString(R.string.game_result_pattern), ResourcesProvider.getGameResultString(data.GameResult), ResourcesProvider.getGestureString(data.PlayerGesture), OpponentName.get(), ResourcesProvider.getGestureString(data.OpponentGesture)),
 					ResourcesProvider.getString(R.string.dialog_yes),
 					ResourcesProvider.getString(R.string.dialog_no),
 					new IDialogListener()
@@ -119,8 +119,8 @@ public class GameViewModel extends ViewModel
 						@Override
 						public void onDialogResult()
 						{
-							isWaiting.set(true);
-							status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
+							IsWaiting.set(true);
+							Status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), OpponentName.get()));
 							ConnectionManager.send(new NextGameInfo());
 						}
 					},
@@ -140,8 +140,8 @@ public class GameViewModel extends ViewModel
 			@Override
 			public void handle(GameStartInfo data)
 			{
-				isWaiting.set(false);
-				status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
+				IsWaiting.set(false);
+				Status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
 			}
 		});
 		
@@ -151,8 +151,8 @@ public class GameViewModel extends ViewModel
 			public void handle(GameEndInfo data)
 			{
 				ContextManager.showDialogNotification(
-					String.format(ResourcesProvider.getString(string.game_opponentLeft), opponentName.get(), playerName.get(),
-								  playerScore.get(), opponentName.get(), opponentScore.get()),
+					String.format(ResourcesProvider.getString(string.game_opponentLeft), OpponentName.get(), PlayerName.get(),
+								  PlayerScore.get(), OpponentName.get(), OpponentScore.get()),
 					ResourcesProvider.getString(R.string.dialog_confirm),
 					null);
 			}
@@ -162,13 +162,13 @@ public class GameViewModel extends ViewModel
 	@Override
 	public void initialize(Bundle data)
 	{
-		opponentName.set(data.getString(OPPONENT_NAME_KEY));
+		OpponentName.set(data.getString(OPPONENT_NAME_KEY));
 	}
 	
 	private void sendGesture(GestureType gesture)
 	{
-		isWaiting.set(true);
-		status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), opponentName.get()));
+		IsWaiting.set(true);
+		Status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), OpponentName.get()));
 		ConnectionManager.send(new GestureInfo(gesture));
 	}
 	

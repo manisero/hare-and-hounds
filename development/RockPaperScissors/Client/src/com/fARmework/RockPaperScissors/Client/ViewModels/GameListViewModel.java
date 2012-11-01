@@ -27,20 +27,20 @@ public class GameListViewModel extends ViewModel
 		private int _hostID;
 		public StringObservable hostUserName = new StringObservable();
 		
-		public Command joinGame = new Command()
+		public Command JoinGame = new Command()
 		{
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
 				status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostUserName.get()));
-				isWaiting.set(true);
+				IsWaiting.set(true);
 				
 				ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
 				{
 					@Override
 					public void handle(GameJoinResponse data)
 					{
-						isWaiting.set(false);
+						IsWaiting.set(false);
 						
 						if (data.Response == GameJoinResponseType.Deny)
 						{
@@ -81,9 +81,9 @@ public class GameListViewModel extends ViewModel
 	
 	public ArrayListObservable<Game> games = new ArrayListObservable<Game>(Game.class);
 	public StringObservable status = new StringObservable();
-	public BooleanObservable isWaiting = new BooleanObservable(false);
+	public BooleanObservable IsWaiting = new BooleanObservable(false);
 	
-	public Command getGames = new Command()
+	public Command GetGames = new Command()
 	{
 		@Override
 		public void Invoke(View arg0, Object... arg1)
