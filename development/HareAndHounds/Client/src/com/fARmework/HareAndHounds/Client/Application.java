@@ -38,10 +38,8 @@ public class Application extends android.app.Application
 		// Register views
 		registerViews(injector.getInstance(IContextManager.class));
 		
-		// Configure utilities
-		configureUtils(injector);
-		
 		// Configure modules
+		configureUtils(injector);
 		configurePositionTracking(injector);
 		
 		// Register connection error handler
