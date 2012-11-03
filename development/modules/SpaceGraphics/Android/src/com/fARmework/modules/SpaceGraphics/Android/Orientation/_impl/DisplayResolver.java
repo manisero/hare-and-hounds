@@ -1,9 +1,9 @@
-package com.fARmework.modules.SpaceGraphics.Android._impl;
+package com.fARmework.modules.SpaceGraphics.Android.Orientation._impl;
 
 import android.content.*;
 import android.view.*;
 
-import com.fARmework.modules.SpaceGraphics.Android.*;
+import com.fARmework.modules.SpaceGraphics.Android.Orientation.*;
 
 public class DisplayResolver implements IDisplayResolver
 {
