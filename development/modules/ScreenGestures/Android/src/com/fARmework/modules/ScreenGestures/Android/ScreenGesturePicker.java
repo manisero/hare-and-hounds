@@ -86,6 +86,14 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 
 	protected void initialize()
 	{
+		_linePaint = new Paint();
+		_linePaint.setARGB(255, 0, 0, 0);
+		_linePaint.setStyle(Paint.Style.STROKE);
+		_linePaint.setStrokeWidth(_lineThickness);
+		
+		_clearPaint = new Paint();
+		_linePaint.setARGB(255, 255, 255, 255);
+		
 		setOnTouchListener(new OnTouchListener()
 		{
 			@Override
@@ -119,14 +127,6 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 				return true;
 			}
 		});
-		
-		_linePaint = new Paint();
-		_linePaint.setARGB(255, 0, 0, 0);
-		_linePaint.setStyle(Paint.Style.STROKE);
-		_linePaint.setStrokeWidth(_lineThickness);
-		
-		_clearPaint = new Paint();
-		_linePaint.setARGB(255, 255, 255, 255);
 	}
 
 	// Android-Binding support
