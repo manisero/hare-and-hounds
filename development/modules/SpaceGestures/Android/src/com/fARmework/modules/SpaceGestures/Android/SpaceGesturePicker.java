@@ -6,14 +6,43 @@ import android.util.*;
 import android.view.*;
 
 import com.fARmework.modules.SpaceGestures.Data.*;
+import com.google.inject.*;
 
 import gueei.binding.*;
 
 public class SpaceGesturePicker extends View implements IBindableView<SpaceGesturePicker>
 {
-	private final ISpaceGestureRecorder _spaceGestureRecorder = new SpaceGestureRecorder();
+	public interface OnSpaceGestureListener
+	{
+		void onGesture(View v, SpaceGestureData gesture);
+	}
+	
+	@Inject
+	public ISpaceGestureRecorder _spaceGestureRecorder;
 	
 	private OnSpaceGestureListener _gestureListener;
+	
+	private OnClickListener onStartRecordingListener = new OnClickListener()
+	{
+		@Override
+		public void onClick(View v)
+		{
+			setBackgroundColor(Color.RED);
+			_spaceGestureRecorder.startRecording();
+			setOnClickListener(onStopRecordingListener);
+		}
+	};
+	
+	private OnClickListener onStopRecordingListener = new OnClickListener()
+	{
+		@Override
+		public void onClick(View v)
+		{
+			setBackgroundColor(Color.WHITE);
+			_gestureListener.onGesture(v, _spaceGestureRecorder.stopRecording());
+			setOnClickListener(onStartRecordingListener);	
+		}
+	};
 	
 	// onGesture attribute (Android-Binding support)
 	private ViewAttribute<SpaceGesturePicker, Command> _onGestureAttribute =
@@ -50,32 +79,10 @@ public class SpaceGesturePicker extends View implements IBindableView<SpaceGestu
 		super(context, attrs);
 		initialize();
 	}
-
-	OnClickListener startRecording = new OnClickListener()
-	{
-		@Override
-		public void onClick(View v)
-		{
-			setBackgroundColor(Color.RED);
-			_spaceGestureRecorder.startRecording(getContext());
-			setOnClickListener(stopRecording);
-		}
-	};
-	
-	OnClickListener stopRecording = new OnClickListener()
-	{
-		@Override
-		public void onClick(View v)
-		{
-			setBackgroundColor(Color.WHITE);
-			_gestureListener.onGesture(v, _spaceGestureRecorder.stopRecording());
-			setOnClickListener(startRecording);	
-		}
-	};
 	
 	protected void initialize()
 	{
-		setOnClickListener(startRecording);
+		setOnClickListener(onStartRecordingListener);
 		
 		/*
 		setOnTouchListener(new OnTouchListener()
@@ -105,7 +112,18 @@ public class SpaceGesturePicker extends View implements IBindableView<SpaceGestu
 		});
 		*/
 	}
-
+	
+	public void setSpaceGestureRecorder(ISpaceGestureRecorder spaceGestureRecorder)
+	{
+		_spaceGestureRecorder = spaceGestureRecorder;
+	}
+	
+	public void setOnGestureListener(OnSpaceGestureListener listener)
+	{
+		_gestureListener = listener;
+	}
+	
+	// Android-Binding support
 	@Override
 	public ViewAttribute<? extends View, ?> createViewAttribute(String attribute)
 	{
@@ -115,10 +133,5 @@ public class SpaceGesturePicker extends View implements IBindableView<SpaceGestu
 		}
 		
 		return null;
-	}
-	
-	public void setOnGestureListener(OnSpaceGestureListener listener)
-	{
-		_gestureListener = listener;
 	}
 }
