@@ -84,9 +84,4 @@ public class CheckpointViewModel extends ViewModel
 	{
 		return _arrowModel;
 	}
-	
-	public IDirectionProvider getDirectionProvider()
-	{
-		return _directionProvider;
-	}
 }
