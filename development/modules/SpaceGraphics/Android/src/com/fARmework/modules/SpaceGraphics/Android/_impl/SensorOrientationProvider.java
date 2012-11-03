@@ -1,27 +1,29 @@
 package com.fARmework.modules.SpaceGraphics.Android._impl;
 
-import android.content.*;
 import android.hardware.*;
 import android.view.*;
 
 import com.fARmework.modules.SpaceGraphics.Android.*;
+import com.google.inject.*;
 
 public class SensorOrientationProvider implements IOrientationProvider
 {
-	private final SensorManager _sensorManager;
-	private final Display _display;
+	private final ISensorManagerResolver _sensorManagerResolver;
+	private final IDisplayResolver _displayResolver;
+	
+	private SensorManager _sensorManager;
+	private Display _display;
 	
 	private float[] _gravity = new float[3];
 	private float[] _geomagnetic = new float[3];
 	
-	public SensorOrientationProvider(Context context)
+	@Inject
+	public SensorOrientationProvider(ISensorManagerResolver sensorManagerResolver, IDisplayResolver displayResolver)
 	{
-		_sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+		_sensorManagerResolver = sensorManagerResolver;
+		_displayResolver = displayResolver;
 		
-		WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE); 
-		_display = windowManager.getDefaultDisplay();
-		
-		_sensorManager.registerListener(new SensorEventListener()
+		getSensorManager().registerListener(new SensorEventListener()
 		{
 			@Override
 			public void onSensorChanged(final SensorEvent event)
@@ -33,9 +35,9 @@ public class SensorOrientationProvider implements IOrientationProvider
 			public void onAccuracyChanged(Sensor sensor, int accuracy)
 			{
 			}
-		}, _sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+		}, getSensorManager().getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 		
-		_sensorManager.registerListener(new SensorEventListener()
+		getSensorManager().registerListener(new SensorEventListener()
 		{
 			@Override
 			public void onSensorChanged(final SensorEvent event)
@@ -47,9 +49,29 @@ public class SensorOrientationProvider implements IOrientationProvider
 			public void onAccuracyChanged(Sensor sensor, int accuracy)
 			{
 			}
-		}, _sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
+		}, getSensorManager().getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL);
 	}
 
+	private SensorManager getSensorManager()
+	{
+		if (_sensorManager == null)
+		{
+			_sensorManager = _sensorManagerResolver.resolve();
+		}
+		
+		return _sensorManager;
+	}
+	
+	private Display getDisplay()
+	{
+		if (_display == null)
+		{
+			_display = _displayResolver.resolve();
+		}
+		
+		return _display;
+	}
+	
 	@Override
 	public float[] getRotationMatrix()
 	{
@@ -60,7 +82,7 @@ public class SensorOrientationProvider implements IOrientationProvider
 		int xAxis;
 		int yAxis;
 		
-		switch(_display.getRotation())
+		switch(getDisplay().getRotation())
 		{
 			case Surface.ROTATION_90:
 				
