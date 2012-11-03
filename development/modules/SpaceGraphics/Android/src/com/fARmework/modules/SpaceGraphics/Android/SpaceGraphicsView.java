@@ -1,9 +1,9 @@
 package com.fARmework.modules.SpaceGraphics.Android;
 
 import com.fARmework.modules.SpaceGraphics.Android.Models.*;
+import com.fARmework.modules.SpaceGraphics.Android.Orientation.*;
 import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
-import com.fARmework.modules.SpaceGraphics.Android.Projection._impl.*;
-import com.fARmework.modules.SpaceGraphics.Android._impl.*;
+import com.google.inject.*;
 
 import android.content.*;
 import android.graphics.*;
@@ -12,6 +12,7 @@ import android.util.*;
 
 public class SpaceGraphicsView extends GLSurfaceView 
 {
+	@Inject
 	private IGraphicsRenderer _renderer;
 	
 	public SpaceGraphicsView(Context context) 
@@ -26,26 +27,19 @@ public class SpaceGraphicsView extends GLSurfaceView
 		initialize(context);
 	}
 	
-	public SpaceGraphicsView(Context context, IOrientationProvider orientationProvider) 
-	{
-		super(context);
-		_renderer = new GraphicsRenderer(new GLHandler(), orientationProvider, new DefaultDirectionProvider());
-		initialize(context);
-	}
-	
 	private void initialize(Context context)
 	{
-		if (_renderer == null)
-		{
-			_renderer = new GraphicsRenderer(new GLHandler(), new SensorOrientationProvider(context), new DefaultDirectionProvider());
-		}
-		
 		setEGLContextClientVersion(1);
 		setEGLConfigChooser(8, 8, 8, 8, 8, 0 );
 		getHolder().setFormat(PixelFormat.TRANSLUCENT);
 		
-		setRenderer(_renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+	}
+	
+	public void setGraphicsRenderer(IGraphicsRenderer graphicsRenderer)
+	{
+		_renderer = graphicsRenderer;
+		setRenderer(graphicsRenderer);
 	}
 	
 	public void setModel(Model model)

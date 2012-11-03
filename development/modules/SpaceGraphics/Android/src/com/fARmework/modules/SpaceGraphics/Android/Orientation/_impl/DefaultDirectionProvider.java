@@ -1,6 +1,6 @@
-package com.fARmework.modules.SpaceGraphics.Android._impl;
+package com.fARmework.modules.SpaceGraphics.Android.Orientation._impl;
 
-import com.fARmework.modules.SpaceGraphics.Android.*;
+import com.fARmework.modules.SpaceGraphics.Android.Orientation.*;
 
 public class DefaultDirectionProvider implements IDirectionProvider
 {
