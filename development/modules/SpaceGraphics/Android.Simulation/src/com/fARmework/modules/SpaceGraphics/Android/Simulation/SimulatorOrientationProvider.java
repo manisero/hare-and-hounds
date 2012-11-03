@@ -7,7 +7,7 @@ import android.hardware.SensorManager;
 import android.os.*;
 import android.view.*;
 
-import com.fARmework.modules.SpaceGraphics.Android.*;
+import com.fARmework.modules.SpaceGraphics.Android.Orientation.*;
 
 public class SimulatorOrientationProvider implements IOrientationProvider
 {

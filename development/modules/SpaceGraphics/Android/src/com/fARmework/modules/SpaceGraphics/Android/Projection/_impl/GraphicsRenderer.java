@@ -3,9 +3,10 @@ package com.fARmework.modules.SpaceGraphics.Android.Projection._impl;
 import javax.microedition.khronos.egl.*;
 import javax.microedition.khronos.opengles.*;
 
-import com.fARmework.modules.SpaceGraphics.Android.*;
 import com.fARmework.modules.SpaceGraphics.Android.Models.*;
+import com.fARmework.modules.SpaceGraphics.Android.Orientation.*;
 import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
+import com.google.inject.*;
 
 public class GraphicsRenderer implements IGraphicsRenderer
 {
@@ -15,6 +16,7 @@ public class GraphicsRenderer implements IGraphicsRenderer
 	
     private Model _model;
     
+    @Inject
     public GraphicsRenderer(IGLHandler glHandler, IOrientationProvider orientationProvider, IDirectionProvider directionProvider)
     {
     	_glHandler = glHandler;
