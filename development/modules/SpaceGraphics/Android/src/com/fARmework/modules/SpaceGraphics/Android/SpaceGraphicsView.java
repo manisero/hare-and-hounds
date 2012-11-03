@@ -1,6 +1,7 @@
 package com.fARmework.modules.SpaceGraphics.Android;
 
 import com.fARmework.modules.SpaceGraphics.Android.Models.*;
+import com.fARmework.modules.SpaceGraphics.Android.Orientation.*;
 import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
 import com.google.inject.*;
 

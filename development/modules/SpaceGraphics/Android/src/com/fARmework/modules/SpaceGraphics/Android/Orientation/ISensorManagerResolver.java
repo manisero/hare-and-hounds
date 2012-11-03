@@ -1,4 +1,4 @@
-package com.fARmework.modules.SpaceGraphics.Android;
+package com.fARmework.modules.SpaceGraphics.Android.Orientation;
 
 import android.content.*;
 import android.hardware.*;

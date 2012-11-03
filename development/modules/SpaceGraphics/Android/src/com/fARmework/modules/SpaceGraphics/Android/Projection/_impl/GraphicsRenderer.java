@@ -3,8 +3,8 @@ package com.fARmework.modules.SpaceGraphics.Android.Projection._impl;
 import javax.microedition.khronos.egl.*;
 import javax.microedition.khronos.opengles.*;
 
-import com.fARmework.modules.SpaceGraphics.Android.*;
 import com.fARmework.modules.SpaceGraphics.Android.Models.*;
+import com.fARmework.modules.SpaceGraphics.Android.Orientation.*;
 import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
 import com.google.inject.*;
 

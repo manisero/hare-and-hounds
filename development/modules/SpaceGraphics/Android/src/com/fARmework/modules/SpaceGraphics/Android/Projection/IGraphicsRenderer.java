@@ -1,7 +1,7 @@
 package com.fARmework.modules.SpaceGraphics.Android.Projection;
 
-import com.fARmework.modules.SpaceGraphics.Android.*;
 import com.fARmework.modules.SpaceGraphics.Android.Models.*;
+import com.fARmework.modules.SpaceGraphics.Android.Orientation.*;
 
 import android.opengl.*;
 
