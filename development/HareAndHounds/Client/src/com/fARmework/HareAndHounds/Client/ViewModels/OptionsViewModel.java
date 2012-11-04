@@ -18,6 +18,7 @@ public class OptionsViewModel extends ViewModel
 	public StringObservable ServerAddress = new StringObservable();
 	public StringObservable Port = new StringObservable();
 	public StringObservable UserName = new StringObservable();
+	public BooleanObservable PlayCheckpointSound = new BooleanObservable();
 	
 	public Command Save = new Command()
 	{
@@ -27,6 +28,7 @@ public class OptionsViewModel extends ViewModel
 			_settingsProvider.setServerAddress(ServerAddress.get());
 			_settingsProvider.setPort(Integer.valueOf(Port.get()));
 			_settingsProvider.setUserName(UserName.get());
+			_settingsProvider.setPlayCheckpointSound(PlayCheckpointSound.get());
 		}
 	};
 	
@@ -43,5 +45,6 @@ public class OptionsViewModel extends ViewModel
 		ServerAddress.set(_settingsProvider.getServerAddress());
 		Port.set(String.valueOf(_settingsProvider.getPort()));
 		UserName.set(_settingsProvider.getUserName());
+		PlayCheckpointSound.set(_settingsProvider.getPlayCheckpointSound());
 	}
 }
