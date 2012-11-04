@@ -2,7 +2,7 @@ package com.fARmework.modules.SpaceGraphics.Android.Simulation;
 
 import com.fARmework.modules.SpaceGraphics.Android.*;
 import com.fARmework.modules.SpaceGraphics.Android.Models.*;
-import com.fARmework.modules.SpaceGraphics.Android.Orientation._impl.*;
+import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
 import com.fARmework.modules.SpaceGraphics.Android.Projection._impl.*;
 
 import android.app.*;
@@ -15,10 +15,10 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         
-        SpaceGraphicsView view = new SpaceGraphicsView(this);
-        view.setGraphicsRenderer(new GraphicsRenderer(new GLHandler(), new SimulatorOrientationProvider(this), new DefaultDirectionProvider()));
-        view.setModel(new Arrow());
+        IGraphicsRenderer graphicsRenderer = new GraphicsRenderer(new GLHandler(), new SimulatorOrientationProvider(this));
+        graphicsRenderer.setModel(new Arrow());
         
+        SpaceGraphicsView view = new SpaceGraphicsView(this, graphicsRenderer);
         setContentView(view);
     }
 }
