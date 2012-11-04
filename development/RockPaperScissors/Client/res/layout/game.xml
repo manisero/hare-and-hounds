@@ -117,6 +117,7 @@
 		android:gravity="center_horizontal">
 	
 		<com.fARmework.modules.SpaceGestures.Android.SpaceGesturePicker
+		    android:id="@+id/spaceGesturePicker"
 		    android:layout_width="50dp"
 		    android:layout_height="50dp"
 		    android:layout_marginTop="15dp"
