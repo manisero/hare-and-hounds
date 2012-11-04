@@ -18,6 +18,9 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
         public static final int icon=0x7f020002;
     }
+    public static final class id {
+        public static final int spaceGesturePicker=0x7f080000;
+    }
     public static final class integer {
         public static final int defaultPort=0x7f070000;
         public static final int shortNotificationMaxLength=0x7f070001;

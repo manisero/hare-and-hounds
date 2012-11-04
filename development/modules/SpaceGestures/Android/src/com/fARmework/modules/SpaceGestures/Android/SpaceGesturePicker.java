@@ -6,15 +6,14 @@ import android.util.*;
 import android.view.*;
 
 import com.fARmework.modules.SpaceGestures.Data.*;
-import com.google.inject.*;
 
 import gueei.binding.*;
 
 public class SpaceGesturePicker extends View implements IBindableView<SpaceGesturePicker>
 {
-	@Inject
-	public ISpaceGestureRecorder _spaceGestureRecorder;
+	private static final String ON_GESTURE_ATTRIBUTE_NAME = "onGesture";
 	
+	private ISpaceGestureRecorder _spaceGestureRecorder;
 	private OnSpaceGestureListener _gestureListener;
 	
 	private OnClickListener onStartRecordingListener = new OnClickListener()
@@ -41,7 +40,7 @@ public class SpaceGesturePicker extends View implements IBindableView<SpaceGestu
 	
 	// onGesture attribute (Android-Binding support)
 	private ViewAttribute<SpaceGesturePicker, Command> _onGestureAttribute =
-				new ViewAttribute<SpaceGesturePicker, Command>(Command.class, SpaceGesturePicker.this, "onGesture")
+				new ViewAttribute<SpaceGesturePicker, Command>(Command.class, SpaceGesturePicker.this, ON_GESTURE_ATTRIBUTE_NAME)
 				{
 				    @Override
 				    protected void doSetAttributeValue(final Object newValue)
@@ -122,7 +121,7 @@ public class SpaceGesturePicker extends View implements IBindableView<SpaceGestu
 	@Override
 	public ViewAttribute<? extends View, ?> createViewAttribute(String attribute)
 	{
-		if (attribute.equals("onGesture"))
+		if (attribute.equals(ON_GESTURE_ATTRIBUTE_NAME))
 		{
 			return _onGestureAttribute;
 		}
