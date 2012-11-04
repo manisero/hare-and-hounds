@@ -14,6 +14,11 @@ import android.view.View;
 
 public class ScreenGesturePicker extends View implements IBindableView<ScreenGesturePicker>
 {
+	private static final String ATTRIBUTES_NAMESPACE = "http://farmework.com/";
+	private static final String GESTURE_DELAY_ATTRIBUTE_NAME = "gesture_delay";
+	private static final String LINE_THICKNESS_ATTRIBUTE_NAME = "line_thickness";
+	private static final String ON_GESTURE_ATTRIBUTE_NAME = "onGesture";
+	
 	private static final int DEFAULT_GESTURE_DELAY = 1000;
 	private static final float DEFAULT_LINE_THICKNESS = 3.0f;
 	
@@ -35,7 +40,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	
 	// onGesture attribute (Android-Binding support)
 	private ViewAttribute<ScreenGesturePicker, Command> _onGestureAttribute =
-				new ViewAttribute<ScreenGesturePicker, Command>(Command.class, ScreenGesturePicker.this, "onGesture")
+				new ViewAttribute<ScreenGesturePicker, Command>(Command.class, ScreenGesturePicker.this, ON_GESTURE_ATTRIBUTE_NAME)
 				{
 				    @Override
 				    protected void doSetAttributeValue(final Object newValue)
@@ -67,14 +72,14 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	{
 		super(context, attrs);
 
-		String gestureDelay = attrs.getAttributeValue("http://farmework.com/", "gesture_delay");
+		String gestureDelay = attrs.getAttributeValue(ATTRIBUTES_NAMESPACE, GESTURE_DELAY_ATTRIBUTE_NAME);
 		
 		if (gestureDelay != null)
 		{
 			_gestureDelay = Integer.valueOf(gestureDelay);
 		}
 		
-		String lineThickness = attrs.getAttributeValue("http://farmework.com/", "line_thickness");
+		String lineThickness = attrs.getAttributeValue(ATTRIBUTES_NAMESPACE, LINE_THICKNESS_ATTRIBUTE_NAME);
 		
 		if (lineThickness != null)
 		{
@@ -133,7 +138,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 	@Override
 	public ViewAttribute<? extends View, ?> createViewAttribute(String attribute)
 	{
-		if (attribute.equals("onGesture"))
+		if (attribute.equals(ON_GESTURE_ATTRIBUTE_NAME))
 		{
 			return _onGestureAttribute;
 		}

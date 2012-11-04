@@ -12,11 +12,6 @@ import gueei.binding.*;
 
 public class SpaceGesturePicker extends View implements IBindableView<SpaceGesturePicker>
 {
-	public interface OnSpaceGestureListener
-	{
-		void onGesture(View v, SpaceGestureData gesture);
-	}
-	
 	@Inject
 	public ISpaceGestureRecorder _spaceGestureRecorder;
 	
