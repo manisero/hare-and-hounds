@@ -82,7 +82,7 @@ public class SensorOrientationProvider implements IOrientationProvider
 		int xAxis;
 		int yAxis;
 		
-		switch(getDisplay().getRotation())
+		switch (getDisplay().getRotation())
 		{
 			case Surface.ROTATION_90:
 				

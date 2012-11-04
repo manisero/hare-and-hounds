@@ -19,6 +19,6 @@ public class DisplayResolver implements IDisplayResolver
 	@Override
 	public Display resolve()
 	{
-		return ((WindowManager)_context.getSystemService(Context.SENSOR_SERVICE)).getDefaultDisplay();
+		return ((WindowManager)_context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 	}
 }
