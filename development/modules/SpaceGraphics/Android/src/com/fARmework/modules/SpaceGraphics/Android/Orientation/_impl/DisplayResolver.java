@@ -4,13 +4,14 @@ import android.content.*;
 import android.view.*;
 
 import com.fARmework.modules.SpaceGraphics.Android.Orientation.*;
+import com.google.inject.*;
 
 public class DisplayResolver implements IDisplayResolver
 {
 	private Context _context;
 	
-	@Override
-	public void setContext(Context context)
+	@Inject
+	public DisplayResolver(Context context)
 	{
 		_context = context;
 	}

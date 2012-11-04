@@ -8,6 +8,5 @@ import android.opengl.*;
 public interface IGraphicsRenderer extends GLSurfaceView.Renderer
 {
 	void setDirectionProvider(IDirectionProvider directionProvider);
-	
 	void setModel(Model model);
 }

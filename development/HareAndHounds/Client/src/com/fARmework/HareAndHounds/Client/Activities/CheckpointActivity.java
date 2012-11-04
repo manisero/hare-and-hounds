@@ -5,6 +5,7 @@ import android.view.*;
 
 import com.fARmework.HareAndHounds.Client.ViewModels.*;
 import com.fARmework.modules.SpaceGraphics.Android.*;
+import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
 import com.fARmework.utils.Android.Activities.*;
 
 public class CheckpointActivity extends BoundActivity<CheckpointViewModel>
@@ -14,8 +15,9 @@ public class CheckpointActivity extends BoundActivity<CheckpointViewModel>
     {
         super.onCreate(savedInstanceState);
         
-        // Set SpaceGraphicsView's Model and DirectionProvider
         SpaceGraphicsView spaceGraphicsView = (SpaceGraphicsView)((ViewGroup)View).getChildAt(0); // TODO: Find the view by id once SpaceGraphicsView's constructor is fixed
-        spaceGraphicsView.setModel(ViewModel.getArrowModel());
+        IGraphicsRenderer graphicsRenderer = spaceGraphicsView.getGraphicsRenderer();
+        graphicsRenderer.setDirectionProvider(ViewModel.getDirectionProvider());
+        graphicsRenderer.setModel(ViewModel.getArrowModel());
     }
 }

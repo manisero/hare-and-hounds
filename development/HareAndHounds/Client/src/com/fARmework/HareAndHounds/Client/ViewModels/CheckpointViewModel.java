@@ -80,6 +80,11 @@ public class CheckpointViewModel extends ViewModel
 		_soundPlayer.stop();
 	}
 	
+	public IDirectionProvider getDirectionProvider()
+	{
+		return _directionProvider;
+	}
+	
 	public Model getArrowModel()
 	{
 		return _arrowModel;

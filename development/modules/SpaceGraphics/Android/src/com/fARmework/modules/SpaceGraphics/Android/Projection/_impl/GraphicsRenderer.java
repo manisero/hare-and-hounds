@@ -16,6 +16,12 @@ public class GraphicsRenderer implements IGraphicsRenderer
 	
     private Model _model;
     
+    public GraphicsRenderer(IGLHandler glHandler, IOrientationProvider orientationProvider)
+    {
+    	_glHandler = glHandler;
+		_orientationProvider = orientationProvider;
+    }
+    
     @Inject
     public GraphicsRenderer(IGLHandler glHandler, IOrientationProvider orientationProvider, IDirectionProvider directionProvider)
     {
@@ -26,9 +32,9 @@ public class GraphicsRenderer implements IGraphicsRenderer
     
     @Override
 	public void setDirectionProvider(IDirectionProvider directionProvider)
-	{
-		_directionProvider = directionProvider;
-	}
+    {
+    	_directionProvider = directionProvider;
+    }
     
     @Override
 	public void setModel(Model model)
@@ -49,7 +55,11 @@ public class GraphicsRenderer implements IGraphicsRenderer
 			return;
 		
 		_glHandler.setRotationMatrix(_orientationProvider.getRotationMatrix());
-		_glHandler.setDirection(_directionProvider.getDirection());
+		
+		if (_directionProvider != null)
+		{
+			_glHandler.setDirection(_directionProvider.getDirection());
+		}
 		
     	_glHandler.draw(gl, _model);
     }

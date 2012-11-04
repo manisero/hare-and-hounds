@@ -11,12 +11,12 @@ public class SpaceGraphicsModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
-		bind(ISensorManagerResolver.class).to(SensorManagerResolver.class);
-		bind(IDisplayResolver.class).to(DisplayResolver.class);
-		bind(IOrientationProvider.class).to(SensorOrientationProvider.class);
-		bind(IDirectionProvider.class).to(com.fARmework.HareAndHounds.Client.Logic.IDirectionProvider.class);
+		//bind(ISensorManagerResolver.class).to(SensorManagerResolver.class).asEagerSingleton();
+		//bind(IDisplayResolver.class).to(DisplayResolver.class).asEagerSingleton();
+		//bind(IOrientationProvider.class).to(SensorOrientationProvider.class);
+		//bind(IDirectionProvider.class).to(com.fARmework.HareAndHounds.Client.Logic.IDirectionProvider.class);
 		
-		bind(IGLHandler.class).to(GLHandler.class);
-		bind(IGraphicsRenderer.class).to(GraphicsRenderer.class);
+		//bind(IGLHandler.class).to(GLHandler.class);
+		//bind(IGraphicsRenderer.class).to(GraphicsRenderer.class);
 	}
 }
