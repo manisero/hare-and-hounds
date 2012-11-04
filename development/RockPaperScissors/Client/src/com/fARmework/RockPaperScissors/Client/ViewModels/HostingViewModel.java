@@ -17,6 +17,8 @@ import com.google.inject.Inject;
 
 public class HostingViewModel extends ViewModel
 {
+	private final ISettingsProvider _settingsProvider;
+	
 	public StringObservable Status = new StringObservable();
 	public BooleanObservable IsWaiting = new BooleanObservable(true);
 	
@@ -24,7 +26,12 @@ public class HostingViewModel extends ViewModel
 	public HostingViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
+		_settingsProvider = settingsProvider;
+	}
+	
+	@Override
+	public void onEntering()
+	{
 		ConnectionManager.registerDataHandler(GameCreationResponse.class, new IDataHandler<GameCreationResponse>()
 		{
 			@Override
@@ -79,6 +86,13 @@ public class HostingViewModel extends ViewModel
 		});
 		
 		Status.set(ResourcesProvider.getString(R.string.hosting_creating));
-		ConnectionManager.send(new GameCreationRequest(settingsProvider.getUserName()));
+		ConnectionManager.send(new GameCreationRequest(_settingsProvider.getUserName()));
+	}
+	
+	@Override
+	public void onLeaving()
+	{
+		ConnectionManager.unregisterDataHandlers(GameCreationResponse.class);
+		ConnectionManager.unregisterDataHandlers(GameJoinRequest.class);
 	}
 }

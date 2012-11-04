@@ -32,41 +32,7 @@ public class GameListViewModel extends ViewModel
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
-				status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostUserName.get()));
-				IsWaiting.set(true);
-				
-				ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
-				{
-					@Override
-					public void handle(GameJoinResponse data)
-					{
-						IsWaiting.set(false);
-						
-						if (data.Response == GameJoinResponseType.Deny)
-						{
-							ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostUserName.get()));
-						}
-						else if (data.Response == GameJoinResponseType.NotAvailable)
-						{
-							ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_notAvailable), hostUserName.get()));
-						}
-					}
-				});
-				
-				ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
-				{
-					@Override
-					public void handle(GameStartInfo data)
-					{
-						ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
-						
-						Bundle bundle = new Bundle();
-						bundle.putString(GameViewModel.OPPONENT_NAME_KEY, hostUserName.get());
-						ContextManager.navigateTo(GameViewModel.class, bundle);
-					}
-				});
-				
-				ConnectionManager.send(new GameJoinRequest(_hostID, _settingsProvider.getUserName()));
+				joinGame(_hostID, hostUserName.get());
 			}
 		};
 		
@@ -96,9 +62,12 @@ public class GameListViewModel extends ViewModel
 	public GameListViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
 		_settingsProvider = settingsProvider;
-		
+	}
+	
+	@Override
+	public void onEntering()
+	{
 		ConnectionManager.registerDataHandler(GameListData.class, new IDataHandler<GameListData>()
 		{
 			@Override
@@ -116,5 +85,52 @@ public class GameListViewModel extends ViewModel
 		});
 		
 		ConnectionManager.send(new GameListRequest());
+	}
+	
+	@Override
+	public void onLeaving()
+	{
+		ConnectionManager.unregisterDataHandlers(GameListData.class);
+		ConnectionManager.unregisterDataHandlers(GameJoinResponse.class);
+		ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
+	}
+	
+	private void joinGame(int hostID, final String hostName)
+	{
+		status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostName));
+		IsWaiting.set(true);
+		
+		ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
+		{
+			@Override
+			public void handle(GameJoinResponse data)
+			{
+				IsWaiting.set(false);
+				
+				if (data.Response == GameJoinResponseType.Deny)
+				{
+					ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_joinRefused), hostName));
+				}
+				else if (data.Response == GameJoinResponseType.NotAvailable)
+				{
+					ContextManager.showNotification(String.format(ResourcesProvider.getString(R.string.gameList_notAvailable), hostName));
+				}
+			}
+		});
+		
+		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
+		{
+			@Override
+			public void handle(GameStartInfo data)
+			{
+				ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
+				
+				Bundle bundle = new Bundle();
+				bundle.putString(GameViewModel.OPPONENT_NAME_KEY, hostName);
+				ContextManager.navigateTo(GameViewModel.class, bundle);
+			}
+		});
+		
+		ConnectionManager.send(new GameJoinRequest(hostID, _settingsProvider.getUserName()));
 	}
 }
