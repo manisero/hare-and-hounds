@@ -4,6 +4,7 @@
     <integer name="defaultPort">27015</integer>
     <string name="defaultUserName">User</string>
     
+    <bool name="defaultPlayCheckpointSound">true</bool>
     <integer name="checkpointSoundMinPeriod">500</integer>
     <integer name="checkpointSoundMaxPeriod">2500</integer>
     

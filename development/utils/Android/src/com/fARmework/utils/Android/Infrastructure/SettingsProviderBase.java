@@ -32,4 +32,14 @@ public abstract class SettingsProviderBase
 	{
 		_context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit().putInt(key, value).commit();
 	}
+	
+	protected boolean getBool(String key, boolean defaultValue)
+	{
+		return _context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).getBoolean(key, defaultValue);
+	}
+	
+	protected void setBool(String key, boolean value)
+	{
+		_context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit().putBoolean(key, value).commit();
+	}
 }
