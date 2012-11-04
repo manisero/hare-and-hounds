@@ -25,28 +25,28 @@ public class GameListViewModel extends ViewModel
 	public class Game
 	{
 		private int _hostID;
-		public StringObservable hostUserName = new StringObservable();
+		public StringObservable HostUserName = new StringObservable();
 		
 		public Command JoinGame = new Command()
 		{
 			@Override
 			public void Invoke(View arg0, Object... arg1)
 			{
-				joinGame(_hostID, hostUserName.get());
+				joinGame(_hostID, HostUserName.get());
 			}
 		};
 		
 		public Game(GameInfo game)
 		{
 			_hostID = game.HostID;
-			hostUserName.set(game.HostUserName);
+			HostUserName.set(game.HostUserName);
 		}
 	}
 	
 	private final ISettingsProvider _settingsProvider;
 	
-	public ArrayListObservable<Game> games = new ArrayListObservable<Game>(Game.class);
-	public StringObservable status = new StringObservable();
+	public ArrayListObservable<Game> Games = new ArrayListObservable<Game>(Game.class);
+	public StringObservable Status = new StringObservable();
 	public BooleanObservable IsWaiting = new BooleanObservable(false);
 	
 	public Command GetGames = new Command()
@@ -80,7 +80,7 @@ public class GameListViewModel extends ViewModel
 					gameList.add(new Game(game));
 				}
 				
-				games.setArray(gameList.toArray(new Game[0]));
+				Games.setArray(gameList.toArray(new Game[0]));
 			}
 		});
 		
@@ -97,7 +97,7 @@ public class GameListViewModel extends ViewModel
 	
 	private void joinGame(int hostID, final String hostName)
 	{
-		status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostName));
+		Status.set(String.format(ResourcesProvider.getString(R.string.gameList_joining), hostName));
 		IsWaiting.set(true);
 		
 		ConnectionManager.registerDataHandler(GameJoinResponse.class, new IDataHandler<GameJoinResponse>()
