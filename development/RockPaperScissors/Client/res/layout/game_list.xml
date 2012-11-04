@@ -16,14 +16,14 @@
     <ListView
         android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    binding:itemSource="games"
+	    binding:itemSource="Games"
 	    binding:itemTemplate="@layout/game_list_item"
 	    binding:visibility="NOT(IsWaiting)" />
     
     <TextView
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    binding:text="status"
+	    binding:text="Status"
 	    binding:visibility="IsWaiting" />
 
     <ProgressBar

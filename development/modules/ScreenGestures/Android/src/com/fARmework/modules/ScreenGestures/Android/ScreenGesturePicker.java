@@ -97,7 +97,7 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 		_linePaint.setStrokeWidth(_lineThickness);
 		
 		_clearPaint = new Paint();
-		_linePaint.setARGB(255, 255, 255, 255);
+		_clearPaint.setARGB(255, 255, 255, 255);
 		
 		setOnTouchListener(new OnTouchListener()
 		{
@@ -112,6 +112,9 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 				_gesture.addPoint(event.getX(), event.getY());
 								
 				drawLine(event.getX(), event.getY());
+				
+				_previousX = event.getX();
+				_previousY = event.getY();
 				
 				if (event.getActionMasked() == MotionEvent.ACTION_DOWN)
 				{
@@ -239,9 +242,6 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 		float maxY = Math.max(_previousY, y);
 		
 		invalidate(new Rect((int)(minX - _lineThickness), (int)(minY - _lineThickness), (int)(maxX + _lineThickness), (int)(maxY + _lineThickness)));
-		
-		_previousX = x;
-		_previousY = y;
 	}
 	
 	public void startTimer(final View v)
