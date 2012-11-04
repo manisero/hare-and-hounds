@@ -93,7 +93,6 @@ public class GameViewModel extends ViewModel
 	public void onEntering()
 	{
 		PlayerName.set(_settingsProvider.getUserName());
-		OpponentName.set(_settingsProvider.getServerAddress());
 		Status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
 		
 		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
