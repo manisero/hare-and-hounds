@@ -13,6 +13,9 @@ public final class R {
     }
     public static final class attr {
     }
+    public static final class bool {
+        public static final int defaultPlayCheckpointSound=0x7f090000;
+    }
     public static final class drawable {
         public static final int ic_action_search=0x7f020000;
         public static final int ic_launcher=0x7f020001;
@@ -54,26 +57,27 @@ public final class R {
         public static final int dialog_confirm=0x7f050006;
         public static final int dialog_no=0x7f050008;
         public static final int dialog_yes=0x7f050007;
-        public static final int gameList_joinRejected=0x7f050021;
-        public static final int gameList_joining=0x7f050020;
-        public static final int gameList_refresh=0x7f05001e;
-        public static final int gameList_unavailable=0x7f050022;
-        public static final int gameList_waiting=0x7f05001f;
-        public static final int hare_defeat=0x7f050024;
-        public static final int hare_victory=0x7f050023;
+        public static final int gameList_joinRejected=0x7f050022;
+        public static final int gameList_joining=0x7f050021;
+        public static final int gameList_refresh=0x7f05001f;
+        public static final int gameList_unavailable=0x7f050023;
+        public static final int gameList_waiting=0x7f050020;
+        public static final int hare_defeat=0x7f050025;
+        public static final int hare_victory=0x7f050024;
         public static final int hello_world=0x7f050001;
-        public static final int hosting_created=0x7f05001a;
-        public static final int hosting_creating=0x7f050019;
-        public static final int hosting_guestConnected=0x7f05001c;
-        public static final int hosting_guestJoined=0x7f05001d;
-        public static final int hosting_waiting=0x7f05001b;
-        public static final int hounds_defeat=0x7f050026;
-        public static final int hounds_victory=0x7f050025;
+        public static final int hosting_created=0x7f05001b;
+        public static final int hosting_creating=0x7f05001a;
+        public static final int hosting_guestConnected=0x7f05001d;
+        public static final int hosting_guestJoined=0x7f05001e;
+        public static final int hosting_waiting=0x7f05001c;
+        public static final int hounds_defeat=0x7f050027;
+        public static final int hounds_victory=0x7f050026;
         public static final int menu_settings=0x7f050002;
         public static final int mode_create=0x7f050015;
         public static final int mode_join=0x7f050016;
+        public static final int option_playCheckpointSound=0x7f050018;
         public static final int options=0x7f050017;
-        public static final int options_save=0x7f050018;
+        public static final int options_save=0x7f050019;
         public static final int port=0x7f05000a;
         public static final int position_fail=0x7f050014;
         public static final int serverAddress=0x7f050009;

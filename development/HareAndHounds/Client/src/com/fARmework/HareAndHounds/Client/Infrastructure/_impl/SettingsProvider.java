@@ -42,6 +42,18 @@ public class SettingsProvider extends SettingsProviderBase implements ISettingsP
 	{
 		setString("user_name", userName);
 	}
+	
+	@Override
+	public void setPlayCheckpointSound(boolean playCheckpointSound)
+	{
+		setBool("play_checkpoint_sound", playCheckpointSound);
+	}
+	
+	@Override
+	public boolean getPlayCheckpointSound()
+	{
+		return getBool("play_checkpoint_sound", ResourcesProvider.getBoolean(R.bool.defaultPlayCheckpointSound));
+	}
 
 	@Override
 	public int getCheckpointSoundMinPeriod()

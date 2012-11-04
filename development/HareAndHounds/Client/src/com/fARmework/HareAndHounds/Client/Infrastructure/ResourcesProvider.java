@@ -20,4 +20,9 @@ public class ResourcesProvider
 	{
 		return _resources.getInteger(resourceID);
 	}
+	
+	public static boolean getBoolean(int resourceID)
+	{
+		return _resources.getBoolean(resourceID);
+	}
 }
