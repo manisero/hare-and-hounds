@@ -22,6 +22,8 @@ public class GameViewModel extends ViewModel
 {
 	public static final String OPPONENT_NAME_KEY = GameViewModel.class.getCanonicalName() + "OPPONENT_NAME";
 	
+	private final ISettingsProvider _settingsProvider;
+	
 	public StringObservable PlayerName = new StringObservable();
 	public StringObservable OpponentName = new StringObservable();
 	public IntegerObservable PlayerScore = new IntegerObservable(0);
@@ -78,10 +80,31 @@ public class GameViewModel extends ViewModel
 	protected GameViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
-		PlayerName.set(settingsProvider.getUserName());
-		OpponentName.set(settingsProvider.getServerAddress());
+		_settingsProvider = settingsProvider;
+	}
+	
+	@Override
+	public void initialize(Bundle data)
+	{
+		OpponentName.set(data.getString(OPPONENT_NAME_KEY));
+	}
+	
+	@Override
+	public void onEntering()
+	{
+		PlayerName.set(_settingsProvider.getUserName());
+		OpponentName.set(_settingsProvider.getServerAddress());
 		Status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
+		
+		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
+		{
+			@Override
+			public void handle(GameStartInfo data)
+			{
+				IsWaiting.set(false);
+				Status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
+			}
+		});
 		
 		ConnectionManager.registerDataHandler(GestureInfo.class, new IDataHandler<GestureInfo>()
 		{
@@ -135,16 +158,6 @@ public class GameViewModel extends ViewModel
 			}
 		});
 		
-		ConnectionManager.registerDataHandler(GameStartInfo.class, new IDataHandler<GameStartInfo>()
-		{
-			@Override
-			public void handle(GameStartInfo data)
-			{
-				IsWaiting.set(false);
-				Status.set(ResourcesProvider.getString(R.string.game_chooseGesture));
-			}
-		});
-		
 		ConnectionManager.registerDataHandler(GameEndInfo.class, new IDataHandler<GameEndInfo>()
 		{
 			@Override
@@ -160,9 +173,18 @@ public class GameViewModel extends ViewModel
 	}
 	
 	@Override
-	public void initialize(Bundle data)
+	public void onLeaving()
 	{
-		OpponentName.set(data.getString(OPPONENT_NAME_KEY));
+		ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
+		ConnectionManager.unregisterDataHandlers(GestureInfo.class);
+		ConnectionManager.unregisterDataHandlers(GameResultInfo.class);
+		ConnectionManager.unregisterDataHandlers(GameEndInfo.class);
+	}
+	
+	@Override
+	public void dispose()
+	{
+		ConnectionManager.send(new PlayerLeftInfo());
 	}
 	
 	private void sendGesture(GestureType gesture)
@@ -170,11 +192,5 @@ public class GameViewModel extends ViewModel
 		IsWaiting.set(true);
 		Status.set(String.format(ResourcesProvider.getString(R.string.game_waitingForOpponent), OpponentName.get()));
 		ConnectionManager.send(new GestureInfo(gesture));
-	}
-	
-	@Override
-	public void onLeaving()
-	{
-		ConnectionManager.send(new PlayerLeftInfo());
 	}
 }

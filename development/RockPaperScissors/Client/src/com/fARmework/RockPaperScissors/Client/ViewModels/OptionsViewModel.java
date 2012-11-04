@@ -33,9 +33,12 @@ public class OptionsViewModel extends ViewModel
 	public OptionsViewModel(ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
-		
 		_settingsProvider = settingsProvider;
-		
+	}
+	
+	@Override
+	public void onEntering()
+	{
 		ServerAddress.set(_settingsProvider.getServerAddress());
 		Port.set(String.valueOf(_settingsProvider.getPort()));
 		UserName.set(_settingsProvider.getUserName());
