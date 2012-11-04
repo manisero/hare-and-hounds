@@ -92,7 +92,9 @@ public class GameListViewModel extends ViewModel
 	{
 		ConnectionManager.unregisterDataHandlers(GameListData.class);
 		ConnectionManager.unregisterDataHandlers(GameJoinResponse.class);
-		ConnectionManager.unregisterDataHandlers(GameStartInfo.class);
+		
+		// NOTE: Unregistering GameStartInfo causes GameViewModel to misbehave (Game's onEntering() is invoked before
+		// GameList's onLeaving(), causing GameStartInfo to remain unregistered) 
 	}
 	
 	private void joinGame(int hostID, final String hostName)
