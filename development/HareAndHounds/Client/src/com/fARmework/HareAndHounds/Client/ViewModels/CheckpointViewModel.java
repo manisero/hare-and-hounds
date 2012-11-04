@@ -3,6 +3,7 @@ package com.fARmework.HareAndHounds.Client.ViewModels;
 import android.os.*;
 
 import com.fARmework.HareAndHounds.Client.*;
+import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
 import com.fARmework.HareAndHounds.Client.Logic.*;
 import com.fARmework.HareAndHounds.Data.*;
 import com.fARmework.core.client.Connection.*;
@@ -20,17 +21,19 @@ public class CheckpointViewModel extends ViewModel
 	private final IDirectionProvider _directionProvider;
 	private final ISoundPlayer _soundPlayer;
 	private final ICheckpointSoundPeriodCalculator _soundPeriodCalculator;
+	private final ISettingsProvider _settingsProvider;
 	
 	private Arrow _arrowModel = new Arrow();
 	
 	@Inject
 	public CheckpointViewModel(IDirectionProvider directionProvider, ISoundPlayer soundPlayer, ICheckpointSoundPeriodCalculator soundPeriodCalculator,
-							   IConnectionManager connectionManager, IContextManager contextManager)
+							   ISettingsProvider settingsProvider, IConnectionManager connectionManager, IContextManager contextManager)
 	{
 		super(connectionManager, contextManager);
 		_directionProvider = directionProvider;
 		_soundPlayer = soundPlayer;
 		_soundPeriodCalculator = soundPeriodCalculator;
+		_settingsProvider = settingsProvider;
 	}
 	
 	@Override
@@ -62,14 +65,17 @@ public class CheckpointViewModel extends ViewModel
 			}
 		});
 		
-		_soundPlayer.load(R.raw.checkpoint_sound, new ISoundLoadListener()
+		if (_settingsProvider.getPlayCheckpointSound())
 		{
-			@Override
-			public void onLoaded()
+			_soundPlayer.load(R.raw.checkpoint_sound, new ISoundLoadListener()
 			{
-				_soundPlayer.play(_soundPeriodCalculator.calculatePeriod(0.0));
-			}
-		});
+				@Override
+				public void onLoaded()
+				{
+					_soundPlayer.play(_soundPeriodCalculator.calculatePeriod(0.0));
+				}
+			});
+		}
 	}
 	
 	@Override
