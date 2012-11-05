@@ -7,7 +7,6 @@ import com.fARmework.RockPaperScissors.Client.ViewModels.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Data.*;
 import com.fARmework.core.data.*;
-import com.fARmework.modules.SpaceGestures.Android.*;
 import com.fARmework.utils.Android.Infrastructure.*;
 import com.fARmework.utils.Android.Infrastructure.IContextManager.*;
 import com.google.inject.Injector;
@@ -37,9 +36,6 @@ public class Application extends android.app.Application
 		// Register views
 		registerViews(injector.getInstance(IContextManager.class));
 		
-		// Configure modules
-		configureSpaceGestures(injector);
-		
 		// Register connection error handler
 		registerConnectionExceptionHandler(injector.getInstance(IConnectionManager.class), injector.getInstance(IContextManager.class));
     }
@@ -58,11 +54,6 @@ public class Application extends android.app.Application
 		contextManager.registerView(HostingViewModel.class, HostingActivity.class, R.layout.hosting);
 		contextManager.registerView(GameListViewModel.class, GameListActivity.class, R.layout.game_list);
 		contextManager.registerView(GameViewModel.class, GameActivity.class, R.layout.game);
-	}
-	
-	private void configureSpaceGestures(Injector injector)
-	{
-		injector.getInstance(ISensorManagerResolver.class).setContext(this);
 	}
 	
 	private void registerConnectionExceptionHandler(IConnectionManager connectionManager, final IContextManager contextManager)

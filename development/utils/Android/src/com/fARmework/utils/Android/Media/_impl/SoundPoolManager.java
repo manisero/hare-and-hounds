@@ -5,6 +5,7 @@ import android.media.*;
 import android.media.SoundPool.*;
 
 import com.fARmework.utils.Android.Media.*;
+import com.google.inject.*;
 
 public class SoundPoolManager implements ISoundPoolManager
 {
@@ -12,10 +13,16 @@ public class SoundPoolManager implements ISoundPoolManager
 	private final static int SOURCE_QUALITY = 0;
 	private final static int PRIORITY = 1;
 	
-	private Context _context;
+	private final Context _context;
 	
 	private AudioManager _audioManager;
 	private SoundPool _soundPool;
+	
+	@Inject
+	public SoundPoolManager(Context context)
+	{
+		_context = context;
+	}
 	
 	private AudioManager getAudioManager()
 	{
@@ -35,12 +42,6 @@ public class SoundPoolManager implements ISoundPoolManager
 		}
 		
 		return _soundPool;
-	}
-
-	@Override
-	public void setContext(Context context)
-	{
-		_context = context;
 	}
 
 	@Override

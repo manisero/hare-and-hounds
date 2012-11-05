@@ -8,7 +8,7 @@ import com.google.inject.*;
 
 public class DisplayResolver implements IDisplayResolver
 {
-	private Context _context;
+	private final Context _context;
 	
 	@Inject
 	public DisplayResolver(Context context)
