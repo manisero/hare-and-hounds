@@ -4,6 +4,6 @@
 	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.CoreModule</item>
 	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.UtilsModule</item>
 	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.SpaceGesturesModule</item>
-	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.InfrastructureModule</item>
+	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.RockPaperScissorsModule</item>
 	</string-array>
 </resources>

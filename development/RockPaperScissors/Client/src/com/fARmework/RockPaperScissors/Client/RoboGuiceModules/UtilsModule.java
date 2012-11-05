@@ -9,7 +9,10 @@ public class UtilsModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
-		bind(ISettingsProvider.class).to(com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider.class);
+		// RoboGuice
 		bind(IContextManager.class).to(ContextManager.class).asEagerSingleton();
+		
+		// Infrastructure
+		bind(ISettingsProvider.class).to(com.fARmework.RockPaperScissors.Client.Infrastructure.ISettingsProvider.class);
 	}
 }
