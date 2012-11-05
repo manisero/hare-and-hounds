@@ -9,7 +9,7 @@ public class SpaceGesturesModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
-		bind(ISensorManagerResolver.class).to(SensorManagerResolver.class).asEagerSingleton();
+		bind(ISensorManagerResolver.class).to(SensorManagerResolver.class);
 		bind(ISpaceGestureRecorder.class).to(SpaceGestureRecorder.class);
 	}
 }
