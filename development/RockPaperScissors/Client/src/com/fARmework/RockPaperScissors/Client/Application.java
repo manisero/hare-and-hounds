@@ -24,6 +24,7 @@ public class Application extends android.app.Application
 		// Initialize android-binding
 		Binder.init(this);
 		
+		// Get RoboGuice injector
 		Injector injector = RoboGuice.getInjector(this);
 		
 		// Initialize ResourcesProvider and SettingsProvider
