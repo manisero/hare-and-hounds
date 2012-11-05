@@ -1,18 +1,19 @@
 package com.fARmework.modules.PositionTracking.Android.Logic._impl;
 
 import com.fARmework.modules.PositionTracking.Android.Logic.*;
+import com.google.inject.*;
 
 import android.content.Context;
 import android.location.LocationManager;
 
 public class LocationManagerResolver implements ILocationManagerResolver
 {
-	private Context _context;
+	private final Context _context;
 
 	private LocationManager _locationManager;
 	
-	@Override
-	public void setContext(Context context)
+	@Inject
+	public LocationManagerResolver(Context context)
 	{
 		_context = context;
 	}

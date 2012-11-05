@@ -1,20 +1,22 @@
 package com.fARmework.HareAndHounds.Client;
 
+import gueei.binding.Binder;
+import roboguice.*;
+
 import com.fARmework.HareAndHounds.Client.Activities.*;
 import com.fARmework.HareAndHounds.Client.Infrastructure.*;
 import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
+import com.fARmework.HareAndHounds.Client.RoboGuiceModules.*;
 import com.fARmework.HareAndHounds.Client.ViewModels.*;
 import com.fARmework.core.client.Connection.*;
 import com.fARmework.core.client.Data.*;
 import com.fARmework.core.data.*;
-import com.fARmework.modules.PositionTracking.Android.Logic.*;
 import com.fARmework.utils.Android.Infrastructure.*;
-import com.fARmework.utils.Android.Infrastructure.IContextManager.*;
+import com.fARmework.utils.Android.Infrastructure.IContextManager.IDialogListener;
 import com.fARmework.utils.Android.Media.*;
+import com.fARmework.utils.Android.RoboGuice.*;
 import com.google.inject.*;
-
-import roboguice.*;
-import gueei.binding.Binder;
+import com.google.inject.util.*;
 
 public class Application extends android.app.Application
 {
@@ -26,7 +28,8 @@ public class Application extends android.app.Application
 		// Initialize android-binding
 		Binder.init(this);
 		
-		Injector injector = RoboGuice.getInjector(this);
+		// Configure RoboGuice
+		Injector injector = RoboGuice.setBaseApplicationInjector(this, RoboGuice.DEFAULT_STAGE, Modules.override(RoboGuice.newDefaultRoboModule(this)).with(new CoreModule(), new PositionTrackingModule(), new HareAndHoundsModule(), new UtilsModule())); // RoboGuice.getInjector(this);
 		
 		// Initialize ResourcesProvider and SettingsProvider
 		ResourcesProvider.setResources(getResources());
@@ -38,9 +41,11 @@ public class Application extends android.app.Application
 		// Register views
 		registerViews(injector.getInstance(IContextManager.class));
 		
+		// Register context
+		injector.getInstance(IContextProvider.class).set(this);
+		
 		// Configure modules
 		configureUtils(injector);
-		configurePositionTracking(injector);
 		
 		// Register connection error handler
 		registerConnectionExceptionHandler(injector.getInstance(IConnectionManager.class), injector.getInstance(IContextManager.class));
@@ -66,12 +71,7 @@ public class Application extends android.app.Application
 	
 	private void configureUtils(Injector injector)
 	{
-		injector.getInstance(ISoundPoolManager.class).setContext(this);
-	}
-	
-	private void configurePositionTracking(Injector injector)
-	{
-		injector.getInstance(ILocationManagerResolver.class).setContext(this);
+		injector.getInstance(ISoundPoolManager.class).setContext(this); // TODO: remove
 	}
 	
 	private void registerConnectionExceptionHandler(IConnectionManager connectionManager, final IContextManager contextManager)

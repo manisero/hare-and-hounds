@@ -12,7 +12,7 @@ public class PositionTrackingModule extends AbstractModule
 	{
 		bind(ISettingsProvider.class).to(com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider.class);
 		
-		bind(ILocationManagerResolver.class).to(LocationManagerResolver.class).asEagerSingleton();
-		bind(IPositionProvider.class).to(PositionProvider.class).asEagerSingleton();
+		bind(ILocationManagerResolver.class).to(LocationManagerResolver.class);
+		bind(IPositionProvider.class).to(PositionProvider.class);
 	}
 }
