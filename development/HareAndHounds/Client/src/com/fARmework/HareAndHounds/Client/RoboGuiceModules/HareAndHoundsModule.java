@@ -14,10 +14,13 @@ public class HareAndHoundsModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
+		// RoboGuice
 		bind(Context.class).toProvider(IContextProvider.class);
 		
+		// Infrastructure
 		bind(ISettingsProvider.class).to(SettingsProvider.class).asEagerSingleton();
 		
+		// Logic
 		bind(IDirectionProvider.class).to(DirectionProvider.class).asEagerSingleton();
 		bind(ICheckpointSoundPeriodCalculator.class).to(CheckpointSoundPeriodCalculator.class);
 	}
