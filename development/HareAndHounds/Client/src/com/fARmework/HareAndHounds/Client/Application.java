@@ -13,7 +13,6 @@ import com.fARmework.core.client.Data.*;
 import com.fARmework.core.data.*;
 import com.fARmework.utils.Android.Infrastructure.*;
 import com.fARmework.utils.Android.Infrastructure.IContextManager.IDialogListener;
-import com.fARmework.utils.Android.Media.*;
 import com.fARmework.utils.Android.RoboGuice.*;
 import com.google.inject.*;
 import com.google.inject.util.*;
@@ -44,9 +43,6 @@ public class Application extends android.app.Application
 		// Register context
 		injector.getInstance(IContextProvider.class).set(this);
 		
-		// Configure modules
-		configureUtils(injector);
-		
 		// Register connection error handler
 		registerConnectionExceptionHandler(injector.getInstance(IConnectionManager.class), injector.getInstance(IContextManager.class));
     }
@@ -67,11 +63,6 @@ public class Application extends android.app.Application
 		contextManager.registerView(HareViewModel.class, HareActivity.class, R.layout.hare);
 		contextManager.registerView(HoundsViewModel.class, HoundsActivity.class, R.layout.hounds);
 		contextManager.registerView(CheckpointViewModel.class, CheckpointActivity.class, R.layout.checkpoint);
-	}
-	
-	private void configureUtils(Injector injector)
-	{
-		injector.getInstance(ISoundPoolManager.class).setContext(this); // TODO: remove
 	}
 	
 	private void registerConnectionExceptionHandler(IConnectionManager connectionManager, final IContextManager contextManager)

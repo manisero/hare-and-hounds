@@ -8,7 +8,7 @@ import com.google.inject.*;
 
 public class SensorManagerResolver implements ISensorManagerResolver
 {
-	private Context _context;
+	private final Context _context;
 	
 	@Inject
 	public SensorManagerResolver(Context context)

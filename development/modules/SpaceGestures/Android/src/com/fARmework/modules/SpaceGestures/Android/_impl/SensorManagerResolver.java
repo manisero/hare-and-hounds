@@ -4,13 +4,14 @@ import android.content.*;
 import android.hardware.*;
 
 import com.fARmework.modules.SpaceGestures.Android.*;
+import com.google.inject.*;
 
 public class SensorManagerResolver implements ISensorManagerResolver
 {
-	private Context _context;
+	private final Context _context;
 
-	@Override
-	public void setContext(Context context)
+	@Inject
+	public SensorManagerResolver(Context context)
 	{
 		_context = context;
 	}
