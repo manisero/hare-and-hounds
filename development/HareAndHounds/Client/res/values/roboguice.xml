@@ -3,8 +3,7 @@
 	<string-array name="roboguice_modules">
 	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.CoreModule</item>
 	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.UtilsModule</item>
-	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.InfrastructureModule</item>
 	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.PositionTrackingModule</item>
-	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.LogicModule</item>
+	    <item>com.fARmework.HareAndHounds.Client.RoboGuiceModules.HareAndHoundsModule</item>
 	</string-array>
 </resources>

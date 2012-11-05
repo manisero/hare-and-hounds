@@ -1,5 +1,7 @@
 package com.fARmework.HareAndHounds.Client.ViewModels;
 
+import gueei.binding.*;
+import gueei.binding.observables.*;
 import android.view.*;
 
 import com.fARmework.HareAndHounds.Client.Infrastructure.ISettingsProvider;
@@ -7,9 +9,6 @@ import com.fARmework.core.client.Connection.*;
 import com.fARmework.utils.Android.Infrastructure.*;
 import com.fARmework.utils.Android.ViewModels.*;
 import com.google.inject.*;
-
-import gueei.binding.*;
-import gueei.binding.observables.*;
 
 public class OptionsViewModel extends ViewModel
 {
