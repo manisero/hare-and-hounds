@@ -44,15 +44,15 @@ public class SettingsProvider extends SettingsProviderBase implements ISettingsP
 	}
 	
 	@Override
-	public void setPlayCheckpointSound(boolean playCheckpointSound)
-	{
-		setBool("play_checkpoint_sound", playCheckpointSound);
-	}
-	
-	@Override
 	public boolean getPlayCheckpointSound()
 	{
 		return getBool("play_checkpoint_sound", ResourcesProvider.getBoolean(R.bool.defaultPlayCheckpointSound));
+	}
+	
+	@Override
+	public void setPlayCheckpointSound(boolean playCheckpointSound)
+	{
+		setBool("play_checkpoint_sound", playCheckpointSound);
 	}
 
 	@Override
@@ -65,6 +65,18 @@ public class SettingsProvider extends SettingsProviderBase implements ISettingsP
 	public int getCheckpointSoundMaxPeriod()
 	{
 		return ResourcesProvider.getInteger(R.integer.checkpointSoundMaxPeriod);
+	}
+	
+	@Override
+	public boolean getDisplayCheckpointCameraPreview()
+	{
+		return getBool("display_checkpoint_camera_preview", ResourcesProvider.getBoolean(R.bool.defaultDisplayCheckpointCameraPreview));
+	}
+	
+	@Override
+	public void setDisplayCheckpointCameraPreview(boolean displayCheckpointCameraPreview)
+	{
+		setBool("display_checkpoint_camera_preview", displayCheckpointCameraPreview);
 	}
 	
 	@Override

@@ -18,6 +18,7 @@ public class OptionsViewModel extends ViewModel
 	public StringObservable Port = new StringObservable();
 	public StringObservable UserName = new StringObservable();
 	public BooleanObservable PlayCheckpointSound = new BooleanObservable();
+	public BooleanObservable DisplayCheckpointCameraPreview = new BooleanObservable();
 	
 	public Command Save = new Command()
 	{
@@ -28,6 +29,7 @@ public class OptionsViewModel extends ViewModel
 			_settingsProvider.setPort(Integer.valueOf(Port.get()));
 			_settingsProvider.setUserName(UserName.get());
 			_settingsProvider.setPlayCheckpointSound(PlayCheckpointSound.get());
+			_settingsProvider.setDisplayCheckpointCameraPreview(DisplayCheckpointCameraPreview.get());
 		}
 	};
 	
@@ -45,5 +47,6 @@ public class OptionsViewModel extends ViewModel
 		Port.set(String.valueOf(_settingsProvider.getPort()));
 		UserName.set(_settingsProvider.getUserName());
 		PlayCheckpointSound.set(_settingsProvider.getPlayCheckpointSound());
+		DisplayCheckpointCameraPreview.set(_settingsProvider.getDisplayCheckpointCameraPreview());
 	}
 }
