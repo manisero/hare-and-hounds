@@ -9,5 +9,6 @@ public class PrefilledSpacePatternMatcherFactory extends EmptySpacePatternMatche
 	{
 		register(CyclicSpaceGesture.class, new CyclicSpacePatternMatcher());
 		register(PlainSpaceGesture.class, new PlainSpacePatternMatcher());
+		register(SurfaceSpaceGesture.class, new SurfaceSpacePatternMatcher());
 	}
 }
