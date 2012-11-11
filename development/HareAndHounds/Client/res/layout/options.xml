@@ -39,6 +39,12 @@
         android:layout_height="wrap_content"
         android:text="@string/option_playCheckpointSound"
         binding:checked="PlayCheckpointSound" />
+    
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/option_displayCheckpointCameraPreview"
+        binding:checked="DisplayCheckpointCameraPreview" />
 	
     <Button
 		android:layout_width="130dp"

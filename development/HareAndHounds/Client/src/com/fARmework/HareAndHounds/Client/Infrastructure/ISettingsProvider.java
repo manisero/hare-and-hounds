@@ -12,8 +12,10 @@ public interface ISettingsProvider extends com.fARmework.core.client.Infrastruct
 	String getUserName();
 	void setUserName(String userName);
 	
-	void setPlayCheckpointSound(boolean playCheckpointSound);
 	boolean getPlayCheckpointSound();
+	void setPlayCheckpointSound(boolean playCheckpointSound);
+	boolean getDisplayCheckpointCameraPreview();
+	void setDisplayCheckpointCameraPreview(boolean displayCheckpointCameraPreview);
 	
 	int getCheckpointSoundMinPeriod();
 	int getCheckpointSoundMaxPeriod();

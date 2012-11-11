@@ -11,8 +11,10 @@
 	    binding:model="ArrowModel"
 	    binding:directionProvider="DirectionProvider" />
     
+    <!--
     <com.fARmework.utils.Android.Views.CameraPreview
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent" />
+	 -->
      
 </FrameLayout>
