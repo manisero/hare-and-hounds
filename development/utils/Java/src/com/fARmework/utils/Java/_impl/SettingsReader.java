@@ -47,11 +47,10 @@ public class SettingsReader implements ISettingsReader
 			exception.printStackTrace();
 		}
 		
-		return (String)_configuration.getProperty(String.format(SETTING_TEMPLATE, settingKey));
+		return _configuration.getString(String.format(SETTING_TEMPLATE, settingKey));
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<String> getAggregate(String aggregateSettingKey)
 	{
 		try
@@ -63,6 +62,6 @@ public class SettingsReader implements ISettingsReader
 			exception.printStackTrace();
 		}
 		
-		return (List<String>)(List<?>) _configuration.getList(String.format(SETTING_TEMPLATE, aggregateSettingKey));
+		return Arrays.asList(_configuration.getStringArray(String.format(SETTING_TEMPLATE, aggregateSettingKey)));
 	}
 }

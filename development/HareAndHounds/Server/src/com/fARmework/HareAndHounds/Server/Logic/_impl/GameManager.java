@@ -54,7 +54,7 @@ public class GameManager implements IGameManager
 		{
 			@Override
 			public void handle(int clientID, PositionData data)
-			{
+			{	
 				if (_harePositions.size() < _settingsProvider.getRequiredInitialHarePositions())
 				{
 					return;
