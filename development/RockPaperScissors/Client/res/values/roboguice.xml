@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <resources> 
+	<string-array name="roboguice_modules">
+	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.CoreModule</item>
+	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.UtilsModule</item>
+	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.SpaceGesturesModule</item>
+	    <item>com.fARmework.RockPaperScissors.Client.RoboGuiceModules.RockPaperScissorsModule</item>
+	</string-array>
+</resources>

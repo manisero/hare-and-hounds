@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="defaultServerAddress">192.168.0.23</string>
+    <integer name="defaultPort">27015</integer>
+    <string name="defaultUserName">User</string>
+    
+    <bool name="defaultPlayCheckpointSound">true</bool>
+    <integer name="checkpointSoundMinPeriod">500</integer>
+    <integer name="checkpointSoundMaxPeriod">2500</integer>
+    
+    <integer name="shortNotificationMaxLength">30</integer>
+    
+    <integer name="singlePositionUpdateDelay">3</integer>
+</resources>
