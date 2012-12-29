@@ -12,7 +12,7 @@ public class RockScreenGesture extends GroupedScreenGesture
 												{	'd',	'd',	'?',	'e',	'e'	},
 												{	'f',	'f',	'-',	'g',	'g'	},
 												{	'+',	'+',	'+',	'+',	'+'	},
-											}; // TODO: define the pattern better
+											};
 	
 	public RockScreenGesture()
 	{

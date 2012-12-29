@@ -7,10 +7,13 @@ public class ScissorsScreenGesture extends GroupedScreenGesture
 {
 	private static final Character[][] PATTERN =
 											{
-												{	'+',	'a',	'+'	},
-												{	'a',	'+',	'a'	},
-												{	'+',	'a',	'+'	}
-											}; // TODO: define the pattern better
+												{ 'c', 'c', '-', '-', 'd', 'd'	},
+												{ 'c', 'b', 'b', 'b', 'b', 'd'	},
+												{ '-', 'b', 'a', 'a', 'b', '-'	},
+												{ '-', 'g', 'a', 'a', 'e', '-'	},
+												{ 'h', 'g', 'g', 'e', 'e', 'f'	},
+												{ 'h', 'h', '-', '-', 'f', 'f'	}
+											};
 	
 	public ScissorsScreenGesture()
 	{
