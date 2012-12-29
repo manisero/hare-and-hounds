@@ -40,7 +40,7 @@ public class CyclicSpacePatternMatcherTests
 				Direction.Down
 			};			
 			
-			assertTrue(matcher.match(moves, pattern));
+			assertEquals(1.0, matcher.match(moves, pattern), 0.0);
 		}
 		
 		@Test
@@ -68,7 +68,7 @@ public class CyclicSpacePatternMatcherTests
 				Direction.Right
 			};			
 			
-			assertTrue(matcher.match(moves, pattern));			
+			assertEquals(1.0, matcher.match(moves, pattern), 0.0);			
 		}
 		
 		@Test
@@ -91,7 +91,7 @@ public class CyclicSpacePatternMatcherTests
 				Direction.Right
 			};
 			
-			assertFalse(matcher.match(moves, pattern));
+			assertEquals(0.0, matcher.match(moves, pattern), 0.0);
 		}
 		
 		@Test
@@ -115,7 +115,7 @@ public class CyclicSpacePatternMatcherTests
 				Direction.Backward
 			};
 			
-			assertFalse(matcher.match(moves, pattern));
+			assertEquals(0.0, matcher.match(moves, pattern), 0.0);
 		}
 		
 		@Test
@@ -141,7 +141,7 @@ public class CyclicSpacePatternMatcherTests
 				Direction.Right
 			};
 			
-			assertFalse(matcher.match(moves, pattern));			
+			assertEquals(0.0, matcher.match(moves, pattern), 0.0);
 		}
 	}
 }

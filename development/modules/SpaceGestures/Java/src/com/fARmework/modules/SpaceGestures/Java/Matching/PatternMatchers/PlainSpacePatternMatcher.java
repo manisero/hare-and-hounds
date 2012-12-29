@@ -6,21 +6,21 @@ import com.fARmework.modules.SpaceGestures.Java.Matching.*;
 public class PlainSpacePatternMatcher implements ISpacePatternMatcher
 {
 	@Override
-	public boolean match(Direction[] input, Direction[] pattern)
+	public double match(Direction[] input, Direction[] pattern)
 	{
-		if(input.length != pattern.length)
+		if (input.length != pattern.length)
 		{
-			return false;
+			return ISpacePatternMatcher.MIN_MATCHING_RATIO;
 		}
 		
-		for(int i = 0; i < input.length; ++i)
+		for (int i = 0; i < input.length; ++i)
 		{
 			if(!input[i].equals(pattern[i]))
 			{
-				return false;
+				return ISpacePatternMatcher.MIN_MATCHING_RATIO;
 			}
 		}
 		
-		return true;
+		return ISpacePatternMatcher.MAX_MATCHING_RATIO;
 	}
 }

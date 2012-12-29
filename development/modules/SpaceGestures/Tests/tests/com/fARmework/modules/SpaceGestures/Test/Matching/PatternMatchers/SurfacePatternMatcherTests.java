@@ -41,7 +41,7 @@ public class SurfacePatternMatcherTests
 				Direction.Down
 			};
 			
-			assertTrue(matcher.match(moves, pattern));
+			assertEquals(1.0, matcher.match(moves, pattern), 0.0);
 		}
 	}
 }
