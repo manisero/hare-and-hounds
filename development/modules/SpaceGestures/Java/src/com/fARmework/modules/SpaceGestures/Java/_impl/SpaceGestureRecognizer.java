@@ -30,17 +30,24 @@ public class SpaceGestureRecognizer implements ISpaceGestureRecognizer
 		
 		logDetectedDirections(moves);
 		
+		double bestMatchingRatio = ISpacePatternMatcher.MIN_MATCHING_RATIO;
+		String gestureName = null;
+		
 		for (SpaceGesture gesture : gestures)
 		{
 			ISpacePatternMatcher matcher = _matcherFactory.get(gesture.getClass());
 			
-			if (matcher.match(moves.toArray(new Direction[0]), gesture.getPattern()))
+			double matchingRatio = matcher.match(moves.toArray(new Direction[0]), gesture.getPattern());
+					
+			if (matchingRatio > bestMatchingRatio)
 			{
-				return gesture.getName();
+				bestMatchingRatio = matchingRatio;
+				gestureName = gesture.getName();
 			}
 		}
 		
-		return null;
+		// TODO: implement matching ratio threshold (return null if bestMatchingRatio is below the threshold)
+		return gestureName;
 	}
 	
 	private void logDetectedDirections(List<Direction> directions)
