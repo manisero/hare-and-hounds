@@ -10,8 +10,6 @@ import com.fARmework.modules.ScreenGestures.Java.Matching.IScreenPatternMatcherF
 import com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers.*;
 import com.fARmework.modules.ScreenGestures.Java.Matching._impl.*;
 import com.fARmework.modules.ScreenGestures.Java.Processing.IScreenGestureProcessor;
-import com.fARmework.modules.ScreenGestures.Java.Processing.IScreenGestureProcessorFactory;
-import com.fARmework.modules.ScreenGestures.Java.Processing.GestureProcessors.*;
 import com.fARmework.modules.ScreenGestures.Java.Processing._impl.*;
 import com.fARmework.modules.ScreenGestures.Java._impl.*;
 
@@ -23,30 +21,6 @@ import javax.swing.*;
 public class EntryPoint extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-
-	private static final Integer[][] CLOCKWISE_SQUARE_PATTERN = 
-	{
-		{	1,	2,	3,	4,	5,	6,	7,	8	},
-		{	28,	0,	0,	0,	0,	0,	0,	9	},
-		{	27,	0,	0,	0,	0,	0,	0,	10	},	
-		{	26,	0,	0,	0,	0,	0,	0,	11	},	
-		{	25,	0,	0,	0,	0,	0,	0,	12	},	
-		{	24,	0,	0,	0,	0,	0,	0,	13	},	
-		{	23,	0,	0,	0,	0,	0,	0,	14	},
-		{	22,	21,	20,	19,	18,	17,	16,	15	}
-	};
-	
-	private static final Integer[][] COUNTER_CLOCKWISE_SQUARE_PATTERN = 
-	{
-		{	1,	28,	27,	26,	25,	24,	23, 22	},
-		{	2,	0,	0,	0,	0,	0,	0,	21	},
-		{	3,	0,	0,	0,	0,	0,	0,	20	},	
-		{	4,	0,	0,	0,	0,	0,	0,	19	},	
-		{	5,	0,	0,	0,	0,	0,	0,	18	},	
-		{	6,	0,	0,	0,	0,	0,	0,	17	},	
-		{	7,	0,	0,	0,	0,	0,	0,	16	},
-		{	8,	9,	10,	11,	12,	13,	14,	15	}
-	};
 	
 	private static final Character[][] TRIANGLE_PATTERN =
 	{
@@ -80,7 +54,7 @@ public class EntryPoint extends JFrame
 	};
 	
 	private IScreenGestureRecognizer _recognizer;
-	private IScreenGestureProcessorFactory _processorFactory;
+	private IScreenGestureProcessor _processor;
 	private IScreenPatternMatcherFactory _matcherFactory;
 	private IGestureImageViewer _gestureImageViewer;
 	
@@ -100,50 +74,29 @@ public class EntryPoint extends JFrame
 	
 	public void setupGestureRecognition()
 	{
-		DirectionalScreenGesture clockwiseSquare = new DirectionalScreenGesture(
-				"CLOCKWISE_SQUARE", CLOCKWISE_SQUARE_PATTERN);
-		
-		DirectionalScreenGesture counterClockwiseSquare = new DirectionalScreenGesture(
-				"COUNTER_CLOCKWISE_SQUARE", COUNTER_CLOCKWISE_SQUARE_PATTERN);
-		
 		DiffusedScreenGesture cross = new DiffusedScreenGesture("CROSS", CROSS_PATTERN);
 		
 		GroupedScreenGesture triangle = new GroupedScreenGesture("TRIANGLE", TRIANGLE_PATTERN);
 		
 		ScreenGestureRegistry gestureRegistry = new ScreenGestureRegistry();
 		
-		gestureRegistry.register(clockwiseSquare);
-		gestureRegistry.register(counterClockwiseSquare);
 		gestureRegistry.register(cross);
 		gestureRegistry.register(triangle);
-				
-		PlainScreenGestureProcessor plainProcessor = new PlainScreenGestureProcessor();
+		
 		PlainScreenPatternMatcher plainMatcher = new PlainScreenPatternMatcher();
-		
-		DirectionalScreenGestureProcessor processor = new DirectionalScreenGestureProcessor();
-		DirectionalScreenPatternMatcher matcher = new DirectionalScreenPatternMatcher();
-		
-		DiffusedScreenGestureProcessor diffusedProcessor = new DiffusedScreenGestureProcessor();
 		DiffusedScreenPatternMatcher diffusedMatcher = new DiffusedScreenPatternMatcher();
-		
-		GroupedScreenGestureProcessor groupedProcessor = new GroupedScreenGestureProcessor();
 		GroupedScreenPatternMatcher groupedMatcher = new GroupedScreenPatternMatcher();
 		
-		_processorFactory = new EmptyScreenGestureProcessorFactory();
-		_matcherFactory = new EmptyScreenPatternMatcherFactory();
+		_processor = new ScreenGestureProcessor();
 		
-		_processorFactory.register(PlainScreenGesture.class, plainProcessor);
-		_processorFactory.register(DirectionalScreenGesture.class, processor);
-		_processorFactory.register(DiffusedScreenGesture.class, diffusedProcessor);
-		_processorFactory.register(GroupedScreenGesture.class, groupedProcessor);
+		_matcherFactory = new EmptyScreenPatternMatcherFactory();
 		_matcherFactory.register(PlainScreenGesture.class, plainMatcher);
-		_matcherFactory.register(DirectionalScreenGesture.class, matcher);
 		_matcherFactory.register(DiffusedScreenGesture.class, diffusedMatcher);
 		_matcherFactory.register(GroupedScreenGesture.class, groupedMatcher);
 		
 		_gestureImageViewer = new GestureImageViewer(new GestureImageGenerator());
 		
-		_recognizer = new ScreenGestureRecognizer(gestureRegistry, _processorFactory, _matcherFactory, _gestureImageViewer);
+		_recognizer = new ScreenGestureRecognizer(gestureRegistry, _processor, _matcherFactory, _gestureImageViewer);
 	}
 	
 	public void recognizeGestures()
@@ -185,9 +138,7 @@ public class EntryPoint extends JFrame
 	
 	public void printGestureGrid(ScreenGestureData data, String file, int gridSize)
 	{
-		IScreenGestureProcessor<Boolean> processor = _processorFactory.get(PlainScreenGesture.class);
-		
-		Boolean[][] grid = processor.getGestureGrid(data, gridSize);		
+		Boolean[][] grid = _processor.getGestureGrid(data, gridSize);		
 		
 		System.out.println("---------- Gesture in file: " + file + " ----------");
 		
