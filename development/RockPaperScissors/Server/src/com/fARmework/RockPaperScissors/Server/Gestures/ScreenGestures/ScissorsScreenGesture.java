@@ -3,13 +3,13 @@ package com.fARmework.RockPaperScissors.Server.Gestures.ScreenGestures;
 import com.fARmework.RockPaperScissors.Server.Gestures.*;
 import com.fARmework.modules.ScreenGestures.Java.Gestures.*;
 
-public class ScissorsScreenGesture extends DiffusedScreenGesture
+public class ScissorsScreenGesture extends GroupedScreenGesture
 {
-	private static final Double[][] PATTERN =
+	private static final Character[][] PATTERN =
 											{
-												{	1.0,	0.5,	1.0	},
-												{	0.5,	1.0,	0.5	},
-												{	1.0,	0.5,	1.0	}
+												{	'+',	'a',	'+'	},
+												{	'a',	'+',	'a'	},
+												{	'+',	'a',	'+'	}
 											}; // TODO: define the pattern better
 	
 	public ScissorsScreenGesture()
