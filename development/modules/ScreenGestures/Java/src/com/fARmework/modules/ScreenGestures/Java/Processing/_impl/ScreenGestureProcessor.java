@@ -19,7 +19,7 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor
 		float xCell = (float)boundingBox.width / (float)gridSize;
 		float yCell = (float)boundingBox.height / (float)gridSize;
 		
-		for (ScreenGestureData.Point point : data.Points)
+		for (int x = 0; x < gridSize; ++x)
 		{
 			for (int y = 0; y < gridSize; ++y)
 			{
@@ -42,21 +42,11 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor
 							break;
 						}
 					}
-					
-					if (point.X >= xStart && point.X < xEnd && 
-						point.Y >= yStart && point.Y < yEnd)
-					{
-						grid[y][x] = true;
-						
-						gridFound = true;
-						break;
-					}
+				
+					previousPoint = point;
 				}
 				
-				if (gridFound)
-				{
-					break;	
-				}
+				grid[y][x] = hasPoint;
 			}
 		}
 		
