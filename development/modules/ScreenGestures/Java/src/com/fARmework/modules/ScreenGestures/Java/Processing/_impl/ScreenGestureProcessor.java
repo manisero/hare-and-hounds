@@ -3,8 +3,9 @@ package com.fARmework.modules.ScreenGestures.Java.Processing._impl;
 import java.awt.*;
 import java.util.*;
 
-import com.fARmework.modules.ScreenGestures.Data.*;
-import com.fARmework.modules.ScreenGestures.Java.Processing.*;
+import com.fARmework.modules.ScreenGestures.Data.ScreenGestureData;
+import com.fARmework.modules.ScreenGestures.Data.ScreenGestureData.Point;
+import com.fARmework.modules.ScreenGestures.Java.Processing.IScreenGestureProcessor;
 
 public class ScreenGestureProcessor implements IScreenGestureProcessor
 {
@@ -20,16 +21,27 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor
 		
 		for (ScreenGestureData.Point point : data.Points)
 		{
-			boolean gridFound = false;
-			
-			for (int x = 0; x < gridSize; ++x)
+			for (int y = 0; y < gridSize; ++y)
 			{
-				for (int y = 0; y < gridSize; ++y)
+				Point previousPoint = null;
+				
+				boolean hasPoint = false;
+				
+				for (Point point : data.Points)
 				{
-					float xStart = boundingBox.x + x * xCell;
-					float xEnd = boundingBox.x + (x + 1) * xCell;
-					float yStart = boundingBox.y + y * yCell;
-					float yEnd = boundingBox.y + (y + 1) * yCell;
+					if (previousPoint != null)
+					{
+						float xStart = boundingBox.x + x * xCell;
+						float xEnd = boundingBox.x + (x + 1) * xCell;
+						float yStart = boundingBox.y + y * yCell;
+						float yEnd = boundingBox.y + (y + 1) * yCell;
+						
+						if (cellContainsPoint(xStart, yStart, xEnd, yEnd, previousPoint, point))
+						{
+							hasPoint = true;
+							break;
+						}
+					}
 					
 					if (point.X >= xStart && point.X < xEnd && 
 						point.Y >= yStart && point.Y < yEnd)
@@ -89,5 +101,53 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor
 		int height = yMax - yMin + 1;
 		
 		return new Rectangle(x, y, width, height);
+	}
+	
+	private boolean cellContainsPoint(float xCellStart, float yCellStart, float xCellEnd, float yCellEnd, Point firstPoint, Point secondPoint)
+	{
+		if (firstPoint.X == secondPoint.X)
+		{
+			if (containsInterval(xCellStart, xCellEnd, firstPoint.X, firstPoint.X))
+			{
+				return true;
+			}
+		}
+		else if (firstPoint.Y == secondPoint.Y)
+		{
+			if (containsInterval(yCellStart, yCellEnd, firstPoint.Y, firstPoint.Y))
+			{
+				return true;
+			}
+		}
+		else
+		{
+			float a = (secondPoint.Y - firstPoint.Y) / (secondPoint.X - firstPoint.X);
+			float b = firstPoint.Y - a * firstPoint.X;
+			
+			float y1 = a * xCellStart + b;
+			float y2 = a * xCellEnd + b;
+			
+			float yMax = (y1 > y2) ? y1 : y2;
+			float yMin = (y1 < y2) ? y1 : y2;
+			
+			if (containsInterval(yCellStart, yCellEnd, yMin, yMax))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean containsInterval(float begin, float end, float intervalBegin, float intervalEnd)
+	{
+		if ((intervalEnd >= begin && intervalEnd <= end) ||
+			(intervalBegin >= begin && intervalBegin <= end) ||
+			(intervalBegin < begin && intervalEnd > end))
+		{
+			return true;
+		}
+		
+		return false;
 	}
 }
