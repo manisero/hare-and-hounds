@@ -9,7 +9,7 @@ public class PlainScreenPatternMatcher extends ScreenPatternMatcherBase<Boolean>
 		{
 			for (int y = 0; y < pattern[x].length; ++y)
 			{
-				if (!input[x][y].equals(pattern[x][y]))
+				if (pattern[x][y] != input[x][y])
 				{
 					return false;
 				}

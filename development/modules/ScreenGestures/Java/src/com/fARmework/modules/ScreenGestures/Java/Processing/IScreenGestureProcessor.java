@@ -2,7 +2,7 @@ package com.fARmework.modules.ScreenGestures.Java.Processing;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 
-public interface IScreenGestureProcessor<T> 
+public interface IScreenGestureProcessor 
 {
-	T[][] getGestureGrid(ScreenGestureData data, int gridSize);
+	Boolean[][] getGestureGrid(ScreenGestureData data, int gridSize);
 }

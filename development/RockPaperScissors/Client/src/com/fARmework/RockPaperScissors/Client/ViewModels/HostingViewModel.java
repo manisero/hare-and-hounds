@@ -93,6 +93,6 @@ public class HostingViewModel extends ViewModel
 	public void onLeaving()
 	{
 		ConnectionManager.unregisterDataHandlers(GameCreationResponse.class);
-		ConnectionManager.unregisterDataHandlers(GameJoinRequest.class);
+		//ConnectionManager.unregisterDataHandlers(GameJoinRequest.class);
 	}
 }
