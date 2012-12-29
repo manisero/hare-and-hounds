@@ -8,7 +8,7 @@ public class RockScreenGesture extends GroupedScreenGesture
 	private static final Character[][] PATTERN =
 											{
 												{	'-',	'a',	'b',	'c',	'-'	},
-												{	'-',	'a',	'b',	'c',	'-'	},
+												{	'?',	'a',	'b',	'c',	'?'	},
 												{	'd',	'd',	'?',	'e',	'e'	},
 												{	'f',	'f',	'-',	'g',	'g'	},
 												{	'+',	'+',	'+',	'+',	'+'	},

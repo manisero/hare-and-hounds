@@ -8,7 +8,6 @@ public class PrefilledScreenGestureProcessorFactory extends EmptyScreenGesturePr
 	public PrefilledScreenGestureProcessorFactory()
 	{
 		register(DiffusedScreenGesture.class, new DiffusedScreenGestureProcessor());
-		register(DirectionalScreenGesture.class, new DirectionalScreenGestureProcessor());
 		register(GroupedScreenGesture.class, new GroupedScreenGestureProcessor());
 		register(PlainScreenGesture.class, new PlainScreenGestureProcessor());
 	}

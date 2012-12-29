@@ -8,7 +8,6 @@ public class PrefilledScreenPatternMatcherFactory extends EmptyScreenPatternMatc
 	public PrefilledScreenPatternMatcherFactory()
 	{
 		register(DiffusedScreenGesture.class, new DiffusedScreenPatternMatcher());
-		register(DirectionalScreenGesture.class, new DirectionalScreenPatternMatcher());
 		register(GroupedScreenGesture.class, new GroupedScreenPatternMatcher());
 		register(PlainScreenGesture.class, new PlainScreenPatternMatcher());
 	}

@@ -3,7 +3,7 @@ package com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers;
 public class DiffusedScreenPatternMatcher extends ScreenPatternMatcherBase<Double> 
 {
 	@Override
-	public boolean matchPattern(Double[][] input, Double[][] pattern) 
+	public boolean matchPattern(Boolean[][] input, Double[][] pattern) 
 	{
 		double diffusedSum = 0.0;
 		
@@ -11,14 +11,16 @@ public class DiffusedScreenPatternMatcher extends ScreenPatternMatcherBase<Doubl
 		{
 			for (int y = 0; y < pattern[x].length; ++y)
 			{
-				if (!input[x][y].equals(pattern[x][y]))
+				Double fieldValue = getFieldValue(input[x][y]); 
+				
+				if (!fieldValue.equals(pattern[x][y]))
 				{
 					if (pattern[x][y].equals(0.0) || pattern[x][y].equals(1.0))
 					{
 						return false;
 					}
 					
-					if (!input[x][y].equals(0.0))
+					if (!fieldValue.equals(0.0))
 					{
 						diffusedSum += pattern[x][y];
 					}
@@ -32,5 +34,10 @@ public class DiffusedScreenPatternMatcher extends ScreenPatternMatcherBase<Doubl
 		}
 		
 		return true;
+	}
+	
+	private double getFieldValue(Boolean field)
+	{
+		return field ? 1.0 : 0.0;
 	}
 }

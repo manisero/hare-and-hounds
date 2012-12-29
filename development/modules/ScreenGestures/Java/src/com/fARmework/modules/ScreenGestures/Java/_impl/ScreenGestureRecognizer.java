@@ -48,10 +48,10 @@ public class ScreenGestureRecognizer implements IScreenGestureRecognizer
 	@SuppressWarnings("unchecked")
 	private <T> String recognizeGesture(ScreenGestureData data, ScreenGesture<T> gesture)
 	{
-		IScreenGestureProcessor<T> processor = _processorFactory.get((Class<? extends ScreenGesture<T>>)gesture.getClass());
+		IScreenGestureProcessor processor = _processorFactory.get((Class<? extends ScreenGesture<T>>)gesture.getClass());
 		IScreenPatternMatcher<T> matcher = _matcherFactory.get((Class<? extends ScreenGesture<T>>)gesture.getClass());
 		
-		T[][] grid = processor.getGestureGrid(data, gesture.getPatternSize());
+		Boolean[][] grid = processor.getGestureGrid(data, gesture.getPatternSize());
 		
 		drawGesture(data, gesture.getPatternSize());
 		logGestureGrid(gesture.getName(), grid);

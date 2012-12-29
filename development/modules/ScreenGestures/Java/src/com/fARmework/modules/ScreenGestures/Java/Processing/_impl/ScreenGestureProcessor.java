@@ -1,25 +1,22 @@
 package com.fARmework.modules.ScreenGestures.Java.Processing._impl;
 
 import java.awt.*;
-import java.lang.reflect.*;
 import java.util.*;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 import com.fARmework.modules.ScreenGestures.Java.Processing.*;
 
-public class ScreenGestureProcessor implements IScreenGestureProcessor<java.util.List<Integer>>
+public class ScreenGestureProcessor implements IScreenGestureProcessor
 {
 	@Override
-	public java.util.List<Integer>[][] getGestureGrid(ScreenGestureData data, int gridSize)
+	public Boolean[][] getGestureGrid(ScreenGestureData data, int gridSize)
 	{
-		java.util.List<Integer>[][] grid = createGrid(gridSize);
+		Boolean[][] grid = new Boolean[gridSize][gridSize];
 		
 		Rectangle boundingBox = getGestureBoundingBox(data);
 		
 		float xCell = (float)boundingBox.width / (float)gridSize;
 		float yCell = (float)boundingBox.height / (float)gridSize;
-		
-		int counter = 0;
 		
 		for (ScreenGestureData.Point point : data.Points)
 		{
@@ -37,11 +34,7 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor<java.util
 					if (point.X >= xStart && point.X < xEnd && 
 						point.Y >= yStart && point.Y < yEnd)
 					{
-						if (!grid[y][x].contains(counter))
-						{
-							counter++;
-							grid[y][x].add(counter);
-						}
+						grid[y][x] = true;
 						
 						gridFound = true;
 						break;
@@ -52,22 +45,6 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor<java.util
 				{
 					break;	
 				}
-			}
-		}
-		
-		return grid;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private java.util.List<Integer>[][] createGrid(int size)
-	{
-		java.util.List<Integer>[][] grid = (java.util.List<Integer>[][])Array.newInstance(java.util.List.class, size, size);
-		
-		for (int i = 0; i != size; i++)
-		{
-			for (int j = 0; j != size; j++)
-			{
-				grid[i][j] = new ArrayList<Integer>();
 			}
 		}
 		

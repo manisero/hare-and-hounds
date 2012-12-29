@@ -12,59 +12,55 @@ public class GroupedScreenPatternMatcher extends ScreenPatternMatcherBase<Charac
 	private static final Character TRUE = 't';
 	
 	@Override
-	protected boolean matchPattern(Character[][] input, Character[][] pattern) 
+	protected boolean matchPattern(Boolean[][] input, Character[][] pattern) 
 	{
-		Map<Character, Integer> groupUtilisation = new LinkedHashMap<Character, Integer>();
+		Map<Character, Boolean> groupUtilisation = new LinkedHashMap<Character, Boolean>();
 		
-		for(int x = 0; x < pattern.length; ++x)
+		for (int x = 0; x < pattern.length; ++x)
 		{
-			for(int y = 0; y < pattern[x].length; ++y)
+			for (int y = 0; y < pattern[x].length; ++y)
 			{
-				if(pattern[x][y] >= 'a' && pattern[x][y] <= 'z')
+				if (pattern[x][y] >= 'a' && pattern[x][y] <= 'z')
 				{
-					groupUtilisation.put(pattern[x][y], 0);
+					groupUtilisation.put(pattern[x][y], false);
 				}
 			}
 		}
 		
-		for(int x = 0; x < pattern.length; ++x)
+		for (int x = 0; x < pattern.length; ++x)
 		{
-			for(int y = 0; y < pattern[x].length; ++y)
+			for (int y = 0; y < pattern[x].length; ++y)
 			{
-				if(pattern[x][y].equals(OPTIONAL))
+				if (pattern[x][y].equals(OPTIONAL))
 				{
 					continue;
 				}				
 				
-				if(pattern[x][y].equals(REQUIRED) && input[x][y].equals(FALSE))
+				if (pattern[x][y].equals(REQUIRED) && input[x][y].equals(FALSE))
 				{
 					return false;
 				}
 				
-				if(pattern[x][y].equals(FORBIDDEN) && input[x][y].equals(TRUE))
+				if (pattern[x][y].equals(FORBIDDEN) && input[x][y].equals(TRUE))
 				{
 					return false;
 				}
 				
-				if(pattern[x][y] >= 'a' && pattern[x][y] <= 'z' && input[x][y].equals(TRUE))
+				if (pattern[x][y] >= 'a' && pattern[x][y] <= 'z' && input[x][y])
 				{
-					int value = groupUtilisation.get(pattern[x][y]);
-					
-					value++;
-					
-					groupUtilisation.put(pattern[x][y], value);
+					groupUtilisation.put(pattern[x][y], true);
 				}
 			}
 		}
 		
-		for(Map.Entry<Character, Integer> entry : groupUtilisation.entrySet())
+		for (Map.Entry<Character, Boolean> entry : groupUtilisation.entrySet())
 		{
-			if(entry.getValue() < 1)
+			if (!entry.getValue())
 			{
 				return false;
 			}
 		}
 		
 		return true;
-	}	
+	}
 }
