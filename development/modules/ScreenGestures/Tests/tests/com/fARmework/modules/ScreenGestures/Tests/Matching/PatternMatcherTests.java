@@ -9,7 +9,6 @@ import org.junit.runners.Suite.*;
 @SuiteClasses(
 		{
 			DiffusedScreenPatternMatcherTests.class,
-			DirectionalScreenPatternMatcherTests.class,
 			GroupedScreenPatternMatcherTests.class,
 			PlainScreenPatternMatcherTests.class
 		})
