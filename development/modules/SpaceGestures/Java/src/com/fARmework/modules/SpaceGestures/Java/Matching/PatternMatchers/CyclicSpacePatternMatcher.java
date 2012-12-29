@@ -6,11 +6,11 @@ import com.fARmework.modules.SpaceGestures.Java.Matching.*;
 public class CyclicSpacePatternMatcher implements ISpacePatternMatcher
 {
 	@Override
-	public boolean match(Direction[] input, Direction[] pattern)
+	public double match(Direction[] input, Direction[] pattern)
 	{
 		if(input.length != pattern.length)
 		{
-			return false;
+			return ISpacePatternMatcher.MIN_MATCHING_RATIO;
 		}
 		
 		for(int i = 0; i < input.length; ++i)
@@ -30,11 +30,11 @@ public class CyclicSpacePatternMatcher implements ISpacePatternMatcher
 				
 				if(match)
 				{
-					return true;
+					return ISpacePatternMatcher.MAX_MATCHING_RATIO;
 				}
 			}
 		}
 		
-		return false;
+		return ISpacePatternMatcher.MIN_MATCHING_RATIO;
 	}
 }
