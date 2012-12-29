@@ -10,21 +10,20 @@ import com.fARmework.modules.ScreenGestures.Java.Gestures.ScreenGesture;
 import com.fARmework.modules.ScreenGestures.Java.Matching.IScreenPatternMatcher;
 import com.fARmework.modules.ScreenGestures.Java.Matching.IScreenPatternMatcherFactory;
 import com.fARmework.modules.ScreenGestures.Java.Processing.IScreenGestureProcessor;
-import com.fARmework.modules.ScreenGestures.Java.Processing.IScreenGestureProcessorFactory;
 import com.google.inject.Inject;
 
 public class ScreenGestureRecognizer implements IScreenGestureRecognizer
 {
 	private final IScreenGestureRegistry _gestureRegistry;
-	private final IScreenGestureProcessorFactory _processorFactory;
+	private final IScreenGestureProcessor _processor;
 	private final IScreenPatternMatcherFactory _matcherFactory;
 	private final IGestureImageViewer _gestureImageViewer;
 	
 	@Inject
-	public ScreenGestureRecognizer(IScreenGestureRegistry gestureRegistry, IScreenGestureProcessorFactory processorFactory, IScreenPatternMatcherFactory matcherFactory, IGestureImageViewer gestureImageViewer)
+	public ScreenGestureRecognizer(IScreenGestureRegistry gestureRegistry, IScreenGestureProcessor processor, IScreenPatternMatcherFactory matcherFactory, IGestureImageViewer gestureImageViewer)
 	{
 		_gestureRegistry = gestureRegistry;
-		_processorFactory = processorFactory;
+		_processor = processor;
 		_matcherFactory = matcherFactory;
 		_gestureImageViewer = gestureImageViewer;
 	}
@@ -48,10 +47,9 @@ public class ScreenGestureRecognizer implements IScreenGestureRecognizer
 	@SuppressWarnings("unchecked")
 	private <T> String recognizeGesture(ScreenGestureData data, ScreenGesture<T> gesture)
 	{
-		IScreenGestureProcessor processor = _processorFactory.get((Class<? extends ScreenGesture<T>>)gesture.getClass());
 		IScreenPatternMatcher<T> matcher = _matcherFactory.get((Class<? extends ScreenGesture<T>>)gesture.getClass());
 		
-		Boolean[][] grid = processor.getGestureGrid(data, gesture.getPatternSize());
+		Boolean[][] grid = _processor.getGestureGrid(data, gesture.getPatternSize());
 		
 		drawGesture(data, gesture.getPatternSize());
 		logGestureGrid(gesture.getName(), grid);
