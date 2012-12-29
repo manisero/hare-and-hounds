@@ -21,11 +21,11 @@ public class DiffusedScreenPatternMatcherTests
 		{
 			DiffusedScreenPatternMatcher matcher = new DiffusedScreenPatternMatcher();
 			
-			Double[][] grid =
+			Boolean[][] grid =
 			{
-					{	1.0,	0.0,	1.0	},
-					{	0.0,	0.0,	1.0	},
-					{	1.0,	0.0,	0.0	}
+					{	true,	false,	true	},
+					{	false,	false,	true	},
+					{	true,	false,	false	}
 			};
 			
 			Double[][] pattern =
@@ -43,11 +43,11 @@ public class DiffusedScreenPatternMatcherTests
 		{
 			DiffusedScreenPatternMatcher matcher = new DiffusedScreenPatternMatcher();
 			
-			Double[][] grid =
+			Boolean[][] grid =
 			{
-				{	1.0,	1.0,	0.0	},
-				{	1.0,	0.0,	0.0	},
-				{	0.0,	1.0,	1.0	}
+				{	true,	true,	false	},
+				{	true,	false,	false	},
+				{	false,	true,	true	}
 			};
 			
 			Double[][] pattern =
@@ -65,12 +65,12 @@ public class DiffusedScreenPatternMatcherTests
 		{
 			DiffusedScreenPatternMatcher matcher = new DiffusedScreenPatternMatcher();
 			
-			Double[][] grid =
+			Boolean[][] grid =
 			{
-				{	1.0,	1.0,	0.0,	1.0	},
-				{	0.0,	0.0,	1.0,	0.0	},
-				{	0.0,	1.0,	1.0,	0.0	},
-				{	1.0,	1.0,	1.0,	0.0	}
+				{	true,	true,	false,	true	},
+				{	false,	false,	true,	false	},
+				{	false,	true,	true,	false	},
+				{	true,	true,	true,	false	}
 			};
 			
 			Double[][] pattern =
@@ -89,12 +89,12 @@ public class DiffusedScreenPatternMatcherTests
 		{
 			DiffusedScreenPatternMatcher matcher = new DiffusedScreenPatternMatcher();
 			
-			Double[][] grid =
+			Boolean[][] grid =
 			{
-				{	1.0,	1.0,	0.0,	1.0	},
-				{	0.0,	0.0,	1.0,	0.0	},
-				{	0.0,	1.0,	1.0,	0.0	},
-				{	1.0,	1.0,	1.0,	0.0	}
+				{	true,	true,	false,	true	},
+				{	false,	false,	true,	false	},
+				{	false,	true,	true,	false	},
+				{	true,	true,	true,	false	}
 			};
 			
 			Double[][] pattern =
@@ -113,12 +113,12 @@ public class DiffusedScreenPatternMatcherTests
 		{
 			DiffusedScreenPatternMatcher matcher = new DiffusedScreenPatternMatcher();
 			
-			Double[][] grid =
+			Boolean[][] grid =
 			{
-				{	1.0,	1.0,	0.0,	1.0	},
-				{	0.0,	1.0,	1.0,	0.0	},
-				{	0.0,	1.0,	1.0,	0.0	},
-				{	1.0,	1.0,	1.0,	0.0	}
+				{	true,	true,	false,	true	},
+				{	false,	true,	true,	false	},
+				{	false,	true,	true,	false	},
+				{	true,	true,	true,	false	}
 			};
 			
 			Double[][] pattern =
@@ -137,11 +137,11 @@ public class DiffusedScreenPatternMatcherTests
 		{
 			DiffusedScreenPatternMatcher matcher = new DiffusedScreenPatternMatcher();
 			
-			Double[][] grid =
+			Boolean[][] grid =
 			{
-				{	1.0,	0.0,	0.0	},
-				{	0.0,	0.0,	1.0	},
-				{	1.0,	0.0,	1.0	}
+				{	true,	false,	false	},
+				{	false,	false,	true	},
+				{	true,	false,	true	}
 			};
 			
 			Double[][] pattern =

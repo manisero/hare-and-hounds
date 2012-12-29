@@ -21,12 +21,12 @@ public class GroupedScreenPatternMatcherTests
 		{
 			GroupedScreenPatternMatcher matcher = new GroupedScreenPatternMatcher();
 			
-			Character[][] grid =
+			Boolean[][] grid =
 			{
-				{	't',	'f',	'f',	't'	},
-				{	'f',	't',	'f',	't'	},
-				{	't',	't',	't',	'f'	},
-				{	'f',	'f',	't',	't'	}
+				{	true,	false,	false,	true	},
+				{	false,	true,	false,	true	},
+				{	true,	true,	true,	false	},
+				{	false,	false,	true,	true	}
 			};
 			
 			Character[][] pattern =
@@ -45,11 +45,11 @@ public class GroupedScreenPatternMatcherTests
 		{
 			GroupedScreenPatternMatcher matcher = new GroupedScreenPatternMatcher();
 			
-			Character[][] grid =
+			Boolean[][] grid =
 			{
-				{	't',	'f',	'f'	},
-				{	'f',	't',	't'	},
-				{	't',	'f',	't'	}
+				{	true,	false,	false	},
+				{	false,	true,	true	},
+				{	true,	false,	true	}
 			};
 			
 			Character[][] pattern =
@@ -67,13 +67,13 @@ public class GroupedScreenPatternMatcherTests
 		{
 			GroupedScreenPatternMatcher matcher = new GroupedScreenPatternMatcher();
 			
-			Character[][] grid = 
+			Boolean[][] grid = 
 			{
-				{	't',	't',	't',	'f',	't'	},
-				{	'f',	'f',	'f',	't',	't'	},
-				{	't',	't',	't',	'f',	't'	},
-				{	't',	'f',	't',	't',	'f'	},
-				{	'f',	't',	'f',	't',	'f'	}
+				{	true,	true,	true,	false,	true	},
+				{	false,	false,	false,	true,	true	},
+				{	true,	true,	true,	false,	true	},
+				{	true,	true,	true,	true,	false	},
+				{	false,	true,	false,	true,	false	}
 			};
 			
 			Character[][] pattern = 
@@ -93,12 +93,12 @@ public class GroupedScreenPatternMatcherTests
 		{
 			GroupedScreenPatternMatcher matcher = new GroupedScreenPatternMatcher();
 			
-			Character[][] grid = 
+			Boolean[][] grid = 
 			{
-				{	'f',	't',	'f',	'f'	},
-				{	't',	'f',	'f',	't'	},
-				{	'f',	't',	't',	'f'	},
-				{	'f',	'f',	'f',	't'	}
+				{	false,	true,	false,	false	},
+				{	true,	false,	false,	true	},
+				{	false,	true,	true,	false	},
+				{	false,	false,	false,	true	}
 			};
 			
 			Character[][] pattern =
@@ -117,11 +117,11 @@ public class GroupedScreenPatternMatcherTests
 		{
 			GroupedScreenPatternMatcher matcher = new GroupedScreenPatternMatcher();
 			
-			Character[][] grid =
+			Boolean[][] grid =
 			{
-				{	't',	'f',	'f'	},
-				{	'f',	't',	't'	},
-				{	't',	'f',	't'	}
+				{	true,	false,	false	},
+				{	false,	true,	true	},
+				{	true,	false,	true	}
 			};
 			
 			Character[][] pattern =
@@ -140,11 +140,11 @@ public class GroupedScreenPatternMatcherTests
 		{
 			GroupedScreenPatternMatcher matcher = new GroupedScreenPatternMatcher();
 			
-			Character[][] grid =
+			Boolean[][] grid =
 			{
-				{	't',	'f',	't'	},
-				{	'f',	'f',	'f'	},
-				{	't',	'f',	'f'	}
+				{	true,	false,	true	},
+				{	false,	false,	false	},
+				{	true,	false,	false	}
 			};
 			
 			Character[][] pattern =
