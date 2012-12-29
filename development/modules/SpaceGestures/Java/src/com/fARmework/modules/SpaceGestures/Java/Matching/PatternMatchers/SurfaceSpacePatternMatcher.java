@@ -1,18 +1,12 @@
 package com.fARmework.modules.SpaceGestures.Java.Matching.PatternMatchers;
 
 import com.fARmework.modules.SpaceGestures.Java.Direction;
-import com.fARmework.modules.SpaceGestures.Java.Matching.*;
 
 public class SurfaceSpacePatternMatcher extends PlainSpacePatternMatcher
 {
 	@Override
 	public double match(Direction[] input, Direction[] pattern)
 	{
-		if (input.length != pattern.length)
-		{
-			return ISpacePatternMatcher.MIN_MATCHING_RATIO;
-		}
-		
 		int xParts = 0;
 		int yParts = 0;
 		int zParts = 0;
