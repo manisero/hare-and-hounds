@@ -1,3 +1,4 @@
 <settings>
 	<setting key="Port">27015</setting>
+	<setting key="SpaceGestureMatchingRatioThreshold">0.5</setting>
 </settings>

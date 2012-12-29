@@ -3,6 +3,7 @@ package com.fARmework.modules.SpaceGestures.Java._impl;
 import com.fARmework.modules.SpaceGestures.Data.*;
 import com.fARmework.modules.SpaceGestures.Java.*;
 import com.fARmework.modules.SpaceGestures.Java.Gestures.*;
+import com.fARmework.modules.SpaceGestures.Java.Infrastructure.*;
 import com.fARmework.modules.SpaceGestures.Java.Matching.*;
 import com.fARmework.modules.SpaceGestures.Java.Processing.*;
 import com.google.inject.*;
@@ -13,13 +14,16 @@ public class SpaceGestureRecognizer implements ISpaceGestureRecognizer
 	private final ISpaceGestureRegistry _gestureRegistry;
 	private final ISpaceGestureProcessor _processor;
 	private final ISpacePatternMatcherFactory _matcherFactory;
+	private final ISettingsProvider _settingsProvider;
 	
 	@Inject
-	public SpaceGestureRecognizer(ISpaceGestureRegistry gestureRegistry, ISpaceGestureProcessor processor, ISpacePatternMatcherFactory matcherFactory)
+	public SpaceGestureRecognizer(ISpaceGestureRegistry gestureRegistry, ISpaceGestureProcessor processor, ISpacePatternMatcherFactory matcherFactory,
+								  ISettingsProvider settingsProvider)
 	{
 		_gestureRegistry = gestureRegistry;
 		_processor = processor;
 		_matcherFactory = matcherFactory;
+		_settingsProvider = settingsProvider;
 	}
 	
 	@Override
@@ -46,8 +50,14 @@ public class SpaceGestureRecognizer implements ISpaceGestureRecognizer
 			}
 		}
 		
-		// TODO: implement matching ratio threshold (return null if bestMatchingRatio is below the threshold)
-		return gestureName;
+		if (bestMatchingRatio >= _settingsProvider.getMatchingRatioThreshold())
+		{
+			return gestureName;
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	private void logDetectedDirections(List<Direction> directions)
