@@ -2,6 +2,9 @@ package com.fARmework.modules.ScreenGestures.Java.GesturesReader;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
 import com.fARmework.modules.ScreenGestures.Java.*;
+import com.fARmework.modules.ScreenGestures.Java.Drawing.IGestureImageViewer;
+import com.fARmework.modules.ScreenGestures.Java.Drawing._impl.GestureImageGenerator;
+import com.fARmework.modules.ScreenGestures.Java.Drawing._impl.GestureImageViewer;
 import com.fARmework.modules.ScreenGestures.Java.Gestures.*;
 import com.fARmework.modules.ScreenGestures.Java.Matching.IScreenPatternMatcherFactory;
 import com.fARmework.modules.ScreenGestures.Java.Matching.PatternMatchers.*;
@@ -79,6 +82,7 @@ public class EntryPoint extends JFrame
 	private IScreenGestureRecognizer _recognizer;
 	private IScreenGestureProcessorFactory _processorFactory;
 	private IScreenPatternMatcherFactory _matcherFactory;
+	private IGestureImageViewer _gestureImageViewer;
 	
 	private GestureFileReader _reader;
 	private GestureDrawer _drawer;
@@ -137,7 +141,9 @@ public class EntryPoint extends JFrame
 		_matcherFactory.register(DiffusedScreenGesture.class, diffusedMatcher);
 		_matcherFactory.register(GroupedScreenGesture.class, groupedMatcher);
 		
-		_recognizer = new ScreenGestureRecognizer(gestureRegistry, _processorFactory, _matcherFactory);
+		_gestureImageViewer = new GestureImageViewer(new GestureImageGenerator());
+		
+		_recognizer = new ScreenGestureRecognizer(gestureRegistry, _processorFactory, _matcherFactory, _gestureImageViewer);
 	}
 	
 	public void recognizeGestures()

@@ -1,26 +1,32 @@
 package com.fARmework.modules.ScreenGestures.Java._impl;
 
-import com.fARmework.modules.ScreenGestures.Data.*;
-import com.fARmework.modules.ScreenGestures.Java.*;
-import com.fARmework.modules.ScreenGestures.Java.Gestures.ScreenGesture;
-import com.fARmework.modules.ScreenGestures.Java.Matching.*;
-import com.fARmework.modules.ScreenGestures.Java.Processing.*;
-import com.google.inject.Inject;
+import java.util.List;
 
-import java.util.*;
+import com.fARmework.modules.ScreenGestures.Data.ScreenGestureData;
+import com.fARmework.modules.ScreenGestures.Java.IScreenGestureRecognizer;
+import com.fARmework.modules.ScreenGestures.Java.IScreenGestureRegistry;
+import com.fARmework.modules.ScreenGestures.Java.Drawing.IGestureImageViewer;
+import com.fARmework.modules.ScreenGestures.Java.Gestures.ScreenGesture;
+import com.fARmework.modules.ScreenGestures.Java.Matching.IScreenPatternMatcher;
+import com.fARmework.modules.ScreenGestures.Java.Matching.IScreenPatternMatcherFactory;
+import com.fARmework.modules.ScreenGestures.Java.Processing.IScreenGestureProcessor;
+import com.fARmework.modules.ScreenGestures.Java.Processing.IScreenGestureProcessorFactory;
+import com.google.inject.Inject;
 
 public class ScreenGestureRecognizer implements IScreenGestureRecognizer
 {
 	private final IScreenGestureRegistry _gestureRegistry;
 	private final IScreenGestureProcessorFactory _processorFactory;
 	private final IScreenPatternMatcherFactory _matcherFactory;
+	private final IGestureImageViewer _gestureImageViewer;
 	
 	@Inject
-	public ScreenGestureRecognizer(IScreenGestureRegistry gestureRegistry, IScreenGestureProcessorFactory processorFactory, IScreenPatternMatcherFactory matcherFactory)
+	public ScreenGestureRecognizer(IScreenGestureRegistry gestureRegistry, IScreenGestureProcessorFactory processorFactory, IScreenPatternMatcherFactory matcherFactory, IGestureImageViewer gestureImageViewer)
 	{
 		_gestureRegistry = gestureRegistry;
 		_processorFactory = processorFactory;
 		_matcherFactory = matcherFactory;
+		_gestureImageViewer = gestureImageViewer;
 	}
 
 	@Override
@@ -47,9 +53,15 @@ public class ScreenGestureRecognizer implements IScreenGestureRecognizer
 		
 		T[][] grid = processor.getGestureGrid(data, gesture.getPatternSize());
 		
+		drawGesture(data, gesture.getPatternSize());
 		logGestureGrid(gesture.getName(), grid);
 		
 		return matcher.match(grid, gesture.getPattern()) ? gesture.getName() : null;
+	}
+	
+	private void drawGesture(ScreenGestureData gestureData, int gridSize)
+	{
+		_gestureImageViewer.showGesture(gestureData, gridSize);
 	}
 	
 	private <T> void logGestureGrid(String gestureName, T[][] grid)

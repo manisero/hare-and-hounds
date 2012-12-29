@@ -1,17 +1,25 @@
 package com.fARmework.RockPaperScissors.Server.Logic._impl;
 
-import com.fARmework.RockPaperScissors.Data.*;
+import com.fARmework.RockPaperScissors.Data.GameEndInfo;
+import com.fARmework.RockPaperScissors.Data.GameJoinRequest;
+import com.fARmework.RockPaperScissors.Data.GameJoinResponse;
 import com.fARmework.RockPaperScissors.Data.GameJoinResponse.GameJoinResponseType;
+import com.fARmework.RockPaperScissors.Data.GameResultInfo;
 import com.fARmework.RockPaperScissors.Data.GameResultInfo.GameResult;
+import com.fARmework.RockPaperScissors.Data.GameStartInfo;
+import com.fARmework.RockPaperScissors.Data.GestureInfo;
 import com.fARmework.RockPaperScissors.Data.GestureInfo.GestureType;
+import com.fARmework.RockPaperScissors.Data.NextGameInfo;
+import com.fARmework.RockPaperScissors.Data.PlayerLeftInfo;
 import com.fARmework.RockPaperScissors.Server.Gestures.GesturesData;
-import com.fARmework.RockPaperScissors.Server.Logic.*;
+import com.fARmework.RockPaperScissors.Server.Logic.Game;
+import com.fARmework.RockPaperScissors.Server.Logic.ISingleGameManager;
 import com.fARmework.core.server.Connection.IConnectionManager;
 import com.fARmework.core.server.Connection.IDataHandler;
 import com.fARmework.core.server.Data.ClientDisconnectedInfo;
 import com.fARmework.modules.ScreenGestures.Data.ScreenGestureData;
 import com.fARmework.modules.ScreenGestures.Java.IScreenGestureRecognizer;
-import com.fARmework.modules.SpaceGestures.Data.*;
+import com.fARmework.modules.SpaceGestures.Data.SpaceGestureData;
 import com.fARmework.modules.SpaceGestures.Java.ISpaceGestureRecognizer;
 
 public class SingleGameManager implements ISingleGameManager
