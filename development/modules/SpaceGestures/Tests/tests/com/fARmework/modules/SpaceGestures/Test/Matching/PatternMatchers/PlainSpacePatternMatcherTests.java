@@ -42,7 +42,7 @@ public class PlainSpacePatternMatcherTests
 					Direction.Backward
 			};
 								
-			assertTrue(matcher.match(moves, pattern));			
+			assertEquals(1.0, matcher.match(moves, pattern), 0.0);			
 		}
 		
 		@Test 
@@ -66,7 +66,7 @@ public class PlainSpacePatternMatcherTests
 				Direction.Left
 			};
 			
-			assertFalse(matcher.match(moves, pattern));
+			assertEquals(0.0, matcher.match(moves, pattern), 0.0);
 		}
 		
 		@Test
@@ -89,7 +89,7 @@ public class PlainSpacePatternMatcherTests
 				Direction.Forward
 			};
 			
-			assertFalse(matcher.match(moves, pattern));
+			assertEquals(0.0, matcher.match(moves, pattern), 0.0);
 		}		
 	}
 }
