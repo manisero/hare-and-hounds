@@ -24,6 +24,10 @@ public class GestureImageGenerator implements IGestureImageGenerator
 		
 		plainImageGraphics.setBackground(Color.WHITE);
 		plainImageGraphics.fillRect(0, 0, plainImage.getWidth(), plainImage.getHeight());
+		plainImageGraphics.setColor(Color.BLACK);
+		plainImageGraphics.setStroke(new BasicStroke(1));
+		
+		Point previousPoint = null;
 		
 		for (Point point : gesture.Points)
 		{
@@ -31,6 +35,16 @@ public class GestureImageGenerator implements IGestureImageGenerator
 			int relativeY = (int) point.Y - boundingBox.y;
 			
 			plainImage.setRGB(relativeX, relativeY, Color.BLACK.getRGB());
+			
+			if (previousPoint != null)
+			{
+				int previousRelativeX = (int) previousPoint.X - boundingBox.x;
+				int previousRelativeY = (int) previousPoint.Y - boundingBox.y;
+				
+				plainImageGraphics.drawLine(previousRelativeX, previousRelativeY, relativeX, relativeY);
+			}
+			
+			previousPoint = point;
 		}
 		
 		return plainImage;
