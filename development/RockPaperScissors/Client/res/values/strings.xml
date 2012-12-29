@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) -->
+    
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">RockPaperScissors</string>
+    
+    <string name="dialog_confirm">OK</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    
+    <string name="serverAddress">Server address</string>
+    <string name="port">Port</string>
+    <string name="userName">User name</string>
+    
+    <string name="connection_connect">Connect</string>
+    <string name="connection_connecting">Connecting&#8230;</string> 
+    <string name="connection_success">Connected</string>
+    <string name="connection_fault">Connection failed</string>
+    <string name="connection_error">Connection error</string>
+    <string name="connection_disconnect">Disconnect</string>
+    <string name="connection_disconnected">Disconnected</string>
+    <string name="connection_exception">Connection error occured. The application will be closed.</string>
+    
+    <string name="mode_create">Create</string>
+    <string name="mode_join">Join</string>
+    
+    <string name="options">Options</string>
+    <string name="options_save">Save</string>
+    
+    <string name="hosting_creating">Creating game&#8230;</string>
+    <string name="hosting_created">Game created</string>
+    <string name="hosting_waiting">Waiting for guest&#8230;</string>
+    <string name="hosting_guestConnected">%1$s wants to join your game. Allow?</string>
+    <string name="hosting_guestJoined">%1$s has joined your game.</string>
+    
+    <string name="gameList_refresh">Refresh</string>
+    <string name="gameList_joining">Joining %1$s\'s game&#8230;</string>
+    <string name="gameList_joinRefused">%1$s has refused your join request</string>
+    <string name="gameList_notAvailable">%1$s\'s game is no longer available</string>
+    
+    <string name="game_player">Player</string>
+    <string name="game_opponent">Opponent</string>
+    <string name="game_chooseGesture">Choose gesture:</string>
+    <string name="game_recordGesture_start">Record gesture</string>
+    <string name="game_recordGesture_stop">Stop recording</string>
+    <string name="game_gestureNotRecognized">Gesture not recognized. Try again.</string>
+    <string name="game_waitingForOpponent">Waiting for %1$s&#8230;</string>
+    <string name="game_opponentLeft">%1$s has left. Game result:\n%2$s: %3$s\n%4$s: %5$s</string>
+    <string name="game_victory">Victory!</string>
+    <string name="game_defeat">Defeat!</string>
+    <string name="game_draw">Draw!</string>
+    <string name="game_result_pattern">%1$s\nYour gesture: %2$s\n%3$s\'s gesture: %4$s\nContinue?</string>
+    
+    <string name="gestures_rock">Rock</string>
+    <string name="gestures_paper">Paper</string>
+    <string name="gestures_scissors">Scissors</string>
+</resources>

@@ -1,0 +1,19 @@
+1. Third party libraries:
+   Is it possible to keep third party libraries outside of the projects?
+   E.g. the projects could have relative references to "fARmework/third_party" folder.
+   
+   EDIT:
+   No, it's not. Android SKD requires the libraries to be located in "[project name]/libs"
+   folder.
+
+2. Screen gestures - mapping points to grid:
+   Consider using margin while mapping the points, so that the top left point is placed in the middle
+   (instead of in the top left corner) of the top left grid cell. Compare:
+   gesture: "o  o   o  o"
+   grid without margin: "|o  o|    |o  o|"
+   grid with margin: "|  o  |o   o|  o  |"
+   plain gesture without margin: "101"
+   plain gesture with margin: "111"
+
+3. Space gestures - differentials could potentially fix the algorithm flaw presented in csv:
+   /docs/RockPaperScissors/SpaceGestures/algorithm_flaw.csv

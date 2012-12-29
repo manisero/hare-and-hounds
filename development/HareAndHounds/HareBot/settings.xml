@@ -1,0 +1,32 @@
+<settings>
+    <setting key="ServerAddress">87.206.96.76</setting>
+	<setting key="Port">27015</setting>
+	<setting key="UserName">HareBot</setting>
+	
+	<setting key="SendPositionInterval">10000</setting>
+	<setting key="InitialPosition">52.13102 21.070337</setting>
+	
+	<setting key="Position">52.131020 21.070337</setting>
+	<setting key="Position">52.130539 21.070675</setting>
+	<setting key="Position">52.130246 21.070391</setting>
+	<setting key="Position">52.130732 21.069843</setting>
+	<setting key="Position">52.131142 21.069527</setting>
+	<setting key="Position">52.131078 21.068400</setting>
+	<setting key="Position">52.130990 21.067379</setting>
+	<setting key="Position">52.130768 21.066780</setting>
+	<setting key="Position">52.130434 21.067100</setting>
+	<setting key="Position">52.130083 21.067427</setting>
+	<setting key="Position">52.129734 21.067510</setting>
+	<setting key="Position">52.129276 21.067826</setting>
+	<setting key="Position">52.128858 21.068215</setting>
+	<setting key="Position">52.128435 21.068658</setting>
+	<setting key="Position">52.128415 21.069444</setting>
+	<setting key="Position">52.128167 21.070232</setting>
+	<setting key="Position">52.128456 21.071410</setting>
+	<setting key="Position">52.128677 21.072933</setting>
+	<setting key="Position">52.129227 21.073462</setting>
+	<setting key="Position">52.129642 21.073129</setting>
+	<setting key="Position">52.130195 21.072687</setting>
+	<setting key="Position">52.130798 21.072206</setting>
+	<setting key="Position">52.131405 21.071759</setting>
+</settings>
