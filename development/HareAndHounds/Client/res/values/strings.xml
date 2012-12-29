@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- "&#8230;" means "..." character (direct usage of "..." caused some shitty warning) -->
+    
+    <string name="app_name">HareAndHounds</string>
+    
+    <string name="dialog_confirm">OK</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    
+    <string name="serverAddress">Server address</string>
+    <string name="port">Port</string>
+    <string name="userName">User name</string>
+    
+    <string name="connection_connect">Connect</string>
+    <string name="connection_connecting">Connecting&#8230;</string> 
+    <string name="connection_success">Connected</string>
+    <string name="connection_fault">Connection failed</string>
+    <string name="connection_error">Connection error</string>
+    <string name="connection_disconnect">Disconnect</string>
+    <string name="connection_disconnected">Disconnected</string>
+    <string name="connection_exception">Connection error occured. The application will be closed.</string>
+    
+    <string name="position_fail">Failed to read GPS position.</string>
+    
+    <string name="mode_create">Create</string>
+    <string name="mode_join">Join</string>
+    
+    <string name="options">Options</string>
+    <string name="option_playCheckpointSound">Play sound in Checkpoint</string>
+    <string name="option_displayCheckpointCameraPreview">Display camera preview in Checkpoint</string>
+    <string name="options_save">Save</string>
+    
+    <string name="hosting_creating">Creating game&#8230;</string>
+    <string name="hosting_created">Game created</string>
+    <string name="hosting_waiting">Waiting for guest&#8230;</string>
+    <string name="hosting_guestConnected">%1$s wants to join your game. Allow?</string>
+    <string name="hosting_guestJoined">%1$s has joined your game.</string>
+    
+    <string name="gameList_refresh">Refresh</string>
+    <string name="gameList_waiting">Waiting for game list&#8230;</string>
+    <string name="gameList_joining">Joining %1$s\'s game&#8230;</string>
+    <string name="gameList_joinRejected">%1$s has refused your join request</string>
+    <string name="gameList_unavailable">%1$s\'s game is no longer available</string>
+    
+    <string name="hare_victory">Victory!</string>
+    <string name="hare_defeat">Defeat!</string>
+    <string name="hounds_victory">Victory!</string>
+    <string name="hounds_defeat">Defeat!</string>
+</resources>
