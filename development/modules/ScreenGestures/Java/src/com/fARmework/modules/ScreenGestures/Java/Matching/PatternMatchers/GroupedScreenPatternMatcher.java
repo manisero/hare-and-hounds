@@ -8,9 +8,6 @@ public class GroupedScreenPatternMatcher extends ScreenPatternMatcherBase<Charac
 	private static final Character OPTIONAL = '?';
 	private static final Character REQUIRED = '+';
 	
-	private static final Character FALSE = 'f';
-	private static final Character TRUE = 't';
-	
 	@Override
 	protected boolean matchPattern(Boolean[][] input, Character[][] pattern) 
 	{
@@ -36,12 +33,12 @@ public class GroupedScreenPatternMatcher extends ScreenPatternMatcherBase<Charac
 					continue;
 				}				
 				
-				if (pattern[x][y].equals(REQUIRED) && input[x][y].equals(FALSE))
+				if (pattern[x][y].equals(REQUIRED) && input[x][y].equals(false))
 				{
 					return false;
 				}
 				
-				if (pattern[x][y].equals(FORBIDDEN) && input[x][y].equals(TRUE))
+				if (pattern[x][y].equals(FORBIDDEN) && input[x][y].equals(true))
 				{
 					return false;
 				}
