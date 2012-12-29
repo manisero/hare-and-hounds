@@ -76,6 +76,11 @@ public enum Direction
 		return (getValue() & part.getValue()) != Direction.Unknown.getValue();
 	}
 	
+	public boolean intersects(Direction direction)
+	{
+		return hasPart(direction) || direction.hasPart(this);
+	}
+	
 	public static Direction[] trimParts(Direction[] directions, Direction... parts)
 	{
 		Direction[] result = new Direction[directions.length];

@@ -50,7 +50,7 @@ public class SpaceGestureRecognizer implements ISpaceGestureRecognizer
 			}
 		}
 		
-		if (bestMatchingRatio >= _settingsProvider.getMatchingRatioThreshold())
+		if (bestMatchingRatio >= _settingsProvider.getMatchingRatioThreshold() * ISpacePatternMatcher.MAX_MATCHING_RATIO)
 		{
 			return gestureName;
 		}
