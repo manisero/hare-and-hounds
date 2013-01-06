@@ -35,7 +35,7 @@ public class SensorOrientationProvider implements IOrientationProvider
 			public void onAccuracyChanged(Sensor sensor, int accuracy)
 			{
 			}
-		}, getSensorManager().getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+		}, getSensorManager().getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_NORMAL);
 		
 		getSensorManager().registerListener(new SensorEventListener()
 		{
