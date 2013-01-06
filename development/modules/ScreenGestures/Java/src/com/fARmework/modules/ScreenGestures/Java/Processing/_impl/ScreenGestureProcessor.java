@@ -23,12 +23,12 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor
 		{
 			for (int y = 0; y < gridSize; ++y)
 			{
-				Point previousPoint = null;
-				
 				boolean hasPoint = false;
 				
 				for (LinkedList<Point> segment : data.Segments)
 				{
+					Point previousPoint = null;
+					
 					for (Point point : segment)
 					{
 						if (previousPoint != null)
@@ -58,10 +58,17 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor
 	
 	private Rectangle getGestureBoundingBox(ScreenGestureData data) 
 	{
-		int xMin = 0;
-		int xMax = 0;
-		int yMin = 0;
-		int yMax = 0;
+		if (data.Segments.isEmpty() || data.Segments.get(0).isEmpty())
+		{
+			return null;
+		}
+		
+		Point firstPoint = data.Segments.get(0).get(0);
+		
+		int xMin = (int)firstPoint.X;
+		int xMax = (int)firstPoint.X;
+		int yMin = (int)firstPoint.Y;
+		int yMax = (int)firstPoint.Y;
 		
 		for (LinkedList<Point> segment : data.Segments)
 		{

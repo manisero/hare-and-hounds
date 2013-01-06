@@ -27,10 +27,10 @@ public class GestureImageGenerator implements IGestureImageGenerator
 		plainImageGraphics.setColor(Color.BLACK);
 		plainImageGraphics.setStroke(new BasicStroke(1));
 		
-		Point previousPoint = null;
-		
 		for (LinkedList<Point> segment : gesture.Segments)
 		{
+			Point previousPoint = null;
+			
 			for (Point point : segment)
 			{
 				int relativeX = (int) point.X - boundingBox.x;
@@ -77,10 +77,17 @@ public class GestureImageGenerator implements IGestureImageGenerator
 	
 	private Rectangle getGestureBoundingBox(ScreenGestureData data) 
 	{
-		int xMin = 0;
-		int xMax = 0;
-		int yMin = 0;
-		int yMax = 0;
+		if (data.Segments.isEmpty() || data.Segments.get(0).isEmpty())
+		{
+			return null;
+		}
+		
+		Point firstPoint = data.Segments.get(0).get(0);
+		
+		int xMin = (int)firstPoint.X;
+		int xMax = (int)firstPoint.X;
+		int yMin = (int)firstPoint.Y;
+		int yMax = (int)firstPoint.Y;
 		
 		for (LinkedList<Point> segment : data.Segments)	
 		{
