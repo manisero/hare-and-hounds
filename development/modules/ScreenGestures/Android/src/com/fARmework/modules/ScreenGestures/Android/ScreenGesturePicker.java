@@ -109,6 +109,11 @@ public class ScreenGesturePicker extends View implements IBindableView<ScreenGes
 					return false;
 				}
 				
+				if (_previousX == null || _previousY == null)
+				{
+					_gesture.startSegment();
+				}
+				
 				_gesture.addPoint(event.getX(), event.getY());
 								
 				drawLine(event.getX(), event.getY());
