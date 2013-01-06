@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">IndoorPositioning</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="store_button_caption">Store</string>
+    <string name="check_button_caption">Check</string>
+
+</resources>

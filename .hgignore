@@ -6,6 +6,7 @@ creativity/Android/CustomAttributes/bin/*
 creativity/Android/GPS/bin/*
 creativity/Android/JSON/bin/*
 creativity/Android/GestureWriter/bin/*
+creativity/Android/IndoorPositioning/bin/*
 creativity/Android/SoundIndicator/bin/*
 creativity/Java/Client/bin/*
 creativity/Java/DI/bin/*
