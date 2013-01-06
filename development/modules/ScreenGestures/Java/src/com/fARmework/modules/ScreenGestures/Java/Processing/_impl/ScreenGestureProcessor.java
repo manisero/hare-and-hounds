@@ -27,23 +27,26 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor
 				
 				boolean hasPoint = false;
 				
-				for (Point point : data.Points)
+				for (LinkedList<Point> segment : data.Segments)
 				{
-					if (previousPoint != null)
+					for (Point point : segment)
 					{
-						float xStart = boundingBox.x + x * xCell;
-						float yStart = boundingBox.y + y * yCell;
-						
-						Rectangle cell = new Rectangle((int) xStart, (int) yStart, (int) xCell, (int) yCell);
-						
-						if (cell.intersectsLine(previousPoint.X, previousPoint.Y, point.X, point.Y))
+						if (previousPoint != null)
 						{
-							hasPoint = true;
-							break;
+							float xStart = boundingBox.x + x * xCell;
+							float yStart = boundingBox.y + y * yCell;
+							
+							Rectangle cell = new Rectangle((int) xStart, (int) yStart, (int) xCell, (int) yCell);
+							
+							if (cell.intersectsLine(previousPoint.X, previousPoint.Y, point.X, point.Y))
+							{
+								hasPoint = true;
+								break;
+							}
 						}
+					
+						previousPoint = point;
 					}
-				
-					previousPoint = point;
 				}
 				
 				grid[y][x] = hasPoint;
@@ -55,41 +58,37 @@ public class ScreenGestureProcessor implements IScreenGestureProcessor
 	
 	private Rectangle getGestureBoundingBox(ScreenGestureData data) 
 	{
-		LinkedList<ScreenGestureData.Point> points = data.Points;
+		int xMin = 0;
+		int xMax = 0;
+		int yMin = 0;
+		int yMax = 0;
 		
-		int xMin, xMax, yMin, yMax;
-
-		xMin = xMax = (int) points.getFirst().X;
-		yMin = yMax = (int) points.getFirst().Y;
-		
-		for(ScreenGestureData.Point point : points)
+		for (LinkedList<Point> segment : data.Segments)
 		{
-			if(xMin > point.X)
+			for(ScreenGestureData.Point point : segment)
 			{
-				xMin = (int) point.X;
-			}
-			
-			else if(xMax < point.X)
-			{
-				xMax = (int) point.X;
-			}
-			
-			if(yMin > point.Y)
-			{
-				yMin = (int) point.Y;
-			}
-			
-			else if(yMax < point.Y)
-			{
-				yMax = (int) point.Y;
+				if(xMin > point.X)
+				{
+					xMin = (int) point.X;
+				}
+				
+				else if(xMax < point.X)
+				{
+					xMax = (int) point.X;
+				}
+				
+				if(yMin > point.Y)
+				{
+					yMin = (int) point.Y;
+				}
+				
+				else if(yMax < point.Y)
+				{
+					yMax = (int) point.Y;
+				}
 			}
 		}
 		
-		int x = xMin;
-		int y = yMin;
-		int width = xMax - xMin + 1;
-		int height = yMax - yMin + 1;
-		
-		return new Rectangle(x, y, width, height);
+		return new Rectangle(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
 	}
 }

@@ -22,20 +22,30 @@ public class ScreenGestureData
 		}
 	}
 	
-	public LinkedList<Point> Points;
+	public LinkedList<LinkedList<Point>> Segments;
 	
 	public ScreenGestureData()
 	{
-		Points = new LinkedList<Point>();
+		Segments = new LinkedList<LinkedList<Point>>();
 	}
 	
-	public ScreenGestureData(LinkedList<Point> points)
+	public ScreenGestureData(LinkedList<LinkedList<Point>> segment)
 	{
-		Points = points;
+		Segments = segment;
+	}
+	
+	public void startSegment()
+	{
+		Segments.add(new LinkedList<Point>());
 	}
 	
 	public void addPoint(float x, float y)
 	{
-		Points.add(new Point(x, y));
+		if (Segments.isEmpty())
+		{
+			startSegment();
+		}
+		
+		Segments.get(Segments.size() - 1).add(new Point(x, y));
 	}
 }

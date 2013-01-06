@@ -15,31 +15,34 @@ public class GestureDrawer
 												boundingBox.height,
 												BufferedImage.TYPE_INT_RGB);
 		
-		for(int x = 0; x < boundingBox.width; ++x)
+		for (int x = 0; x < boundingBox.width; ++x)
 		{
-			for(int y = 0; y < boundingBox.height; ++y)
+			for (int y = 0; y < boundingBox.height; ++y)
 			{
 				image.setRGB(x, y, Color.WHITE.getRGB());
 			}
 		}
 		
-		LinkedList<ScreenGestureData.Point> points = data.Points;
+		for (int i = 0; i != data.Segments.size(); i++)
+		{
+			LinkedList<ScreenGestureData.Point> points = data.Segments.get(i);
 		
-		int pointsSize = points.size();
-		int pointNo = 0;
-		
-		for(ScreenGestureData.Point point : points)
-		{	
-			++pointNo;
+			int pointsSize = points.size();
+			int pointNo = 0;
 			
-			double red = 255 * (double) pointNo / (double) pointsSize;
-			
-			int x = (int) point.X - boundingBox.x;
-			int y = (int) point.Y - boundingBox.y;
-			
-			Color color = new Color((int) red, 0, 0, 0);
-			
-			image.setRGB(x, y, color.getRGB());
+			for (ScreenGestureData.Point point : points)
+			{	
+				++pointNo;
+				
+				double red = 255 * (double) pointNo / (double) pointsSize;
+				
+				int x = (int) point.X - boundingBox.x;
+				int y = (int) point.Y - boundingBox.y;
+				
+				Color color = new Color((int) red, 0, 0, 0);
+				
+				image.setRGB(x, y, color.getRGB());
+			}
 		}
 		
 		return image;
@@ -47,41 +50,35 @@ public class GestureDrawer
 	
 	private Rectangle getBoundingBox(ScreenGestureData data)
 	{
-		LinkedList<ScreenGestureData.Point> points = data.Points;
+		int xMin = 0;
+		int xMax = 0;
+		int yMin = 0;
+		int yMax = 0;
 		
-		int xMin, xMax, yMin, yMax;
-	
-		xMin = xMax = (int) points.getFirst().X;
-		yMin = yMax = (int) points.getFirst().Y;
-		
-		for(ScreenGestureData.Point point : points)
+		for (LinkedList<ScreenGestureData.Point> segment : data.Segments)
 		{
-			if(xMin > point.X)
+			for (ScreenGestureData.Point point : segment)
 			{
-				xMin = (int) point.X;
-			}
-			
-			else if(xMax < point.X)
-			{
-				xMax = (int) point.X;
-			}
-			
-			if(yMin > point.Y)
-			{
-				yMin = (int) point.Y;
-			}
-			
-			else if(yMax < point.Y)
-			{
-				yMax = (int) point.Y;
+				if (xMin > point.X)
+				{
+					xMin = (int) point.X;
+				}				
+				else if (xMax < point.X)
+				{
+					xMax = (int) point.X;
+				}
+				
+				if (yMin > point.Y)
+				{
+					yMin = (int) point.Y;
+				}
+				else if (yMax < point.Y)
+				{
+					yMax = (int) point.Y;
+				}
 			}
 		}
 		
-		int x = xMin;
-		int y = yMin;
-		int width = xMax - xMin + 1;
-		int height = yMax - yMin + 1;
-		
-		return new Rectangle(x, y, width, height);
+		return new Rectangle(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
 	}
 }
