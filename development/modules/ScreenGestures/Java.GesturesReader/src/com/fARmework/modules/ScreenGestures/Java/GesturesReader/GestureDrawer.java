@@ -1,6 +1,7 @@
 package com.fARmework.modules.ScreenGestures.Java.GesturesReader;
 
 import com.fARmework.modules.ScreenGestures.Data.*;
+
 import java.awt.*;
 import java.awt.image.*;
 import java.util.*;
@@ -50,10 +51,17 @@ public class GestureDrawer
 	
 	private Rectangle getBoundingBox(ScreenGestureData data)
 	{
-		int xMin = 0;
-		int xMax = 0;
-		int yMin = 0;
-		int yMax = 0;
+		if (data.Segments.isEmpty() || data.Segments.get(0).isEmpty())
+		{
+			return null;
+		}
+		
+		ScreenGestureData.Point firstPoint = data.Segments.get(0).get(0);
+		
+		int xMin = (int)firstPoint.X;
+		int xMax = (int)firstPoint.X;
+		int yMin = (int)firstPoint.Y;
+		int yMax = (int)firstPoint.Y;
 		
 		for (LinkedList<ScreenGestureData.Point> segment : data.Segments)
 		{
