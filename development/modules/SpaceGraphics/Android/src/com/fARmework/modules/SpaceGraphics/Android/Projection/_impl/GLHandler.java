@@ -11,7 +11,7 @@ import com.fARmework.modules.SpaceGraphics.Android.Projection.*;
 
 public class GLHandler implements IGLHandler 
 {
-	private float[] _modelMatrix = new float[16];
+	private float[] _rotationMatrix = new float[16];
 	private float _direction = 0.0f;
 	
 	private float[] _light = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -47,7 +47,7 @@ public class GLHandler implements IGLHandler
 	@Override
 	public void setRotationMatrix(float[] rotationMatrix)
 	{
-		_modelMatrix = rotationMatrix;
+		_rotationMatrix = rotationMatrix;
 	}
 	
 	@Override
@@ -84,7 +84,7 @@ public class GLHandler implements IGLHandler
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 
 			gl.glPushMatrix();
-				gl.glMultMatrixf(_modelMatrix, 0);
+				gl.glMultMatrixf(_rotationMatrix, 0);
 				gl.glRotatef(-1.0f * _direction, 0.0f, 0.0f, 1.0f);
 				gl.glDrawArrays(GL10.GL_TRIANGLES, 0, model.getVerticesAmount());
 			gl.glPopMatrix();

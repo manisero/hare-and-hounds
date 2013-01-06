@@ -118,102 +118,102 @@ public class Arrow extends PhasingModel
 	@Override
 	protected void generateColors()
 	{
-		float _restRate = 1.0f - _rate;
+		float _restRate = 1.0f - ColorRate;
 		
 		float[] colors =
 		{
 			// front arrow head
 			
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 				
 			// front arrow base
 			
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 			
 			// back arrow head
 			
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 			
 			// back arrow base
 
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 			
 			// left arrow slant
 			
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 			
 			// right arrow slant 
 			
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 			
 			// left-bottom arrow head
 			
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 			
 			// right-bottom arrow head
 			
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 			
 			// bottom arrow base
 			
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 				
 			// left arrow base
 			
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
 				
 			// right arrow base
 				
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,
-			1.0f * _restRate,	1.0f * _rate,	0.0f,	1.0f,		
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,
+			1.0f * _restRate,	1.0f * ColorRate,	0.0f,	1.0f,		
 		};
 		
 		_colors = colors;
