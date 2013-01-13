@@ -51,4 +51,10 @@ public class DataService implements IDataService
 	{
 		return deserialize(message.getData(), _dataRegistry.getDataClass(message.getType()));
 	}
+	
+	@Override
+	public Object fromMessage(String serializedMessage)
+	{
+		return fromMessage(deserializeMessage(serializedMessage));
+	}
 }

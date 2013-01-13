@@ -11,4 +11,5 @@ public interface IDataService
 	String toSerializedMessage(Object data);
 	
 	Object fromMessage(Message message);
+	Object fromMessage(String serializedMessage);
 }

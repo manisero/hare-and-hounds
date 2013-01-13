@@ -38,8 +38,7 @@ public class ConnectionManager implements IConnectionManager
 		@Override
 		public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 		{
-			Message message = _dataService.deserializeMessage(event.getMessage().toString());
-			handleData(event.getChannel().getId(), _dataService.fromMessage(message));
+			handleData(event.getChannel().getId(), _dataService.fromMessage(event.getMessage().toString()));
 		}
 		
 		@Override
