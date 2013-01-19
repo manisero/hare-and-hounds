@@ -1,25 +1,17 @@
 package com.fARmework.creativity.IndoorPositioning;
 
-import java.util.Map;
+import java.util.*;
 
-import android.app.Activity;
-import android.content.Context;
-import android.net.wifi.WifiManager;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Toast;
+import android.app.*;
+import android.content.*;
+import android.net.wifi.*;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
 
 public class MainActivity extends Activity 
 {
-	private Button _storeButton;
-	private Button _checkButton;
-	
-	private PositionRepository _repository;
 	private PositionFetcher _fetcher;
-	private PositionChecker _checker;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -27,49 +19,51 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        _storeButton = (Button) findViewById(R.id.storePosition);
-        _checkButton = (Button) findViewById(R.id.checkPosition);
+        final WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         
-        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        _fetcher = new PositionFetcher();
         
-        _repository = new PositionRepository();
-        _fetcher = new PositionFetcher(wifiManager);
-        _checker = new PositionChecker();
+        wifiManager.startScan();
         
-        _storeButton.setOnClickListener(new OnClickListener()
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        
+        registerReceiver(new BroadcastReceiver()
 		{
 			@Override
-			public void onClick(View v)
+			public void onReceive(Context context, Intent intent)
 			{
-				IndoorPositionData positionData = _fetcher.getCurrentPosition();
+				List<ScanResult> scanResults = wifiManager.getScanResults();
 				
-				_repository.addPosition(positionData);
-				
-				StringBuilder stringBuilder = new StringBuilder("Storing current position with networks: \n");
-				
-				for (Map.Entry<String, Integer> wifiData : positionData.WifiSignalData.entrySet())
+				if (scanResults != null)
 				{
-					stringBuilder.append(wifiData.getKey() + " - " + wifiData.getValue() + "%\n");
+					StringBuilder stringBuilder = new StringBuilder("Current position with networks: \n");
+					
+					for (ScanResult scanResult : scanResults)
+					{
+						int signalStrength = _fetcher.calculateSignalLevel(scanResult.level, 101);
+						
+						stringBuilder.append(scanResult.SSID + " - " + signalStrength + "%\n");
+					}
+					
+					Toast.makeText(getApplicationContext(), stringBuilder.toString(), Toast.LENGTH_LONG).show();
 				}
 				
-				Toast.makeText(getApplicationContext(), stringBuilder.toString(), Toast.LENGTH_LONG).show();
+				new CountDownTimer(5000, 5000)
+				{
+					@Override
+					public void onTick(long millisUntilFinished)
+					{
+					}
+					
+					@Override
+					public void onFinish()
+					{
+						wifiManager.startScan();
+					}
+				}.start();
 			}
-		});
-        
-        _checkButton.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				boolean isVisited = _checker.isPositionVisited(_fetcher.getCurrentPosition(), _repository.getPositions());
-				
-				Toast toast = Toast.makeText(getApplicationContext(), 
-						isVisited ? "You have been there already!" : "You haven't been there yet!", 
-						Toast.LENGTH_LONG);
-				
-				toast.show();
-			}
-		});
+		}, intentFilter); 
     }
 
     @Override

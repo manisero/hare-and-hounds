@@ -22,6 +22,7 @@ development/utils/Tests/bin/*
 development/modules/PositionTracking/Android/bin/*
 development/modules/PositionTracking/Data/bin/*
 development/modules/PositionTracking/Java/bin/*
+development/modules/PositionTracking.WiFi/Android/bin/*
 development/modules/PositionTracking/Tests/bin/*
 development/modules/ScreenGestures/Android/bin/*
 development/modules/ScreenGestures/Data/bin/*
