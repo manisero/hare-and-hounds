@@ -27,7 +27,6 @@ import com.fARmework.core.client.Data.ConnectionExceptionInfo;
 import com.fARmework.core.client.Data.ConnectionFaultInfo;
 import com.fARmework.core.client.Data.ConnectionSuccessInfo;
 import com.fARmework.core.data.IDataService;
-import com.fARmework.core.data.Message;
 
 public class NettyConnectionTask extends AsyncTask<SocketAddress, Object, Channel>
 {
@@ -50,8 +49,7 @@ public class NettyConnectionTask extends AsyncTask<SocketAddress, Object, Channe
 		public void messageReceived(ChannelHandlerContext context, MessageEvent event)
 		{
 			Log.i("Message", event.getMessage().toString());
-			Message message = _dataService.deserializeMessage(event.getMessage().toString());
-			publishProgress(_dataService.fromMessage(message));
+			publishProgress(_dataService.fromMessage(event.getMessage().toString()));
 		}
 		
 		@Override
