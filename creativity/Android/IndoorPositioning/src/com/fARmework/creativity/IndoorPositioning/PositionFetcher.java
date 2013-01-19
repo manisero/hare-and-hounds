@@ -1,41 +1,65 @@
 package com.fARmework.creativity.IndoorPositioning;
 
-import java.util.List;
+import java.lang.reflect.*;
 
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiManager;
+import android.net.wifi.*;
 
 public class PositionFetcher
 {
-	private WifiManager _wifiManager;
+	private static final int DEFAULT_MIN_RSSI = -100;
+	private static final int DEFAULT_MAX_RSSI = -55;
 	
-	public PositionFetcher(WifiManager wifiManager)
+	private final int MIN_RSSI;
+	private final int MAX_RSSI;
+	
+	public PositionFetcher()
 	{
-		_wifiManager = wifiManager;
+		int minRSSI, maxRSSI;
+		
+		try
+		{
+			minRSSI = getWiFiManagerField("MIN_RSSI");
+		} 
+		catch (Exception ex)
+		{
+			minRSSI = DEFAULT_MIN_RSSI;
+		} 
+		
+		try
+		{
+			maxRSSI = getWiFiManagerField("MAX_RSSI");
+		}
+		catch (Exception ex)
+		{
+			maxRSSI = DEFAULT_MAX_RSSI;
+		} 
+		
+		MIN_RSSI = minRSSI;
+		MAX_RSSI = maxRSSI;
 	}
 	
-	public IndoorPositionData getCurrentPosition()
+	private int getWiFiManagerField(String fieldName) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException 
 	{
-		IndoorPositionData positionData = new IndoorPositionData();
-		
-		boolean wifiState = _wifiManager.isWifiEnabled();
-		
-		_wifiManager.setWifiEnabled(true);
-		
-		_wifiManager.startScan();
-		
-		List<ScanResult> scanResults = _wifiManager.getScanResults();
-		
-		if (scanResults != null)
+		Field field = WifiManager.class.getDeclaredField(fieldName);
+		field.setAccessible(true);
+
+		return field.getInt(null);
+	}
+	
+	public int calculateSignalLevel(int rssi, int numLevels)
+	{
+		if (rssi <= MIN_RSSI)
 		{
-			for (ScanResult scanResult : scanResults)
-			{
-				positionData.addWifiNetwork(scanResult.BSSID, scanResult.level);
-			}
+			return 0;
 		}
 		
-		_wifiManager.setWifiEnabled(wifiState);
+		if (rssi >= MAX_RSSI)
+		{
+			return numLevels - 1;
+		}
 		
-		return positionData;
+		double partitionSize = (MAX_RSSI - MIN_RSSI) / (double) (numLevels - 1);
+		
+		return (int) ((rssi - MIN_RSSI) / partitionSize);
 	}
 }
