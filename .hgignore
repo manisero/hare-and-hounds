@@ -6,6 +6,7 @@ creativity/Android/CustomAttributes/bin/*
 creativity/Android/GPS/bin/*
 creativity/Android/JSON/bin/*
 creativity/Android/GestureWriter/bin/*
+creativity/Android/IndoorPositioning/bin/*
 creativity/Android/SoundIndicator/bin/*
 creativity/Java/Client/bin/*
 creativity/Java/DI/bin/*
@@ -21,6 +22,9 @@ development/utils/Tests/bin/*
 development/modules/PositionTracking/Android/bin/*
 development/modules/PositionTracking/Data/bin/*
 development/modules/PositionTracking/Java/bin/*
+development/modules/PositionTracking.WiFi/Android/bin/*
+development/modules/PositionTracking.WiFi/Data/bin/*
+development/modules/PositionTracking.WiFi/Java/bin/*
 development/modules/PositionTracking/Tests/bin/*
 development/modules/ScreenGestures/Android/bin/*
 development/modules/ScreenGestures/Data/bin/*
