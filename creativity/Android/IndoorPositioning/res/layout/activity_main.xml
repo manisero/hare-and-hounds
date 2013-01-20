@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/storePosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="46dp"
+        android:layout_marginTop="45dp"
+        android:text="@string/store_button_caption" />
+
+    <Button
+        android:id="@+id/checkPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/storePosition"
+        android:layout_alignBottom="@+id/storePosition"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="64dp"
+        android:text="@string/check_button_caption" />
+
+</RelativeLayout>
