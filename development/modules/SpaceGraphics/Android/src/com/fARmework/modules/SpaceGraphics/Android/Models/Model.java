@@ -26,33 +26,34 @@ public abstract class Model
 			_backgroundColor = backgroundColorArray;
 		}
 		
-		generateVertices();
-		generateColors();
-		generateNormals();
+		_vertices = generateVertices();
+		_colors = generateColors();
+		_normals = generateNormals(_vertices);
 	}
 	
-	protected abstract void generateVertices();
-	protected abstract void generateColors();
+	protected abstract float[] generateVertices();
 	
-	protected void generateNormals()
+	protected abstract float[] generateColors();
+	
+	protected float[] generateNormals(float[] vertices)
 	{
-		float[] normals = new float[_vertices.length];
+		float[] normals = new float[vertices.length];
 		
-		int vertices = _vertices.length / 9;
+		int verticesCount = vertices.length / 9;
 		
-		for(int i = 0; i < vertices; ++i)
+		for(int i = 0; i < verticesCount; ++i)
 		{			
-			float firstPoint[]	= {	_vertices[i * 9 + 0], 
-									_vertices[i * 9 + 1], 
-									_vertices[i * 9 + 2]	};
+			float firstPoint[]	= {	vertices[i * 9 + 0], 
+									vertices[i * 9 + 1], 
+									vertices[i * 9 + 2]	};
 			
-			float secondPoint[]	= {	_vertices[i * 9 + 3],
-									_vertices[i * 9 + 4],
-									_vertices[i * 9 + 5]	};
+			float secondPoint[]	= {	vertices[i * 9 + 3],
+									vertices[i * 9 + 4],
+									vertices[i * 9 + 5]	};
 			
-			float thirdPoint[]	= {	_vertices[i * 9 + 6],
-									_vertices[i * 9 + 7], 
-									_vertices[i * 9 + 8]	};
+			float thirdPoint[]	= {	vertices[i * 9 + 6],
+									vertices[i * 9 + 7], 
+									vertices[i * 9 + 8]	};
 			
 			float U[]	=	{	secondPoint[0] - firstPoint[0],
 								secondPoint[1] - firstPoint[1],
@@ -83,7 +84,7 @@ public abstract class Model
 			normals[i * 9 + 8] = N[2];
 		}
 	
-		_normals = normals;
+		return normals;
 	}
 	
 	public float[] getBackgroundColor()
