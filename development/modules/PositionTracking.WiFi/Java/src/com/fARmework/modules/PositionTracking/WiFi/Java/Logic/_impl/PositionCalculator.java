@@ -81,9 +81,9 @@ public class PositionCalculator implements IPositionCalculator
 		AccessPointDataWithSignalStrengthAndDistance thirdAccessPointData = new AccessPointDataWithSignalStrengthAndDistance(knownAccessPointsData.get(2),
 																															 _distanceCalculator.calculateDistance(knownAccessPointsData.get(2).SignalStrength, knownAccessPointsData.get(2).Range));
 		
-		/*
-		PositionsPair firstSecondIntersectionPoints = getIntersectionPoints(firstAccessPointData.Position, firstRadius, secondAccessPointData.Position, secondRadius);
-		PositionsPair firstThirdIntersectionPoints = getIntersectionPoints(firstAccessPointData.Position, firstRadius, thirdAccessPointData.Position, thirdRadius);
+		PositionsPair firstSecondIntersectionPoints = getIntersectionPoints(firstAccessPointData.Position, firstAccessPointData.Distance, secondAccessPointData.Position, secondAccessPointData.Distance);
+		PositionsPair firstThirdIntersectionPoints = getIntersectionPoints(firstAccessPointData.Position, firstAccessPointData.Distance, thirdAccessPointData.Position, thirdAccessPointData.Distance);
+		PositionsPair secondThirdIntersectionPoints = getIntersectionPoints(secondAccessPointData.Position, secondAccessPointData.Distance, thirdAccessPointData.Position, thirdAccessPointData.Distance);
 		
 		if (positionsEqual(firstSecondIntersectionPoints.Position1, firstThirdIntersectionPoints.Position1))
 		{
@@ -104,7 +104,6 @@ public class PositionCalculator implements IPositionCalculator
 		{
 			return firstSecondIntersectionPoints.Position2;
 		}
-		*/
 		
 		return null;
 	}
