@@ -6,16 +6,16 @@ public class AccessPointData
 {
 	public String MacAddress;
 	public PositionData Position;
-	public int MaxRange;
+	public int Range;
 	
 	public AccessPointData() 
 	{ 
 	}
 	
-	public AccessPointData(String macAddress, PositionData position, int maxRange)
+	public AccessPointData(String macAddress, PositionData position, int range)
 	{
 		MacAddress = macAddress;
 		Position = position;
-		MaxRange = maxRange;
+		Range = range;
 	}
 }

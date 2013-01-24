@@ -10,67 +10,50 @@ import com.fARmework.modules.PositionTracking.WiFi.Java.Logic.*;
 
 public class PositionCalculator implements IPositionCalculator
 {
-	private static final double DOUBLE_EQUALITY_THRESHOLD = 0.000001; // the threshold should be low since it is used to compare geographic coordinates
+	private static final double COORDINATE_EQUALITY_THRESHOLD = 0.000001; // the threshold should be low since it is used to compare geographic coordinates
 	
+	private final IDistanceCalculator _distanceCalculator;
 	private final ISettingsProvider _settingsProvider;
 	
-	private static class PostionRangePair
+	public PositionCalculator(IDistanceCalculator distanceCalculator, ISettingsProvider settingsProvider)
 	{
-		public PositionData Position;
-		public Integer Range;
-		
-		public PostionRangePair(PositionData position, Integer range)
-		{
-			Position = position;
-			Range = range;
-		}
-	}
-	
-	private static class PositionPair
-	{
-		public PositionData Position1;
-		public PositionData Position2;
-		
-		public PositionPair(PositionData position1, PositionData position2)
-		{
-			Position1 = position1;
-			Position2 = position2;
-		}
-	}
-	
-	public PositionCalculator(ISettingsProvider settingsProvider)
-	{
+		_distanceCalculator = distanceCalculator;
 		_settingsProvider = settingsProvider;
 	}
 	
 	@Override
 	public PositionData getPositionFromWiFi(WiFiData wifiData)
 	{
-		List<AccessPointData> accessPointsDatas = _settingsProvider.getAccessPointsData();
+		List<AccessPointDataWithSignalStrength> knownAccessPointsData = getKnownAccessPointsData(wifiData, _settingsProvider.getAccessPointsData());
 		
-		Map<String, PostionRangePair> accessPointsDataMap = new HashMap<String, PostionRangePair>();
+		return calculatePosition(knownAccessPointsData);
+	}
+	
+	private List<AccessPointDataWithSignalStrength> getKnownAccessPointsData(WiFiData wifiData, List<AccessPointData> registeredAccessPointsData)
+	{
+		Map<String, AccessPointData> accessPointsDataMap = new HashMap<String, AccessPointData>();
 		
-		for (AccessPointData accessPointData : accessPointsDatas)
+		for (AccessPointData accessPointData : registeredAccessPointsData)
 		{
-			accessPointsDataMap.put(accessPointData.MacAddress, new PostionRangePair(accessPointData.Position, accessPointData.MaxRange));
+			accessPointsDataMap.put(accessPointData.MacAddress, accessPointData);
 		}
 		
-		final Map<String, Integer> knownAccessPointsStrengths = new HashMap<String, Integer>();
+		final List<AccessPointDataWithSignalStrength> knownAccessPointsData = new ArrayList<AccessPointDataWithSignalStrength>();
 		
-		for (Map.Entry<String, Integer> singleData : wifiData.WiFiSignalStrengths.entrySet())
+		for (Map.Entry<String, Integer> singleWifiData : wifiData.WiFiSignalStrengths.entrySet())
 		{
-			if (accessPointsDataMap.containsKey(singleData.getKey()))
+			if (accessPointsDataMap.containsKey(singleWifiData.getKey()))
 			{
-				knownAccessPointsStrengths.put(singleData.getKey(), singleData.getValue());
+				knownAccessPointsData.add(new AccessPointDataWithSignalStrength(accessPointsDataMap.get(singleWifiData.getKey()), singleWifiData.getValue()));
 			}
 		}
 		
-		TreeMap<String, Integer> sortedKnownAccessPointsStrengths = new TreeMap<String, Integer>(new Comparator<String>()
+		Collections.sort(knownAccessPointsData, new Comparator<AccessPointDataWithSignalStrength>()
 		{
 			@Override
-			public int compare(String firstAccessPointName, String secondAccessPointName)
+			public int compare(AccessPointDataWithSignalStrength firstAccessPoint, AccessPointDataWithSignalStrength secondAccessPoint)
 			{
-				if (knownAccessPointsStrengths.get(firstAccessPointName) >= knownAccessPointsStrengths.get(secondAccessPointName))
+				if (firstAccessPoint.SignalStrength >= secondAccessPoint.SignalStrength)
 				{
 					return 1;
 				}
@@ -79,25 +62,28 @@ public class PositionCalculator implements IPositionCalculator
 			}
 		});
 		
-		sortedKnownAccessPointsStrengths.putAll(knownAccessPointsStrengths);
-		
-		if (sortedKnownAccessPointsStrengths.size() < 3)
+		return knownAccessPointsData;
+	}
+	
+	private PositionData calculatePosition(List<AccessPointDataWithSignalStrength> knownAccessPointsData)
+	{
+		if (knownAccessPointsData.size() < 3)
 		{
 			return null;
 		}
 		
-		String[] keys = sortedKnownAccessPointsStrengths.keySet().toArray(new String[] { });
+		AccessPointDataWithSignalStrengthAndDistance firstAccessPointData = new AccessPointDataWithSignalStrengthAndDistance(knownAccessPointsData.get(0), 
+																															 _distanceCalculator.calculateDistance(knownAccessPointsData.get(0).SignalStrength, knownAccessPointsData.get(0).Range));
 		
-		PostionRangePair firstPositionRangePair = accessPointsDataMap.get(keys[0]);
-		PostionRangePair secondPositionRangePair = accessPointsDataMap.get(keys[1]);
-		PostionRangePair thirdPositionRangePair = accessPointsDataMap.get(keys[2]);
+		AccessPointDataWithSignalStrengthAndDistance secondAccessPointData = new AccessPointDataWithSignalStrengthAndDistance(knownAccessPointsData.get(1),
+																															  _distanceCalculator.calculateDistance(knownAccessPointsData.get(1).SignalStrength, knownAccessPointsData.get(1).Range));
 		
-		double firstRadius = getDistanceFromSignalStrength(sortedKnownAccessPointsStrengths.get(keys[0]), firstPositionRangePair.Range);
-		double secondRadius = getDistanceFromSignalStrength(sortedKnownAccessPointsStrengths.get(keys[1]), secondPositionRangePair.Range);
-		double thirdRadius = getDistanceFromSignalStrength(sortedKnownAccessPointsStrengths.get(keys[2]), thirdPositionRangePair.Range);
+		AccessPointDataWithSignalStrengthAndDistance thirdAccessPointData = new AccessPointDataWithSignalStrengthAndDistance(knownAccessPointsData.get(2),
+																															 _distanceCalculator.calculateDistance(knownAccessPointsData.get(2).SignalStrength, knownAccessPointsData.get(2).Range));
 		
-		PositionPair firstSecondIntersectionPoints = getIntersectionPoints(firstPositionRangePair.Position, firstRadius, secondPositionRangePair.Position, secondRadius);
-		PositionPair firstThirdIntersectionPoints = getIntersectionPoints(firstPositionRangePair.Position, firstRadius, thirdPositionRangePair.Position, thirdRadius);
+		/*
+		PositionsPair firstSecondIntersectionPoints = getIntersectionPoints(firstAccessPointData.Position, firstRadius, secondAccessPointData.Position, secondRadius);
+		PositionsPair firstThirdIntersectionPoints = getIntersectionPoints(firstAccessPointData.Position, firstRadius, thirdAccessPointData.Position, thirdRadius);
 		
 		if (positionsEqual(firstSecondIntersectionPoints.Position1, firstThirdIntersectionPoints.Position1))
 		{
@@ -118,16 +104,12 @@ public class PositionCalculator implements IPositionCalculator
 		{
 			return firstSecondIntersectionPoints.Position2;
 		}
+		*/
 		
 		return null;
 	}
 	
-	private double getDistanceFromSignalStrength(int signalStrength, int range)
-	{
-		return (100 - signalStrength) * range;
-	}
-	
-	private PositionPair getIntersectionPoints(PositionData firstPosition, double firstRadius, PositionData secondPosition, double secondRadius)
+	private PositionsPair getIntersectionPoints(PositionData firstPosition, double firstRadius, PositionData secondPosition, double secondRadius)
 	{
 		// algorithm based on: http://mysite.verizon.net/res148h4j/javascript/script_circle_intersections.html
 		
@@ -151,17 +133,17 @@ public class PositionCalculator implements IPositionCalculator
 	    double secondIntersectionX = midpointX - h * (secondPosition.Longitude - firstPosition.Longitude) / d;
 	    double secondIntersectionY = midpointY + h * (secondPosition.Latitude - firstPosition.Latitude) / d;
 	    
-	    return new PositionPair(new PositionData(firstIntersectionX, firstIntersectionY), new PositionData(secondIntersectionX, secondIntersectionY));
+	    return new PositionsPair(new PositionData(firstIntersectionX, firstIntersectionY), new PositionData(secondIntersectionX, secondIntersectionY));
 	}
 	
 	private boolean positionsEqual(PositionData firstPosition, PositionData secondPosition)
 	{
-		if (Math.abs(firstPosition.Latitude - secondPosition.Latitude) > DOUBLE_EQUALITY_THRESHOLD)
+		if (Math.abs(firstPosition.Latitude - secondPosition.Latitude) > COORDINATE_EQUALITY_THRESHOLD)
 		{
 			return false;
 		}
 		
-		if (Math.abs(firstPosition.Longitude - secondPosition.Longitude) > DOUBLE_EQUALITY_THRESHOLD)
+		if (Math.abs(firstPosition.Longitude - secondPosition.Longitude) > COORDINATE_EQUALITY_THRESHOLD)
 		{
 			return false;
 		}
