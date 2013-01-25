@@ -12,4 +12,9 @@ public class PositionsPair
 		Position1 = position1;
 		Position2 = position2;
 	}
+	
+	public PositionData[] toArray()
+	{
+		return new PositionData[] { Position1, Position2 };
+	}
 }

@@ -10,8 +10,6 @@ import com.fARmework.modules.PositionTracking.WiFi.Java.Logic.*;
 
 public class PositionCalculator implements IPositionCalculator
 {
-	private static final double COORDINATE_EQUALITY_THRESHOLD = 0.000001; // the threshold should be low since it is used to compare geographic coordinates
-	
 	private final IDistanceCalculator _distanceCalculator;
 	private final ISettingsProvider _settingsProvider;
 	
@@ -81,72 +79,91 @@ public class PositionCalculator implements IPositionCalculator
 		AccessPointDataWithSignalStrengthAndDistance thirdAccessPointData = new AccessPointDataWithSignalStrengthAndDistance(knownAccessPointsData.get(2),
 																															 _distanceCalculator.calculateDistance(knownAccessPointsData.get(2).SignalStrength, knownAccessPointsData.get(2).Range));
 		
-		PositionsPair firstSecondIntersectionPoints = getIntersectionPoints(firstAccessPointData.Position, firstAccessPointData.Distance, secondAccessPointData.Position, secondAccessPointData.Distance);
-		PositionsPair firstThirdIntersectionPoints = getIntersectionPoints(firstAccessPointData.Position, firstAccessPointData.Distance, thirdAccessPointData.Position, thirdAccessPointData.Distance);
-		PositionsPair secondThirdIntersectionPoints = getIntersectionPoints(secondAccessPointData.Position, secondAccessPointData.Distance, thirdAccessPointData.Position, thirdAccessPointData.Distance);
+		PositionsPair intersectionPoints1 = getIntersectionPoints(firstAccessPointData.Position, firstAccessPointData.Distance, secondAccessPointData.Position, secondAccessPointData.Distance);
+		PositionsPair intersectionPoints2 = getIntersectionPoints(firstAccessPointData.Position, firstAccessPointData.Distance, thirdAccessPointData.Position, thirdAccessPointData.Distance);
+		PositionsPair intersectionPoints3 = getIntersectionPoints(secondAccessPointData.Position, secondAccessPointData.Distance, thirdAccessPointData.Position, thirdAccessPointData.Distance);
 		
-		if (positionsEqual(firstSecondIntersectionPoints.Position1, firstThirdIntersectionPoints.Position1))
+		double minCircumference = Double.MAX_VALUE;
+		PositionData position1 = null;
+		PositionData position2 = null;
+		PositionData position3 = null;;
+		
+		for (PositionData point1 : intersectionPoints1.toArray())
 		{
-			return firstSecondIntersectionPoints.Position1;
+			for (PositionData point2 : intersectionPoints2.toArray())
+			{
+				for (PositionData point3 : intersectionPoints3.toArray())
+				{
+					double circumference = calculateTriangleCircumference(point1, point2, point3);
+					
+					if (circumference < minCircumference)
+					{
+						minCircumference = circumference;
+						position1 = point1;
+						position2 = point2;
+						position3 = point3;
+					}
+				}
+			}
 		}
 		
-		if (positionsEqual(firstSecondIntersectionPoints.Position1, firstThirdIntersectionPoints.Position2))
-		{
-			return firstSecondIntersectionPoints.Position1;
-		}
-		
-		if (positionsEqual(firstSecondIntersectionPoints.Position2, firstThirdIntersectionPoints.Position1))
-		{
-			return firstSecondIntersectionPoints.Position2;
-		}
-		
-		if (positionsEqual(firstSecondIntersectionPoints.Position2, firstThirdIntersectionPoints.Position2))
-		{
-			return firstSecondIntersectionPoints.Position2;
-		}
-		
-		return null;
+		return getTriangleCircumcenter(position1, position2, position3);
 	}
 	
-	private PositionsPair getIntersectionPoints(PositionData firstPosition, double firstRadius, PositionData secondPosition, double secondRadius)
+	private PositionsPair getIntersectionPoints(PositionData point1, double radius1, PositionData point2, double radius2)
 	{
 		// algorithm based on: http://mysite.verizon.net/res148h4j/javascript/script_circle_intersections.html
 		
-	    double d  = Math.sqrt((firstPosition.Latitude - secondPosition.Latitude) * (firstPosition.Latitude - secondPosition.Latitude) + (firstPosition.Longitude - secondPosition.Longitude) * (firstPosition.Longitude - secondPosition.Longitude));
+	    double d  = Math.sqrt((point1.Latitude - point2.Latitude) * (point1.Latitude - point2.Latitude) + (point1.Longitude - point2.Longitude) * (point1.Longitude - point2.Longitude));
 
-	    if (d > (firstRadius + secondRadius) || d < Math.abs(firstRadius - secondRadius)) // no intersection
+	    if (d > (radius1 + radius2) || d < Math.abs(radius1 - radius2)) // no intersection
 	    {
 	        return null;
 	    }
 
-	    double a = (firstRadius * firstRadius - secondRadius * secondRadius + d * d) / (2 * d);  
-	    double h = Math.sqrt(firstRadius * firstRadius - a * a); // h is a common leg for two right triangles
+	    double a = (radius1 * radius1 - radius2 * radius2 + d * d) / (2 * d);  
+	    double h = Math.sqrt(radius1 * radius1 - a * a); // h is a common leg for two right triangles
 
 	    // locate midpoint between intersections along line of centers
-	    double midpointX = firstPosition.Latitude + a * (secondPosition.Latitude - firstPosition.Latitude) / d;
-	    double midpointY = firstPosition.Longitude + a * (secondPosition.Longitude - firstPosition.Longitude) / d;
+	    double midpointX = point1.Latitude + a * (point2.Latitude - point1.Latitude) / d;
+	    double midpointY = point1.Longitude + a * (point2.Longitude - point1.Longitude) / d;
 
-	    double firstIntersectionX = midpointX + h * (secondPosition.Longitude - firstPosition.Longitude) / d;
-	    double firstIntersectionY = midpointY - h * (secondPosition.Latitude - firstPosition.Latitude) / d;
+	    double firstIntersectionX = midpointX + h * (point2.Longitude - point1.Longitude) / d;
+	    double firstIntersectionY = midpointY - h * (point2.Latitude - point1.Latitude) / d;
 
-	    double secondIntersectionX = midpointX - h * (secondPosition.Longitude - firstPosition.Longitude) / d;
-	    double secondIntersectionY = midpointY + h * (secondPosition.Latitude - firstPosition.Latitude) / d;
+	    double secondIntersectionX = midpointX - h * (point2.Longitude - point1.Longitude) / d;
+	    double secondIntersectionY = midpointY + h * (point2.Latitude - point1.Latitude) / d;
 	    
 	    return new PositionsPair(new PositionData(firstIntersectionX, firstIntersectionY), new PositionData(secondIntersectionX, secondIntersectionY));
 	}
 	
-	private boolean positionsEqual(PositionData firstPosition, PositionData secondPosition)
+	private double calculateTriangleCircumference(PositionData point1, PositionData point2, PositionData point3)
 	{
-		if (Math.abs(firstPosition.Latitude - secondPosition.Latitude) > COORDINATE_EQUALITY_THRESHOLD)
-		{
-			return false;
-		}
+		double side1Length = Math.sqrt(Math.pow(point1.Latitude - point2.Latitude, 2.0) + Math.pow(point1.Longitude - point2.Longitude, 2.0));
+		double side2Length = Math.sqrt(Math.pow(point2.Latitude - point3.Latitude, 2.0) + Math.pow(point2.Longitude - point3.Longitude, 2.0));
+		double side3Length = Math.sqrt(Math.pow(point3.Latitude - point1.Latitude, 2.0) + Math.pow(point3.Longitude - point1.Longitude, 2.0));
 		
-		if (Math.abs(firstPosition.Longitude - secondPosition.Longitude) > COORDINATE_EQUALITY_THRESHOLD)
-		{
-			return false;
-		}
+		return side1Length + side2Length + side3Length;
+	}
+	
+	private PositionData getTriangleCircumcenter(PositionData point1, PositionData point2, PositionData point3)
+	{
+		double point1Square = point1.Latitude * point1.Latitude + point1.Longitude * point1.Longitude;
+		double point2Square = point2.Latitude * point2.Latitude + point2.Longitude * point2.Longitude;
+		double point3Square = point3.Latitude * point3.Latitude + point3.Longitude * point3.Longitude;
 		
-		return true;
+		double numeratorX = point1Square * (point2.Longitude - point3.Longitude) +
+							point2Square * (point3.Longitude - point1.Longitude) +
+							point3Square * (point1.Longitude - point2.Longitude);
+		
+		double numeratorY = point1Square * (point3.Latitude - point2.Latitude) +
+							point2Square * (point1.Latitude - point3.Latitude) +
+							point3Square * (point2.Latitude - point1.Latitude);
+		
+		double denominator = 2 * (point1.Latitude * (point2.Longitude - point3.Longitude) +
+								  point2.Latitude * (point3.Longitude - point1.Longitude) +
+				  				  point3.Latitude * (point1.Longitude - point2.Longitude));
+		
+		return new PositionData(numeratorX / denominator, numeratorY / denominator);
 	}
 }
