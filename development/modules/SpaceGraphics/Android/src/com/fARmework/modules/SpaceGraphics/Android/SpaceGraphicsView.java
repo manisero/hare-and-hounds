@@ -27,7 +27,7 @@ public class SpaceGraphicsView extends GLSurfaceView implements IBindableView<Sp
 				    @Override
 				    protected void doSetAttributeValue(final Object newValue)
 				    {
-				    	_graphicsRenderer.setModel((Model)newValue);
+				    	setModel((Model)newValue);
 				    }
 				
 				    @Override
@@ -96,6 +96,11 @@ public class SpaceGraphicsView extends GLSurfaceView implements IBindableView<Sp
 	{
 		_graphicsRenderer = graphicsRenderer;
 		setRenderer(graphicsRenderer);
+	}
+	
+	public void setModel(Model model)
+	{
+		_graphicsRenderer.setModel(model);
 	}
 	
 	// Android-Binding support
