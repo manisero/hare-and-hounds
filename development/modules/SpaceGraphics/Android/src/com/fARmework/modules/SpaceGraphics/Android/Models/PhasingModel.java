@@ -20,6 +20,6 @@ public abstract class PhasingModel extends Model
 		
 		ColorRate = rate; 
 		
-		generateColors();
+		_colors = generateColors();
 	}
 }
