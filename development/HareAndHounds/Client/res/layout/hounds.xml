@@ -9,6 +9,8 @@
     <TextView
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:text="Run!" />
+		    android:gravity="center"
+		    android:textSize="60sp"
+		    android:text="@string/hare_text" />
     
 </LinearLayout>

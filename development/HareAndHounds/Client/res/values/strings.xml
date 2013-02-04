@@ -42,6 +42,9 @@
     <string name="gameList_joining">Joining %1$s\'s game&#8230;</string>
     <string name="gameList_joinRejected">%1$s has refused your join request</string>
     <string name="gameList_unavailable">%1$s\'s game is no longer available</string>
+
+    <string name="hare_text">Run!</string>
+    <string name="hounds_text">Run!</string>
     
     <string name="hare_victory">Victory!</string>
     <string name="hare_defeat">Defeat!</string>
